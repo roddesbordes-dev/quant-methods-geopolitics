@@ -160,6 +160,7 @@ a.btn{color:#fff}
 .feedbacklink span{color:var(--muted)}
 .glist dt{font-weight:700;margin-top:.9rem}
 .glist dd{margin:.2rem 0 0;color:var(--ink2)}
+@media (min-width:720px){ nav.steps ol{flex-wrap:wrap;overflow-x:visible} }
 </style>
 </head>
 <body>
@@ -362,7 +363,7 @@ function lineChart(container, {title, sub, series, yfmt=v=>v, xfmt=v=>v, ylab, z
   const xs = v => f.m.l + (v-xmin)/(xmax-xmin||1)*f.iw, ys = v => f.m.t + f.ih - (v-ymin)/(ymax-ymin)*f.ih;
   const xt = xtF || niceTicks(xmin,xmax,f.narrow?4:6).ticks.filter(v=>v>=xmin&&v<=xmax);
   axes(f, xs, ys, {xticks:xt, yticks:yt.ticks, yfmt, xfmt, ylab});
-  if (refY!==undefined){ el("line",{x1:f.m.l,x2:f.m.l+f.iw,y1:ys(refY),y2:ys(refY),stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, f.m.l+4, ys(refY)-6, refLabel, {class:"lab"}); }
+  if (refY!==undefined){ el("line",{x1:f.m.l,x2:f.m.l+f.iw,y1:ys(refY),y2:ys(refY),stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, f.m.l+f.iw-4, ys(refY)+16, refLabel, {class:"lab","text-anchor":"end"}); }
   if (vline!==undefined){ el("line",{x1:xs(vline),x2:xs(vline),y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1.2,"stroke-dasharray":"4 3"},f.svg); if (vlabel) txt(f.svg, xs(vline)+5, f.m.t+12, vlabel, {class:"lab"}); }
   const g = el("g",{},f.svg);
   for (const s of series){

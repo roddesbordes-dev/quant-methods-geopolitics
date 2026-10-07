@@ -9,7 +9,7 @@ const pn = p => PNAME_FR[p.code] || p.name;
 /* puzzle */
 const order = ["847130","810411","100199","854143","270900","850511","271111","280530"];
 $("#q-prod").innerHTML = order.map(c=>{ const p=PR.find(x=>x.code===c); return `<label><input type="checkbox" value="${c}"> ${pn(p)}</label>`; }).join("");
-$("#q-country").innerHTML = '<option value="">Choisissez un pays</option>' + [...CO].sort((a,b)=>a.n.localeCompare(b.n)).map(c=>`<option value="${c.iso}">${c.n}</option>`).join("");
+$("#q-country").innerHTML = '<option value="">Choisissez un pays</option>' + [...CO].sort((a,b)=>a.n.localeCompare(b.n,"fr")).map(c=>`<option value="${c.iso}">${c.n}</option>`).join("");
 function puzzleState(){ const n=$$("#q-prod input:checked").length; $("#prodCount").textContent = n===3?"Trois produits choisis.":`Choisissez-en trois (${n} pour l'instant).`; $("#prodBtn").disabled = !(n===3 && $("#q-country").value) || !!store.get("puz",null); }
 $$("#q-prod input").forEach(i=>i.addEventListener("change",()=>{ if ($$("#q-prod input:checked").length>3) i.checked=false; puzzleState(); }));
 $("#q-country").addEventListener("change", puzzleState);
@@ -34,7 +34,7 @@ function drawProd(){
     PR.map(p=>{ const show = stA.all || (p.code==="100199" && stA.ok);
       return `<tr><td><strong>${pn(p)}</strong></td><td style="text-align:left">${p.top.slice(0,4).map(([n,s])=>`${n} ${s.toFixed(1)}`).join(" · ")}</td><td class="num">${p.total_bn.toFixed(1)}</td><td class="num">${show?p.hhi.toLocaleString("fr-FR"):"…"}</td></tr>`; }).join("");
   if (!stA.all){ $("#prodChart").innerHTML = '<div class="cs" style="padding:2rem 1rem">Le graphique apparaît une fois que vous avez calculé tous les produits.</div>'; return; }
-  const rows=[...PR].sort((a,b)=>b.hhi-a.hhi).map(p=>({label:pn(p), v:p.hhi, color: p.top[0][0]==="China"?css("--verm"):css("--accent"), tip:`<b>${pn(p)}</b><br>IHH ${p.hhi.toLocaleString("fr-FR")}<br>premier fournisseur : ${p.top[0][0]} ${p.top[0][1]} %`}));
+  const rows=[...PR].sort((a,b)=>b.hhi-a.hhi).map(p=>({label:pn(p), v:p.hhi, color: p.top[0][0]==="Chine"?css("--verm"):css("--accent"), tip:`<b>${pn(p)}</b><br>IHH ${p.hhi.toLocaleString("fr-FR")}<br>premier fournisseur : ${p.top[0][0]} ${p.top[0][1]} %`}));
   hbar($("#prodChart"),{title:"Concentration des fournisseurs de l'UE à l'importation, 2024",sub:"Indice de Herfindahl-Hirschman, de 0 à 10 000",rows,xmin:0,xmax:10000,xfmt:v=>v.toLocaleString("fr-FR"),ref:2500,refLabel:"2 500"});
   legend($("#prodChart"),[{label:"La Chine est le premier fournisseur",color:css("--verm"),kind:"sq"},{label:"Un autre pays l'est",color:css("--accent"),kind:"sq"}]);
 }
@@ -49,7 +49,7 @@ const ind = ["china","hhi","energy"];
 const mm = Object.fromEntries(ind.map(k=>[k,[Math.min(...CO.map(c=>c[k])),Math.max(...CO.map(c=>c[k]))]]));
 const norm = (c,k) => 100*(c[k]-mm[k][0])/(mm[k][1]-mm[k][0]);
 let stB = store.get("actB",{country:"DEU",best:null,worst:null});
-$("#rCountry").innerHTML = [...CO].sort((a,b)=>a.n.localeCompare(b.n)).map(c=>`<option value="${c.iso}" ${c.iso===stB.country?"selected":""}>${c.n}</option>`).join("");
+$("#rCountry").innerHTML = [...CO].sort((a,b)=>a.n.localeCompare(b.n,"fr")).map(c=>`<option value="${c.iso}" ${c.iso===stB.country?"selected":""}>${c.n}</option>`).join("");
 function scores(){ const w=["w1","w2","w3"].map(id=>+$("#"+id).value); const s=w.reduce((a,b)=>a+b,0)||1;
   ["w1","w2","w3"].forEach((id,i)=>$("#"+id+"o").textContent=Math.round(w[i]/s*100)+" %");
   return CO.map(c=>({...c, score: ind.reduce((a,k,i)=>a+w[i]/s*norm(c,k),0)})).sort((a,b)=>b.score-a.score).map((c,i)=>({...c,rank:i+1})); }

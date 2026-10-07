@@ -160,6 +160,7 @@ a.btn{color:#fff}
 .feedbacklink span{color:var(--muted)}
 .glist dt{font-weight:700;margin-top:.9rem}
 .glist dd{margin:.2rem 0 0;color:var(--ink2)}
+@media (min-width:720px){ nav.steps ol{flex-wrap:wrap;overflow-x:visible} }
 </style>
 </head>
 <body>
@@ -319,7 +320,7 @@ a.btn{color:#fff}
 window.SESSION=2;
 window.LANG="fr";
 const __tf=Number.prototype.toFixed; Number.prototype.toFixed=function(d){ return __tf.call(this,d).replace(".", ","); };
-const DATA = {"polls": [{"p": "CBS Research\u2013WatchDog", "dates": "11\u201316 Oct", "n": 1034, "yes": 55.1, "no": 34.5, "und": 10.3}, {"p": "Intellect Group", "dates": "13\u201315 Oct", "n": 985, "yes": 44, "no": 31, "und": 25}, {"p": "iData\u2013IPP", "dates": "19 Sep\u201310 Oct", "n": 1100, "yes": 47.9, "no": 23, "und": 29.1}], "result": {"all": 50.35, "home": 45.38, "abroad": 77}, "pew": [{"c": "France", "y24": 23, "y25": 36}, {"c": "Germany", "y24": 20, "y25": 29}, {"c": "Greece", "y24": 47, "y25": 56}, {"c": "Hungary", "y24": null, "y25": 51}, {"c": "Italy", "y24": 35, "y25": 45}, {"c": "Netherlands", "y24": 22, "y25": 30}, {"c": "Poland", "y24": null, "y25": 35}, {"c": "Spain", "y24": 33, "y25": 37}, {"c": "Sweden", "y24": 11, "y25": 18}, {"c": "United Kingdom", "y24": 31, "y25": 39}]};
+const DATA = {"polls": [{"p": "CBS Research–WatchDog", "dates": "11–16 Oct", "n": 1034, "yes": 55.1, "no": 34.5, "und": 10.3}, {"p": "Intellect Group", "dates": "13–15 Oct", "n": 985, "yes": 44, "no": 31, "und": 25}, {"p": "iData–IPP", "dates": "19 Sep–10 Oct", "n": 1100, "yes": 47.9, "no": 23, "und": 29.1}], "result": {"all": 50.35, "home": 45.38, "abroad": 77}, "pew": [{"c": "France", "y24": 23, "y25": 36}, {"c": "Allemagne", "y24": 20, "y25": 29}, {"c": "Grèce", "y24": 47, "y25": 56}, {"c": "Hongrie", "y24": null, "y25": 51}, {"c": "Italie", "y24": 35, "y25": 45}, {"c": "Pays-Bas", "y24": 22, "y25": 30}, {"c": "Pologne", "y24": null, "y25": 35}, {"c": "Espagne", "y24": 33, "y25": 37}, {"c": "Suède", "y24": 11, "y25": 18}, {"c": "Royaume-Uni", "y24": 31, "y25": 39}]};
 /* Glossary: matching forms per language, definitions, first session */
 const GLOSSARY = [
  {en:["GDP"], fr:["PIB"], s:1, den:"Gross domestic product: the value of everything produced in a country in a year.", dfr:"Produit intérieur brut : la valeur de tout ce qu'un pays produit en une année."},
@@ -486,7 +487,7 @@ function lineChart(container, {title, sub, series, yfmt=v=>v, xfmt=v=>v, ylab, z
   const xs = v => f.m.l + (v-xmin)/(xmax-xmin||1)*f.iw, ys = v => f.m.t + f.ih - (v-ymin)/(ymax-ymin)*f.ih;
   const xt = xtF || niceTicks(xmin,xmax,f.narrow?4:6).ticks.filter(v=>v>=xmin&&v<=xmax);
   axes(f, xs, ys, {xticks:xt, yticks:yt.ticks, yfmt, xfmt, ylab});
-  if (refY!==undefined){ el("line",{x1:f.m.l,x2:f.m.l+f.iw,y1:ys(refY),y2:ys(refY),stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, f.m.l+4, ys(refY)-6, refLabel, {class:"lab"}); }
+  if (refY!==undefined){ el("line",{x1:f.m.l,x2:f.m.l+f.iw,y1:ys(refY),y2:ys(refY),stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, f.m.l+f.iw-4, ys(refY)+16, refLabel, {class:"lab","text-anchor":"end"}); }
   if (vline!==undefined){ el("line",{x1:xs(vline),x2:xs(vline),y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1.2,"stroke-dasharray":"4 3"},f.svg); if (vlabel) txt(f.svg, xs(vline)+5, f.m.t+12, vlabel, {class:"lab"}); }
   const g = el("g",{},f.svg);
   for (const s of series){

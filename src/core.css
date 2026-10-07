@@ -151,3 +151,4 @@ a.btn{color:#fff}
 .feedbacklink span{color:var(--muted)}
 .glist dt{font-weight:700;margin-top:.9rem}
 .glist dd{margin:.2rem 0 0;color:var(--ink2)}
+@media (min-width:720px){ nav.steps ol{flex-wrap:wrap;overflow-x:visible} }

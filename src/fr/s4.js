@@ -39,7 +39,7 @@ $("#aa-btn").addEventListener("click",()=>{ const [p,r]=readNums(["aa-p","aa-r"]
   if (Math.abs(p-spP)<=0.03 && Math.abs(r-spR)<=0.03){ feedback($("#aa-fb"),true,`Exact : 3,37 − 0,733 × 3,44 = ${spP.toFixed(2)} ; résidu 1,43 − ${spP.toFixed(2)} = +${spR.toFixed(2)}. L'Espagne dépense plus que ne le prédit sa distance.`); stA.ok=true; store.set("actA",stA); markDone("activityA"); drawReg(); }
   else if (Math.abs(p-spP)<=0.03) feedback($("#aa-fb"),false,"Prédiction exacte. Résidu = observé − prédit.");
   else feedback($("#aa-fb"),false,"Utilisez la distance en milliers de km : 3,44."); });
-$("#aaC").innerHTML=[...C].sort((a,b)=>a.n.localeCompare(b.n)).map(c=>`<option value="${c.iso}">${c.n}</option>`).join("");
+$("#aaC").innerHTML=[...C].sort((a,b)=>a.n.localeCompare(b.n,"fr")).map(c=>`<option value="${c.iso}">${c.n}</option>`).join("");
 $("#aaC").value = "POL";
 function drawReg(){ const sel=$("#aaC").value, c=C.find(x=>x.iso===sel), p=A0+B0*c.d;
   $("#aaK").innerHTML=`<div><b>${c.share.toFixed(2)} %</b><span>observé</span></div><div><b>${p.toFixed(2)} %</b><span>prédit</span></div><div><b>${sgn(c.share-p,2)}</b><span>résidu, en points</span></div>`;

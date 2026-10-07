@@ -100,7 +100,7 @@ function drawAllChart(){
     hit.addEventListener("pointerenter",()=>showTip(f,xs(d.l),ys(d.o),`<b>${d.n}</b> · ${({F:"Libre",PF:"Partiellement libre",NF:"Non libre"})[d.g]}<br>officielle ${d.o.toFixed(2)} % · lumières ${d.l.toFixed(2)} %<br>écart ${sgn(gap,2)}`));
     hit.addEventListener("pointerleave",()=>hideTip(f));
   }
-  for (const n of ["China","Myanmar","India","Germany","Russia"]){ const d=DATA.all.find(x=>x.n===n); if(!d) continue; const tl=el("text",{x:xs(d.l)+8,y:ys(d.o)-7,class:"lab"},g); tl.textContent=n; }
+  for (const n of ["Chine","Myanmar","Inde","Allemagne","Russie"]){ const d=DATA.all.find(x=>x.n===n); if(!d) continue; const tl=el("text",{x:xs(d.l)+8,y:ys(d.o)-7,class:"lab"},g); tl.textContent=n; }
   const lg=document.createElement("div"); lg.className="legend";
   lg.innerHTML=`<span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${colr.F}"/></svg>Libre</span><span><svg width="12" height="12"><rect x="1" y="1" width="10" height="10" fill="${colr.PF}"/></svg>Partiellement libre</span><span><svg width="12" height="12"><path d="M6,0 L12,11 L0,11Z" fill="${colr.NF}"/></svg>Non libre</span><span><svg width="18" height="12"><path d="M0,6 H18" stroke="${css("--hi")}" stroke-width="2" stroke-dasharray="5 3"/></svg>Attendue (démocraties)</span>`;
   $("#allChart").appendChild(lg);

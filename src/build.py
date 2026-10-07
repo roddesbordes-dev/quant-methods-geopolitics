@@ -31,6 +31,7 @@ OTHER={'en':{'index':("Quantitative Methods for Geopolitics","A free, self-paced
 TITLES_FR={'"Puzzle"':'"Énigme"','"Lesson A"':'"Leçon A"','"Lesson B"':'"Leçon B"','"Activity A"':'"Activité A"','"Activity B"':'"Activité B"','"Feedback A"':'"Retour A"','"Feedback B"':'"Retour B"','"Exercise"':'"Exercice"','"Exercise 2"':'"Exercice 2"','"Claim audit"':'"Audit d\'affirmation"','"Self-check"':'"Autoévaluation"'}
 FR_NUM = 'const __tf=Number.prototype.toFixed; Number.prototype.toFixed=function(d){ return __tf.call(this,d).replace(".", ","); };\n'
 gloss_js=open(f'{H}/glossary.js').read()
+import sys; sys.path.insert(0,H); from fr_names import fr_data
 def src(lang, name):
     p = f'{H}/fr/{name}' if lang=='fr' else f'{H}/{name}'
     return open(p).read() if os.path.exists(p) else None
@@ -48,6 +49,7 @@ def build(out, lang):
         if body is None or js is None: continue
         if lang=='fr': body=fix_fr_body(body); js=fix_fr_js(js)
         data=open(f'{H}/s{n}.json').read() if os.path.exists(f'{H}/s{n}.json') else '{}'
+        if lang=='fr' and data!='{}': data=fr_data(n,data)
         script=prefix(lang,n)+f'const DATA = {data};\n'+gloss_js+'\n'+core_js+'\n'+js
         open(f'{out}/session{n}.html','w').write(page(t,d,body,script,True,L))
     for name,jsname,sess in [('index','index.js',0),('intro',None,0),('certificate','certificate.js','cert'),('glossary','glossary-page.js',0)]:
