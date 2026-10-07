@@ -1,0 +1,255 @@
+
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Session 1 of 6</span></div>
+  <h1 style="margin-top:.6rem">Can we trust the numbers?</h1>
+  <p class="lede">Governments, journalists and think tanks fight with numbers. In this session you learn where those numbers come from, catch an autocracy inflating its growth with satellite images of the Earth at night, and redraw a misleading chart so that it no longer misleads.</p>
+  <div class="meta"><span><b>About 3 hours</b> at your own pace</span><span><b>No software needed</b> in the browser; optional steps in jamovi</span><span><b>Your answers</b> stay in this browser only</span></div>
+</header>
+
+<nav class="steps" aria-label="Steps in this session"><ol id="stepnav"></ol></nav>
+
+<!-- STEP 1 PUZZLE -->
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Step 1 · Puzzle · 10 min</span><h2>Is Europe disarming or rearming?</h2></div>
+  <p>Two commentators look at the same official database of military spending for the 27 countries of today's European Union. One writes <em>“Europe has disarmed since the Cold War”</em>. The other writes <em>“Europe has never spent more on defence”</em>. Here are their charts, both for 1990 to 2021.</p>
+  <div class="pair wide" id="puzzleCharts"></div>
+  <div class="box task">
+    <h4>Your call: which headline is true?</h4>
+    <div class="choice" id="q-puzzle" role="radiogroup">
+      <label><input type="radio" name="puz" value="a"> Only “Europe has disarmed”</label>
+      <label><input type="radio" name="puz" value="b"> Only “Europe has never spent more”</label>
+      <label><input type="radio" name="puz" value="both"> Both are true</label>
+      <label><input type="radio" name="puz" value="neither"> Neither is true</label>
+    </div>
+    <div class="row"><button id="puzBtn" disabled>Lock in my answer</button></div>
+    <div id="puzOut" hidden>
+      <p class="fb" id="puzFb"></p>
+      <p><strong>Both are true.</strong> Measured in dollars of each year, spending rose from 143 to 262 billion. Measured as a share of the economy, it fell from 2.4% to 1.5% of GDP, because the EU economy grew much faster than its defence budgets. Neither commentator lied: each picked the measure that told the story they wanted. By the end of this session you will know a third measure, spending in real terms, that settles much of the argument.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 2 LESSON A -->
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Step 2 · Lesson · 25 min</span><h2>Where numbers come from</h2></div>
+  <h3>Every number has a producer</h3>
+  <p>A country's gross domestic product (GDP) is not observed; it is estimated. A national statistics office combines surveys of firms and households, tax records and assumptions about activity no one records, such as street trading. Defence spending is reported by governments and compiled by researchers, for instance at the Stockholm International Peace Research Institute (SIPRI), which the World Bank republishes. Before using a number, ask who produced it and how.</p>
+  <h3>Producers have motives</h3>
+  <p>High growth is a claim to competence. Where officials are promoted for hitting targets and no free press or independent statistics office checks them, the temptation to round up is strong. Governments can also simply stop publishing: after the invasion of Ukraine, Russia stopped releasing detailed foreign-trade statistics in 2022, which made the effect of sanctions harder for outsiders to judge (<a href="https://carnegieendowment.org/russia-eurasia/politika/2022/07/secret-economy-what-hiding-the-stats-does-for-russia" target="_blank" rel="noopener">Carnegie Endowment</a>).</p>
+  <h3>An outside witness: light at night</h3>
+  <p>From 1992 to 2013, US military weather satellites photographed the whole Earth at night. Factories, cities, roads and homes emit light, so when an economy grows, it usually gets brighter. No statistics office can edit a satellite image. Economists therefore use the growth of night lights as an independent check on official growth.</p>
+  <h3>The test</h3>
+  <p>The idea, from Luis Martínez (<a href="https://bfi.uchicago.edu/insight/research-summary/how-much-should-we-trust-the-dictators-gdp-growth-estimates/" target="_blank" rel="noopener">Journal of Political Economy, 2022</a>), takes two steps.</p>
+  <ol class="tight">
+    <li>In democracies, where official statistics face scrutiny, measure how official growth usually relates to light growth.</li>
+    <li>Apply that relationship to every country. A country whose official growth sits well above what its light growth implies is a suspect.</li>
+  </ol>
+  <p>Using the 43 countries rated <em>Free</em> by Freedom House in most years between 1992 and 2013, the relationship is:</p>
+  <p class="formula">expected official growth = 1.74 + 0.38 × light growth</p>
+  <p>Read it in words: a democracy whose lights did not grow at all still grew by about 1.7% a year, and each extra point of light growth went with about 0.38 extra points of GDP growth. The <strong>gap</strong> is official growth minus expected growth. Martínez found that autocracies' official growth rates are inflated by about 35% on average.</p>
+  <div class="box key"><h4>Light is a witness, not a judge</h4>
+    <ul class="tight">
+      <li>Lights saturate: the centre of a rich city cannot get brighter on the image, so growth there is understated.</li>
+      <li>Some light is not output, such as gas flares at oil fields.</li>
+      <li>Some growth makes little light: software, finance and other services.</li>
+    </ul>
+    A gap makes a country a suspect worth investigating. It does not prove fraud.</div>
+  <div class="box task">
+    <h4>Check yourself</h4>
+    <p>A country's lights grew by 5% a year. What official growth would we expect, in % a year?</p>
+    <div class="row"><input type="number" step="0.01" id="la-in" aria-label="Expected growth"><button id="la-btn">Check</button></div>
+    <p class="fb" id="la-fb"></p>
+  </div>
+</section>
+
+<!-- STEP 3 ACTIVITY A -->
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Step 3 · Activity · 20 min</span><h2>Catch the dictator</h2></div>
+  <p>Ten real countries, names hidden. For each, average official GDP growth and average growth of night lights, both in % a year over 1992 to 2013. Five are autocracies, five are democracies.</p>
+  <div class="box task">
+    <h4>1. Work out country A by hand</h4>
+    <p>Use the formula: expected = 1.74 + 0.38 × light growth, then gap = official − expected. Round to two decimals.</p>
+    <div class="row"><label for="aa-exp">Expected growth for A</label><input type="number" step="0.01" id="aa-exp"><label for="aa-gap">Gap for A</label><input type="number" step="0.01" id="aa-gap"><button id="aa-btn">Check</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <div class="box task">
+    <h4>2. Let the computer do the other nine</h4>
+    <p>Once A is right, compute the rest and look at the chart. Points far above the line grew faster on paper than their lights suggest.</p>
+    <div class="row"><button id="aa-all" disabled>Compute the other nine</button></div>
+  </div>
+  <div class="tscroll wide"><table id="tenTable" aria-label="Ten anonymised countries"></table></div>
+  <figure class="wide"><div class="chart" id="tenChart"></div><figcaption>Each letter is a country. The line shows what official growth would be if the country behaved like the average democracy. Sources: Martínez (2022) replication data (night lights, Li et al. harmonised series); World Bank, real GDP.</figcaption></figure>
+  <div class="box task">
+    <h4>3. Name your suspects</h4>
+    <p>Tick up to four countries in the last column of the table that you think are autocracies inflating their figures. Then reveal.</p>
+    <div class="row"><button id="aa-reveal" disabled>Reveal the names</button><span class="small" id="aa-count">0 of 4 picked</span></div>
+  </div>
+  <details class="jam"><summary>Now do it in jamovi (optional, 15 min)</summary>
+    <ol class="tight">
+      <li>Open jamovi. Click <b>Copy data</b> below, click the first cell of the empty spreadsheet and paste (Ctrl+V or Cmd+V). Accept the first row as column names.</li>
+      <li><b>Data → Compute</b>: name the new variable <span class="mono">expected</span> and type the formula <span class="mono">1.74 + 0.38 * light</span>.</li>
+      <li>Compute a second variable <span class="mono">gap</span> with the formula <span class="mono">official - expected</span>.</li>
+      <li><b>Analyses → Exploration → Scatterplot</b>: X = <span class="mono">light</span>, Y = <span class="mono">official</span>, tick <b>Linear</b> regression line. (If Scatterplot is missing, add the <i>scatr</i> module from the <b>+ Modules</b> library.)</li>
+      <li>Sort by <span class="mono">gap</span>: do you get the same suspects as in the browser?</li>
+    </ol>
+    <textarea readonly id="csvTen" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvTen">Copy data</button><span class="small" data-copied="csvTen"></span></div>
+  </details>
+</section>
+
+<!-- STEP 4 FEEDBACK A -->
+<section class="step col" id="feedbackA" data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Step 4 · Feedback · 10 min</span><h2>Who were they?</h2></div>
+  <p id="fa-locked" class="small">Reveal the names in step 3 to unlock this feedback. You can also <button class="ghost" id="fa-skip" style="padding:.15rem .5rem">show it anyway</button>.</p>
+  <div id="fa-body" hidden>
+    <p id="fa-score" class="headline-claim"></p>
+    <p>The four largest gaps belong to China, Myanmar, Uzbekistan and Azerbaijan, all rated <em>Not Free</em>. But two cases do not fit the simple story, and they matter more than the four that do.</p>
+    <ul class="tight">
+      <li><strong>India (E)</strong>, a democracy, has a large gap. A likely reason is that much of its growth came from services, such as software and call centres, which add output without adding much light.</li>
+      <li><strong>Russia (J)</strong>, an autocracy, has no gap. Its lights include gas flares, and its official statistics after the 1990s collapse may simply have been accurate on average.</li>
+    </ul>
+    <p>So the method finds suspects, not culprits. Its strength comes from many countries at once. Here are all 105 countries with more than three million people and usable data:</p>
+    <figure class="wide"><div class="chart" id="allChart"></div><figcaption>Regime = Freedom House status in at least half the years 1992–2013; countries in between are <i>Partly Free</i>. Hover over a point for the country. Sources as above.</figcaption></figure>
+    <div class="tscroll"><table aria-label="Average gap by regime">
+      <tr><th>Regime</th><th class="num">Countries</th><th class="num">Average official growth, % a year</th><th class="num">Average gap, points a year</th></tr>
+      <tr><td><span class="chip F">● Free</span></td><td class="num">43</td><td class="num">2.97</td><td class="num">−0.01</td></tr>
+      <tr><td><span class="chip PF">■ Partly Free</span></td><td class="num">34</td><td class="num">4.09</td><td class="num">+0.61</td></tr>
+      <tr><td><span class="chip NF">▲ Not Free</span></td><td class="num">28</td><td class="num">3.95</td><td class="num">+0.70</td></tr>
+    </table></div>
+    <p>On average, autocracies report growth about 0.7 points a year above what their lights imply, roughly a fifth more than the light-implied rate. Martínez's fuller method, which follows each country year by year and controls for many alternative explanations, finds about 35%. Compounded over twenty years, a 0.7-point gap makes an economy look about 15% larger than it is.</p>
+  </div>
+</section>
+
+<!-- STEP 5 LESSON B -->
+<section class="step col" id="lessonB" data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Step 5 · Lesson · 25 min</span><h2>Indicators and honest charts</h2></div>
+  <p>Back to the puzzle. The same spending can be expressed in at least three ways, and each answers a different question.</p>
+  <div class="tscroll"><table aria-label="Three measures of defence spending">
+    <tr><th>Measure</th><th>Question it answers</th><th>Trap</th></tr>
+    <tr><td><strong>Current dollars</strong></td><td style="text-align:left">How much money was spent that year?</td><td style="text-align:left">Mixes real increases with inflation and exchange-rate swings</td></tr>
+    <tr><td><strong>% of GDP</strong></td><td style="text-align:left">How much effort relative to the size of the economy? NATO's targets use this measure.</td><td style="text-align:left">Can fall while spending rises, if the economy grows faster</td></tr>
+    <tr><td><strong>Real terms</strong></td><td style="text-align:left">How much could the money buy, at constant prices?</td><td style="text-align:left">Depends on the price index and base year chosen</td></tr>
+  </table></div>
+  <p>A useful trick: if you know spending as a share of GDP and GDP in constant prices, you get spending in real terms by multiplying them.</p>
+  <p class="formula">real spending = (share of GDP ÷ 100) × real GDP</p>
+  <p>Now play with the European Union series. Change the measure and the starting year, and watch the story change.</p>
+  <div class="row"><span class="small">Measure</span><div class="seg" id="segMeasure"><button aria-pressed="true" data-v="usd">Current dollars</button><button aria-pressed="false" data-v="share">% of GDP</button><button aria-pressed="false" data-v="real">Real terms</button></div></div>
+  <div class="row"><span class="small">Start in</span><div class="seg" id="segStart"><button aria-pressed="true" data-v="1990">1990</button><button aria-pressed="false" data-v="2000">2000</button><button aria-pressed="false" data-v="2014">2014</button></div></div>
+  <figure class="wide"><div class="chart" id="euChart"></div><figcaption>EU-27 military spending. Real terms = share of GDP × GDP in constant 2015 dollars. Source: SIPRI via World Bank, World Development Indicators.</figcaption></figure>
+  <p class="headline-claim" id="euSentence"></p>
+  <h3>Five rules for an honest chart</h3>
+  <ol class="tight">
+    <li><strong>Bars start at zero.</strong> A bar's length is its value; cut the axis and you distort the comparison.</li>
+    <li><strong>Say the unit</strong>, and whether values are current or real.</li>
+    <li><strong>Choose the start year for a reason</strong>, and say it. 1990, 2000 and 2014 tell three stories.</li>
+    <li><strong>Name the source and years.</strong></li>
+    <li><strong>Write a title the data support</strong>, not a slogan.</li>
+  </ol>
+  <p class="small">Further reading: Claus Wilke, <a href="https://clauswilke.com/dataviz/" target="_blank" rel="noopener">Fundamentals of Data Visualization</a>, chapters 6 and 13 (free online).</p>
+</section>
+
+<!-- STEP 6 ACTIVITY B -->
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Step 6 · Activity · 20 min</span><h2>Who rearmed fastest after 2021?</h2></div>
+  <div class="box task">
+    <h4>1. Guess first</h4>
+    <p>Between 2021 and 2024, which country increased its defence spending most in real terms?</p>
+    <div class="choice" id="q-guessB">
+      <label><input type="radio" name="gb" value="POL"> Poland</label>
+      <label><input type="radio" name="gb" value="DEU"> Germany</label>
+      <label><input type="radio" name="gb" value="ITA"> Italy</label>
+    </div>
+    <div class="row"><button id="gbBtn" disabled>Lock in my guess</button><span class="small" id="gbOut"></span></div>
+  </div>
+  <div class="box task">
+    <h4>2. Compute Poland by hand</h4>
+    <p>Use the table: real spending = share ÷ 100 × real GDP. Give billions of 2015 dollars to one decimal, and the change in % to the nearest whole number.</p>
+    <div class="row"><label for="pb-21">2021</label><input type="number" step="0.1" id="pb-21"><label for="pb-24">2024</label><input type="number" step="0.1" id="pb-24"><label for="pb-ch">Change %</label><input type="number" step="1" id="pb-ch"><button id="pb-btn">Check</button></div>
+    <p class="fb" id="pb-fb"></p>
+    <div class="row"><button id="pb-all" disabled>Compute Germany and Italy</button></div>
+  </div>
+  <div class="tscroll wide"><table id="threeTable" aria-label="Defence spending in three countries"></table></div>
+  <figure class="wide"><div class="chart" id="threeChart"></div><figcaption>Index, 2021 = 100, real terms. Source: SIPRI via World Bank, World Development Indicators.</figcaption></figure>
+  <div class="box task">
+    <h4>3. Download a series yourself (10 min)</h4>
+    <p>Analysts download data every day, so do it once now. Open the World Bank indicator <a href="https://data.worldbank.org/indicator/MS.MIL.XPND.GD.ZS?locations=DE" target="_blank" rel="noopener">“Military expenditure (% of GDP)”</a>, which republishes SIPRI's figures, select Germany, and download it as CSV (or read the value off the page). The original source is the <a href="https://www.sipri.org/databases/milex" target="_blank" rel="noopener">SIPRI Military Expenditure Database</a>.</p>
+    <p>What share of GDP did Germany spend in 2024 (two decimals)?</p>
+    <div class="row"><input type="number" step="0.01" id="dl-in" aria-label="Germany 2024"><button id="dl-btn">Check</button></div>
+    <p class="fb" id="dl-fb"></p>
+  </div>
+  <details class="jam"><summary>Now do it in jamovi (optional, 10 min)</summary>
+    <ol class="tight">
+      <li>Copy the data below and paste it into an empty jamovi spreadsheet.</li>
+      <li><b>Data → Compute</b>: <span class="mono">real = share / 100 * gdp_real</span>.</li>
+      <li>Filter to the years 2021 and 2024 (<b>Data → Filters</b>: <span class="mono">year == 2021 or year == 2024</span>) and compare.</li>
+      <li>For the chart, use <b>Exploration → Descriptives</b> split by country, or paste the computed column into Datawrapper.</li>
+    </ol>
+    <textarea readonly id="csvThree" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvThree">Copy data</button><span class="small" data-copied="csvThree"></span></div>
+  </details>
+</section>
+
+<!-- STEP 7 FEEDBACK B -->
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Step 7 · Feedback · 10 min</span><h2>Poland, by a distance</h2></div>
+  <p id="fbB-guess" class="headline-claim"></p>
+  <p>In real terms Poland roughly doubled its defence spending in three years (+104%), from 2.2% to 4.2% of GDP. Germany rose by 46%. Italy barely moved (+3%), and its share of GDP actually fell slightly.</p>
+  <p>Now compare with current dollars: Poland +148%, Germany +57%, Italy +5%. The dollar figures overstate every increase because they include rising prices and, for Poland, a stronger zloty. Distance from Russia is part of the explanation, a question you will test properly with a regression in session 4.</p>
+  <div class="box key"><h4>Remember</h4>Before comparing spending across years, ask: current or real? Before comparing across countries, ask: money or share of GDP? Both questions change rankings.</div>
+</section>
+
+<!-- STEP 8 EXERCISE -->
+<section class="step col" id="exercise" data-title="Exercise">
+  <div class="stephead"><span class="eyebrow">Step 8 · Exercise 1 · 45 min · not graded</span><h2>Fix a misleading chart</h2></div>
+  <p>A news site publishes this chart.</p>
+  <figure class="wide"><div class="chart" id="badChart"></div></figure>
+  <div class="box task">
+    <h4>1. What is wrong? Tick every problem.</h4>
+    <div class="choice" id="q-bad">
+      <label><input type="checkbox" value="axis"> The vertical axis starts at 40 billion, not zero</label>
+      <label><input type="checkbox" value="nominal"> Current dollars mix real increases with inflation and exchange rates</label>
+      <label><input type="checkbox" value="source"> No source is given</label>
+      <label><input type="checkbox" value="invented"> The figures are invented</label>
+      <label><input type="checkbox" value="bars"> Bars should never be used for time series</label>
+    </div>
+    <div class="row"><button id="badBtn">Check</button></div>
+    <p class="fb" id="badFb"></p>
+  </div>
+  <div class="box task">
+    <h4>2. Redraw it without the distortion</h4>
+    <div class="row"><span class="small">Measure</span><div class="seg" id="segBadM"><button aria-pressed="true" data-v="usd">Current dollars</button><button aria-pressed="false" data-v="real">Real terms</button><button aria-pressed="false" data-v="share">% of GDP</button></div></div>
+    <div class="row"><span class="small">Axis starts at</span><div class="seg" id="segBadA"><button aria-pressed="true" data-v="cut">40 billion</button><button aria-pressed="false" data-v="zero">Zero</button></div></div>
+    <figure><div class="chart" id="fixChart"></div></figure>
+    <p class="fb" id="fixFb"></p>
+  </div>
+  <div class="box task">
+    <h4>3. Write the note (150 words)</h4>
+    <p>Explain what was wrong and what the honest chart shows. Your text is saved in this browser only.</p>
+    <textarea id="note" rows="8" aria-label="Your note"></textarea>
+    <div class="row"><span class="small" id="wc">0 words</span><button class="ghost" id="modelBtn">Compare with a model note</button></div>
+    <div id="model" hidden class="box key"><h4>Model note</h4><p>The chart exaggerates the rise. Its axis starts at 40 billion dollars, so the 2024 bar looks ten times the 2014 bar when spending roughly doubled. It also uses current dollars, which mix real increases with inflation and exchange-rate movements. In constant 2015 dollars, German defence spending rose by about 83% between 2014 and 2024, from 38 to 70 billion, and most of the increase came after 2021. As a share of GDP it rose from 1.1% to 1.9% by SIPRI's measure; NATO's own estimate, which counts more items, put Germany above 2% in 2024. An honest chart starts at zero, shows real values, says so, and names the source (SIPRI, via the World Bank). The story is still one of strong growth, told without exaggeration.</p></div>
+  </div>
+</section>
+
+<!-- STEP 9 QUIZ -->
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Step 9 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><span></span><a href="session2.html">Session 2: Can we trust a poll? →</a></div>
+  <h3>Before session 2</h3>
+  <p>Read Pew Research Center, <a href="https://www.pewresearch.org/short-reads/2016/09/08/understanding-the-margin-of-error-in-election-polls/" target="_blank" rel="noopener">“Understanding the margin of error in election polls”</a>. Next session: why did the polls before Moldova's 2024 EU referendum miss?</p>
+</section>
+
+<footer class="col">
+  <h3>Readings and references</h3>
+  <ul class="refs">
+    <li>Martínez, L. R. (2022), “How much should we trust the dictator's GDP growth estimates?”, <i>Journal of Political Economy</i> 130(10): <a href="https://bfi.uchicago.edu/insight/research-summary/how-much-should-we-trust-the-dictators-gdp-growth-estimates/" target="_blank" rel="noopener">BFI summary</a>; full paper free on <a href="https://papers.ssrn.com/abstract=3093296" target="_blank" rel="noopener">SSRN</a>.</li>
+    <li>Carnegie Endowment (2022), <a href="https://carnegieendowment.org/russia-eurasia/politika/2022/07/secret-economy-what-hiding-the-stats-does-for-russia" target="_blank" rel="noopener">“Secret economy: what hiding the stats does for Russia”</a>.</li>
+    <li>OSW Centre for Eastern Studies (2025), <a href="https://www.osw.waw.pl/en/publikacje/osw-commentary/2025-06-26/nato-summit-hague-trumps-return-and-a-two-component-5-gdp" target="_blank" rel="noopener">“NATO summit in The Hague: Trump's return and a two-component 5% of GDP”</a>.</li>
+    <li>Wilke, C. O., <a href="https://clauswilke.com/dataviz/" target="_blank" rel="noopener">Fundamentals of Data Visualization</a>, chapters 6 and 13 (free online).</li>
+  </ul>
+  <h3>Data</h3>
+  <p>Data: Martínez (2022), <a href="https://doi.org/10.7910/DVN/9M0S0M" target="_blank" rel="noopener">replication files</a> (night lights, Freedom House status); World Bank, <a href="https://databank.worldbank.org/source/world-development-indicators" target="_blank" rel="noopener">World Development Indicators</a> (real GDP; military expenditure from <a href="https://www.sipri.org/databases/milex" target="_blank" rel="noopener">SIPRI</a>), data updated July 2026. Light and GDP growth are average annual log growth rates, 1992–2013; sample restricted to countries with more than three million people.</p>
+  <p><button class="ghost" id="resetBtn">Clear my answers</button></p>
+</footer>

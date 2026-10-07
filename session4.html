@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Poland, Spain and the Line</title>
+<meta name="description" content="Session 4: regression, controls and outliers in European defence spending.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}
+
+/* Layout: a single reading column (about 68ch) of numbered steps, with a sticky step bar; wide charts and tables break out to 880px. */
+:root{
+  --bg:#F3F5F7; --panel:#FFFFFF; --ink:#15202A; --ink2:#43505C; --muted:#68747F; --rule:#D3DAE1; --soft:#E6EEF5;
+  --accent:#0072B2; --verm:#D55E00; --hi:#E69F00; --ok:#007A57; --grey:#7D8893;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --col:44rem; --wide:56rem; --r:6px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F151B; --panel:#17202A; --ink:#E4EAF0; --ink2:#B6C1CB; --muted:#8B97A2; --rule:#2A3541; --soft:#1B2834;
+  --accent:#3D9AD6; --verm:#E0662A; --hi:#E69F00; --ok:#2BB58A; --grey:#8C97A2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151B; --panel:#17202A; --ink:#E4EAF0; --ink2:#B6C1CB; --muted:#8B97A2; --rule:#2A3541; --soft:#1B2834;
+  --accent:#3D9AD6; --verm:#E0662A; --hi:#E69F00; --ok:#2BB58A; --grey:#8C97A2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6;margin:0}
+.wrap{padding-inline:16px;padding-block:0 4rem}
+.col{max-width:var(--col);margin-inline:auto}
+.wide{max-width:var(--wide);margin-inline:auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(2.1rem,6vw,3.3rem);font-weight:800;font-stretch:80%;letter-spacing:-.01em}
+h2{font-size:1.75rem;font-weight:750;font-stretch:85%}
+h3{font-size:1.2rem;font-weight:700;font-stretch:90%;margin-top:1.6rem}
+p{margin:.7rem 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,label:focus-within{outline:3px solid var(--hi);outline-offset:2px}
+.mono,.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+/* header */
+header.top{padding-block:2.4rem 1.6rem;border-bottom:1px solid var(--rule)}
+header.top .course{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+header.top .lede{font-size:1.15rem;color:var(--ink2);max-width:40rem;margin-top:1rem}
+.meta{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:1rem;font-size:.9rem;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+/* step bar */
+nav.steps{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);margin-inline:-16px;padding-inline:16px}
+nav.steps ol{list-style:none;display:flex;gap:.25rem;margin:0 auto;padding:.5rem 0;max-width:var(--wide);overflow-x:auto;scrollbar-width:thin}
+nav.steps a{display:flex;align-items:center;gap:.4rem;white-space:nowrap;text-decoration:none;color:var(--ink2);font-size:.82rem;padding:.3rem .55rem;border-radius:999px}
+nav.steps a:hover{background:var(--soft)}
+nav.steps .dot{width:.9rem;height:.9rem;border-radius:50%;border:1.5px solid var(--grey);display:inline-grid;place-items:center;font-size:.6rem;line-height:1;color:var(--panel)}
+nav.steps li.done .dot{background:var(--ok);border-color:var(--ok)}
+nav.steps li.done .dot::after{content:"✓";color:#fff}
+/* steps */
+section.step{padding-block:3rem 1rem;border-bottom:1px solid var(--rule);scroll-margin-top:3.5rem}
+.stephead{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.box{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.1rem;margin:1.2rem 0}
+.box.task{border-left:4px solid var(--accent)}
+.box.key{background:var(--soft);border-color:transparent}
+.box h4{font-family:var(--f-display);font-stretch:90%;font-size:1.02rem;margin:0 0 .4rem}
+.formula{font-family:var(--f-mono);font-size:.98rem;background:var(--soft);padding:.6rem .8rem;border-radius:var(--r);overflow-x:auto}
+ul.tight,ol.tight{padding-left:1.2rem;margin:.5rem 0}
+ul.tight li,ol.tight li{margin:.25rem 0}
+/* controls */
+button,.btn{font:inherit;font-size:.92rem;font-weight:600;border-radius:var(--r);border:1.5px solid var(--accent);background:var(--accent);color:#fff;padding:.45rem .9rem;cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.8rem 0}
+.choice{display:grid;gap:.5rem;margin:.8rem 0}
+.choice label{display:flex;gap:.6rem;align-items:flex-start;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.55rem .75rem;cursor:pointer}
+.choice label:has(input:checked){border-color:var(--accent);background:var(--soft)}
+.choice input{margin-top:.35rem;accent-color:var(--accent)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--accent);border-radius:var(--r);overflow:hidden}
+.seg button{border:0;border-radius:0;background:transparent;color:var(--accent);font-weight:500;padding:.35rem .75rem}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+input[type=number],input[type=text],textarea{font:inherit;font-family:var(--f-mono);font-size:.95rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--rule);border-radius:4px;padding:.3rem .45rem}
+input[type=number]{width:6.2rem}
+textarea{width:100%;font-family:var(--f-body);line-height:1.5}
+.fb{font-size:.95rem;margin:.4rem 0;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--verm)}
+.fb.ok::before{content:"✓ ";font-weight:700} .fb.no::before{content:"✗ ";font-weight:700}
+/* tables */
+.tscroll{overflow-x:auto;margin:1rem 0;border:1px solid var(--rule);border-radius:var(--r);background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:.45rem .6rem;border-bottom:1px solid var(--rule);text-align:right;vertical-align:middle}
+th{font-weight:600;font-size:.8rem;color:var(--ink2);background:var(--soft)}
+th:first-child,td:first-child{text-align:left}
+td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:600;padding:.1rem .45rem;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.chip.F{color:var(--accent)} .chip.NF{color:var(--verm)} .chip.PF{color:var(--grey)}
+/* charts */
+figure{margin:1.2rem 0}
+.chart{position:relative;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.8rem .6rem .4rem}
+.chart .ct{font-family:var(--f-display);font-stretch:90%;font-weight:700;font-size:1rem;padding:0 .3rem}
+.chart .cs{font-size:.82rem;color:var(--muted);padding:0 .3rem}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body);font-size:12px;fill:var(--muted)}
+.chart svg .lab{fill:var(--ink);font-weight:600}
+figcaption{font-size:.8rem;color:var(--muted);margin-top:.4rem}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem 1rem;font-size:.82rem;color:var(--ink2);padding:.3rem .3rem 0}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.8rem;line-height:1.35;padding:.35rem .55rem;border-radius:4px;white-space:nowrap;z-index:3;transform:translate(-50%,calc(-100% - 10px))}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem}
+.pair>*{min-width:0}
+.headline-claim{font-family:var(--f-display);font-weight:800;font-stretch:80%;font-size:1.3rem}
+details.jam{margin:1.2rem 0;border:1px dashed var(--rule);border-radius:var(--r);padding:.6rem .9rem;background:var(--panel)}
+details.jam summary{cursor:pointer;font-weight:600}
+details.jam textarea{font-family:var(--f-mono);font-size:.8rem;height:9rem;white-space:pre}
+.hidden-until{border-top:2px solid var(--accent);margin-top:1.4rem;padding-top:.4rem}
+.small{font-size:.88rem;color:var(--ink2)}
+footer{padding-block:2rem;color:var(--muted);font-size:.85rem}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+@media (max-width:520px){body{font-size:1rem}th,td{padding:.4rem .4rem}}
+.vh{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.crumbs{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:center;font-family:var(--f-mono);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.crumbs a{color:var(--accent);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.nextprev{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:1.4rem}
+.nextprev a{font-weight:600;text-decoration:none}
+.refs{padding-left:1.1rem;font-size:.9rem;color:var(--ink2)}
+.refs li{margin:.35rem 0}
+.brief-box{border:1.5px solid var(--hi);border-radius:var(--r);padding:1rem 1.1rem;margin:1.2rem 0;background:var(--panel)}
+.brief-box h4{font-family:var(--f-display);font-stretch:90%;font-size:1.02rem;margin:0 0 .4rem}
+.brief-box label{display:block;font-weight:600;font-size:.9rem;margin:.7rem 0 .25rem}
+input[type=range]{width:100%;accent-color:var(--accent)}
+select{font:inherit;font-size:.95rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--rule);border-radius:4px;padding:.3rem .45rem;max-width:100%}
+.kpi{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin:.6rem 0}
+.kpi div{display:flex;flex-direction:column}
+.kpi b{font-family:var(--f-mono);font-size:1.25rem;font-variant-numeric:tabular-nums}
+.kpi span{font-size:.8rem;color:var(--muted)}
+.prompt{font-family:var(--f-mono);font-size:.85rem;white-space:pre-wrap;background:var(--soft);padding:.7rem .8rem;border-radius:var(--r)}
+.chart .legend svg{display:inline-block;width:auto;height:auto;overflow:visible;flex:none}
+.sessions{display:grid;gap:.8rem;margin-top:1rem}
+.scard{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.1rem;text-decoration:none;color:var(--ink)}
+.scard:hover{border-color:var(--accent)}
+.scard strong{font-family:var(--f-display);font-stretch:85%;font-size:1.25rem;line-height:1.2}
+.scard .bar{display:block;height:4px;background:var(--soft);border-radius:2px;overflow:hidden;margin-top:.3rem}
+.scard .bar i{display:block;height:100%;background:var(--ok)}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.8rem;margin-top:1rem}
+.nums>div{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.9rem 1rem;min-width:0}
+.nums b{font-family:var(--f-display);font-stretch:80%;font-weight:800;font-size:1.7rem;color:var(--accent);line-height:1.1}
+.nums span{font-size:.92rem;color:var(--ink2)}
+.outcomes li{margin:.45rem 0}
+a.btn{color:#fff}
+.cert{background:var(--panel);border:2px solid var(--accent);outline:6px solid var(--soft);border-radius:4px;padding:2.4rem 2rem;text-align:center;margin:1rem 0;display:flex;flex-direction:column;gap:.6rem;align-items:center}
+.cert-k{font-family:var(--f-mono);letter-spacing:.14em;text-transform:uppercase;font-size:.85rem;color:var(--muted)}
+.cert-n{font-family:var(--f-display);font-weight:800;font-stretch:85%;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1}
+.cert-c{font-family:var(--f-display);font-weight:700;font-stretch:90%;font-size:1.35rem;color:var(--accent)}
+.cert-t{max-width:40rem;color:var(--ink2);margin:.2rem 0}
+.cert-f{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 2rem;font-size:.9rem;margin-top:.8rem}
+.cert-s{font-size:.75rem;color:var(--muted);margin-top:.6rem}
+@media print{ @page{size:A4 landscape;margin:12mm} body{background:#fff;color:#000} .noprint,nav.steps,footer{display:none!important} .cert{border-color:#0072B2;outline:none;box-shadow:none;margin:0} .wrap{padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Session 4 of 6</span></div>
+  <h1 style="margin-top:.6rem">Why does Poland spend so much, and Spain so little?</h1>
+  <p class="lede">Regression is the workhorse of quantitative analysis in think tanks and international organisations. In this session you fit a line through European defence spending, read it in plain words, add controls, explain the countries that do not fit, and audit a claim about Poland and Germany.</p>
+  <div class="meta"><span><b>About 3 hours</b> at your own pace</span><span><b>No software needed</b> in the browser; optional steps in jamovi</span><span><b>Your answers</b> stay in this browser only</span></div>
+</header>
+
+<nav class="steps" aria-label="Steps in this session"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Step 1 · Puzzle · 10 min</span><h2>The map</h2></div>
+  <p>Military spending as a share of GDP in 2024, for 33 European countries. The countries nearest Russia seem to spend the most.</p>
+  <figure class="wide"><div class="chart" id="shareMap"></div></figure>
+  <div class="box task">
+    <h4>Your guess</h4>
+    <p>For each 1,000 km closer to Moscow, how many more points of GDP does a European country spend on defence, on average?</p>
+    <div class="choice" id="q-slope">
+      <label><input type="radio" name="sl" value="0.1"> About 0.1 point</label>
+      <label><input type="radio" name="sl" value="0.25"> About 0.25 point</label>
+      <label><input type="radio" name="sl" value="0.75"> About 0.75 point</label>
+      <label><input type="radio" name="sl" value="2"> About 2 points</label>
+    </div>
+    <div class="row"><button id="slBtn" disabled>Lock in my guess</button><span class="small" id="slOut"></span></div>
+  </div>
+</section>
+
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Step 2 · Lesson · 25 min</span><h2>Regression</h2></div>
+  <p>A regression line summarises how one variable changes, on average, with another. Its equation has two numbers:</p>
+  <p class="formula">predicted spending = intercept + slope × distance</p>
+  <p>The <strong>slope</strong> is the answer to the puzzle: how much spending changes for each extra 1,000 km. The <strong>intercept</strong> is the predicted value at zero distance, mainly useful to place the line.</p>
+  <h3>Draw the line by eye first</h3>
+  <p>Move the two sliders until the line runs through the cloud. The number below adds up the squared vertical distances from each country to your line. <em>Least squares</em> chooses the line that makes this number as small as possible.</p>
+  <div class="box">
+    <label class="small" for="eyeA">Intercept: <b class="mono" id="eyeAo"></b></label><input type="range" id="eyeA" min="0" max="6" step="0.05" value="2">
+    <label class="small" for="eyeB">Slope per 1,000 km: <b class="mono" id="eyeBo"></b></label><input type="range" id="eyeB" min="-2" max="0.5" step="0.01" value="0">
+    <div class="kpi"><div><b id="eyeSSE">–</b><span>your sum of squared errors</span></div><div><b id="bestSSE">–</b><span>least-squares line</span></div></div>
+    <div class="row"><button class="ghost" id="eyeBest">Show the least-squares line</button></div>
+  </div>
+  <figure class="wide"><div class="chart" id="eyeChart"></div></figure>
+  <h3>Reading it in words</h3>
+  <p>A slope of −0.73 reads: <em>“on average, a European country 1,000 km further from Moscow spends 0.73 points of GDP less on defence.”</em> Three things to add every time: <em>on average</em> (individual countries differ), the units, and the sample. The <strong>R²</strong> says what share of the differences between countries the line accounts for, from 0 to 1.</p>
+  <div class="box task"><h4>Check yourself</h4>
+    <p>With an intercept of 3.37 and a slope of −0.73, what spending does the line predict for a capital 2,000 km from Moscow (% of GDP, two decimals)?</p>
+    <div class="row"><input type="number" step="0.01" id="la-in" aria-label="Predicted spending"><button id="la-btn">Check</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Step 3 · Activity · 20 min</span><h2>Distance and defence</h2></div>
+  <div class="box task"><h4>1. Spain by hand</h4>
+    <p>Madrid is 3,440 km from Moscow and Spain spent 1.43% of GDP in 2024. Using intercept 3.37 and slope −0.733, compute the prediction and the residual (actual − predicted), two decimals.</p>
+    <div class="row"><label for="aa-p">Predicted</label><input type="number" step="0.01" id="aa-p"><label for="aa-r">Residual</label><input type="number" step="0.01" id="aa-r"><button id="aa-btn">Check</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <div class="box task"><h4>2. Any country</h4>
+    <div class="row"><label for="aaC">Country</label><select id="aaC"></select></div>
+    <div class="kpi" id="aaK"></div>
+  </div>
+  <figure class="wide"><div class="chart" id="regChart"></div><figcaption>Each point is a country. Distance: great-circle distance from the capital to Moscow. Sources: SIPRI via World Bank, World Development Indicators (2024).</figcaption></figure>
+  <details class="jam"><summary>Now do it in jamovi (optional, 15 min)</summary>
+    <ol class="tight"><li>Paste the data below.</li>
+      <li><b>Analyses → Regression → Linear Regression</b>: dependent variable <span class="mono">share</span>, covariate <span class="mono">dist_1000km</span>. Read the slope in <b>Model Coefficients</b> and R² in <b>Model Fit</b>.</li>
+      <li>Tick <b>Save → Residuals</b> to add a residual column, then sort it.</li></ol>
+    <textarea readonly id="csvReg" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvReg">Copy data</button><span class="small" data-copied="csvReg"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-read data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Step 4 · Feedback · 10 min</span><h2>Spain is not the puzzle</h2></div>
+  <p class="headline-claim" id="faGuess"></p>
+  <p>The line says each 1,000 km closer to Moscow goes with about 0.73 more points of GDP, and distance alone accounts for 38% of the differences (R² = 0.38). Given its distance, Spain is not a low spender at all: it spends 0.6 points <em>more</em> than the line predicts. The real outliers are elsewhere: Poland and Greece far above the line, Austria, Ireland and Switzerland far below.</p>
+  <div class="box key"><h4>Remember</h4>A residual compares a country with what the line predicts for it, not with the average. “Spends little” and “spends less than expected” are different findings.</div>
+</section>
+
+<section class="step col" id="lessonB" data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Step 5 · Lesson · 25 min</span><h2>Controls, outliers and causes</h2></div>
+  <h3>Why a coefficient moves</h3>
+  <p>Distance from Moscow is correlated with other things. Countries near Russia are poorer on average, and poorer countries tend to spend a larger share of GDP. Part of what looked like a distance effect may be an income effect. Adding GDP per capita as a <strong>control</strong> asks: among countries with the same income, how does spending change with distance?</p>
+  <p class="formula">spending = a + b₁ × distance + b₂ × GDP per capita + b₃ × NATO member</p>
+  <p>If the distance coefficient shrinks when you add a control, part of the simple relationship came from that control.</p>
+  <h3>What an outlier tells you</h3>
+  <p>A country far from the line is information. Ask what it has that the model leaves out: a rival other than Russia, a policy of neutrality, a history of occupation, a commitment to NATO's 2% guideline. Often the best next variable comes from explaining the outliers.</p>
+  <h3>Correlation is not causation</h3>
+  <p>Even with controls, a regression on 33 countries shows association. Sort these claims of the kind you will read:</p>
+  <div class="box" id="claims"></div>
+</section>
+
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Step 6 · Activity · 20 min</span><h2>The outlier hunt</h2></div>
+  <div class="box task"><h4>1. Explain the six biggest outliers</h4>
+    <p>For each country far from the distance-only line, choose the most likely explanation.</p>
+    <div id="outliers"></div>
+    <div class="row"><button id="olBtn">Check my explanations</button></div>
+    <p class="fb" id="olFb"></p>
+  </div>
+  <div class="box task"><h4>2. Add controls and watch the slope</h4>
+    <div class="row"><label><input type="checkbox" id="cG"> GDP per capita</label><label><input type="checkbox" id="cN"> NATO membership</label></div>
+    <div class="tscroll"><table id="coefTable" aria-label="Regression coefficients"></table></div>
+  </div>
+  <figure class="wide"><div class="chart" id="resChart"></div><figcaption>Residuals from the selected model: spending above (+) or below (−) what the model predicts, points of GDP.</figcaption></figure>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Step 7 · Feedback · 10 min</span><h2>Neutrality was the missing variable</h2></div>
+  <p>Adding GDP per capita shrinks the distance coefficient from −0.73 to −0.65 and raises R² from 0.38 to 0.55: richer countries spend a slightly smaller share. Adding NATO membership shrinks it again, to −0.56, and R² reaches 0.65. Being in NATO goes with about 0.8 more points of GDP. Austria, Ireland, Switzerland, Malta and Cyprus, all outside NATO, were dragging the line.</p>
+  <p>Poland and Greece remain far above the line even with controls. Greece's spending reflects its rivalry with Turkey, a NATO ally; Poland's reflects its frontline position and its history. Neither fits a model built on distance from Moscow alone, and that is a finding, not a failure.</p>
+</section>
+
+<section class="step col" id="audit" data-title="Claim audit">
+  <div class="stephead"><span class="eyebrow">Step 8 · Claim audit · 45 min · without AI</span><h2>“Poland now spends more on defence than Germany”</h2></div>
+  <p>Claims of this kind are common in debates on European rearmament. Audit it as you would a claim handed to you by a minister's office. Work without an AI assistant; your notes are saved in this browser only.</p>
+  <div class="box task">
+    <label class="small" for="au1"><b>1. Source:</b> where would the number come from, and can it be trusted?</label><textarea id="au1" rows="3"></textarea>
+    <label class="small" for="au2"><b>2. Comparison:</b> money or share of GDP? Which year? Which definition?</label><textarea id="au2" rows="3"></textarea>
+    <label class="small" for="au3"><b>3. Cause or correlation:</b> is any causal claim made or implied?</label><textarea id="au3" rows="3"></textarea>
+    <label class="small" for="au4"><b>4. Verdict:</b> holds, misleading or wrong, in one sentence.</label><textarea id="au4" rows="2"></textarea>
+    <div class="row"><button class="ghost" id="auBtn">Compare with a model audit</button></div>
+    <div id="auModel" hidden class="box key"></div>
+  </div>
+</section>
+
+<section class="step col" id="brief" data-title="Your brief">
+  <div class="stephead"><span class="eyebrow">Step 9 · Your brief · 10 min</span><h2>Your country on the line</h2></div>
+  <p id="briefWho" class="small"></p>
+  <div class="brief-box">
+    <p class="small" id="briefCalc"></p>
+    <label for="bReg">For questions A and D: where does your country sit relative to the line, and what explains it?</label>
+    <textarea id="bReg" data-brief="regression" rows="4"></textarea>
+  </div>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Step 10 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session3.html">← Session 3: Who depends on whom?</a><a href="session5.html">Session 5: German cars in Kyrgyzstan →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Readings and references</h3>
+  <ul class="refs">
+    <li>Huntington-Klein, N., <a href="https://theeffectbook.net" target="_blank" rel="noopener">The Effect</a>, chapters 4 and 13 (free online).</li>
+    <li>Kiel Institute for the World Economy (2025), <a href="https://www.kielinstitut.de/publications/fit-for-war-by-2030-european-rearmament-efforts-vis-a-vis-russia-18193" target="_blank" rel="noopener">Fit for war by 2030? European rearmament efforts vis-à-vis Russia</a>, summary.</li>
+    <li>Navarro and Foxcroft, <a href="https://lsj.readthedocs.io/en/latest/" target="_blank" rel="noopener">Learning Statistics with jamovi</a>, chapter on linear regression (free).</li>
+  </ul>
+  <h3>Data</h3>
+  <ul class="refs">
+    <li>Military expenditure (% of GDP) and GDP per capita, 2024: SIPRI via World Bank, <a href="https://databank.worldbank.org/source/world-development-indicators" target="_blank" rel="noopener">World Development Indicators</a> (updated July 2026); <a href="https://www.sipri.org/databases/milex" target="_blank" rel="noopener">SIPRI Military Expenditure Database</a>.</li>
+    <li>Distance: great-circle distance between each capital and Moscow, computed from capital coordinates. NATO membership as of 2024 (Finland joined in 2023, Sweden in 2024).</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Clear my answers for this session</button></p>
+</footer>
+
+</div>
+<script>
+window.SESSION=4;
+const DATA = {"c": [{"iso": "AUT", "n": "Austria", "dist": 1670, "share": 1.0, "share21": 0.87, "gdppc": 58269, "nato": 0}, {"iso": "BEL", "n": "Belgium", "dist": 2253, "share": 1.28, "share21": 1.04, "gdppc": 56582, "nato": 1}, {"iso": "BGR", "n": "Bulgaria", "dist": 1778, "share": 2.15, "share21": 1.51, "gdppc": 17597, "nato": 1}, {"iso": "HRV", "n": "Croatia", "dist": 1868, "share": 1.79, "share21": 1.97, "gdppc": 24050, "nato": 1}, {"iso": "CYP", "n": "Cyprus", "dist": 2312, "share": 1.65, "share21": 1.78, "gdppc": 38674, "nato": 0}, {"iso": "CZE", "n": "Czechia", "dist": 1668, "share": 1.92, "share21": 1.35, "gdppc": 31828, "nato": 1}, {"iso": "DNK", "n": "Denmark", "dist": 1560, "share": 2.42, "share21": 1.29, "gdppc": 71026, "nato": 1}, {"iso": "EST", "n": "Estonia", "dist": 867, "share": 3.37, "share21": 2.01, "gdppc": 31428, "nato": 1}, {"iso": "FIN", "n": "Finland", "dist": 892, "share": 2.3, "share21": 1.3, "gdppc": 53156, "nato": 1}, {"iso": "FRA", "n": "France", "dist": 2486, "share": 2.05, "share21": 1.98, "gdppc": 46103, "nato": 1}, {"iso": "DEU", "n": "Germany", "dist": 1609, "share": 1.89, "share21": 1.3, "gdppc": 56104, "nato": 1}, {"iso": "GRC", "n": "Greece", "dist": 2232, "share": 3.13, "share21": 3.8, "gdppc": 24626, "nato": 1}, {"iso": "HUN", "n": "Hungary", "dist": 1569, "share": 2.16, "share21": 1.32, "gdppc": 23305, "nato": 1}, {"iso": "IRL", "n": "Ireland", "dist": 2794, "share": 0.24, "share21": 0.24, "gdppc": 112895, "nato": 0}, {"iso": "ITA", "n": "Italy", "dist": 2376, "share": 1.61, "share21": 1.66, "gdppc": 40430, "nato": 1}, {"iso": "LVA", "n": "Latvia", "dist": 841, "share": 3.26, "share21": 2.16, "gdppc": 23579, "nato": 1}, {"iso": "LTU", "n": "Lithuania", "dist": 791, "share": 3.12, "share21": 1.95, "gdppc": 29604, "nato": 1}, {"iso": "LUX", "n": "Luxembourg", "dist": 2208, "share": 0.96, "share21": 0.47, "gdppc": 137782, "nato": 1}, {"iso": "MLT", "n": "Malta", "dist": 2815, "share": 0.45, "share21": 0.45, "gdppc": 44024, "nato": 0}, {"iso": "NLD", "n": "Netherlands", "dist": 2147, "share": 1.92, "share21": 1.37, "gdppc": 67465, "nato": 1}, {"iso": "POL", "n": "Poland", "dist": 1151, "share": 4.15, "share21": 2.22, "gdppc": 25104, "nato": 1}, {"iso": "PRT", "n": "Portugal", "dist": 3906, "share": 1.53, "share21": 1.52, "gdppc": 29328, "nato": 1}, {"iso": "ROU", "n": "Romania", "dist": 1500, "share": 2.3, "share21": 1.85, "gdppc": 20080, "nato": 1}, {"iso": "SVK", "n": "Slovakia", "dist": 1631, "share": 2.01, "share21": 1.71, "gdppc": 25993, "nato": 1}, {"iso": "SVN", "n": "Slovenia", "dist": 1932, "share": 1.31, "share21": 1.24, "gdppc": 34301, "nato": 1}, {"iso": "ESP", "n": "Spain", "dist": 3440, "share": 1.43, "share21": 1.34, "gdppc": 35327, "nato": 1}, {"iso": "SWE", "n": "Sweden", "dist": 1227, "share": 2.0, "share21": 1.19, "gdppc": 57223, "nato": 1}, {"iso": "GBR", "n": "United Kingdom", "dist": 2501, "share": 2.28, "share21": 2.07, "gdppc": 53341, "nato": 1}, {"iso": "NOR", "n": "Norway", "dist": 1643, "share": 2.09, "share21": 1.68, "gdppc": 89889, "nato": 1}, {"iso": "ALB", "n": "Albania", "dist": 2059, "share": 2.04, "share21": 1.24, "gdppc": 11374, "nato": 1}, {"iso": "MKD", "n": "North Macedonia", "dist": 1925, "share": 2.1, "share21": 1.45, "gdppc": 9292, "nato": 1}, {"iso": "MNE", "n": "Montenegro", "dist": 1983, "share": 1.83, "share21": 1.56, "gdppc": 13270, "nato": 1}, {"iso": "CHE", "n": "Switzerland", "dist": 2289, "share": 0.72, "share21": 0.67, "gdppc": 107702, "nato": 0}], "pol": {"share": 4.154, "usd": 38.0}, "deu": {"share": 1.892, "usd": 88.46}};
+/* ===== shared helpers for every session page ===== */
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const NS = "http://www.w3.org/2000/svg";
+const PFX = "qm" + (window.SESSION || 0) + ":";
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(PFX+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(PFX+k, JSON.stringify(v)); } catch(e){} }
+};
+/* the brief is shared across sessions */
+const brief = {
+  get(k, d=""){ try { const v = localStorage.getItem("qmbrief:"+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem("qmbrief:"+k, JSON.stringify(v)); } catch(e){} }
+};
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const sgn = (v, d=1) => (v>0?"+":v<0?"−":"") + Math.abs(v).toFixed(d);
+const num = (v, d=1) => (v<0?"−":"") + Math.abs(v).toFixed(d);
+
+/* ---------- step nav & progress ---------- */
+const steps = $$("section.step");
+const done = new Set(store.get("done", []));
+function markDone(id){ if (done.has(id)) return; done.add(id); store.set("done", [...done]); renderNav(); }
+function renderNav(){
+  const nav = $("#stepnav"); if (!nav) return;
+  nav.innerHTML = steps.map((s,i)=>`<li class="${done.has(s.id)?"done":""}"><a href="#${s.id}"><span class="dot" aria-hidden="true"></span>${i+1}. ${s.dataset.title}<span class="vh">${done.has(s.id)?" (done)":""}</span></a></li>`).join("");
+}
+renderNav();
+/* reading-only steps get a button to mark them as read */
+$$("section.step[data-read]").forEach(s=>{ const r=document.createElement("div"); r.className="row";
+  r.innerHTML=`<button class="ghost" type="button">Mark as read</button>`; s.appendChild(r);
+  const b=r.querySelector("button"); const sync=()=>{ if (done.has(s.id)){ b.textContent="Read ✓"; b.disabled=true; } };
+  b.addEventListener("click",()=>{ markDone(s.id); sync(); }); sync(); });
+
+/* ---------- answer checking ---------- */
+function feedback(elm, ok, msg){ elm.className = "fb " + (ok ? "ok" : "no"); elm.textContent = msg; }
+function readNums(ids){ return ids.map(id => parseFloat(String($("#"+id).value).replace(",", "."))); }
+
+/* ---------- radio-choice lock-in ---------- */
+function lockChoice({group, button, key, onReveal}){
+  const inputs = $$(`#${group} input`);
+  inputs.forEach(i=>i.addEventListener("change",()=>{ if (!store.get(key,null)) $("#"+button).disabled=false; }));
+  const apply = v => { inputs.forEach(i=>{ i.checked = i.value===v; i.disabled = true; }); $("#"+button).disabled = true; onReveal(v); };
+  $("#"+button).addEventListener("click",()=>{ const v = $(`#${group} input:checked`)?.value; if (!v) return; store.set(key, v); apply(v); });
+  const prev = store.get(key, null); if (prev) apply(prev);
+}
+
+/* ---------- segmented controls ---------- */
+function seg(id, cb){ $$(`#${id} button`).forEach(b=>b.addEventListener("click",()=>{ $$(`#${id} button`).forEach(x=>x.setAttribute("aria-pressed", x===b)); cb(b.dataset.v); })); }
+
+/* ---------- SVG charts ---------- */
+function el(tag, attrs={}, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function txt(parent, x, y, s, attrs={}){ const t = el("text", {x, y, ...attrs}, parent); t.textContent = s; return t; }
+function niceTicks(min, max, n=5){
+  if (max === min){ max = min + 1; }
+  const span = max-min, step0 = span/n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const err = step0/mag, step = (err>=7.5?10:err>=3.5?5:err>=1.5?2:1)*mag;
+  const t=[]; for (let v=Math.ceil(min/step-1e-9)*step; v<=max+1e-9; v+=step) t.push(+v.toFixed(10)); return {ticks:t, step};
+}
+function shape(g, kind, x, y, r, fill, ring){
+  const sw = ring ? 1.5 : 0, st = ring ? css("--panel") : "none";
+  if (kind==="tri") return el("path",{d:`M${x},${y-r*1.2} L${x+r*1.1},${y+r*0.8} L${x-r*1.1},${y+r*0.8} Z`,fill,stroke:st,"stroke-width":sw},g);
+  if (kind==="sq") return el("rect",{x:x-r*0.9,y:y-r*0.9,width:r*1.8,height:r*1.8,fill,stroke:st,"stroke-width":sw},g);
+  if (kind==="dia") return el("path",{d:`M${x},${y-r*1.25} L${x+r*1.1},${y} L${x},${y+r*1.25} L${x-r*1.1},${y} Z`,fill,stroke:st,"stroke-width":sw},g);
+  return el("circle",{cx:x,cy:y,r,fill,stroke:st,"stroke-width":sw},g);
+}
+function frame(container, {title, sub, H=320, m={t:14,r:20,b:34,l:52}}){
+  container.innerHTML = "";
+  const W = Math.round(Math.max(300, Math.min(900, container.clientWidth - 14)));
+  if (W < 480) H = Math.round(H*0.85);
+  if (title){ const t=document.createElement("div"); t.className="ct"; t.textContent=title; container.appendChild(t); }
+  if (sub){ const s=document.createElement("div"); s.className="cs"; s.textContent=sub; container.appendChild(s); }
+  const svg = el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":title||"chart"}); container.appendChild(svg);
+  const tip = document.createElement("div"); tip.className="tip"; tip.hidden=true; container.appendChild(tip);
+  return {svg, tip, W, H, m, iw:W-m.l-m.r, ih:H-m.t-m.b, narrow: W < 480};
+}
+function axes(f, xs, ys, {xfmt=v=>v, yfmt=v=>v, xticks=[], yticks=[], xlab, ylab}){
+  const g = el("g",{},f.svg);
+  for (const v of yticks){ const y=ys(v); el("line",{x1:f.m.l,x2:f.W-f.m.r,y1:y,y2:y,stroke:css("--rule"),"stroke-width":v===0?1.4:1},g); txt(g, f.m.l-8, y+4, yfmt(v), {"text-anchor":"end"}); }
+  for (const v of xticks){ txt(g, xs(v), f.H-f.m.b+18, xfmt(v), {"text-anchor":"middle"}); }
+  if (xlab) txt(g, f.m.l+f.iw/2, f.H-6, xlab, {"text-anchor":"middle"});
+  if (ylab) txt(g, f.m.l, f.m.t-4, ylab, {"text-anchor":"start"});
+  return g;
+}
+function showTip(f, x, y, html){ f.tip.innerHTML=html; f.tip.hidden=false;
+  const r=f.svg.getBoundingClientRect(), c=f.svg.parentNode.getBoundingClientRect();
+  const px = r.left - c.left + x*r.width/f.W, py = r.top - c.top + y*r.height/f.H;
+  f.tip.style.left = Math.min(Math.max(px, 80), c.width-80)+"px"; f.tip.style.top = py+"px"; }
+function hideTip(f){ f.tip.hidden=true; }
+function hover(f, node, x, y, html){ node.addEventListener("pointerenter",()=>showTip(f,x,y,html)); node.addEventListener("pointerleave",()=>hideTip(f)); }
+function legend(container, items){ const lg=document.createElement("div"); lg.className="legend";
+  lg.innerHTML = items.map(it=>{ const k=it.kind||"circ", c=it.color;
+    const sw = k==="line" ? `<svg width="18" height="12"><path d="M0,6 H18" stroke="${c}" stroke-width="2" ${it.dash?`stroke-dasharray="${it.dash}"`:""}/></svg>`
+      : k==="tri" ? `<svg width="12" height="12"><path d="M6,0 L12,11 L0,11Z" fill="${c}"/></svg>`
+      : k==="sq" ? `<svg width="12" height="12"><rect x="1" y="1" width="10" height="10" fill="${c}"/></svg>`
+      : k==="dia" ? `<svg width="12" height="12"><path d="M6,0 L12,6 L6,12 L0,6Z" fill="${c}"/></svg>`
+      : `<svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${c}"/></svg>`;
+    return `<span>${sw}${it.label}</span>`; }).join("");
+  container.appendChild(lg); }
+
+/* line chart: series [{name,color,shape,dash,pts:[[x,y]]}] ; x numeric or index with xlabels */
+function lineChart(container, {title, sub, series, yfmt=v=>v, xfmt=v=>v, ylab, zero=true, labelEnds=true, tipfmt, H=300, ymin:yminF, ymax:ymaxF, refY, refLabel, xticks:xtF, vline, vlabel}){
+  const f = frame(container,{title,sub,H,m:{t:22,r:labelEnds?96:20,b:30,l:52}});
+  const all = series.flatMap(s=>s.pts);
+  const xmin=Math.min(...all.map(p=>p[0])), xmax=Math.max(...all.map(p=>p[0]));
+  let ymin = yminF ?? (zero?Math.min(0,...all.map(p=>p[1])):Math.min(...all.map(p=>p[1]))), ymax = ymaxF ?? Math.max(...all.map(p=>p[1]));
+  if (refY!==undefined){ ymin=Math.min(ymin,refY); ymax=Math.max(ymax,refY); }
+  const yt = niceTicks(ymin, ymax, 4); ymax = Math.max(ymax, yt.ticks[yt.ticks.length-1]); ymin = Math.min(ymin, yt.ticks[0]);
+  const xs = v => f.m.l + (v-xmin)/(xmax-xmin||1)*f.iw, ys = v => f.m.t + f.ih - (v-ymin)/(ymax-ymin)*f.ih;
+  const xt = xtF || niceTicks(xmin,xmax,f.narrow?4:6).ticks.filter(v=>v>=xmin&&v<=xmax);
+  axes(f, xs, ys, {xticks:xt, yticks:yt.ticks, yfmt, xfmt, ylab});
+  if (refY!==undefined){ el("line",{x1:f.m.l,x2:f.m.l+f.iw,y1:ys(refY),y2:ys(refY),stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, f.m.l+4, ys(refY)-6, refLabel, {class:"lab"}); }
+  if (vline!==undefined){ el("line",{x1:xs(vline),x2:xs(vline),y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1.2,"stroke-dasharray":"4 3"},f.svg); if (vlabel) txt(f.svg, xs(vline)+5, f.m.t+12, vlabel, {class:"lab"}); }
+  const g = el("g",{},f.svg);
+  for (const s of series){
+    el("path",{d:s.pts.map((p,i)=>(i?"L":"M")+xs(p[0])+","+ys(p[1])).join(" "),fill:"none",stroke:s.color,"stroke-width":s.width||2,"stroke-linejoin":"round","stroke-dasharray":s.dash||""},g);
+    const last=s.pts[s.pts.length-1];
+    if (s.shape) shape(g, s.shape, xs(last[0]), ys(last[1]), 4.5, s.color, true);
+    if (labelEnds && s.name){ txt(g, xs(last[0])+9, ys(last[1])+4+(s.nudge||0), s.name, {class:"lab"}); }
+  }
+  const xsVals=[...new Set(all.map(p=>p[0]))].sort((a,b)=>a-b);
+  const cross = el("line",{y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1,"stroke-dasharray":"3 3",visibility:"hidden"},f.svg);
+  const hit = el("rect",{x:f.m.l,y:f.m.t,width:f.iw,height:f.ih,fill:"transparent"},f.svg);
+  hit.addEventListener("pointermove", ev => { const r=f.svg.getBoundingClientRect(); const sx=(ev.clientX-r.left)*f.W/r.width;
+    const xv = xmin + (sx-f.m.l)/f.iw*(xmax-xmin); const near = xsVals.reduce((a,b)=>Math.abs(b-xv)<Math.abs(a-xv)?b:a);
+    cross.setAttribute("x1",xs(near)); cross.setAttribute("x2",xs(near)); cross.setAttribute("visibility","visible");
+    const lines = series.map(s=>{const p=s.pts.find(q=>q[0]===near); return p?`${s.name||"Value"}: <b>${tipfmt?tipfmt(p[1]):yfmt(p[1])}</b>`:""}).filter(Boolean);
+    showTip(f, xs(near), f.m.t+10, `<b>${xfmt(near)}</b><br>${lines.join("<br>")}`); });
+  hit.addEventListener("pointerleave", ()=>{cross.setAttribute("visibility","hidden"); hideTip(f);});
+  return {f, xs, ys};
+}
+
+/* scatter: pts [{x,y,label,color,shape,tip}] ; line {a,b} optional */
+function scatter(container, {title, sub, pts, xmin, xmax, ymin, ymax, xticks, yticks, xfmt=v=>v, yfmt=v=>v, xlab, line, lineLabel, labels=true, H=380}){
+  const f = frame(container,{title,sub,H,m:{t:16,r:24,b:44,l:52}});
+  const xs=v=>f.m.l+(v-xmin)/(xmax-xmin)*f.iw, ys=v=>f.m.t+f.ih-(v-ymin)/(ymax-ymin)*f.ih;
+  axes(f,xs,ys,{xticks,yticks,xfmt,yfmt,xlab});
+  if (line){ el("path",{d:`M${xs(xmin)},${ys(line.a+line.b*xmin)} L${xs(xmax)},${ys(line.a+line.b*xmax)}`,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4",fill:"none"},f.svg);
+    if (lineLabel) txt(f.svg, xs(xmin)+6, ys(line.a+line.b*xmin)+(line.b<0?-8:18), lineLabel, {class:"lab"}); }
+  const g=el("g",{},f.svg);
+  for (const p of pts){
+    if (p.res && line) el("line",{x1:xs(p.x),x2:xs(p.x),y1:ys(p.y),y2:ys(line.a+line.b*p.x),stroke:p.color,"stroke-width":1.2,"stroke-dasharray":"2 2"},g);
+    shape(g, p.shape||"circ", xs(p.x), ys(p.y), p.r||5.5, p.color, true);
+    if (labels && p.label){ const right = xs(p.x) > f.m.l + f.iw*0.8; txt(g, xs(p.x)+(right?-9:9), ys(p.y)+4, p.label, {class:"lab","text-anchor":right?"end":"start"}); }
+    const hit=el("circle",{cx:xs(p.x),cy:ys(p.y),r:11,fill:"transparent"},g);
+    if (p.tip) hover(f, hit, xs(p.x), ys(p.y), p.tip);
+  }
+  return {f, xs, ys};
+}
+
+/* horizontal bars: rows [{label, v, color, tip, lo, hi}] */
+function hbar(container, {title, sub, rows, xmin=0, xmax, xfmt=v=>v, ref, refLabel, rowH=26}){
+  const H = 40 + rows.length*rowH + 30;
+  const f = frame(container,{title,sub,H,m:{t:16,r:24,b:30,l:Math.min(150, Math.max(80, 7.2*Math.max(...rows.map(r=>r.label.length))+14))}});
+  const lo = Math.min(xmin, ...rows.map(r=>Math.min(r.v, r.lo??r.v))), hi = xmax ?? Math.max(...rows.map(r=>Math.max(r.v, r.hi??r.v)));
+  const xt = niceTicks(lo, hi, f.narrow?4:6); const x0=xt.ticks[0], x1=Math.max(hi, xt.ticks[xt.ticks.length-1]);
+  const xs = v => f.m.l + (v-x0)/(x1-x0)*f.iw, bh = rowH*0.62;
+  const g = el("g",{},f.svg);
+  for (const v of xt.ticks){ el("line",{x1:xs(v),x2:xs(v),y1:f.m.t,y2:f.m.t+rows.length*rowH,stroke:css("--rule"),"stroke-width":v===0?1.4:1},g); txt(g, xs(v), f.m.t+rows.length*rowH+18, xfmt(v), {"text-anchor":"middle"}); }
+  rows.forEach((r,i)=>{ const y=f.m.t+i*rowH+(rowH-bh)/2; const a=xs(Math.min(0,r.v)), b=xs(Math.max(0,r.v));
+    if (r.lo!==undefined){ el("rect",{x:xs(r.lo),y:y+bh*0.2,width:Math.max(2,xs(r.hi)-xs(r.lo)),height:bh*0.6,fill:r.color,opacity:.35,rx:2},g); shape(g,"circ",xs(r.v),y+bh/2,4.5,r.color,true); }
+    else el("rect",{x:a,y,width:Math.max(1,b-a),height:bh,fill:r.color,rx:2},g);
+    txt(g, f.m.l-8, y+bh/2+4, r.label, {"text-anchor":"end", class: r.bold?"lab":""});
+    const hit=el("rect",{x:f.m.l,y:f.m.t+i*rowH,width:f.iw,height:rowH,fill:"transparent"},g);
+    if (r.tip) hover(f, hit, xs(r.v), y, r.tip); });
+  if (ref!==undefined){ el("line",{x1:xs(ref),x2:xs(ref),y1:f.m.t-6,y2:f.m.t+rows.length*rowH,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, xs(ref)+4, f.m.t-4, refLabel, {class:"lab"}); }
+  return f;
+}
+
+/* vertical bars for a time series (used for honest/dishonest chart lessons) */
+function vbar(container,{title,sub,vals,ymin=0,yfmt=v=>v,color,H=280,source}){
+  const f=frame(container,{title,sub,H,m:{t:16,r:16,b:30,l:52}});
+  const ymax=Math.max(...vals.map(v=>v[1]))*1.08; const yt=niceTicks(ymin,ymax,4);
+  const top=Math.max(ymax, yt.ticks[yt.ticks.length-1]);
+  const ys=v=>f.m.t+f.ih-(v-ymin)/(top-ymin)*f.ih; const bw=f.iw/vals.length;
+  axes(f,i=>i,ys,{yticks:yt.ticks.filter(v=>v>=ymin&&v<=top),yfmt});
+  vals.forEach((v,i)=>{ const x=f.m.l+bw*i+bw*0.18, w=bw*0.64, y=ys(v[1]), h=ys(ymin)-y;
+    el("path",{d:`M${x},${y+h} V${y+3} Q${x},${y} ${x+3},${y} H${x+w-3} Q${x+w},${y} ${x+w},${y+3} V${y+h} Z`,fill:color},f.svg);
+    if (i%2===0||i===vals.length-1) txt(f.svg, x+w/2, f.H-f.m.b+18, v[0], {"text-anchor":"middle"});
+    const hit=el("rect",{x:f.m.l+bw*i,y:f.m.t,width:bw,height:f.ih,fill:"transparent"},f.svg);
+    hover(f, hit, x+w/2, y, `<b>${v[0]}</b>: ${yfmt(v[1])}`); });
+  if (source){ const s=document.createElement("div"); s.className="cs"; s.textContent=source; container.appendChild(s); }
+  return f;
+}
+
+/* tile-grid map of Europe: tiles {iso: value}; layout fixed */
+const TILE = {ISL:[0,0],NOR:[4,0],SWE:[5,0],FIN:[6,0],EST:[7,1],IRL:[1,2],GBR:[2,2],DNK:[4,2],LVA:[7,2],LTU:[7,3],NLD:[3,3],DEU:[4,3],POL:[6,3],BEL:[3,4],LUX:[3,5],CZE:[5,4],SVK:[6,4],FRA:[2,5],CHE:[3,6],AUT:[5,5],HUN:[6,5],ROU:[7,5],PRT:[0,7],ESP:[1,7],ITA:[4,7],SVN:[4,6],HRV:[5,6],MNE:[5,7],ALB:[6,8],MKD:[7,8],BGR:[7,6],GRC:[7,9],MLT:[4,9],CYP:[9,9]};
+function tileMap(container,{title,sub,vals,names,fmt=v=>v,lo,hi,note}){
+  container.innerHTML="";
+  const t=document.createElement("div"); t.className="ct"; t.textContent=title; container.appendChild(t);
+  if (sub){ const s=document.createElement("div"); s.className="cs"; s.textContent=sub; container.appendChild(s); }
+  const W=10, Hh=10, cell=44, svg=el("svg",{viewBox:`0 0 ${W*cell} ${Hh*cell}`,role:"img","aria-label":title}); container.appendChild(svg);
+  const tip=document.createElement("div"); tip.className="tip"; tip.hidden=true; container.appendChild(tip);
+  const f={svg,tip,W:W*cell,H:Hh*cell};
+  const vv=Object.values(vals).filter(v=>v!=null); lo=lo??Math.min(...vv); hi=hi??Math.max(...vv);
+  for (const iso in TILE){ const [cx,cy]=TILE[iso]; const v=vals[iso];
+    const tshare = v==null ? null : (v-lo)/(hi-lo||1);
+    const fill = v==null ? css("--soft") : `color-mix(in oklab, ${css("--accent")} ${Math.round(12+tshare*78)}%, ${css("--panel")})`;
+    const r=el("rect",{x:cx*cell+2,y:cy*cell+2,width:cell-4,height:cell-4,rx:4,fill,stroke:css("--rule")},svg);
+    const dark = tshare!=null && tshare>0.55;
+    const a=el("text",{x:cx*cell+cell/2,y:cy*cell+18,"text-anchor":"middle",style:`font-size:11px;font-weight:600;fill:${dark?"#fff":css("--ink")}`},svg); a.textContent=iso;
+    if (v!=null){ const b=el("text",{x:cx*cell+cell/2,y:cy*cell+33,"text-anchor":"middle",style:`font-size:10px;font-family:var(--f-mono);fill:${dark?"#fff":css("--ink2")}`},svg); b.textContent=fmt(v); }
+    hover(f, r, cx*cell+cell/2, cy*cell+4, `<b>${names?.[iso]||iso}</b>${v!=null?": "+fmt(v):": no data"}`);
+  }
+  if (note){ const s=document.createElement("div"); s.className="cs"; s.textContent=note; container.appendChild(s); }
+}
+
+/* ---------- copy buttons ---------- */
+function wireCopy(){ $$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{ const ta=$("#"+b.dataset.copy), out=$(`[data-copied="${b.dataset.copy}"]`);
+  const fallback=()=>{ ta.focus(); ta.select(); if (out) out.textContent="Selected: press Ctrl+C or Cmd+C."; };
+  try { navigator.clipboard.writeText(ta.value).then(()=>{ if (out) out.textContent="Copied."; },fallback); } catch(e){ fallback(); } })); }
+
+/* ---------- quiz ---------- */
+function quiz(box, scoreEl, QUIZ, stepId){
+  let qa = store.get("quiz",{});
+  const draw = () => {
+    box.innerHTML = QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?"Right. ":"Not quite. "}${q.e}</p>`:""}</div>`).join("");
+    $$("#"+box.id+" input").forEach(i=>i.addEventListener("change",()=>{ qa[+i.name.slice(2)]=+i.value; store.set("quiz",qa); draw(); }));
+    const n=Object.keys(qa).length, s=QUIZ.filter((q,i)=>qa[i]===q.a).length;
+    scoreEl.textContent = n===QUIZ.length ? `Score: ${s} out of ${QUIZ.length}.` : "";
+    if (n===QUIZ.length) markDone(stepId);
+  };
+  draw();
+}
+
+/* ---------- brief text areas (saved across sessions) ---------- */
+function wireBrief(){ $$("[data-brief]").forEach(t=>{ t.value = brief.get(t.dataset.brief, ""); t.addEventListener("input",()=>brief.set(t.dataset.brief, t.value)); }); }
+
+/* ---------- reset ---------- */
+function wireReset(){ const b=$("#resetBtn"); if (!b) return; b.addEventListener("click",()=>{ try{ Object.keys(localStorage).filter(k=>k.startsWith(PFX)).forEach(k=>localStorage.removeItem(k)); }catch(e){} location.reload(); }); }
+
+/* ---------- redraw hooks ---------- */
+function onRedraw(fn){
+  try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", fn); new MutationObserver(fn).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]}); } catch(e){}
+  let rz, lastW=innerWidth; addEventListener("resize",()=>{ if (innerWidth===lastW) return; lastW=innerWidth; clearTimeout(rz); rz=setTimeout(fn,200); });
+}
+
+/* Session 4 */
+const C = DATA.c.map(c=>({...c, d:c.dist/1000, g:c.gdppc/10000}));
+const NAMES = Object.fromEntries(C.map(c=>[c.iso,c.n]));
+function ols(cols){ // cols: array of functions c=>value ; returns {b, r2, res}
+  const X = C.map(c=>[1, ...cols.map(f=>f(c))]), y = C.map(c=>c.share), k = X[0].length;
+  const XtX = Array.from({length:k},(_,i)=>Array.from({length:k},(_,j)=>X.reduce((s,r)=>s+r[i]*r[j],0)));
+  const Xty = Array.from({length:k},(_,i)=>X.reduce((s,r,n)=>s+r[i]*y[n],0));
+  const A = XtX.map((r,i)=>[...r, Xty[i]]);
+  for (let i=0;i<k;i++){ let p=i; for (let r=i+1;r<k;r++) if (Math.abs(A[r][i])>Math.abs(A[p][i])) p=r; [A[i],A[p]]=[A[p],A[i]];
+    for (let r=0;r<k;r++) if (r!==i){ const f=A[r][i]/A[i][i]; for (let c=i;c<=k;c++) A[r][c]-=f*A[i][c]; } }
+  const b = A.map((r,i)=>r[k]/r[i]); const yh = X.map(r=>r.reduce((s,v,i)=>s+v*b[i],0));
+  const ym = y.reduce((a,v)=>a+v,0)/y.length; const res = y.map((v,i)=>v-yh[i]);
+  return {b, r2: 1 - res.reduce((a,v)=>a+v*v,0)/y.reduce((a,v)=>a+(v-ym)**2,0), res, yh};
+}
+const M0 = ols([c=>c.d]); const A0=M0.b[0], B0=M0.b[1];
+const SSE = (a,b) => C.reduce((s,c)=>s+(c.share-(a+b*c.d))**2,0);
+
+/* puzzle: tile map */
+function drawMap(){ tileMap($("#shareMap"),{title:"Military spending, % of GDP, 2024",sub:"Darker = higher share",vals:Object.fromEntries(C.map(c=>[c.iso,c.share])),names:NAMES,fmt:v=>v.toFixed(1),lo:0,hi:4.2,note:"Source: SIPRI via World Bank. Grey: Iceland (no armed forces)."}); }
+lockChoice({group:"q-slope", button:"slBtn", key:"guess", onReveal:v=>{ $("#slOut").textContent="Saved. The answer comes in step 4."; markDone("puzzle"); faGuess(); }});
+
+/* lesson A: line by eye */
+let showBest=false;
+function drawEye(){ const a=+$("#eyeA").value, b=+$("#eyeB").value; $("#eyeAo").textContent=a.toFixed(2); $("#eyeBo").textContent=b.toFixed(2);
+  $("#eyeSSE").textContent=SSE(a,b).toFixed(1); $("#bestSSE").textContent= showBest?SSE(A0,B0).toFixed(1):"?";
+  const r = scatter($("#eyeChart"),{title:"Your line through the cloud",sub:"Military spending, % of GDP, against distance of the capital from Moscow",pts:C.map(c=>({x:c.d,y:c.share,color:css("--ink2"),r:4.5,tip:`<b>${c.n}</b><br>${c.dist.toLocaleString("en-GB")} km · ${c.share.toFixed(2)}%`})),xmin:0,xmax:4,ymin:0,ymax:5,xticks:[0,1,2,3,4],yticks:[0,1,2,3,4,5],xfmt:v=>v*1000===0?"0 km":(v*1000).toLocaleString("en-GB"),yfmt:v=>v+"%",xlab:"Distance from Moscow, km",line:{a,b},lineLabel:"Your line",labels:false});
+  if (showBest){ el("path",{d:`M${r.xs(0)},${r.ys(A0)} L${r.xs(4)},${r.ys(A0+B0*4)}`,stroke:css("--accent"),"stroke-width":2,fill:"none"},r.f.svg); txt(r.f.svg, r.xs(3.2), r.ys(A0+B0*3.2)-8, "Least squares", {class:"lab"}); }
+}
+["eyeA","eyeB"].forEach(id=>$("#"+id).addEventListener("input",drawEye));
+$("#eyeBest").addEventListener("click",()=>{ showBest=true; drawEye(); markDone("lessonA"); });
+$("#la-btn").addEventListener("click",()=>{ const [v]=readNums(["la-in"]); const t=3.37-0.73*2;
+  if (Math.abs(v-t)<=0.02){ feedback($("#la-fb"),true,"Right: 3.37 − 0.73 × 2 = 1.91% of GDP."); markDone("lessonA"); }
+  else feedback($("#la-fb"),false,"Distance is measured in thousands of km: 2,000 km is 2."); });
+
+/* activity A */
+let stA=store.get("actA",{ok:false});
+const sp=C.find(c=>c.iso==="ESP"); const spP=3.37-0.733*3.44, spR=1.43-spP;
+$("#aa-btn").addEventListener("click",()=>{ const [p,r]=readNums(["aa-p","aa-r"]);
+  if (Math.abs(p-spP)<=0.03 && Math.abs(r-spR)<=0.03){ feedback($("#aa-fb"),true,`Right: 3.37 − 0.733 × 3.44 = ${spP.toFixed(2)}; residual 1.43 − ${spP.toFixed(2)} = +${spR.toFixed(2)}. Spain spends more than its distance predicts.`); stA.ok=true; store.set("actA",stA); markDone("activityA"); drawReg(); }
+  else if (Math.abs(p-spP)<=0.03) feedback($("#aa-fb"),false,"Prediction right. Residual = actual − predicted.");
+  else feedback($("#aa-fb"),false,"Use distance in thousands of km: 3.44."); });
+$("#aaC").innerHTML=[...C].sort((a,b)=>a.n.localeCompare(b.n)).map(c=>`<option value="${c.iso}">${c.n}</option>`).join("");
+const myC = C.find(c=>c.n.toLowerCase()===(brief.get("country","")||"").trim().toLowerCase()); $("#aaC").value = myC?myC.iso:"POL";
+function drawReg(){ const sel=$("#aaC").value, c=C.find(x=>x.iso===sel), p=A0+B0*c.d;
+  $("#aaK").innerHTML=`<div><b>${c.share.toFixed(2)}%</b><span>actual</span></div><div><b>${p.toFixed(2)}%</b><span>predicted</span></div><div><b>${sgn(c.share-p,2)}</b><span>residual, points</span></div>`;
+  scatter($("#regChart"),{title:`Least-squares line: ${A0.toFixed(2)} ${B0<0?"−":"+"} ${Math.abs(B0).toFixed(2)} × distance (R² = ${M0.r2.toFixed(2)})`,sub:"Military spending, % of GDP, 2024",
+    pts:C.map(x=>({x:x.d,y:x.share,label:(x.iso===sel||Math.abs(x.share-(A0+B0*x.d))>0.95||x.iso==="ESP")?x.n:"",color:x.iso===sel?css("--verm"):css("--accent"),shape:x.iso===sel?"tri":"circ",res:x.iso===sel,r:x.iso===sel?7:4.5,tip:`<b>${x.n}</b><br>${x.share.toFixed(2)}% · predicted ${(A0+B0*x.d).toFixed(2)}%`})),
+    xmin:0,xmax:4,ymin:0,ymax:5,xticks:[0,1,2,3,4],yticks:[0,1,2,3,4,5],xfmt:v=>(v*1000).toLocaleString("en-GB"),yfmt:v=>v+"%",xlab:"Distance from Moscow, km",line:{a:A0,b:B0}});
+  briefCalc(); }
+$("#aaC").addEventListener("change",drawReg);
+$("#csvReg").value="country,share,dist_1000km,gdppc_10k,nato\n"+C.map(c=>`${c.n},${c.share},${c.d.toFixed(3)},${c.g.toFixed(3)},${c.nato}`).join("\n");
+function faGuess(){ const g=store.get("guess",null); if (!g) return; $("#faGuess").textContent = g==="0.75" ? "Your guess, about 0.75 point, was right: the slope is 0.73." : `Your guess was ${g} point${g==="2"?"s":""}. The slope is about 0.73 point.`; }
+
+/* lesson B: claims */
+const CLAIMS=[
+ {t:"“Countries closer to Russia spend more, so fear of Russia drives defence budgets.”",a:"plausible",e:"Plausible, but not shown by the regression: frontline states also share history, NATO commitments and politics. The data are consistent with the story; they do not prove it."},
+ {t:"“Richer countries spend a smaller share of GDP on defence, so wealth makes countries complacent.”",a:"no",e:"A share falls when GDP is large even if spending is high; and many rich countries are also far from Russia or neutral. The causal reading does not follow."},
+ {t:"“NATO members spend 0.8 points more, so joining NATO raises spending by 0.8 points.”",a:"no",e:"Countries that chose to join NATO may have spent more anyway: membership is not assigned at random. Session 5 shows how to get closer to a causal answer."}];
+$("#claims").innerHTML = CLAIMS.map((c,i)=>`<p style="margin-top:${i?1:0}rem"><strong>${c.t}</strong></p><div class="row"><div class="seg" id="cl${i}"><button aria-pressed="false" data-v="plausible">Plausible, not proven</button><button aria-pressed="false" data-v="no">The data do not support this</button></div></div><p class="fb" id="clf${i}"></p>`).join("");
+CLAIMS.forEach((c,i)=>seg("cl"+i, v=>{ feedback($("#clf"+i), v===c.a, c.e); markDone("lessonB"); }));
+
+/* activity B: outliers */
+const EXPL={A:"Rivalry with a neighbour other than Russia",B:"Neutrality: outside NATO",C:"Frontline state with a history of occupation",D:"NATO's 2% guideline keeps a distant member spending"};
+const OUT=[["POL","C"],["GRC","A"],["AUT","B"],["IRL","B"],["PRT","D"],["CHE","B"]];
+$("#outliers").innerHTML = OUT.map(([iso])=>{ const c=C.find(x=>x.iso===iso); const r=M0.res[C.indexOf(c)];
+  return `<div class="row"><span style="min-width:9rem"><b>${c.n}</b> <span class="mono small">${sgn(r,2)}</span></span><select id="ol_${iso}" aria-label="Explanation for ${c.n}"><option value="">Choose an explanation</option>${Object.entries(EXPL).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select></div>`; }).join("");
+const olSaved=store.get("ol",{}); OUT.forEach(([iso])=>{ if (olSaved[iso]) $("#ol_"+iso).value=olSaved[iso]; $("#ol_"+iso).addEventListener("change",e=>{ olSaved[iso]=e.target.value; store.set("ol",olSaved); }); });
+$("#olBtn").addEventListener("click",()=>{ const right=OUT.filter(([iso,k])=>$("#ol_"+iso).value===k).length;
+  feedback($("#olFb"), right>=5, `${right} of 6. Poland: frontline state. Greece: rivalry with Turkey. Austria, Ireland, Switzerland: neutral, outside NATO. Portugal: far from Russia, but NATO's 2% guideline sets a floor.`); markDone("activityB"); });
+function drawCoef(){ const cols=[c=>c.d], names=["Distance from Moscow, per 1,000 km"];
+  if ($("#cG").checked){ cols.push(c=>c.g); names.push("GDP per capita, per $10,000"); }
+  if ($("#cN").checked){ cols.push(c=>c.nato); names.push("NATO member (1 = yes)"); }
+  const m=ols(cols);
+  $("#coefTable").innerHTML = `<tr><th>Variable</th><th class="num">Coefficient</th></tr>` + names.map((n,i)=>`<tr><td>${n}</td><td class="num">${sgn(m.b[i+1],2)}</td></tr>`).join("") + `<tr><td>Intercept</td><td class="num">${m.b[0].toFixed(2)}</td></tr><tr><td><b>R²</b></td><td class="num"><b>${m.r2.toFixed(2)}</b></td></tr>`;
+  const rows=C.map((c,i)=>({label:c.n,v:m.res[i],color:m.res[i]>=0?css("--accent"):css("--verm"),tip:`<b>${c.n}</b><br>residual ${sgn(m.res[i],2)}`})).sort((a,b)=>b.v-a.v);
+  hbar($("#resChart"),{title:"Residuals: spending above or below the model",sub:"Points of GDP",rows,xmin:-1.6,xmax:1.8,xfmt:v=>sgn(v,1),rowH:20});
+  legend($("#resChart"),[{label:"Above the line",color:css("--accent"),kind:"sq"},{label:"Below the line",color:css("--verm"),kind:"sq"}]);
+  if ($("#cG").checked && $("#cN").checked) markDone("feedbackB"); }
+["cG","cN"].forEach(id=>$("#"+id).addEventListener("change",drawCoef));
+
+/* claim audit */
+["au1","au2","au3","au4"].forEach(id=>{ const t=$("#"+id); t.value=store.get(id,""); t.addEventListener("input",()=>{ store.set(id,t.value); }); });
+const pol=DATA.pol, deu=DATA.deu;
+$("#auModel").innerHTML = `<h4>Model audit</h4>
+<p><b>Source.</b> SIPRI's Military Expenditure Database, republished by the World Bank, or NATO's own estimates. Both are reputable; they differ slightly because NATO counts more items (pensions, some infrastructure).</p>
+<p><b>Comparison.</b> As a share of GDP, the claim holds: in 2024 Poland spent ${pol.share.toFixed(1)}% of GDP, Germany ${deu.share.toFixed(1)}%. In money, it is wrong: Germany spent about $${deu.usd.toFixed(0)} billion, Poland about $${pol.usd.toFixed(0)} billion, less than half. The headline does not say which measure it uses.</p>
+<p><b>Cause.</b> No causal claim, but readers may infer that Poland has the stronger armed forces; spending says nothing directly about capability.</p>
+<p><b>Verdict.</b> Misleading: true as a share of GDP, false in money; the claim should say “as a share of its economy”.</p>`;
+$("#auBtn").addEventListener("click",()=>{ $("#auModel").hidden=!$("#auModel").hidden; markDone("audit"); });
+
+/* brief */
+wireBrief();
+const bc=brief.get("country",""), bqq=brief.get("question","");
+$("#briefWho").textContent = bc||bqq ? `Your brief: ${bc||"country not chosen yet"}, question ${bqq||"not chosen yet"}.` : "You have not chosen a country and question yet (session 2, step 8).";
+function briefCalc(){ const c=myC||C.find(x=>x.iso===$("#aaC").value); const p=A0+B0*c.d;
+  $("#briefCalc").textContent = `${c.n}: actual ${c.share.toFixed(2)}% of GDP, predicted by distance ${p.toFixed(2)}%, residual ${sgn(c.share-p,2)} points.${myC?"":" (Your brief country is not in this European sample; the figures shown are for the country selected in step 3.)"}`; }
+$("#bReg").addEventListener("input",()=>markDone("brief"));
+
+/* quiz */
+quiz($("#quizBox"), $("#quizScore"), [
+ {q:"The slope of spending on distance is −0.73 per 1,000 km. Which reading is right?",o:["Every country 1,000 km further spends exactly 0.73 points less","On average, countries 1,000 km further spend 0.73 points less","Distance causes 73% of spending"],a:1,e:"A slope describes an average relationship in the sample, not a law for each country."},
+ {q:"R² = 0.38 means…",o:["38% of countries are on the line","the line accounts for 38% of the differences between countries","the slope is 0.38"],a:1,e:"R² is the share of the variation the model accounts for."},
+ {q:"Adding GDP per capita makes the distance coefficient smaller. Why?",o:["Distance and income are correlated, and income also matters","The computer made an error","Distance no longer matters"],a:0,e:"Part of the simple relationship came from income."},
+ {q:"Spain's residual is positive. What does that mean?",o:["Spain spends more than average","Spain spends more than the line predicts for its distance","Spain is in NATO"],a:1,e:"A residual compares a country with its own prediction."},
+ {q:"NATO members spend 0.8 points more, all else equal. Does joining NATO cause this?",o:["Yes, the regression proves it","Not necessarily: countries choose to join","No, NATO has no effect"],a:1,e:"Membership is not random; regression shows association."}], "quiz");
+
+/* boot */
+drawMap(); drawEye(); drawReg(); drawCoef(); faGuess();
+wireCopy(); wireReset();
+onRedraw(()=>{ drawMap(); drawEye(); drawReg(); drawCoef(); });
+
+</script>
+</body>
+</html>

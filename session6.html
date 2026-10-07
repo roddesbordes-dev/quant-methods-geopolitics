@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What Hormuz Costs</title>
+<meta name="description" content="Session 6: costing a geoeconomic shock and auditing an AI's analysis.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}
+
+/* Layout: a single reading column (about 68ch) of numbered steps, with a sticky step bar; wide charts and tables break out to 880px. */
+:root{
+  --bg:#F3F5F7; --panel:#FFFFFF; --ink:#15202A; --ink2:#43505C; --muted:#68747F; --rule:#D3DAE1; --soft:#E6EEF5;
+  --accent:#0072B2; --verm:#D55E00; --hi:#E69F00; --ok:#007A57; --grey:#7D8893;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --col:44rem; --wide:56rem; --r:6px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F151B; --panel:#17202A; --ink:#E4EAF0; --ink2:#B6C1CB; --muted:#8B97A2; --rule:#2A3541; --soft:#1B2834;
+  --accent:#3D9AD6; --verm:#E0662A; --hi:#E69F00; --ok:#2BB58A; --grey:#8C97A2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151B; --panel:#17202A; --ink:#E4EAF0; --ink2:#B6C1CB; --muted:#8B97A2; --rule:#2A3541; --soft:#1B2834;
+  --accent:#3D9AD6; --verm:#E0662A; --hi:#E69F00; --ok:#2BB58A; --grey:#8C97A2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6;margin:0}
+.wrap{padding-inline:16px;padding-block:0 4rem}
+.col{max-width:var(--col);margin-inline:auto}
+.wide{max-width:var(--wide);margin-inline:auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(2.1rem,6vw,3.3rem);font-weight:800;font-stretch:80%;letter-spacing:-.01em}
+h2{font-size:1.75rem;font-weight:750;font-stretch:85%}
+h3{font-size:1.2rem;font-weight:700;font-stretch:90%;margin-top:1.6rem}
+p{margin:.7rem 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,label:focus-within{outline:3px solid var(--hi);outline-offset:2px}
+.mono,.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+/* header */
+header.top{padding-block:2.4rem 1.6rem;border-bottom:1px solid var(--rule)}
+header.top .course{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+header.top .lede{font-size:1.15rem;color:var(--ink2);max-width:40rem;margin-top:1rem}
+.meta{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:1rem;font-size:.9rem;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+/* step bar */
+nav.steps{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);margin-inline:-16px;padding-inline:16px}
+nav.steps ol{list-style:none;display:flex;gap:.25rem;margin:0 auto;padding:.5rem 0;max-width:var(--wide);overflow-x:auto;scrollbar-width:thin}
+nav.steps a{display:flex;align-items:center;gap:.4rem;white-space:nowrap;text-decoration:none;color:var(--ink2);font-size:.82rem;padding:.3rem .55rem;border-radius:999px}
+nav.steps a:hover{background:var(--soft)}
+nav.steps .dot{width:.9rem;height:.9rem;border-radius:50%;border:1.5px solid var(--grey);display:inline-grid;place-items:center;font-size:.6rem;line-height:1;color:var(--panel)}
+nav.steps li.done .dot{background:var(--ok);border-color:var(--ok)}
+nav.steps li.done .dot::after{content:"✓";color:#fff}
+/* steps */
+section.step{padding-block:3rem 1rem;border-bottom:1px solid var(--rule);scroll-margin-top:3.5rem}
+.stephead{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.box{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.1rem;margin:1.2rem 0}
+.box.task{border-left:4px solid var(--accent)}
+.box.key{background:var(--soft);border-color:transparent}
+.box h4{font-family:var(--f-display);font-stretch:90%;font-size:1.02rem;margin:0 0 .4rem}
+.formula{font-family:var(--f-mono);font-size:.98rem;background:var(--soft);padding:.6rem .8rem;border-radius:var(--r);overflow-x:auto}
+ul.tight,ol.tight{padding-left:1.2rem;margin:.5rem 0}
+ul.tight li,ol.tight li{margin:.25rem 0}
+/* controls */
+button,.btn{font:inherit;font-size:.92rem;font-weight:600;border-radius:var(--r);border:1.5px solid var(--accent);background:var(--accent);color:#fff;padding:.45rem .9rem;cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.8rem 0}
+.choice{display:grid;gap:.5rem;margin:.8rem 0}
+.choice label{display:flex;gap:.6rem;align-items:flex-start;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.55rem .75rem;cursor:pointer}
+.choice label:has(input:checked){border-color:var(--accent);background:var(--soft)}
+.choice input{margin-top:.35rem;accent-color:var(--accent)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--accent);border-radius:var(--r);overflow:hidden}
+.seg button{border:0;border-radius:0;background:transparent;color:var(--accent);font-weight:500;padding:.35rem .75rem}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+input[type=number],input[type=text],textarea{font:inherit;font-family:var(--f-mono);font-size:.95rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--rule);border-radius:4px;padding:.3rem .45rem}
+input[type=number]{width:6.2rem}
+textarea{width:100%;font-family:var(--f-body);line-height:1.5}
+.fb{font-size:.95rem;margin:.4rem 0;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--verm)}
+.fb.ok::before{content:"✓ ";font-weight:700} .fb.no::before{content:"✗ ";font-weight:700}
+/* tables */
+.tscroll{overflow-x:auto;margin:1rem 0;border:1px solid var(--rule);border-radius:var(--r);background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:.45rem .6rem;border-bottom:1px solid var(--rule);text-align:right;vertical-align:middle}
+th{font-weight:600;font-size:.8rem;color:var(--ink2);background:var(--soft)}
+th:first-child,td:first-child{text-align:left}
+td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:600;padding:.1rem .45rem;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.chip.F{color:var(--accent)} .chip.NF{color:var(--verm)} .chip.PF{color:var(--grey)}
+/* charts */
+figure{margin:1.2rem 0}
+.chart{position:relative;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.8rem .6rem .4rem}
+.chart .ct{font-family:var(--f-display);font-stretch:90%;font-weight:700;font-size:1rem;padding:0 .3rem}
+.chart .cs{font-size:.82rem;color:var(--muted);padding:0 .3rem}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body);font-size:12px;fill:var(--muted)}
+.chart svg .lab{fill:var(--ink);font-weight:600}
+figcaption{font-size:.8rem;color:var(--muted);margin-top:.4rem}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem 1rem;font-size:.82rem;color:var(--ink2);padding:.3rem .3rem 0}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.8rem;line-height:1.35;padding:.35rem .55rem;border-radius:4px;white-space:nowrap;z-index:3;transform:translate(-50%,calc(-100% - 10px))}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem}
+.pair>*{min-width:0}
+.headline-claim{font-family:var(--f-display);font-weight:800;font-stretch:80%;font-size:1.3rem}
+details.jam{margin:1.2rem 0;border:1px dashed var(--rule);border-radius:var(--r);padding:.6rem .9rem;background:var(--panel)}
+details.jam summary{cursor:pointer;font-weight:600}
+details.jam textarea{font-family:var(--f-mono);font-size:.8rem;height:9rem;white-space:pre}
+.hidden-until{border-top:2px solid var(--accent);margin-top:1.4rem;padding-top:.4rem}
+.small{font-size:.88rem;color:var(--ink2)}
+footer{padding-block:2rem;color:var(--muted);font-size:.85rem}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+@media (max-width:520px){body{font-size:1rem}th,td{padding:.4rem .4rem}}
+.vh{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.crumbs{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:center;font-family:var(--f-mono);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.crumbs a{color:var(--accent);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.nextprev{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:1.4rem}
+.nextprev a{font-weight:600;text-decoration:none}
+.refs{padding-left:1.1rem;font-size:.9rem;color:var(--ink2)}
+.refs li{margin:.35rem 0}
+.brief-box{border:1.5px solid var(--hi);border-radius:var(--r);padding:1rem 1.1rem;margin:1.2rem 0;background:var(--panel)}
+.brief-box h4{font-family:var(--f-display);font-stretch:90%;font-size:1.02rem;margin:0 0 .4rem}
+.brief-box label{display:block;font-weight:600;font-size:.9rem;margin:.7rem 0 .25rem}
+input[type=range]{width:100%;accent-color:var(--accent)}
+select{font:inherit;font-size:.95rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--rule);border-radius:4px;padding:.3rem .45rem;max-width:100%}
+.kpi{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin:.6rem 0}
+.kpi div{display:flex;flex-direction:column}
+.kpi b{font-family:var(--f-mono);font-size:1.25rem;font-variant-numeric:tabular-nums}
+.kpi span{font-size:.8rem;color:var(--muted)}
+.prompt{font-family:var(--f-mono);font-size:.85rem;white-space:pre-wrap;background:var(--soft);padding:.7rem .8rem;border-radius:var(--r)}
+.chart .legend svg{display:inline-block;width:auto;height:auto;overflow:visible;flex:none}
+.sessions{display:grid;gap:.8rem;margin-top:1rem}
+.scard{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.1rem;text-decoration:none;color:var(--ink)}
+.scard:hover{border-color:var(--accent)}
+.scard strong{font-family:var(--f-display);font-stretch:85%;font-size:1.25rem;line-height:1.2}
+.scard .bar{display:block;height:4px;background:var(--soft);border-radius:2px;overflow:hidden;margin-top:.3rem}
+.scard .bar i{display:block;height:100%;background:var(--ok)}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.8rem;margin-top:1rem}
+.nums>div{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.9rem 1rem;min-width:0}
+.nums b{font-family:var(--f-display);font-stretch:80%;font-weight:800;font-size:1.7rem;color:var(--accent);line-height:1.1}
+.nums span{font-size:.92rem;color:var(--ink2)}
+.outcomes li{margin:.45rem 0}
+a.btn{color:#fff}
+.cert{background:var(--panel);border:2px solid var(--accent);outline:6px solid var(--soft);border-radius:4px;padding:2.4rem 2rem;text-align:center;margin:1rem 0;display:flex;flex-direction:column;gap:.6rem;align-items:center}
+.cert-k{font-family:var(--f-mono);letter-spacing:.14em;text-transform:uppercase;font-size:.85rem;color:var(--muted)}
+.cert-n{font-family:var(--f-display);font-weight:800;font-stretch:85%;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1}
+.cert-c{font-family:var(--f-display);font-weight:700;font-stretch:90%;font-size:1.35rem;color:var(--accent)}
+.cert-t{max-width:40rem;color:var(--ink2);margin:.2rem 0}
+.cert-f{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 2rem;font-size:.9rem;margin-top:.8rem}
+.cert-s{font-size:.75rem;color:var(--muted);margin-top:.6rem}
+@media print{ @page{size:A4 landscape;margin:12mm} body{background:#fff;color:#000} .noprint,nav.steps,footer{display:none!important} .cert{border-color:#0072B2;outline:none;box-shadow:none;margin:0} .wrap{padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Session 6 of 6</span></div>
+  <h1 style="margin-top:.6rem">What does the Hormuz closure cost?</h1>
+  <p class="lede">When a crisis breaks, a minister wants a number by the evening. In this session you cost the 2026 closure of the Strait of Hormuz for any country, give a range instead of a falsely precise figure, check an AI assistant's answer against your own, and finish your brief.</p>
+  <div class="meta"><span><b>About 3 hours</b> at your own pace</span><span><b>No software needed</b>; an AI assistant of your choice for one step</span><span><b>Your answers</b> stay in this browser only</span></div>
+</header>
+
+<nav class="steps" aria-label="Steps in this session"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Step 1 · Puzzle · 10 min</span><h2>The Hormuz shock</h2></div>
+  <p>About a fifth of the world's oil normally passes through the Strait of Hormuz. Satellite tracking of ships shows what happened in 2026.</p>
+  <figure class="wide"><div class="chart" id="hzChart"></div><figcaption>Weekly average of daily transits. Source: IMF PortWatch, Daily Chokepoints Data (AIS ship-tracking), downloaded October 2026.</figcaption></figure>
+  <div class="box task"><h4>Your guess</h4>
+    <p>For a typical EU country, what is the yearly cost of the oil and gas price rise that followed, as a share of GDP?</p>
+    <div class="choice" id="q-cost">
+      <label><input type="radio" name="cs" value="a"> Less than 0.5% of GDP</label>
+      <label><input type="radio" name="cs" value="b"> About 1% to 2%</label>
+      <label><input type="radio" name="cs" value="c"> About 3% to 5%</label>
+      <label><input type="radio" name="cs" value="d"> More than 5%</label>
+    </div>
+    <div class="row"><button id="csBtn" disabled>Lock in my guess</button><span class="small" id="csOut"></span></div>
+  </div>
+</section>
+
+<section class="step col" id="lesson" data-title="Lesson">
+  <div class="stephead"><span class="eyebrow">Step 2 · Lesson · 25 min</span><h2>Costing a shock</h2></div>
+  <h3>The first-round cost</h3>
+  <p>When energy prices jump, an importing country pays more for the same oil and gas. That extra bill, as a share of GDP, is the first-round cost:</p>
+  <p class="formula">cost (% of GDP) ≈ net energy imports (% of GDP) × price rise (%) × (1 − demand response)</p>
+  <ul class="tight">
+    <li><strong>Net energy imports</strong>: fuel imports minus fuel exports (oil, gas, coal), as a share of GDP. A net exporter such as Norway <em>gains</em> when prices rise.</li>
+    <li><strong>Price rise</strong>: Brent crude averaged $69 a barrel in 2025. From March to September 2026 it averaged about $100 (+44%), with a peak of $138 on 7 April (+100%).</li>
+    <li><strong>Demand response</strong>: in the short run, people and firms cut their use only a little, perhaps by up to 10%.</li>
+  </ul>
+  <h3>Why a range</h3>
+  <p>Every input is uncertain: how long the closure lasts, how high prices stay, how much demand adjusts. Give a <strong>low case</strong> and a <strong>high case</strong>, and say what each assumes. A single number to two decimals signals precision you do not have.</p>
+  <h3>What the first round leaves out</h3>
+  <p>Second-round effects (higher inflation, central-bank reactions, lost exports to Gulf customers) and physical shortages, which hit Asian importers of Gulf oil hardest. Say so in the brief.</p>
+  <h3>Reading PortWatch</h3>
+  <p>PortWatch counts ships from their automatic identification system (AIS) signals. In a war zone, ships switch their transponders off, so counts understate real traffic: the session 1 question, “who produced this number and how?”, again.</p>
+  <div class="box task"><h4>Check yourself</h4>
+    <p>Germany's net energy imports are 1.67% of GDP. With a 44% price rise and no demand response, what is the first-round cost, % of GDP (two decimals)?</p>
+    <div class="row"><input type="number" step="0.01" id="la-in" aria-label="Cost"><button id="la-btn">Check</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activity" data-title="Activity">
+  <div class="stephead"><span class="eyebrow">Step 3 · Activity · 20 min</span><h2>Beat the AI</h2></div>
+  <div class="box task"><h4>1. Your estimate</h4>
+    <div class="row"><label for="cC">Country</label><select id="cC"></select></div>
+    <p class="small" id="cInfo"></p>
+    <p>Low case: price +44%, demand falls 10%. High case: price +100% (the April peak sustained), no demand response. Compute both, % of GDP, two decimals.</p>
+    <div class="row"><label for="cLo">Low</label><input type="number" step="0.01" id="cLo"><label for="cHi">High</label><input type="number" step="0.01" id="cHi"><button id="cBtn">Check</button></div>
+    <p class="fb" id="cFb"></p>
+  </div>
+  <div class="box task"><h4>2. Ask an AI assistant</h4>
+    <p>Copy this prompt into any AI assistant, changing nothing but the country, and note its answer.</p>
+    <p class="prompt" id="aiPrompt"></p>
+    <div class="row"><button class="ghost" id="aiCopy">Copy the prompt</button><span class="small" id="aiCopied"></span></div>
+    <label class="small" for="aiAns">The AI's estimate (% of GDP, or its range)</label><textarea id="aiAns" rows="2"></textarea>
+  </div>
+  <figure class="wide"><div class="chart" id="costChart"></div><figcaption>Bars: low to high case; dot: low case. Sources: World Bank, World Development Indicators (fuel imports and exports, GDP, 2024); Brent price from the US Energy Information Administration via FRED.</figcaption></figure>
+</section>
+
+<section class="step col" id="feedback" data-title="Feedback">
+  <div class="stephead"><span class="eyebrow">Step 4 · Feedback · 10 min</span><h2>Who was closer?</h2></div>
+  <p class="headline-claim" id="fbGuess"></p>
+  <p>For a typical EU country, with net energy imports of about 2% of GDP, the first-round cost lies between about 0.8% (low case) and 2% of GDP (high case) a year. South Korea, Thailand and Malta are among the most exposed; Norway and Saudi Arabia are net exporters. Saudi Arabia's gain is theoretical while its tankers cannot leave the Gulf: pipelines to the Red Sea and, for the United Arab Emirates, to the Gulf of Oman carry only part of its exports.</p>
+  <div class="box task"><h4>Audit the AI's answer</h4>
+    <div class="choice" id="aiAudit">
+      <label><input type="checkbox" value="1"> It gave a range rather than one number</label>
+      <label><input type="checkbox" value="2"> It said which price rise it assumed, and the figure is close to the real one</label>
+      <label><input type="checkbox" value="3"> Its energy-import figure for the country is close to the World Bank's</label>
+      <label><input type="checkbox" value="4"> It named its sources, and the sources exist</label>
+      <label><input type="checkbox" value="5"> It said what its estimate leaves out</label>
+    </div>
+    <p class="small" id="aiScore"></p>
+    <p>AI assistants are fluent and fast, and useful for a first structure. They often state numbers without sources, use outdated prices, or invent references. Treat them as a junior colleague whose every number you check, never as an oracle.</p>
+  </div>
+</section>
+
+<section class="step col" id="brief" data-title="Finish the brief">
+  <div class="stephead"><span class="eyebrow">Step 5 · Finish your brief · 50 min</span><h2>Two pages for a minister</h2></div>
+  <p id="briefWho" class="small"></p>
+  <p>Every brief, whatever the question, contains the same six elements. Your earlier drafts are loaded below; edit them here.</p>
+  <div class="brief-box">
+    <label for="b1">1. Headline: the answer and the recommendation, in three lines</label><textarea id="b1" data-brief="headline" rows="3"></textarea>
+    <label for="b2">2. One to three honest charts (titles, units, sources)</label><textarea id="b2" data-brief="chart1" rows="3"></textarea>
+    <label for="b3">3. One estimate stated in words</label><textarea id="b3" data-brief="estimate" rows="3"></textarea>
+    <label for="b4">4. A range: low and high case, and what each assumes</label><textarea id="b4" data-brief="range" rows="3"></textarea>
+    <label for="b5">5. What could make the answer wrong</label><textarea id="b5" data-brief="limits" rows="3"></textarea>
+    <label for="b6">6. Sources</label><textarea id="b6" data-brief="source" rows="3"></textarea>
+  </div>
+  <p class="small">Notes from earlier sessions (regression, difference-in-differences, data) are collected on the <a href="index.html#brief">course home page</a>, where you can copy the whole brief into a document.</p>
+  <h3>A worked example: question A for Spain</h3>
+  <p>The brief charts Spain's defence spending since 2000 in % of GDP and in real terms (session 1). It locates Spain on the regression line of spending against distance from Moscow (session 4). It checks Eurobarometer results on support for higher defence spending against their margin of error (session 2). It costs the path to 3.5% of GDP with a low and a high case (this session). A headline might read: <em>“Spain spends more than its distance from Russia predicts but less than NATO's new target; reaching 3.5% would cost between X and Y billion euros a year.”</em></p>
+  <details class="box"><summary><b>Grading grid</b> (to assess your own brief)</summary>
+    <div class="tscroll"><table aria-label="Grading grid">
+      <tr><th>Criterion</th><th class="num">Weight</th><th>Excellent</th><th>Insufficient</th></tr>
+      <tr><td>Question</td><td class="num">15%</td><td style="text-align:left">Made precise for your country, relevant to a decision-maker</td><td style="text-align:left">Vague, or not answered</td></tr>
+      <tr><td>Source</td><td class="num">15%</td><td style="text-align:left">Chosen for a reason; reliability, coverage and bias discussed</td><td style="text-align:left">Taken as given</td></tr>
+      <tr><td>Chart</td><td class="num">15%</td><td style="text-align:left">Honest scale and units, readable in 10 seconds, sourced</td><td style="text-align:left">Misleading or decorative</td></tr>
+      <tr><td>Estimate</td><td class="num">20%</td><td style="text-align:left">Method fits the question; result in words with a range</td><td style="text-align:left">Numbers without interpretation</td></tr>
+      <tr><td>What could make us wrong</td><td class="num">15%</td><td style="text-align:left">Names the key assumption and how its failure would change the conclusion</td><td style="text-align:left">Missing or generic</td></tr>
+      <tr><td>Recommendation and presentation</td><td class="num">20%</td><td style="text-align:left">Follows from the evidence; key message in the first lines; answers questions with numbers</td><td style="text-align:left">Disconnected from the analysis</td></tr>
+    </table></div>
+  </details>
+</section>
+
+<section class="step col" id="present" data-title="Present">
+  <div class="stephead"><span class="eyebrow">Step 6 · Present · 20 min</span><h2>Three minutes, then two questions</h2></div>
+  <p>Record yourself presenting the brief in three minutes, with one chart on screen. Start with the answer, not the method. Then answer, in one minute each, the two questions a minister is most likely to ask:</p>
+  <ul class="tight"><li>“How sure are you?” Answer with your range and its assumptions.</li><li>“What would change your mind?” Answer with the main limitation.</li></ul>
+  <label class="checkline"><input type="checkbox" id="presDone"> I have recorded and watched my presentation</label>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Step 7 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session5.html">← Session 5: German cars in Kyrgyzstan</a><a href="certificate.html">Your certificate →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Readings and references</h3>
+  <ul class="refs">
+    <li>US Energy Information Administration (2026), <a href="https://www.eia.gov/outlooks/steo/report/energysecurity/article.php" target="_blank" rel="noopener">Global Energy Security Data</a>, on oil flows through the Strait of Hormuz.</li>
+    <li>IMF PortWatch, <a href="https://portwatch.imf.org" target="_blank" rel="noopener">chokepoint monitoring</a>: browse the Strait of Hormuz page.</li>
+    <li>Roberts, A. and Lamp, N. (2021), <a href="https://www.hup.harvard.edu/file/feeds/PDF/9780674269811_sample.pdf" target="_blank" rel="noopener">Six Faces of Globalization</a>, free sample chapter.</li>
+  </ul>
+  <h3>Data</h3>
+  <ul class="refs">
+    <li>IMF PortWatch, Daily Chokepoints Data (Strait of Hormuz), 1 January 2025 to 4 October 2026.</li>
+    <li>Brent crude oil, daily (DCOILBRENTEU), US Energy Information Administration via <a href="https://fred.stlouisfed.org/series/DCOILBRENTEU" target="_blank" rel="noopener">FRED</a>.</li>
+    <li>Fuel imports and exports (% of merchandise trade), merchandise trade and GDP, 2024: World Bank, <a href="https://databank.worldbank.org/source/world-development-indicators" target="_blank" rel="noopener">World Development Indicators</a>. Fuel = SITC section 3 (oil, gas, coal, electricity).</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Clear my answers for this session</button></p>
+</footer>
+
+</div>
+<script>
+window.SESSION=6;
+const DATA = {"hormuz": [["2024-12-30", 68], ["2025-01-06", 69.3], ["2025-01-13", 70.4], ["2025-01-20", 71.4], ["2025-01-27", 69.7], ["2025-02-03", 69.7], ["2025-02-10", 85.4], ["2025-02-17", 80.7], ["2025-02-24", 60.6], ["2025-03-03", 81.9], ["2025-03-10", 87], ["2025-03-17", 86.9], ["2025-03-24", 83], ["2025-03-31", 111.6], ["2025-04-07", 102.6], ["2025-04-14", 84.9], ["2025-04-21", 109.4], ["2025-04-28", 97.9], ["2025-05-05", 97.9], ["2025-05-12", 107], ["2025-05-19", 111], ["2025-05-26", 101.1], ["2025-06-02", 95.3], ["2025-06-09", 109.1], ["2025-06-16", 103.4], ["2025-06-23", 102.9], ["2025-06-30", 89.1], ["2025-07-07", 90.7], ["2025-07-14", 104.4], ["2025-07-21", 92.7], ["2025-07-28", 94.9], ["2025-08-04", 80.4], ["2025-08-11", 105], ["2025-08-18", 96.1], ["2025-08-25", 100.1], ["2025-09-01", 95.4], ["2025-09-08", 75], ["2025-09-15", 87.3], ["2025-09-22", 86.4], ["2025-09-29", 111.3], ["2025-10-06", 70.6], ["2025-10-13", 73.7], ["2025-10-20", 102], ["2025-10-27", 90.3], ["2025-11-03", 75.3], ["2025-11-10", 79.9], ["2025-11-17", 60.6], ["2025-11-24", 53.9], ["2025-12-01", 56.6], ["2025-12-08", 54.1], ["2025-12-15", 48.6], ["2025-12-22", 60], ["2025-12-29", 58.6], ["2026-01-05", 64.4], ["2026-01-12", 53.3], ["2026-01-19", 56.3], ["2026-01-26", 60], ["2026-02-02", 60.7], ["2026-02-09", 76.4], ["2026-02-16", 94.3], ["2026-02-23", 77.6], ["2026-03-02", 2.6], ["2026-03-09", 2.1], ["2026-03-16", 1.4], ["2026-03-23", 3.6], ["2026-03-30", 5.3], ["2026-04-06", 5.9], ["2026-04-13", 7.4], ["2026-04-20", 4], ["2026-04-27", 12.3], ["2026-05-04", 1.4], ["2026-05-11", 5.4], ["2026-05-18", 4.9], ["2026-05-25", 3], ["2026-06-01", 4.4], ["2026-06-08", 2.4], ["2026-06-15", 12.1], ["2026-06-22", 30.4], ["2026-06-29", 23.1], ["2026-07-06", 14], ["2026-07-13", 6.3], ["2026-07-20", 3.6], ["2026-07-27", 5.3], ["2026-08-03", 5.6], ["2026-08-10", 4.4], ["2026-08-17", 5], ["2026-08-24", 4.3], ["2026-08-31", 3.1], ["2026-09-07", 5.3], ["2026-09-14", 3.1], ["2026-09-21", 3.1], ["2026-09-28", 2.7]], "tankers": [["2024-12-30", 38.6], ["2025-01-06", 38.6], ["2025-01-13", 38.6], ["2025-01-20", 42.3], ["2025-01-27", 39.6], ["2025-02-03", 38], ["2025-02-10", 48.7], ["2025-02-17", 43.6], ["2025-02-24", 34.6], ["2025-03-03", 51.6], ["2025-03-10", 47.1], ["2025-03-17", 49.1], ["2025-03-24", 47.6], ["2025-03-31", 61.7], ["2025-04-07", 57.7], ["2025-04-14", 48], ["2025-04-21", 62.9], ["2025-04-28", 56], ["2025-05-05", 55.1], ["2025-05-12", 60.7], ["2025-05-19", 60.7], ["2025-05-26", 55.3], ["2025-06-02", 55.3], ["2025-06-09", 60.6], ["2025-06-16", 58.3], ["2025-06-23", 58.6], ["2025-06-30", 51.4], ["2025-07-07", 52.1], ["2025-07-14", 58.3], ["2025-07-21", 52.6], ["2025-07-28", 54.9], ["2025-08-04", 43.9], ["2025-08-11", 60.4], ["2025-08-18", 54.3], ["2025-08-25", 54.6], ["2025-09-01", 55.1], ["2025-09-08", 41.4], ["2025-09-15", 50.1], ["2025-09-22", 48.9], ["2025-09-29", 64.9], ["2025-10-06", 35.6], ["2025-10-13", 40.1], ["2025-10-20", 58.1], ["2025-10-27", 50.1], ["2025-11-03", 43.6], ["2025-11-10", 44.4], ["2025-11-17", 34.9], ["2025-11-24", 30], ["2025-12-01", 32.3], ["2025-12-08", 31.1], ["2025-12-15", 25.7], ["2025-12-22", 30.3], ["2025-12-29", 31.3], ["2026-01-05", 34.3], ["2026-01-12", 28.7], ["2026-01-19", 30.7], ["2026-01-26", 30.9], ["2026-02-02", 33.7], ["2026-02-09", 43.1], ["2026-02-16", 52.7], ["2026-02-23", 42.3], ["2026-03-02", 0.6], ["2026-03-09", 0.6], ["2026-03-16", 0.4], ["2026-03-23", 1.1], ["2026-03-30", 2.1], ["2026-04-06", 1.9], ["2026-04-13", 4], ["2026-04-20", 1.7], ["2026-04-27", 5.6], ["2026-05-04", 0.4], ["2026-05-11", 2], ["2026-05-18", 1.9], ["2026-05-25", 0.4], ["2026-06-01", 1.1], ["2026-06-08", 0.9], ["2026-06-15", 4.4], ["2026-06-22", 14], ["2026-06-29", 13.3], ["2026-07-06", 6.4], ["2026-07-13", 2.3], ["2026-07-20", 0.9], ["2026-07-27", 1.4], ["2026-08-03", 1.9], ["2026-08-10", 1.6], ["2026-08-17", 2.4], ["2026-08-24", 1.9], ["2026-08-31", 0.9], ["2026-09-07", 1.4], ["2026-09-14", 0.6], ["2026-09-21", 1.3], ["2026-09-28", 0.9]], "brent": [["2025-01", 79.3], ["2025-02", 75.4], ["2025-03", 72.7], ["2025-04", 68.1], ["2025-05", 64.5], ["2025-06", 71.4], ["2025-07", 71.0], ["2025-08", 67.9], ["2025-09", 68.0], ["2025-10", 64.5], ["2025-11", 63.8], ["2025-12", 62.5], ["2026-01", 66.6], ["2026-02", 70.9], ["2026-03", 103.1], ["2026-04", 117.3], ["2026-05", 107.1], ["2026-06", 85.4], ["2026-07", 83.8], ["2026-08", 91.1], ["2026-09", 114.1]], "fuel": [{"iso": "AUT", "n": "Austria", "year": 2024, "imp_pct": 2.95, "net_pct": 1.84}, {"iso": "BEL", "n": "Belgium", "year": 2024, "imp_pct": 12.55, "net_pct": 2.96}, {"iso": "BGR", "n": "Bulgaria", "year": 2024, "imp_pct": 5.95, "net_pct": 2.67}, {"iso": "HRV", "n": "Croatia", "year": 2024, "imp_pct": 7.85, "net_pct": 4.19}, {"iso": "CYP", "n": "Cyprus", "year": 2024, "imp_pct": 8.05, "net_pct": 0.84}, {"iso": "CZE", "n": "Czechia", "year": 2024, "imp_pct": 3.66, "net_pct": 2.41}, {"iso": "DNK", "n": "Denmark", "year": 2024, "imp_pct": 1.99, "net_pct": 0.8}, {"iso": "EST", "n": "Estonia", "year": 2024, "imp_pct": 4.66, "net_pct": 1.27}, {"iso": "FIN", "n": "Finland", "year": 2024, "imp_pct": 3.66, "net_pct": 1.69}, {"iso": "FRA", "n": "France", "year": 2024, "imp_pct": 3.01, "net_pct": 2.12}, {"iso": "DEU", "n": "Germany", "year": 2024, "imp_pct": 2.41, "net_pct": 1.67}, {"iso": "GRC", "n": "Greece", "year": 2024, "imp_pct": 9.47, "net_pct": 3.09}, {"iso": "HUN", "n": "Hungary", "year": 2024, "imp_pct": 6.04, "net_pct": 3.65}, {"iso": "IRL", "n": "Ireland", "year": 2024, "imp_pct": 1.48, "net_pct": 1.34}, {"iso": "ITA", "n": "Italy", "year": 2024, "imp_pct": 3.3, "net_pct": 2.44}, {"iso": "LVA", "n": "Latvia", "year": 2024, "imp_pct": 5.95, "net_pct": 2.66}, {"iso": "LTU", "n": "Lithuania", "year": 2024, "imp_pct": 9.41, "net_pct": 2.86}, {"iso": "LUX", "n": "Luxembourg", "year": 2024, "imp_pct": 2.09, "net_pct": 2.06}, {"iso": "MLT", "n": "Malta", "year": 2024, "imp_pct": 8.02, "net_pct": 6.5}, {"iso": "NLD", "n": "Netherlands", "year": 2024, "imp_pct": 11.06, "net_pct": 1.45}, {"iso": "POL", "n": "Poland", "year": 2024, "imp_pct": 3.16, "net_pct": 2.08}, {"iso": "PRT", "n": "Portugal", "year": 2024, "imp_pct": 3.98, "net_pct": 2.09}, {"iso": "ROU", "n": "Romania", "year": 2024, "imp_pct": 2.93, "net_pct": 1.65}, {"iso": "SVK", "n": "Slovakia", "year": 2024, "imp_pct": 6.57, "net_pct": 3.31}, {"iso": "SVN", "n": "Slovenia", "year": 2024, "imp_pct": 7.96, "net_pct": 2.92}, {"iso": "ESP", "n": "Spain", "year": 2024, "imp_pct": 3.72, "net_pct": 2.28}, {"iso": "SWE", "n": "Sweden", "year": 2024, "imp_pct": 3.24, "net_pct": 0.94}, {"iso": "GBR", "n": "United Kingdom", "year": 2024, "imp_pct": 2.24, "net_pct": 1.03}, {"iso": "NOR", "n": "Norway", "year": 2024, "imp_pct": 1.32, "net_pct": -20.66}, {"iso": "CHE", "n": "Switzerland", "year": 2024, "imp_pct": 1.22, "net_pct": 0.67}, {"iso": "JPN", "n": "Japan", "year": 2024, "imp_pct": 4.03, "net_pct": 3.79}, {"iso": "KOR", "n": "South Korea", "year": 2024, "imp_pct": 8.64, "net_pct": 5.84}, {"iso": "IND", "n": "India", "year": 2024, "imp_pct": 6.02, "net_pct": 4.01}, {"iso": "CHN", "n": "China", "year": 2024, "imp_pct": 2.82, "net_pct": 2.53}, {"iso": "USA", "n": "United States", "year": 2024, "imp_pct": 0.86, "net_pct": -0.43}, {"iso": "SAU", "n": "Saudi Arabia", "year": 2024, "imp_pct": 1.05, "net_pct": -18.29}, {"iso": "EGY", "n": "Egypt", "year": 2024, "imp_pct": 3.97, "net_pct": 2.62}, {"iso": "PAK", "n": "Pakistan", "year": 2024, "imp_pct": 5.04, "net_pct": 4.89}, {"iso": "THA", "n": "Thailand", "year": 2024, "imp_pct": 9.75, "net_pct": 7.81}], "brent2025": 69.1, "brentShock": 99.8, "brentPeak": 138.2};
+/* ===== shared helpers for every session page ===== */
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const NS = "http://www.w3.org/2000/svg";
+const PFX = "qm" + (window.SESSION || 0) + ":";
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(PFX+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(PFX+k, JSON.stringify(v)); } catch(e){} }
+};
+/* the brief is shared across sessions */
+const brief = {
+  get(k, d=""){ try { const v = localStorage.getItem("qmbrief:"+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem("qmbrief:"+k, JSON.stringify(v)); } catch(e){} }
+};
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const sgn = (v, d=1) => (v>0?"+":v<0?"−":"") + Math.abs(v).toFixed(d);
+const num = (v, d=1) => (v<0?"−":"") + Math.abs(v).toFixed(d);
+
+/* ---------- step nav & progress ---------- */
+const steps = $$("section.step");
+const done = new Set(store.get("done", []));
+function markDone(id){ if (done.has(id)) return; done.add(id); store.set("done", [...done]); renderNav(); }
+function renderNav(){
+  const nav = $("#stepnav"); if (!nav) return;
+  nav.innerHTML = steps.map((s,i)=>`<li class="${done.has(s.id)?"done":""}"><a href="#${s.id}"><span class="dot" aria-hidden="true"></span>${i+1}. ${s.dataset.title}<span class="vh">${done.has(s.id)?" (done)":""}</span></a></li>`).join("");
+}
+renderNav();
+/* reading-only steps get a button to mark them as read */
+$$("section.step[data-read]").forEach(s=>{ const r=document.createElement("div"); r.className="row";
+  r.innerHTML=`<button class="ghost" type="button">Mark as read</button>`; s.appendChild(r);
+  const b=r.querySelector("button"); const sync=()=>{ if (done.has(s.id)){ b.textContent="Read ✓"; b.disabled=true; } };
+  b.addEventListener("click",()=>{ markDone(s.id); sync(); }); sync(); });
+
+/* ---------- answer checking ---------- */
+function feedback(elm, ok, msg){ elm.className = "fb " + (ok ? "ok" : "no"); elm.textContent = msg; }
+function readNums(ids){ return ids.map(id => parseFloat(String($("#"+id).value).replace(",", "."))); }
+
+/* ---------- radio-choice lock-in ---------- */
+function lockChoice({group, button, key, onReveal}){
+  const inputs = $$(`#${group} input`);
+  inputs.forEach(i=>i.addEventListener("change",()=>{ if (!store.get(key,null)) $("#"+button).disabled=false; }));
+  const apply = v => { inputs.forEach(i=>{ i.checked = i.value===v; i.disabled = true; }); $("#"+button).disabled = true; onReveal(v); };
+  $("#"+button).addEventListener("click",()=>{ const v = $(`#${group} input:checked`)?.value; if (!v) return; store.set(key, v); apply(v); });
+  const prev = store.get(key, null); if (prev) apply(prev);
+}
+
+/* ---------- segmented controls ---------- */
+function seg(id, cb){ $$(`#${id} button`).forEach(b=>b.addEventListener("click",()=>{ $$(`#${id} button`).forEach(x=>x.setAttribute("aria-pressed", x===b)); cb(b.dataset.v); })); }
+
+/* ---------- SVG charts ---------- */
+function el(tag, attrs={}, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function txt(parent, x, y, s, attrs={}){ const t = el("text", {x, y, ...attrs}, parent); t.textContent = s; return t; }
+function niceTicks(min, max, n=5){
+  if (max === min){ max = min + 1; }
+  const span = max-min, step0 = span/n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const err = step0/mag, step = (err>=7.5?10:err>=3.5?5:err>=1.5?2:1)*mag;
+  const t=[]; for (let v=Math.ceil(min/step-1e-9)*step; v<=max+1e-9; v+=step) t.push(+v.toFixed(10)); return {ticks:t, step};
+}
+function shape(g, kind, x, y, r, fill, ring){
+  const sw = ring ? 1.5 : 0, st = ring ? css("--panel") : "none";
+  if (kind==="tri") return el("path",{d:`M${x},${y-r*1.2} L${x+r*1.1},${y+r*0.8} L${x-r*1.1},${y+r*0.8} Z`,fill,stroke:st,"stroke-width":sw},g);
+  if (kind==="sq") return el("rect",{x:x-r*0.9,y:y-r*0.9,width:r*1.8,height:r*1.8,fill,stroke:st,"stroke-width":sw},g);
+  if (kind==="dia") return el("path",{d:`M${x},${y-r*1.25} L${x+r*1.1},${y} L${x},${y+r*1.25} L${x-r*1.1},${y} Z`,fill,stroke:st,"stroke-width":sw},g);
+  return el("circle",{cx:x,cy:y,r,fill,stroke:st,"stroke-width":sw},g);
+}
+function frame(container, {title, sub, H=320, m={t:14,r:20,b:34,l:52}}){
+  container.innerHTML = "";
+  const W = Math.round(Math.max(300, Math.min(900, container.clientWidth - 14)));
+  if (W < 480) H = Math.round(H*0.85);
+  if (title){ const t=document.createElement("div"); t.className="ct"; t.textContent=title; container.appendChild(t); }
+  if (sub){ const s=document.createElement("div"); s.className="cs"; s.textContent=sub; container.appendChild(s); }
+  const svg = el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":title||"chart"}); container.appendChild(svg);
+  const tip = document.createElement("div"); tip.className="tip"; tip.hidden=true; container.appendChild(tip);
+  return {svg, tip, W, H, m, iw:W-m.l-m.r, ih:H-m.t-m.b, narrow: W < 480};
+}
+function axes(f, xs, ys, {xfmt=v=>v, yfmt=v=>v, xticks=[], yticks=[], xlab, ylab}){
+  const g = el("g",{},f.svg);
+  for (const v of yticks){ const y=ys(v); el("line",{x1:f.m.l,x2:f.W-f.m.r,y1:y,y2:y,stroke:css("--rule"),"stroke-width":v===0?1.4:1},g); txt(g, f.m.l-8, y+4, yfmt(v), {"text-anchor":"end"}); }
+  for (const v of xticks){ txt(g, xs(v), f.H-f.m.b+18, xfmt(v), {"text-anchor":"middle"}); }
+  if (xlab) txt(g, f.m.l+f.iw/2, f.H-6, xlab, {"text-anchor":"middle"});
+  if (ylab) txt(g, f.m.l, f.m.t-4, ylab, {"text-anchor":"start"});
+  return g;
+}
+function showTip(f, x, y, html){ f.tip.innerHTML=html; f.tip.hidden=false;
+  const r=f.svg.getBoundingClientRect(), c=f.svg.parentNode.getBoundingClientRect();
+  const px = r.left - c.left + x*r.width/f.W, py = r.top - c.top + y*r.height/f.H;
+  f.tip.style.left = Math.min(Math.max(px, 80), c.width-80)+"px"; f.tip.style.top = py+"px"; }
+function hideTip(f){ f.tip.hidden=true; }
+function hover(f, node, x, y, html){ node.addEventListener("pointerenter",()=>showTip(f,x,y,html)); node.addEventListener("pointerleave",()=>hideTip(f)); }
+function legend(container, items){ const lg=document.createElement("div"); lg.className="legend";
+  lg.innerHTML = items.map(it=>{ const k=it.kind||"circ", c=it.color;
+    const sw = k==="line" ? `<svg width="18" height="12"><path d="M0,6 H18" stroke="${c}" stroke-width="2" ${it.dash?`stroke-dasharray="${it.dash}"`:""}/></svg>`
+      : k==="tri" ? `<svg width="12" height="12"><path d="M6,0 L12,11 L0,11Z" fill="${c}"/></svg>`
+      : k==="sq" ? `<svg width="12" height="12"><rect x="1" y="1" width="10" height="10" fill="${c}"/></svg>`
+      : k==="dia" ? `<svg width="12" height="12"><path d="M6,0 L12,6 L6,12 L0,6Z" fill="${c}"/></svg>`
+      : `<svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${c}"/></svg>`;
+    return `<span>${sw}${it.label}</span>`; }).join("");
+  container.appendChild(lg); }
+
+/* line chart: series [{name,color,shape,dash,pts:[[x,y]]}] ; x numeric or index with xlabels */
+function lineChart(container, {title, sub, series, yfmt=v=>v, xfmt=v=>v, ylab, zero=true, labelEnds=true, tipfmt, H=300, ymin:yminF, ymax:ymaxF, refY, refLabel, xticks:xtF, vline, vlabel}){
+  const f = frame(container,{title,sub,H,m:{t:22,r:labelEnds?96:20,b:30,l:52}});
+  const all = series.flatMap(s=>s.pts);
+  const xmin=Math.min(...all.map(p=>p[0])), xmax=Math.max(...all.map(p=>p[0]));
+  let ymin = yminF ?? (zero?Math.min(0,...all.map(p=>p[1])):Math.min(...all.map(p=>p[1]))), ymax = ymaxF ?? Math.max(...all.map(p=>p[1]));
+  if (refY!==undefined){ ymin=Math.min(ymin,refY); ymax=Math.max(ymax,refY); }
+  const yt = niceTicks(ymin, ymax, 4); ymax = Math.max(ymax, yt.ticks[yt.ticks.length-1]); ymin = Math.min(ymin, yt.ticks[0]);
+  const xs = v => f.m.l + (v-xmin)/(xmax-xmin||1)*f.iw, ys = v => f.m.t + f.ih - (v-ymin)/(ymax-ymin)*f.ih;
+  const xt = xtF || niceTicks(xmin,xmax,f.narrow?4:6).ticks.filter(v=>v>=xmin&&v<=xmax);
+  axes(f, xs, ys, {xticks:xt, yticks:yt.ticks, yfmt, xfmt, ylab});
+  if (refY!==undefined){ el("line",{x1:f.m.l,x2:f.m.l+f.iw,y1:ys(refY),y2:ys(refY),stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, f.m.l+4, ys(refY)-6, refLabel, {class:"lab"}); }
+  if (vline!==undefined){ el("line",{x1:xs(vline),x2:xs(vline),y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1.2,"stroke-dasharray":"4 3"},f.svg); if (vlabel) txt(f.svg, xs(vline)+5, f.m.t+12, vlabel, {class:"lab"}); }
+  const g = el("g",{},f.svg);
+  for (const s of series){
+    el("path",{d:s.pts.map((p,i)=>(i?"L":"M")+xs(p[0])+","+ys(p[1])).join(" "),fill:"none",stroke:s.color,"stroke-width":s.width||2,"stroke-linejoin":"round","stroke-dasharray":s.dash||""},g);
+    const last=s.pts[s.pts.length-1];
+    if (s.shape) shape(g, s.shape, xs(last[0]), ys(last[1]), 4.5, s.color, true);
+    if (labelEnds && s.name){ txt(g, xs(last[0])+9, ys(last[1])+4+(s.nudge||0), s.name, {class:"lab"}); }
+  }
+  const xsVals=[...new Set(all.map(p=>p[0]))].sort((a,b)=>a-b);
+  const cross = el("line",{y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1,"stroke-dasharray":"3 3",visibility:"hidden"},f.svg);
+  const hit = el("rect",{x:f.m.l,y:f.m.t,width:f.iw,height:f.ih,fill:"transparent"},f.svg);
+  hit.addEventListener("pointermove", ev => { const r=f.svg.getBoundingClientRect(); const sx=(ev.clientX-r.left)*f.W/r.width;
+    const xv = xmin + (sx-f.m.l)/f.iw*(xmax-xmin); const near = xsVals.reduce((a,b)=>Math.abs(b-xv)<Math.abs(a-xv)?b:a);
+    cross.setAttribute("x1",xs(near)); cross.setAttribute("x2",xs(near)); cross.setAttribute("visibility","visible");
+    const lines = series.map(s=>{const p=s.pts.find(q=>q[0]===near); return p?`${s.name||"Value"}: <b>${tipfmt?tipfmt(p[1]):yfmt(p[1])}</b>`:""}).filter(Boolean);
+    showTip(f, xs(near), f.m.t+10, `<b>${xfmt(near)}</b><br>${lines.join("<br>")}`); });
+  hit.addEventListener("pointerleave", ()=>{cross.setAttribute("visibility","hidden"); hideTip(f);});
+  return {f, xs, ys};
+}
+
+/* scatter: pts [{x,y,label,color,shape,tip}] ; line {a,b} optional */
+function scatter(container, {title, sub, pts, xmin, xmax, ymin, ymax, xticks, yticks, xfmt=v=>v, yfmt=v=>v, xlab, line, lineLabel, labels=true, H=380}){
+  const f = frame(container,{title,sub,H,m:{t:16,r:24,b:44,l:52}});
+  const xs=v=>f.m.l+(v-xmin)/(xmax-xmin)*f.iw, ys=v=>f.m.t+f.ih-(v-ymin)/(ymax-ymin)*f.ih;
+  axes(f,xs,ys,{xticks,yticks,xfmt,yfmt,xlab});
+  if (line){ el("path",{d:`M${xs(xmin)},${ys(line.a+line.b*xmin)} L${xs(xmax)},${ys(line.a+line.b*xmax)}`,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4",fill:"none"},f.svg);
+    if (lineLabel) txt(f.svg, xs(xmin)+6, ys(line.a+line.b*xmin)+(line.b<0?-8:18), lineLabel, {class:"lab"}); }
+  const g=el("g",{},f.svg);
+  for (const p of pts){
+    if (p.res && line) el("line",{x1:xs(p.x),x2:xs(p.x),y1:ys(p.y),y2:ys(line.a+line.b*p.x),stroke:p.color,"stroke-width":1.2,"stroke-dasharray":"2 2"},g);
+    shape(g, p.shape||"circ", xs(p.x), ys(p.y), p.r||5.5, p.color, true);
+    if (labels && p.label){ const right = xs(p.x) > f.m.l + f.iw*0.8; txt(g, xs(p.x)+(right?-9:9), ys(p.y)+4, p.label, {class:"lab","text-anchor":right?"end":"start"}); }
+    const hit=el("circle",{cx:xs(p.x),cy:ys(p.y),r:11,fill:"transparent"},g);
+    if (p.tip) hover(f, hit, xs(p.x), ys(p.y), p.tip);
+  }
+  return {f, xs, ys};
+}
+
+/* horizontal bars: rows [{label, v, color, tip, lo, hi}] */
+function hbar(container, {title, sub, rows, xmin=0, xmax, xfmt=v=>v, ref, refLabel, rowH=26}){
+  const H = 40 + rows.length*rowH + 30;
+  const f = frame(container,{title,sub,H,m:{t:16,r:24,b:30,l:Math.min(150, Math.max(80, 7.2*Math.max(...rows.map(r=>r.label.length))+14))}});
+  const lo = Math.min(xmin, ...rows.map(r=>Math.min(r.v, r.lo??r.v))), hi = xmax ?? Math.max(...rows.map(r=>Math.max(r.v, r.hi??r.v)));
+  const xt = niceTicks(lo, hi, f.narrow?4:6); const x0=xt.ticks[0], x1=Math.max(hi, xt.ticks[xt.ticks.length-1]);
+  const xs = v => f.m.l + (v-x0)/(x1-x0)*f.iw, bh = rowH*0.62;
+  const g = el("g",{},f.svg);
+  for (const v of xt.ticks){ el("line",{x1:xs(v),x2:xs(v),y1:f.m.t,y2:f.m.t+rows.length*rowH,stroke:css("--rule"),"stroke-width":v===0?1.4:1},g); txt(g, xs(v), f.m.t+rows.length*rowH+18, xfmt(v), {"text-anchor":"middle"}); }
+  rows.forEach((r,i)=>{ const y=f.m.t+i*rowH+(rowH-bh)/2; const a=xs(Math.min(0,r.v)), b=xs(Math.max(0,r.v));
+    if (r.lo!==undefined){ el("rect",{x:xs(r.lo),y:y+bh*0.2,width:Math.max(2,xs(r.hi)-xs(r.lo)),height:bh*0.6,fill:r.color,opacity:.35,rx:2},g); shape(g,"circ",xs(r.v),y+bh/2,4.5,r.color,true); }
+    else el("rect",{x:a,y,width:Math.max(1,b-a),height:bh,fill:r.color,rx:2},g);
+    txt(g, f.m.l-8, y+bh/2+4, r.label, {"text-anchor":"end", class: r.bold?"lab":""});
+    const hit=el("rect",{x:f.m.l,y:f.m.t+i*rowH,width:f.iw,height:rowH,fill:"transparent"},g);
+    if (r.tip) hover(f, hit, xs(r.v), y, r.tip); });
+  if (ref!==undefined){ el("line",{x1:xs(ref),x2:xs(ref),y1:f.m.t-6,y2:f.m.t+rows.length*rowH,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, xs(ref)+4, f.m.t-4, refLabel, {class:"lab"}); }
+  return f;
+}
+
+/* vertical bars for a time series (used for honest/dishonest chart lessons) */
+function vbar(container,{title,sub,vals,ymin=0,yfmt=v=>v,color,H=280,source}){
+  const f=frame(container,{title,sub,H,m:{t:16,r:16,b:30,l:52}});
+  const ymax=Math.max(...vals.map(v=>v[1]))*1.08; const yt=niceTicks(ymin,ymax,4);
+  const top=Math.max(ymax, yt.ticks[yt.ticks.length-1]);
+  const ys=v=>f.m.t+f.ih-(v-ymin)/(top-ymin)*f.ih; const bw=f.iw/vals.length;
+  axes(f,i=>i,ys,{yticks:yt.ticks.filter(v=>v>=ymin&&v<=top),yfmt});
+  vals.forEach((v,i)=>{ const x=f.m.l+bw*i+bw*0.18, w=bw*0.64, y=ys(v[1]), h=ys(ymin)-y;
+    el("path",{d:`M${x},${y+h} V${y+3} Q${x},${y} ${x+3},${y} H${x+w-3} Q${x+w},${y} ${x+w},${y+3} V${y+h} Z`,fill:color},f.svg);
+    if (i%2===0||i===vals.length-1) txt(f.svg, x+w/2, f.H-f.m.b+18, v[0], {"text-anchor":"middle"});
+    const hit=el("rect",{x:f.m.l+bw*i,y:f.m.t,width:bw,height:f.ih,fill:"transparent"},f.svg);
+    hover(f, hit, x+w/2, y, `<b>${v[0]}</b>: ${yfmt(v[1])}`); });
+  if (source){ const s=document.createElement("div"); s.className="cs"; s.textContent=source; container.appendChild(s); }
+  return f;
+}
+
+/* tile-grid map of Europe: tiles {iso: value}; layout fixed */
+const TILE = {ISL:[0,0],NOR:[4,0],SWE:[5,0],FIN:[6,0],EST:[7,1],IRL:[1,2],GBR:[2,2],DNK:[4,2],LVA:[7,2],LTU:[7,3],NLD:[3,3],DEU:[4,3],POL:[6,3],BEL:[3,4],LUX:[3,5],CZE:[5,4],SVK:[6,4],FRA:[2,5],CHE:[3,6],AUT:[5,5],HUN:[6,5],ROU:[7,5],PRT:[0,7],ESP:[1,7],ITA:[4,7],SVN:[4,6],HRV:[5,6],MNE:[5,7],ALB:[6,8],MKD:[7,8],BGR:[7,6],GRC:[7,9],MLT:[4,9],CYP:[9,9]};
+function tileMap(container,{title,sub,vals,names,fmt=v=>v,lo,hi,note}){
+  container.innerHTML="";
+  const t=document.createElement("div"); t.className="ct"; t.textContent=title; container.appendChild(t);
+  if (sub){ const s=document.createElement("div"); s.className="cs"; s.textContent=sub; container.appendChild(s); }
+  const W=10, Hh=10, cell=44, svg=el("svg",{viewBox:`0 0 ${W*cell} ${Hh*cell}`,role:"img","aria-label":title}); container.appendChild(svg);
+  const tip=document.createElement("div"); tip.className="tip"; tip.hidden=true; container.appendChild(tip);
+  const f={svg,tip,W:W*cell,H:Hh*cell};
+  const vv=Object.values(vals).filter(v=>v!=null); lo=lo??Math.min(...vv); hi=hi??Math.max(...vv);
+  for (const iso in TILE){ const [cx,cy]=TILE[iso]; const v=vals[iso];
+    const tshare = v==null ? null : (v-lo)/(hi-lo||1);
+    const fill = v==null ? css("--soft") : `color-mix(in oklab, ${css("--accent")} ${Math.round(12+tshare*78)}%, ${css("--panel")})`;
+    const r=el("rect",{x:cx*cell+2,y:cy*cell+2,width:cell-4,height:cell-4,rx:4,fill,stroke:css("--rule")},svg);
+    const dark = tshare!=null && tshare>0.55;
+    const a=el("text",{x:cx*cell+cell/2,y:cy*cell+18,"text-anchor":"middle",style:`font-size:11px;font-weight:600;fill:${dark?"#fff":css("--ink")}`},svg); a.textContent=iso;
+    if (v!=null){ const b=el("text",{x:cx*cell+cell/2,y:cy*cell+33,"text-anchor":"middle",style:`font-size:10px;font-family:var(--f-mono);fill:${dark?"#fff":css("--ink2")}`},svg); b.textContent=fmt(v); }
+    hover(f, r, cx*cell+cell/2, cy*cell+4, `<b>${names?.[iso]||iso}</b>${v!=null?": "+fmt(v):": no data"}`);
+  }
+  if (note){ const s=document.createElement("div"); s.className="cs"; s.textContent=note; container.appendChild(s); }
+}
+
+/* ---------- copy buttons ---------- */
+function wireCopy(){ $$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{ const ta=$("#"+b.dataset.copy), out=$(`[data-copied="${b.dataset.copy}"]`);
+  const fallback=()=>{ ta.focus(); ta.select(); if (out) out.textContent="Selected: press Ctrl+C or Cmd+C."; };
+  try { navigator.clipboard.writeText(ta.value).then(()=>{ if (out) out.textContent="Copied."; },fallback); } catch(e){ fallback(); } })); }
+
+/* ---------- quiz ---------- */
+function quiz(box, scoreEl, QUIZ, stepId){
+  let qa = store.get("quiz",{});
+  const draw = () => {
+    box.innerHTML = QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?"Right. ":"Not quite. "}${q.e}</p>`:""}</div>`).join("");
+    $$("#"+box.id+" input").forEach(i=>i.addEventListener("change",()=>{ qa[+i.name.slice(2)]=+i.value; store.set("quiz",qa); draw(); }));
+    const n=Object.keys(qa).length, s=QUIZ.filter((q,i)=>qa[i]===q.a).length;
+    scoreEl.textContent = n===QUIZ.length ? `Score: ${s} out of ${QUIZ.length}.` : "";
+    if (n===QUIZ.length) markDone(stepId);
+  };
+  draw();
+}
+
+/* ---------- brief text areas (saved across sessions) ---------- */
+function wireBrief(){ $$("[data-brief]").forEach(t=>{ t.value = brief.get(t.dataset.brief, ""); t.addEventListener("input",()=>brief.set(t.dataset.brief, t.value)); }); }
+
+/* ---------- reset ---------- */
+function wireReset(){ const b=$("#resetBtn"); if (!b) return; b.addEventListener("click",()=>{ try{ Object.keys(localStorage).filter(k=>k.startsWith(PFX)).forEach(k=>localStorage.removeItem(k)); }catch(e){} location.reload(); }); }
+
+/* ---------- redraw hooks ---------- */
+function onRedraw(fn){
+  try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", fn); new MutationObserver(fn).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]}); } catch(e){}
+  let rz, lastW=innerWidth; addEventListener("resize",()=>{ if (innerWidth===lastW) return; lastW=innerWidth; clearTimeout(rz); rz=setTimeout(fn,200); });
+}
+
+/* Session 6 */
+const F = [...DATA.fuel].sort((a,b)=>a.n.localeCompare(b.n));
+const LOWP = DATA.brentShock/DATA.brent2025-1, HIGHP = DATA.brentPeak/DATA.brent2025-1;
+const lowC = f => f.net_pct*LOWP*0.9, highC = f => f.net_pct*HIGHP;
+const wk = s => { const d=new Date(s+"T00:00:00Z"); return d.getUTCFullYear()+(d - Date.UTC(d.getUTCFullYear(),0,1))/(365*864e5); };
+
+/* puzzle */
+function drawHZ(){
+  lineChart($("#hzChart"),{title:"Ships crossing the Strait of Hormuz",sub:"Average transits a day, by week",series:[{name:"All ships",color:css("--accent"),shape:"circ",pts:DATA.hormuz.map(([d,v])=>[wk(d),v])},{name:"Tankers",color:css("--verm"),shape:"tri",dash:"5 3",pts:DATA.tankers.map(([d,v])=>[wk(d),v])}],yfmt:v=>v.toFixed(0),xfmt:v=>{ const y=Math.floor(v+1e-6), m=Math.round((v-y)*12); return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][Math.min(11,m)]+" "+y; },xticks:[2025,2025.5,2026,2026.5],vline:2026+2/12,vlabel:"1 March 2026",H:300,labelEnds:false});
+  legend($("#hzChart"),[{label:"All ships",color:css("--accent")},{label:"Tankers",color:css("--verm"),kind:"line",dash:"5 3"}]);
+}
+lockChoice({group:"q-cost", button:"csBtn", key:"guess", onReveal:()=>{ $("#csOut").textContent="Saved. The answer comes in step 4."; markDone("puzzle"); fbGuess(); }});
+
+/* lesson */
+$("#la-btn").addEventListener("click",()=>{ const [v]=readNums(["la-in"]); const t=1.67*0.44;
+  if (Math.abs(v-t)<=0.02){ feedback($("#la-fb"),true,"Right: 1.67 × 0.44 ≈ 0.73% of GDP a year."); markDone("lesson"); }
+  else feedback($("#la-fb"),false,"Multiply 1.67 by 0.44."); });
+
+/* activity */
+$("#cC").innerHTML = F.map(f=>`<option value="${f.iso}">${f.n}</option>`).join("");
+const myF = F.find(f=>f.n.toLowerCase()===(brief.get("country","")||"").trim().toLowerCase());
+$("#cC").value = store.get("country", myF?myF.iso:"DEU");
+function cur(){ return F.find(f=>f.iso===$("#cC").value); }
+function info(){ const f=cur(); $("#cInfo").innerHTML = `${f.n}: net energy imports <b>${f.net_pct.toFixed(2)}% of GDP</b> (${f.year}).${f.net_pct<0?" A net exporter: the formula gives a gain, shown as a negative cost.":""}`;
+  $("#aiPrompt").textContent = `What would the closure of the Strait of Hormuz from March 2026 cost ${f.n}, as a share of GDP per year? Give a low and a high estimate, state the oil price rise you assume, the size of ${f.n}'s net energy imports as a share of GDP, and your sources.`; }
+$("#cC").addEventListener("change",()=>{ store.set("country",$("#cC").value); info(); $("#cFb").textContent=""; });
+$("#cBtn").addEventListener("click",()=>{ const f=cur(); const [lo,hi]=readNums(["cLo","cHi"]); const L=lowC(f), Hh=highC(f);
+  if (isNaN(lo)||isNaN(hi)) return feedback($("#cFb"),false,"Fill in both boxes.");
+  if (Math.abs(lo-L)<=0.03+Math.abs(L)*0.02 && Math.abs(hi-Hh)<=0.03+Math.abs(Hh)*0.02){ feedback($("#cFb"),true,`Right: low ${f.net_pct.toFixed(2)} × ${LOWP.toFixed(2)} × 0.9 = ${L.toFixed(2)}; high ${f.net_pct.toFixed(2)} × ${HIGHP.toFixed(2)} = ${Hh.toFixed(2)}% of GDP.`); store.set("done1",true); markDone("activity"); drawCost(); }
+  else feedback($("#cFb"),false,`Low: net imports × ${LOWP.toFixed(2)} × 0.9. High: net imports × ${HIGHP.toFixed(2)}.`); });
+$("#aiCopy").addEventListener("click",()=>{ const t=$("#aiPrompt").textContent; try { navigator.clipboard.writeText(t).then(()=>$("#aiCopied").textContent="Copied.",()=>$("#aiCopied").textContent="Select the text and copy it."); } catch(e){ $("#aiCopied").textContent="Select the text and copy it."; } });
+const aiA=$("#aiAns"); aiA.value=store.get("ai",""); aiA.addEventListener("input",()=>store.set("ai",aiA.value));
+function drawCost(){
+  if (!store.get("done1",false)){ $("#costChart").innerHTML='<div class="cs" style="padding:2rem 1rem">The chart for all countries appears once you have computed your own.</div>'; return; }
+  const sel=$("#cC").value;
+  const rows=[...F].filter(f=>f.net_pct>0).sort((a,b)=>highC(b)-highC(a)).map(f=>({label:f.n,v:lowC(f),lo:lowC(f),hi:highC(f),bold:f.iso===sel,color:f.iso===sel?css("--verm"):css("--accent"),tip:`<b>${f.n}</b><br>low ${lowC(f).toFixed(2)}% · high ${highC(f).toFixed(2)}% of GDP`}));
+  hbar($("#costChart"),{title:"First-round cost of the 2026 energy price shock",sub:"% of GDP a year, net energy importers; your country highlighted",rows,xmin:0,xfmt:v=>v.toFixed(0)+"%",rowH:20});
+}
+
+/* feedback */
+function fbGuess(){ const g=store.get("guess",null); if (!g) return; $("#fbGuess").textContent = g==="b" ? "Your guess, about 1% to 2% of GDP, was right for a typical EU country." : `Your guess was ${({a:"less than 0.5%",c:"about 3% to 5%",d:"more than 5%"})[g]}. For a typical EU country the answer is about 1% to 2% of GDP.`; }
+const au=store.get("audit",[]); $$("#aiAudit input").forEach(i=>{ i.checked=au.includes(i.value); i.addEventListener("change",()=>{ const v=$$("#aiAudit input:checked").map(x=>x.value); store.set("audit",v); $("#aiScore").textContent=`The AI passed ${v.length} of 5 checks.`; markDone("feedback"); }); });
+if (au.length) $("#aiScore").textContent=`The AI passed ${au.length} of 5 checks.`;
+
+/* brief */
+wireBrief();
+const bc=brief.get("country",""), bqq=brief.get("question","");
+$("#briefWho").textContent = bc||bqq ? `Your brief: ${bc||"country not chosen yet"}, question ${bqq||"not chosen yet"}.` : "You have not chosen a country and question yet (session 2, step 8).";
+$$("[data-brief]").forEach(t=>t.addEventListener("input",()=>{ if ($("#b1").value.length>30 && $("#b3").value.length>20) markDone("brief"); }));
+const pd=$("#presDone"); pd.checked=store.get("pres",false); pd.addEventListener("change",()=>{ store.set("pres",pd.checked); if (pd.checked) markDone("present"); });
+
+/* quiz */
+quiz($("#quizBox"), $("#quizScore"), [
+ {q:"Net energy imports are 3% of GDP and prices rise by 50%. Ignoring demand response, the first-round cost is…",o:["0.15% of GDP","1.5% of GDP","3.5% of GDP"],a:1,e:"3 × 0.5 = 1.5% of GDP."},
+ {q:"Why give a low and a high case?",o:["To look cautious","Because the inputs are uncertain and the reader must see how much","Because ministers prefer two numbers"],a:1,e:"A range shows the uncertainty openly; each case states its assumptions."},
+ {q:"Norway's net energy exports are about 20% of GDP. The price rise…",o:["costs Norway the most","is a gain for Norway","does not affect Norway"],a:1,e:"Net exporters gain from higher prices, if they can ship."},
+ {q:"PortWatch shows almost no ships in the strait. Why might the true number be higher?",o:["Ships switch off transponders in war zones","Satellites cannot see at night","PortWatch counts only tankers"],a:0,e:"AIS-based counts understate traffic when ships go dark."},
+ {q:"An AI assistant gives a precise cost with three references. What do you do first?",o:["Use it: it cites sources","Check that the references exist and that the numbers match the data","Ask another AI"],a:1,e:"Fluent answers can contain invented sources and outdated numbers."}], "quiz");
+
+/* boot */
+drawHZ(); info(); drawCost(); fbGuess();
+wireReset();
+onRedraw(()=>{ drawHZ(); drawCost(); });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Session 4 of 6</span></div>
+  <h1 style="margin-top:.6rem">Why does Poland spend so much, and Spain so little?</h1>
+  <p class="lede">Regression is the workhorse of quantitative analysis in think tanks and international organisations. In this session you fit a line through European defence spending, read it in plain words, add controls, explain the countries that do not fit, and audit a claim about Poland and Germany.</p>
+  <div class="meta"><span><b>About 3 hours</b> at your own pace</span><span><b>No software needed</b> in the browser; optional steps in jamovi</span><span><b>Your answers</b> stay in this browser only</span></div>
+</header>
+
+<nav class="steps" aria-label="Steps in this session"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Step 1 · Puzzle · 10 min</span><h2>The map</h2></div>
+  <p>Military spending as a share of GDP in 2024, for 33 European countries. The countries nearest Russia seem to spend the most.</p>
+  <figure class="wide"><div class="chart" id="shareMap"></div></figure>
+  <div class="box task">
+    <h4>Your guess</h4>
+    <p>For each 1,000 km closer to Moscow, how many more points of GDP does a European country spend on defence, on average?</p>
+    <div class="choice" id="q-slope">
+      <label><input type="radio" name="sl" value="0.1"> About 0.1 point</label>
+      <label><input type="radio" name="sl" value="0.25"> About 0.25 point</label>
+      <label><input type="radio" name="sl" value="0.75"> About 0.75 point</label>
+      <label><input type="radio" name="sl" value="2"> About 2 points</label>
+    </div>
+    <div class="row"><button id="slBtn" disabled>Lock in my guess</button><span class="small" id="slOut"></span></div>
+  </div>
+</section>
+
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Step 2 · Lesson · 25 min</span><h2>Regression</h2></div>
+  <p>A regression line summarises how one variable changes, on average, with another. Its equation has two numbers:</p>
+  <p class="formula">predicted spending = intercept + slope × distance</p>
+  <p>The <strong>slope</strong> is the answer to the puzzle: how much spending changes for each extra 1,000 km. The <strong>intercept</strong> is the predicted value at zero distance, mainly useful to place the line.</p>
+  <h3>Draw the line by eye first</h3>
+  <p>Move the two sliders until the line runs through the cloud. The number below adds up the squared vertical distances from each country to your line. <em>Least squares</em> chooses the line that makes this number as small as possible.</p>
+  <div class="box">
+    <label class="small" for="eyeA">Intercept: <b class="mono" id="eyeAo"></b></label><input type="range" id="eyeA" min="0" max="6" step="0.05" value="2">
+    <label class="small" for="eyeB">Slope per 1,000 km: <b class="mono" id="eyeBo"></b></label><input type="range" id="eyeB" min="-2" max="0.5" step="0.01" value="0">
+    <div class="kpi"><div><b id="eyeSSE">–</b><span>your sum of squared errors</span></div><div><b id="bestSSE">–</b><span>least-squares line</span></div></div>
+    <div class="row"><button class="ghost" id="eyeBest">Show the least-squares line</button></div>
+  </div>
+  <figure class="wide"><div class="chart" id="eyeChart"></div></figure>
+  <h3>Reading it in words</h3>
+  <p>A slope of −0.73 reads: <em>“on average, a European country 1,000 km further from Moscow spends 0.73 points of GDP less on defence.”</em> Three things to add every time: <em>on average</em> (individual countries differ), the units, and the sample. The <strong>R²</strong> says what share of the differences between countries the line accounts for, from 0 to 1.</p>
+  <div class="box task"><h4>Check yourself</h4>
+    <p>With an intercept of 3.37 and a slope of −0.73, what spending does the line predict for a capital 2,000 km from Moscow (% of GDP, two decimals)?</p>
+    <div class="row"><input type="number" step="0.01" id="la-in" aria-label="Predicted spending"><button id="la-btn">Check</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Step 3 · Activity · 20 min</span><h2>Distance and defence</h2></div>
+  <div class="box task"><h4>1. Spain by hand</h4>
+    <p>Madrid is 3,440 km from Moscow and Spain spent 1.43% of GDP in 2024. Using intercept 3.37 and slope −0.733, compute the prediction and the residual (actual − predicted), two decimals.</p>
+    <div class="row"><label for="aa-p">Predicted</label><input type="number" step="0.01" id="aa-p"><label for="aa-r">Residual</label><input type="number" step="0.01" id="aa-r"><button id="aa-btn">Check</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <div class="box task"><h4>2. Any country</h4>
+    <div class="row"><label for="aaC">Country</label><select id="aaC"></select></div>
+    <div class="kpi" id="aaK"></div>
+  </div>
+  <figure class="wide"><div class="chart" id="regChart"></div><figcaption>Each point is a country. Distance: great-circle distance from the capital to Moscow. Sources: SIPRI via World Bank, World Development Indicators (2024).</figcaption></figure>
+  <details class="jam"><summary>Now do it in jamovi (optional, 15 min)</summary>
+    <ol class="tight"><li>Paste the data below.</li>
+      <li><b>Analyses → Regression → Linear Regression</b>: dependent variable <span class="mono">share</span>, covariate <span class="mono">dist_1000km</span>. Read the slope in <b>Model Coefficients</b> and R² in <b>Model Fit</b>.</li>
+      <li>Tick <b>Save → Residuals</b> to add a residual column, then sort it.</li></ol>
+    <textarea readonly id="csvReg" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvReg">Copy data</button><span class="small" data-copied="csvReg"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-read data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Step 4 · Feedback · 10 min</span><h2>Spain is not the puzzle</h2></div>
+  <p class="headline-claim" id="faGuess"></p>
+  <p>The line says each 1,000 km closer to Moscow goes with about 0.73 more points of GDP, and distance alone accounts for 38% of the differences (R² = 0.38). Given its distance, Spain is not a low spender at all: it spends 0.6 points <em>more</em> than the line predicts. The real outliers are elsewhere: Poland and Greece far above the line, Austria, Ireland and Switzerland far below.</p>
+  <div class="box key"><h4>Remember</h4>A residual compares a country with what the line predicts for it, not with the average. “Spends little” and “spends less than expected” are different findings.</div>
+</section>
+
+<section class="step col" id="lessonB" data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Step 5 · Lesson · 25 min</span><h2>Controls, outliers and causes</h2></div>
+  <h3>Why a coefficient moves</h3>
+  <p>Distance from Moscow is correlated with other things. Countries near Russia are poorer on average, and poorer countries tend to spend a larger share of GDP. Part of what looked like a distance effect may be an income effect. Adding GDP per capita as a <strong>control</strong> asks: among countries with the same income, how does spending change with distance?</p>
+  <p class="formula">spending = a + b₁ × distance + b₂ × GDP per capita + b₃ × NATO member</p>
+  <p>If the distance coefficient shrinks when you add a control, part of the simple relationship came from that control.</p>
+  <h3>What an outlier tells you</h3>
+  <p>A country far from the line is information. Ask what it has that the model leaves out: a rival other than Russia, a policy of neutrality, a history of occupation, a commitment to NATO's 2% guideline. Often the best next variable comes from explaining the outliers.</p>
+  <h3>Correlation is not causation</h3>
+  <p>Even with controls, a regression on 33 countries shows association. Sort these claims of the kind you will read:</p>
+  <div class="box" id="claims"></div>
+</section>
+
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Step 6 · Activity · 20 min</span><h2>The outlier hunt</h2></div>
+  <div class="box task"><h4>1. Explain the six biggest outliers</h4>
+    <p>For each country far from the distance-only line, choose the most likely explanation.</p>
+    <div id="outliers"></div>
+    <div class="row"><button id="olBtn">Check my explanations</button></div>
+    <p class="fb" id="olFb"></p>
+  </div>
+  <div class="box task"><h4>2. Add controls and watch the slope</h4>
+    <div class="row"><label><input type="checkbox" id="cG"> GDP per capita</label><label><input type="checkbox" id="cN"> NATO membership</label></div>
+    <div class="tscroll"><table id="coefTable" aria-label="Regression coefficients"></table></div>
+  </div>
+  <figure class="wide"><div class="chart" id="resChart"></div><figcaption>Residuals from the selected model: spending above (+) or below (−) what the model predicts, points of GDP.</figcaption></figure>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Step 7 · Feedback · 10 min</span><h2>Neutrality was the missing variable</h2></div>
+  <p>Adding GDP per capita shrinks the distance coefficient from −0.73 to −0.65 and raises R² from 0.38 to 0.55: richer countries spend a slightly smaller share. Adding NATO membership shrinks it again, to −0.56, and R² reaches 0.65. Being in NATO goes with about 0.8 more points of GDP. Austria, Ireland, Switzerland, Malta and Cyprus, all outside NATO, were dragging the line.</p>
+  <p>Poland and Greece remain far above the line even with controls. Greece's spending reflects its rivalry with Turkey, a NATO ally; Poland's reflects its frontline position and its history. Neither fits a model built on distance from Moscow alone, and that is a finding, not a failure.</p>
+</section>
+
+<section class="step col" id="audit" data-title="Claim audit">
+  <div class="stephead"><span class="eyebrow">Step 8 · Claim audit · 45 min · without AI</span><h2>“Poland now spends more on defence than Germany”</h2></div>
+  <p>Claims of this kind are common in debates on European rearmament. Audit it as you would a claim handed to you by a minister's office. Work without an AI assistant; your notes are saved in this browser only.</p>
+  <div class="box task">
+    <label class="small" for="au1"><b>1. Source:</b> where would the number come from, and can it be trusted?</label><textarea id="au1" rows="3"></textarea>
+    <label class="small" for="au2"><b>2. Comparison:</b> money or share of GDP? Which year? Which definition?</label><textarea id="au2" rows="3"></textarea>
+    <label class="small" for="au3"><b>3. Cause or correlation:</b> is any causal claim made or implied?</label><textarea id="au3" rows="3"></textarea>
+    <label class="small" for="au4"><b>4. Verdict:</b> holds, misleading or wrong, in one sentence.</label><textarea id="au4" rows="2"></textarea>
+    <div class="row"><button class="ghost" id="auBtn">Compare with a model audit</button></div>
+    <div id="auModel" hidden class="box key"></div>
+  </div>
+</section>
+
+<section class="step col" id="brief" data-title="Your brief">
+  <div class="stephead"><span class="eyebrow">Step 9 · Your brief · 10 min</span><h2>Your country on the line</h2></div>
+  <p id="briefWho" class="small"></p>
+  <div class="brief-box">
+    <p class="small" id="briefCalc"></p>
+    <label for="bReg">For questions A and D: where does your country sit relative to the line, and what explains it?</label>
+    <textarea id="bReg" data-brief="regression" rows="4"></textarea>
+  </div>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Step 10 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session3.html">← Session 3: Who depends on whom?</a><a href="session5.html">Session 5: German cars in Kyrgyzstan →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Readings and references</h3>
+  <ul class="refs">
+    <li>Huntington-Klein, N., <a href="https://theeffectbook.net" target="_blank" rel="noopener">The Effect</a>, chapters 4 and 13 (free online).</li>
+    <li>Kiel Institute for the World Economy (2025), <a href="https://www.kielinstitut.de/publications/fit-for-war-by-2030-european-rearmament-efforts-vis-a-vis-russia-18193" target="_blank" rel="noopener">Fit for war by 2030? European rearmament efforts vis-à-vis Russia</a>, summary.</li>
+    <li>Navarro and Foxcroft, <a href="https://lsj.readthedocs.io/en/latest/" target="_blank" rel="noopener">Learning Statistics with jamovi</a>, chapter on linear regression (free).</li>
+  </ul>
+  <h3>Data</h3>
+  <ul class="refs">
+    <li>Military expenditure (% of GDP) and GDP per capita, 2024: SIPRI via World Bank, <a href="https://databank.worldbank.org/source/world-development-indicators" target="_blank" rel="noopener">World Development Indicators</a> (updated July 2026); <a href="https://www.sipri.org/databases/milex" target="_blank" rel="noopener">SIPRI Military Expenditure Database</a>.</li>
+    <li>Distance: great-circle distance between each capital and Moscow, computed from capital coordinates. NATO membership as of 2024 (Finland joined in 2023, Sweden in 2024).</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Clear my answers for this session</button></p>
+</footer>

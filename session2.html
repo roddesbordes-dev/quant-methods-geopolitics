@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Can We Trust a Poll?</title>
+<meta name="description" content="Session 2: margins of error, the Moldovan referendum and European views of China.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}
+
+/* Layout: a single reading column (about 68ch) of numbered steps, with a sticky step bar; wide charts and tables break out to 880px. */
+:root{
+  --bg:#F3F5F7; --panel:#FFFFFF; --ink:#15202A; --ink2:#43505C; --muted:#68747F; --rule:#D3DAE1; --soft:#E6EEF5;
+  --accent:#0072B2; --verm:#D55E00; --hi:#E69F00; --ok:#007A57; --grey:#7D8893;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --col:44rem; --wide:56rem; --r:6px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F151B; --panel:#17202A; --ink:#E4EAF0; --ink2:#B6C1CB; --muted:#8B97A2; --rule:#2A3541; --soft:#1B2834;
+  --accent:#3D9AD6; --verm:#E0662A; --hi:#E69F00; --ok:#2BB58A; --grey:#8C97A2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151B; --panel:#17202A; --ink:#E4EAF0; --ink2:#B6C1CB; --muted:#8B97A2; --rule:#2A3541; --soft:#1B2834;
+  --accent:#3D9AD6; --verm:#E0662A; --hi:#E69F00; --ok:#2BB58A; --grey:#8C97A2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6;margin:0}
+.wrap{padding-inline:16px;padding-block:0 4rem}
+.col{max-width:var(--col);margin-inline:auto}
+.wide{max-width:var(--wide);margin-inline:auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(2.1rem,6vw,3.3rem);font-weight:800;font-stretch:80%;letter-spacing:-.01em}
+h2{font-size:1.75rem;font-weight:750;font-stretch:85%}
+h3{font-size:1.2rem;font-weight:700;font-stretch:90%;margin-top:1.6rem}
+p{margin:.7rem 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,label:focus-within{outline:3px solid var(--hi);outline-offset:2px}
+.mono,.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+/* header */
+header.top{padding-block:2.4rem 1.6rem;border-bottom:1px solid var(--rule)}
+header.top .course{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+header.top .lede{font-size:1.15rem;color:var(--ink2);max-width:40rem;margin-top:1rem}
+.meta{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:1rem;font-size:.9rem;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+/* step bar */
+nav.steps{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);margin-inline:-16px;padding-inline:16px}
+nav.steps ol{list-style:none;display:flex;gap:.25rem;margin:0 auto;padding:.5rem 0;max-width:var(--wide);overflow-x:auto;scrollbar-width:thin}
+nav.steps a{display:flex;align-items:center;gap:.4rem;white-space:nowrap;text-decoration:none;color:var(--ink2);font-size:.82rem;padding:.3rem .55rem;border-radius:999px}
+nav.steps a:hover{background:var(--soft)}
+nav.steps .dot{width:.9rem;height:.9rem;border-radius:50%;border:1.5px solid var(--grey);display:inline-grid;place-items:center;font-size:.6rem;line-height:1;color:var(--panel)}
+nav.steps li.done .dot{background:var(--ok);border-color:var(--ok)}
+nav.steps li.done .dot::after{content:"✓";color:#fff}
+/* steps */
+section.step{padding-block:3rem 1rem;border-bottom:1px solid var(--rule);scroll-margin-top:3.5rem}
+.stephead{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.box{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.1rem;margin:1.2rem 0}
+.box.task{border-left:4px solid var(--accent)}
+.box.key{background:var(--soft);border-color:transparent}
+.box h4{font-family:var(--f-display);font-stretch:90%;font-size:1.02rem;margin:0 0 .4rem}
+.formula{font-family:var(--f-mono);font-size:.98rem;background:var(--soft);padding:.6rem .8rem;border-radius:var(--r);overflow-x:auto}
+ul.tight,ol.tight{padding-left:1.2rem;margin:.5rem 0}
+ul.tight li,ol.tight li{margin:.25rem 0}
+/* controls */
+button,.btn{font:inherit;font-size:.92rem;font-weight:600;border-radius:var(--r);border:1.5px solid var(--accent);background:var(--accent);color:#fff;padding:.45rem .9rem;cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.8rem 0}
+.choice{display:grid;gap:.5rem;margin:.8rem 0}
+.choice label{display:flex;gap:.6rem;align-items:flex-start;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.55rem .75rem;cursor:pointer}
+.choice label:has(input:checked){border-color:var(--accent);background:var(--soft)}
+.choice input{margin-top:.35rem;accent-color:var(--accent)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--accent);border-radius:var(--r);overflow:hidden}
+.seg button{border:0;border-radius:0;background:transparent;color:var(--accent);font-weight:500;padding:.35rem .75rem}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+input[type=number],input[type=text],textarea{font:inherit;font-family:var(--f-mono);font-size:.95rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--rule);border-radius:4px;padding:.3rem .45rem}
+input[type=number]{width:6.2rem}
+textarea{width:100%;font-family:var(--f-body);line-height:1.5}
+.fb{font-size:.95rem;margin:.4rem 0;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--verm)}
+.fb.ok::before{content:"✓ ";font-weight:700} .fb.no::before{content:"✗ ";font-weight:700}
+/* tables */
+.tscroll{overflow-x:auto;margin:1rem 0;border:1px solid var(--rule);border-radius:var(--r);background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:.45rem .6rem;border-bottom:1px solid var(--rule);text-align:right;vertical-align:middle}
+th{font-weight:600;font-size:.8rem;color:var(--ink2);background:var(--soft)}
+th:first-child,td:first-child{text-align:left}
+td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:600;padding:.1rem .45rem;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.chip.F{color:var(--accent)} .chip.NF{color:var(--verm)} .chip.PF{color:var(--grey)}
+/* charts */
+figure{margin:1.2rem 0}
+.chart{position:relative;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.8rem .6rem .4rem}
+.chart .ct{font-family:var(--f-display);font-stretch:90%;font-weight:700;font-size:1rem;padding:0 .3rem}
+.chart .cs{font-size:.82rem;color:var(--muted);padding:0 .3rem}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body);font-size:12px;fill:var(--muted)}
+.chart svg .lab{fill:var(--ink);font-weight:600}
+figcaption{font-size:.8rem;color:var(--muted);margin-top:.4rem}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem 1rem;font-size:.82rem;color:var(--ink2);padding:.3rem .3rem 0}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.8rem;line-height:1.35;padding:.35rem .55rem;border-radius:4px;white-space:nowrap;z-index:3;transform:translate(-50%,calc(-100% - 10px))}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem}
+.pair>*{min-width:0}
+.headline-claim{font-family:var(--f-display);font-weight:800;font-stretch:80%;font-size:1.3rem}
+details.jam{margin:1.2rem 0;border:1px dashed var(--rule);border-radius:var(--r);padding:.6rem .9rem;background:var(--panel)}
+details.jam summary{cursor:pointer;font-weight:600}
+details.jam textarea{font-family:var(--f-mono);font-size:.8rem;height:9rem;white-space:pre}
+.hidden-until{border-top:2px solid var(--accent);margin-top:1.4rem;padding-top:.4rem}
+.small{font-size:.88rem;color:var(--ink2)}
+footer{padding-block:2rem;color:var(--muted);font-size:.85rem}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+@media (max-width:520px){body{font-size:1rem}th,td{padding:.4rem .4rem}}
+.vh{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.crumbs{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:center;font-family:var(--f-mono);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.crumbs a{color:var(--accent);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.nextprev{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:1.4rem}
+.nextprev a{font-weight:600;text-decoration:none}
+.refs{padding-left:1.1rem;font-size:.9rem;color:var(--ink2)}
+.refs li{margin:.35rem 0}
+.brief-box{border:1.5px solid var(--hi);border-radius:var(--r);padding:1rem 1.1rem;margin:1.2rem 0;background:var(--panel)}
+.brief-box h4{font-family:var(--f-display);font-stretch:90%;font-size:1.02rem;margin:0 0 .4rem}
+.brief-box label{display:block;font-weight:600;font-size:.9rem;margin:.7rem 0 .25rem}
+input[type=range]{width:100%;accent-color:var(--accent)}
+select{font:inherit;font-size:.95rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--rule);border-radius:4px;padding:.3rem .45rem;max-width:100%}
+.kpi{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin:.6rem 0}
+.kpi div{display:flex;flex-direction:column}
+.kpi b{font-family:var(--f-mono);font-size:1.25rem;font-variant-numeric:tabular-nums}
+.kpi span{font-size:.8rem;color:var(--muted)}
+.prompt{font-family:var(--f-mono);font-size:.85rem;white-space:pre-wrap;background:var(--soft);padding:.7rem .8rem;border-radius:var(--r)}
+.chart .legend svg{display:inline-block;width:auto;height:auto;overflow:visible;flex:none}
+.sessions{display:grid;gap:.8rem;margin-top:1rem}
+.scard{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.1rem;text-decoration:none;color:var(--ink)}
+.scard:hover{border-color:var(--accent)}
+.scard strong{font-family:var(--f-display);font-stretch:85%;font-size:1.25rem;line-height:1.2}
+.scard .bar{display:block;height:4px;background:var(--soft);border-radius:2px;overflow:hidden;margin-top:.3rem}
+.scard .bar i{display:block;height:100%;background:var(--ok)}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.8rem;margin-top:1rem}
+.nums>div{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.9rem 1rem;min-width:0}
+.nums b{font-family:var(--f-display);font-stretch:80%;font-weight:800;font-size:1.7rem;color:var(--accent);line-height:1.1}
+.nums span{font-size:.92rem;color:var(--ink2)}
+.outcomes li{margin:.45rem 0}
+a.btn{color:#fff}
+.cert{background:var(--panel);border:2px solid var(--accent);outline:6px solid var(--soft);border-radius:4px;padding:2.4rem 2rem;text-align:center;margin:1rem 0;display:flex;flex-direction:column;gap:.6rem;align-items:center}
+.cert-k{font-family:var(--f-mono);letter-spacing:.14em;text-transform:uppercase;font-size:.85rem;color:var(--muted)}
+.cert-n{font-family:var(--f-display);font-weight:800;font-stretch:85%;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1}
+.cert-c{font-family:var(--f-display);font-weight:700;font-stretch:90%;font-size:1.35rem;color:var(--accent)}
+.cert-t{max-width:40rem;color:var(--ink2);margin:.2rem 0}
+.cert-f{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 2rem;font-size:.9rem;margin-top:.8rem}
+.cert-s{font-size:.75rem;color:var(--muted);margin-top:.6rem}
+@media print{ @page{size:A4 landscape;margin:12mm} body{background:#fff;color:#000} .noprint,nav.steps,footer{display:none!important} .cert{border-color:#0072B2;outline:none;box-shadow:none;margin:0} .wrap{padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Session 2 of 6</span></div>
+  <h1 style="margin-top:.6rem">Can we trust a poll?</h1>
+  <p class="lede">Polls tell governments, investors and diplomats what a country thinks. In this session you recount the polls before Moldova's 2024 referendum on the European Union, learn what a margin of error does and does not cover, and decide which changes in European views of China are real.</p>
+  <div class="meta"><span><b>About 3 hours</b> at your own pace</span><span><b>No software needed</b> in the browser; optional steps in jamovi</span><span><b>Your answers</b> stay in this browser only</span></div>
+</header>
+
+<nav class="steps" aria-label="Steps in this session"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Step 1 · Puzzle · 10 min</span><h2>Moldova, 20 October 2024</h2></div>
+  <p>Moldova voted on writing the goal of joining the European Union into its constitution. The vote mattered far beyond Moldova: it was read in Brussels and Moscow as a test of Russian influence. Three polls published in the final weeks gave these results.</p>
+  <div class="tscroll"><table id="pollTable" aria-label="Polls before the referendum"></table></div>
+  <div class="box task">
+    <h4>Your guess: what share voted Yes?</h4>
+    <div class="row"><input type="range" id="guessYes" min="30" max="80" step="1" value="55" aria-label="Yes share"><span class="mono" id="guessYesOut">55%</span></div>
+    <div class="row"><button id="guessBtn">Lock in my guess</button><span class="small" id="guessSaved"></span></div>
+  </div>
+</section>
+
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Step 2 · Lesson · 25 min</span><h2>How sure is a poll?</h2></div>
+  <h3>A sample stands in for a population</h3>
+  <p>A pollster cannot ask three million voters, so it asks about a thousand chosen at random and treats their answers as a scale model of the country. Another random thousand would give slightly different answers. The <strong>margin of error</strong> measures how much the result would move from one random sample to the next.</p>
+  <p class="formula">margin of error (95%) ≈ 1.96 × √( p × (1 − p) ÷ n )</p>
+  <p>Here <i>p</i> is the share answering Yes (as a proportion, 0.55 for 55%) and <i>n</i> the number of people asked. In 19 samples out of 20, the true share lies within that distance of the estimate. A handy rule: with 1,000 people the margin is about ±3 points; to halve it, you need four times as many people.</p>
+  <div class="box">
+    <h4>Try it</h4>
+    <div class="row"><label for="mN" class="small">People asked: <b class="mono" id="mNout">1000</b></label></div>
+    <input type="range" id="mN" min="100" max="5000" step="50" value="1000" aria-label="Sample size">
+    <div class="row"><label for="mP" class="small">Share answering Yes: <b class="mono" id="mPout">50%</b></label></div>
+    <input type="range" id="mP" min="5" max="95" step="1" value="50" aria-label="Share answering Yes">
+    <p class="headline-claim" id="mOut"></p>
+  </div>
+  <h3>What the margin of error does not cover</h3>
+  <ul class="tight">
+    <li><strong>Who refuses to answer.</strong> If supporters of one side hang up more often, every sample is biased in the same direction, and a bigger sample does not help.</li>
+    <li><strong>Who is not in the sample at all.</strong> A poll of residents misses voters abroad.</li>
+    <li><strong>The undecided.</strong> How they finally vote is a guess, and the guess is yours, not the pollster's.</li>
+    <li><strong>Late changes</strong>, and pressure on voters on the day.</li>
+  </ul>
+  <p>These are <em>non-sampling errors</em>. They are often larger than the margin of error, and no formula measures them.</p>
+  <div class="box task"><h4>Check yourself</h4>
+    <p>A poll of 1,100 people finds 50% Yes. What is the margin of error, in points? (One decimal.)</p>
+    <div class="row"><input type="number" step="0.1" id="la-in" aria-label="Margin of error"><button id="la-btn">Check</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Step 3 · Activity · 20 min</span><h2>Recount the Moldovan polls</h2></div>
+  <p>The polls include undecided voters, the referendum did not. You must decide what to do with them. There are three common choices: <b>drop</b> them (assume they split like the decided), <b>split</b> them evenly, or give them <b>all to No</b>.</p>
+  <div class="box task"><h4>1. Do the first poll by hand</h4>
+    <p>For CBS Research, compute the Yes share among decided voters, Yes ÷ (Yes + No), and its margin of error using the number of decided respondents (1,034 × the share who decided). One decimal each.</p>
+    <div class="row"><label for="aa-p">Yes among decided, %</label><input type="number" step="0.1" id="aa-p"><label for="aa-m">Margin, ±</label><input type="number" step="0.1" id="aa-m"><button id="aa-btn">Check</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <div class="box task"><h4>2. All three polls, three treatments</h4>
+    <div class="row"><span class="small">Undecided voters</span><div class="seg" id="segUnd"><button aria-pressed="true" data-v="drop">Dropped</button><button aria-pressed="false" data-v="split">Split evenly</button><button aria-pressed="false" data-v="no">All to No</button></div></div>
+    <figure><div class="chart" id="pollChart"></div><figcaption>Dots: poll estimate of Yes; bars: 95% margin of error. The result appears after you reveal it below. Sources: polls as reported in the Wikipedia compilation of referendum polling; result: Central Electoral Commission of Moldova.</figcaption></figure>
+    <div class="row"><button id="aa-reveal">Reveal the result</button></div>
+  </div>
+  <details class="jam"><summary>Now do it in jamovi (optional, 10 min)</summary>
+    <ol class="tight"><li>Copy the data below and paste it into an empty jamovi spreadsheet.</li>
+      <li><b>Data → Compute</b>: <span class="mono">dec = yes + no</span>, then <span class="mono">p = yes / dec</span>, then <span class="mono">moe = 1.96 * SQRT(p * (1 - p) / (n * dec / 100)) * 100</span>, then <span class="mono">pct = 100 * p</span>.</li>
+      <li>Compare <span class="mono">pct ± moe</span> with the result.</li></ol>
+    <textarea readonly id="csvPolls" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvPolls">Copy data</button><span class="small" data-copied="csvPolls"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Step 4 · Feedback · 10 min</span><h2>A miss far larger than the margin</h2></div>
+  <p id="fa-locked" class="small">Reveal the result in step 3 to unlock this feedback.</p>
+  <div id="fa-body" hidden>
+    <div class="kpi"><div><b>50.35%</b><span>Yes, all votes</span></div><div><b>45.4%</b><span>Yes, voters in Moldova</span></div><div><b>about 77%</b><span>Yes, voters abroad</span></div></div>
+    <p class="headline-claim" id="fa-guess"></p>
+    <p>Counting decided voters only, the three polls put Yes between 59% and 68%, with margins of about ±3 points. Among voters inside Moldova, the people the polls actually sampled, Yes got 45.4%. That is a miss of 13 to 22 points, four to seven times the margin of error. Only if <em>every</em> undecided voter chose No do two of the polls come close. The referendum passed because of the diaspora, which pollsters did not survey.</p>
+    <p>Why did the polls miss? Several explanations were discussed after the vote, none measured by any margin of error:</p>
+    <ul class="tight">
+      <li>Undecided voters broke heavily for No.</li>
+      <li>Some No voters may not have told pollsters their intention.</li>
+      <li>Vote buying: Moldovan police documented hundreds of cases, and President Sandu alleged a scheme aimed at buying up to 300,000 votes (Corman, Verfassungsblog, 2024).</li>
+    </ul>
+    <div class="box key"><h4>Remember</h4>A margin of error measures the luck of the sample. It says nothing about who was left out, who refused, or what the undecided will do.</div>
+  </div>
+</section>
+
+<section class="step col" id="lessonB" data-read data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Step 5 · Lesson · 25 min</span><h2>Comparing groups in a survey</h2></div>
+  <p>Most questions about opinion are comparisons: this year against last, young against old, France against Spain. Each number has its own margin of error, so the difference between two numbers is even less certain than either one.</p>
+  <p class="formula">margin of a difference ≈ 1.96 × √( p₁(1 − p₁)/n₁ + p₂(1 − p₂)/n₂ )</p>
+  <p>With about 1,000 people in each sample and shares around 30%, a difference must exceed about 4 points before you can call it real. Pew Research Center's samples are not pure random draws, so its own published margins are somewhat wider still.</p>
+  <h3>Filtering and recoding</h3>
+  <p>To compare groups you <em>filter</em> (keep only the rows you need, such as one country or one age group) and <em>recode</em> (merge categories, such as “very” and “somewhat” favourable into one “favourable”). Pew reports favourable views this way: the two positive answers added together.</p>
+  <h3>Attention is not opinion</h3>
+  <p>Google Trends measures what people search for, scaled from 0 to 100 relative to the busiest week. A spike in searches for “Taiwan” means attention, not support or hostility. Commentators often confuse the two.</p>
+</section>
+
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Step 6 · Activity · 20 min</span><h2>Is the change real?</h2></div>
+  <p>Share of adults with a favourable view of China, Pew Research Center, spring 2024 and spring 2025. Assume about 1,000 people per country and year.</p>
+  <div class="box task"><h4>1. France by hand</h4>
+    <p>France went from 23% to 36%. Compute the change and its margin (one decimal). Is the change real?</p>
+    <div class="row"><label for="pb-ch">Change, points</label><input type="number" step="1" id="pb-ch"><label for="pb-m">Margin, ±</label><input type="number" step="0.1" id="pb-m"><button id="pb-btn">Check</button></div>
+    <p class="fb" id="pb-fb"></p>
+    <div class="row"><button id="pb-all" disabled>Check the other countries</button></div>
+  </div>
+  <div class="tscroll wide"><table id="pewTable" aria-label="Favourable views of China"></table></div>
+  <figure class="wide"><div class="chart" id="pewChart"></div><figcaption>Source: Pew Research Center, Spring 2025 Global Attitudes Survey, topline (July 2025). Hungary and Poland changed survey method in 2024, so Pew does not compare them with earlier years.</figcaption></figure>
+  <details class="jam"><summary>Now do it in jamovi (optional, 10 min)</summary>
+    <ol class="tight"><li>Paste the data below into jamovi.</li>
+      <li>Compute <span class="mono">change = y25 - y24</span> and <span class="mono">moe = 1.96 * SQRT((y24/100)*(1-y24/100)/1000 + (y25/100)*(1-y25/100)/1000) * 100</span>.</li>
+      <li>Compute <span class="mono">real = ABS(change) > moe</span> and sort.</li></ol>
+    <textarea readonly id="csvPew" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvPew">Copy data</button><span class="small" data-copied="csvPew"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Step 7 · Feedback · 10 min</span><h2>A real warming, with exceptions</h2></div>
+  <p>Views of China became more favourable almost everywhere in Europe between 2024 and 2025, and in most countries the change is larger than the noise. Spain's 4-point rise is not: it is within the margin. Comparisons between countries need the same care: Spain (37%) and France (36%) are statistically the same, Italy (45%) and Germany (29%) are not.</p>
+  <p>Inside countries, Pew found large age gaps: in Poland and the United Kingdom, adults under 35 were 27 to 28 points more likely than those aged 50 and over to view China favourably. A national average can hide two very different countries.</p>
+  <div class="box task"><h4>Attention against opinion (5 min)</h4>
+    <p>Open <a href="https://trends.google.com/trends/explore?date=2024-01-01%202026-10-01&q=tariffs" target="_blank" rel="noopener">Google Trends for “tariffs”</a>. Find the week attention peaked. Did views of the United States or China in the Pew data move by anything like that much? Write one sentence on the difference between a spike in attention and a change in opinion.</p>
+    <textarea id="trendsNote" rows="3" aria-label="Your sentence"></textarea>
+  </div>
+</section>
+
+<section class="step col" id="brief" data-title="Your brief">
+  <div class="stephead"><span class="eyebrow">Step 8 · Your brief · 45 min</span><h2>Choose your country and question</h2></div>
+  <p>Across the course you write one two-page policy brief, advising the government of one country. Choose now; each later session adds a piece. Your choices and drafts are saved in this browser and collected on the <a href="index.html#brief">course home page</a>.</p>
+  <div class="brief-box">
+    <label for="bCountry">Country</label>
+    <input type="text" id="bCountry" data-brief="country" placeholder="for example Spain" style="width:100%">
+    <label>Question</label>
+    <div class="choice" id="bQuestion">
+      <label><input type="radio" name="bq" value="A"> A. Is it spending enough on defence, and would voters accept more? <span class="small">(sessions 1, 2, 4, 6)</span></label>
+      <label><input type="radio" name="bq" value="B"> B. Should it reduce its dependence on China for a critical product? <span class="small">(sessions 3, 6)</span></label>
+      <label><input type="radio" name="bq" value="C"> C. Are sanctions on Russia being circumvented through its trade? <span class="small">(sessions 1, 5)</span></label>
+      <label><input type="radio" name="bq" value="D"> D. Can we trust its official growth figures? <span class="small">(sessions 1, 4)</span></label>
+    </div>
+    <label for="bData">Data you will need, and where to download it</label>
+    <textarea id="bData" data-brief="data" rows="4" placeholder="for example SIPRI military expenditure for Spain, 2000–2024; Eurobarometer question on defence spending"></textarea>
+  </div>
+  <p class="small">For question A, Eurobarometer asks Europeans about defence spending; the margin-of-error method of this session applies directly.</p>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Step 9 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session1.html">← Session 1: Can we trust the numbers?</a><a href="session3.html">Session 3: Who depends on whom? →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Readings and references</h3>
+  <ul class="refs">
+    <li>Pew Research Center (2016), <a href="https://www.pewresearch.org/short-reads/2016/09/08/understanding-the-margin-of-error-in-election-polls/" target="_blank" rel="noopener">“Understanding the margin of error in election polls”</a>.</li>
+    <li>Corman, M.-R. (2024), <a href="https://verfassungsblog.de/three-takeaways-from-the-nearly-failed-eu-referendum-in-moldova/" target="_blank" rel="noopener">“Three takeaways from the nearly failed EU referendum in Moldova”</a>, Verfassungsblog, 1 November.</li>
+    <li>Diez, Çetinkaya-Rundel and Barr, <a href="https://www.openintro.org/book/os/" target="_blank" rel="noopener">OpenIntro Statistics</a>, sections 5.1–5.2 (free).</li>
+  </ul>
+  <h3>Data</h3>
+  <ul class="refs">
+    <li>Polls and results: <a href="https://en.wikipedia.org/wiki/2024_Moldovan_European_Union_membership_constitutional_referendum" target="_blank" rel="noopener">compilation of polling and official results</a> (Central Electoral Commission of Moldova).</li>
+    <li>Pew Research Center, <a href="https://www.pewresearch.org/global/2025/07/15/views-of-china-and-xi-jinping-2025/" target="_blank" rel="noopener">Views of China and Xi Jinping, 2025</a>, and <a href="https://www.pewresearch.org/wp-content/uploads/sites/20/2025/07/pg_2025.07.15_global-views-china-2025_topline.pdf" target="_blank" rel="noopener">topline</a>.</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Clear my answers for this session</button></p>
+</footer>
+
+</div>
+<script>
+window.SESSION=2;
+const DATA = {"polls": [{"p": "CBS Research\u2013WatchDog", "dates": "11\u201316 Oct", "n": 1034, "yes": 55.1, "no": 34.5, "und": 10.3}, {"p": "Intellect Group", "dates": "13\u201315 Oct", "n": 985, "yes": 44, "no": 31, "und": 25}, {"p": "iData\u2013IPP", "dates": "19 Sep\u201310 Oct", "n": 1100, "yes": 47.9, "no": 23, "und": 29.1}], "result": {"all": 50.35, "home": 45.38, "abroad": 77}, "pew": [{"c": "France", "y24": 23, "y25": 36}, {"c": "Germany", "y24": 20, "y25": 29}, {"c": "Greece", "y24": 47, "y25": 56}, {"c": "Hungary", "y24": null, "y25": 51}, {"c": "Italy", "y24": 35, "y25": 45}, {"c": "Netherlands", "y24": 22, "y25": 30}, {"c": "Poland", "y24": null, "y25": 35}, {"c": "Spain", "y24": 33, "y25": 37}, {"c": "Sweden", "y24": 11, "y25": 18}, {"c": "United Kingdom", "y24": 31, "y25": 39}]};
+/* ===== shared helpers for every session page ===== */
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const NS = "http://www.w3.org/2000/svg";
+const PFX = "qm" + (window.SESSION || 0) + ":";
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(PFX+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(PFX+k, JSON.stringify(v)); } catch(e){} }
+};
+/* the brief is shared across sessions */
+const brief = {
+  get(k, d=""){ try { const v = localStorage.getItem("qmbrief:"+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem("qmbrief:"+k, JSON.stringify(v)); } catch(e){} }
+};
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const sgn = (v, d=1) => (v>0?"+":v<0?"−":"") + Math.abs(v).toFixed(d);
+const num = (v, d=1) => (v<0?"−":"") + Math.abs(v).toFixed(d);
+
+/* ---------- step nav & progress ---------- */
+const steps = $$("section.step");
+const done = new Set(store.get("done", []));
+function markDone(id){ if (done.has(id)) return; done.add(id); store.set("done", [...done]); renderNav(); }
+function renderNav(){
+  const nav = $("#stepnav"); if (!nav) return;
+  nav.innerHTML = steps.map((s,i)=>`<li class="${done.has(s.id)?"done":""}"><a href="#${s.id}"><span class="dot" aria-hidden="true"></span>${i+1}. ${s.dataset.title}<span class="vh">${done.has(s.id)?" (done)":""}</span></a></li>`).join("");
+}
+renderNav();
+/* reading-only steps get a button to mark them as read */
+$$("section.step[data-read]").forEach(s=>{ const r=document.createElement("div"); r.className="row";
+  r.innerHTML=`<button class="ghost" type="button">Mark as read</button>`; s.appendChild(r);
+  const b=r.querySelector("button"); const sync=()=>{ if (done.has(s.id)){ b.textContent="Read ✓"; b.disabled=true; } };
+  b.addEventListener("click",()=>{ markDone(s.id); sync(); }); sync(); });
+
+/* ---------- answer checking ---------- */
+function feedback(elm, ok, msg){ elm.className = "fb " + (ok ? "ok" : "no"); elm.textContent = msg; }
+function readNums(ids){ return ids.map(id => parseFloat(String($("#"+id).value).replace(",", "."))); }
+
+/* ---------- radio-choice lock-in ---------- */
+function lockChoice({group, button, key, onReveal}){
+  const inputs = $$(`#${group} input`);
+  inputs.forEach(i=>i.addEventListener("change",()=>{ if (!store.get(key,null)) $("#"+button).disabled=false; }));
+  const apply = v => { inputs.forEach(i=>{ i.checked = i.value===v; i.disabled = true; }); $("#"+button).disabled = true; onReveal(v); };
+  $("#"+button).addEventListener("click",()=>{ const v = $(`#${group} input:checked`)?.value; if (!v) return; store.set(key, v); apply(v); });
+  const prev = store.get(key, null); if (prev) apply(prev);
+}
+
+/* ---------- segmented controls ---------- */
+function seg(id, cb){ $$(`#${id} button`).forEach(b=>b.addEventListener("click",()=>{ $$(`#${id} button`).forEach(x=>x.setAttribute("aria-pressed", x===b)); cb(b.dataset.v); })); }
+
+/* ---------- SVG charts ---------- */
+function el(tag, attrs={}, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function txt(parent, x, y, s, attrs={}){ const t = el("text", {x, y, ...attrs}, parent); t.textContent = s; return t; }
+function niceTicks(min, max, n=5){
+  if (max === min){ max = min + 1; }
+  const span = max-min, step0 = span/n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const err = step0/mag, step = (err>=7.5?10:err>=3.5?5:err>=1.5?2:1)*mag;
+  const t=[]; for (let v=Math.ceil(min/step-1e-9)*step; v<=max+1e-9; v+=step) t.push(+v.toFixed(10)); return {ticks:t, step};
+}
+function shape(g, kind, x, y, r, fill, ring){
+  const sw = ring ? 1.5 : 0, st = ring ? css("--panel") : "none";
+  if (kind==="tri") return el("path",{d:`M${x},${y-r*1.2} L${x+r*1.1},${y+r*0.8} L${x-r*1.1},${y+r*0.8} Z`,fill,stroke:st,"stroke-width":sw},g);
+  if (kind==="sq") return el("rect",{x:x-r*0.9,y:y-r*0.9,width:r*1.8,height:r*1.8,fill,stroke:st,"stroke-width":sw},g);
+  if (kind==="dia") return el("path",{d:`M${x},${y-r*1.25} L${x+r*1.1},${y} L${x},${y+r*1.25} L${x-r*1.1},${y} Z`,fill,stroke:st,"stroke-width":sw},g);
+  return el("circle",{cx:x,cy:y,r,fill,stroke:st,"stroke-width":sw},g);
+}
+function frame(container, {title, sub, H=320, m={t:14,r:20,b:34,l:52}}){
+  container.innerHTML = "";
+  const W = Math.round(Math.max(300, Math.min(900, container.clientWidth - 14)));
+  if (W < 480) H = Math.round(H*0.85);
+  if (title){ const t=document.createElement("div"); t.className="ct"; t.textContent=title; container.appendChild(t); }
+  if (sub){ const s=document.createElement("div"); s.className="cs"; s.textContent=sub; container.appendChild(s); }
+  const svg = el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":title||"chart"}); container.appendChild(svg);
+  const tip = document.createElement("div"); tip.className="tip"; tip.hidden=true; container.appendChild(tip);
+  return {svg, tip, W, H, m, iw:W-m.l-m.r, ih:H-m.t-m.b, narrow: W < 480};
+}
+function axes(f, xs, ys, {xfmt=v=>v, yfmt=v=>v, xticks=[], yticks=[], xlab, ylab}){
+  const g = el("g",{},f.svg);
+  for (const v of yticks){ const y=ys(v); el("line",{x1:f.m.l,x2:f.W-f.m.r,y1:y,y2:y,stroke:css("--rule"),"stroke-width":v===0?1.4:1},g); txt(g, f.m.l-8, y+4, yfmt(v), {"text-anchor":"end"}); }
+  for (const v of xticks){ txt(g, xs(v), f.H-f.m.b+18, xfmt(v), {"text-anchor":"middle"}); }
+  if (xlab) txt(g, f.m.l+f.iw/2, f.H-6, xlab, {"text-anchor":"middle"});
+  if (ylab) txt(g, f.m.l, f.m.t-4, ylab, {"text-anchor":"start"});
+  return g;
+}
+function showTip(f, x, y, html){ f.tip.innerHTML=html; f.tip.hidden=false;
+  const r=f.svg.getBoundingClientRect(), c=f.svg.parentNode.getBoundingClientRect();
+  const px = r.left - c.left + x*r.width/f.W, py = r.top - c.top + y*r.height/f.H;
+  f.tip.style.left = Math.min(Math.max(px, 80), c.width-80)+"px"; f.tip.style.top = py+"px"; }
+function hideTip(f){ f.tip.hidden=true; }
+function hover(f, node, x, y, html){ node.addEventListener("pointerenter",()=>showTip(f,x,y,html)); node.addEventListener("pointerleave",()=>hideTip(f)); }
+function legend(container, items){ const lg=document.createElement("div"); lg.className="legend";
+  lg.innerHTML = items.map(it=>{ const k=it.kind||"circ", c=it.color;
+    const sw = k==="line" ? `<svg width="18" height="12"><path d="M0,6 H18" stroke="${c}" stroke-width="2" ${it.dash?`stroke-dasharray="${it.dash}"`:""}/></svg>`
+      : k==="tri" ? `<svg width="12" height="12"><path d="M6,0 L12,11 L0,11Z" fill="${c}"/></svg>`
+      : k==="sq" ? `<svg width="12" height="12"><rect x="1" y="1" width="10" height="10" fill="${c}"/></svg>`
+      : k==="dia" ? `<svg width="12" height="12"><path d="M6,0 L12,6 L6,12 L0,6Z" fill="${c}"/></svg>`
+      : `<svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${c}"/></svg>`;
+    return `<span>${sw}${it.label}</span>`; }).join("");
+  container.appendChild(lg); }
+
+/* line chart: series [{name,color,shape,dash,pts:[[x,y]]}] ; x numeric or index with xlabels */
+function lineChart(container, {title, sub, series, yfmt=v=>v, xfmt=v=>v, ylab, zero=true, labelEnds=true, tipfmt, H=300, ymin:yminF, ymax:ymaxF, refY, refLabel, xticks:xtF, vline, vlabel}){
+  const f = frame(container,{title,sub,H,m:{t:22,r:labelEnds?96:20,b:30,l:52}});
+  const all = series.flatMap(s=>s.pts);
+  const xmin=Math.min(...all.map(p=>p[0])), xmax=Math.max(...all.map(p=>p[0]));
+  let ymin = yminF ?? (zero?Math.min(0,...all.map(p=>p[1])):Math.min(...all.map(p=>p[1]))), ymax = ymaxF ?? Math.max(...all.map(p=>p[1]));
+  if (refY!==undefined){ ymin=Math.min(ymin,refY); ymax=Math.max(ymax,refY); }
+  const yt = niceTicks(ymin, ymax, 4); ymax = Math.max(ymax, yt.ticks[yt.ticks.length-1]); ymin = Math.min(ymin, yt.ticks[0]);
+  const xs = v => f.m.l + (v-xmin)/(xmax-xmin||1)*f.iw, ys = v => f.m.t + f.ih - (v-ymin)/(ymax-ymin)*f.ih;
+  const xt = xtF || niceTicks(xmin,xmax,f.narrow?4:6).ticks.filter(v=>v>=xmin&&v<=xmax);
+  axes(f, xs, ys, {xticks:xt, yticks:yt.ticks, yfmt, xfmt, ylab});
+  if (refY!==undefined){ el("line",{x1:f.m.l,x2:f.m.l+f.iw,y1:ys(refY),y2:ys(refY),stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, f.m.l+4, ys(refY)-6, refLabel, {class:"lab"}); }
+  if (vline!==undefined){ el("line",{x1:xs(vline),x2:xs(vline),y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1.2,"stroke-dasharray":"4 3"},f.svg); if (vlabel) txt(f.svg, xs(vline)+5, f.m.t+12, vlabel, {class:"lab"}); }
+  const g = el("g",{},f.svg);
+  for (const s of series){
+    el("path",{d:s.pts.map((p,i)=>(i?"L":"M")+xs(p[0])+","+ys(p[1])).join(" "),fill:"none",stroke:s.color,"stroke-width":s.width||2,"stroke-linejoin":"round","stroke-dasharray":s.dash||""},g);
+    const last=s.pts[s.pts.length-1];
+    if (s.shape) shape(g, s.shape, xs(last[0]), ys(last[1]), 4.5, s.color, true);
+    if (labelEnds && s.name){ txt(g, xs(last[0])+9, ys(last[1])+4+(s.nudge||0), s.name, {class:"lab"}); }
+  }
+  const xsVals=[...new Set(all.map(p=>p[0]))].sort((a,b)=>a-b);
+  const cross = el("line",{y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1,"stroke-dasharray":"3 3",visibility:"hidden"},f.svg);
+  const hit = el("rect",{x:f.m.l,y:f.m.t,width:f.iw,height:f.ih,fill:"transparent"},f.svg);
+  hit.addEventListener("pointermove", ev => { const r=f.svg.getBoundingClientRect(); const sx=(ev.clientX-r.left)*f.W/r.width;
+    const xv = xmin + (sx-f.m.l)/f.iw*(xmax-xmin); const near = xsVals.reduce((a,b)=>Math.abs(b-xv)<Math.abs(a-xv)?b:a);
+    cross.setAttribute("x1",xs(near)); cross.setAttribute("x2",xs(near)); cross.setAttribute("visibility","visible");
+    const lines = series.map(s=>{const p=s.pts.find(q=>q[0]===near); return p?`${s.name||"Value"}: <b>${tipfmt?tipfmt(p[1]):yfmt(p[1])}</b>`:""}).filter(Boolean);
+    showTip(f, xs(near), f.m.t+10, `<b>${xfmt(near)}</b><br>${lines.join("<br>")}`); });
+  hit.addEventListener("pointerleave", ()=>{cross.setAttribute("visibility","hidden"); hideTip(f);});
+  return {f, xs, ys};
+}
+
+/* scatter: pts [{x,y,label,color,shape,tip}] ; line {a,b} optional */
+function scatter(container, {title, sub, pts, xmin, xmax, ymin, ymax, xticks, yticks, xfmt=v=>v, yfmt=v=>v, xlab, line, lineLabel, labels=true, H=380}){
+  const f = frame(container,{title,sub,H,m:{t:16,r:24,b:44,l:52}});
+  const xs=v=>f.m.l+(v-xmin)/(xmax-xmin)*f.iw, ys=v=>f.m.t+f.ih-(v-ymin)/(ymax-ymin)*f.ih;
+  axes(f,xs,ys,{xticks,yticks,xfmt,yfmt,xlab});
+  if (line){ el("path",{d:`M${xs(xmin)},${ys(line.a+line.b*xmin)} L${xs(xmax)},${ys(line.a+line.b*xmax)}`,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4",fill:"none"},f.svg);
+    if (lineLabel) txt(f.svg, xs(xmin)+6, ys(line.a+line.b*xmin)+(line.b<0?-8:18), lineLabel, {class:"lab"}); }
+  const g=el("g",{},f.svg);
+  for (const p of pts){
+    if (p.res && line) el("line",{x1:xs(p.x),x2:xs(p.x),y1:ys(p.y),y2:ys(line.a+line.b*p.x),stroke:p.color,"stroke-width":1.2,"stroke-dasharray":"2 2"},g);
+    shape(g, p.shape||"circ", xs(p.x), ys(p.y), p.r||5.5, p.color, true);
+    if (labels && p.label){ const right = xs(p.x) > f.m.l + f.iw*0.8; txt(g, xs(p.x)+(right?-9:9), ys(p.y)+4, p.label, {class:"lab","text-anchor":right?"end":"start"}); }
+    const hit=el("circle",{cx:xs(p.x),cy:ys(p.y),r:11,fill:"transparent"},g);
+    if (p.tip) hover(f, hit, xs(p.x), ys(p.y), p.tip);
+  }
+  return {f, xs, ys};
+}
+
+/* horizontal bars: rows [{label, v, color, tip, lo, hi}] */
+function hbar(container, {title, sub, rows, xmin=0, xmax, xfmt=v=>v, ref, refLabel, rowH=26}){
+  const H = 40 + rows.length*rowH + 30;
+  const f = frame(container,{title,sub,H,m:{t:16,r:24,b:30,l:Math.min(150, Math.max(80, 7.2*Math.max(...rows.map(r=>r.label.length))+14))}});
+  const lo = Math.min(xmin, ...rows.map(r=>Math.min(r.v, r.lo??r.v))), hi = xmax ?? Math.max(...rows.map(r=>Math.max(r.v, r.hi??r.v)));
+  const xt = niceTicks(lo, hi, f.narrow?4:6); const x0=xt.ticks[0], x1=Math.max(hi, xt.ticks[xt.ticks.length-1]);
+  const xs = v => f.m.l + (v-x0)/(x1-x0)*f.iw, bh = rowH*0.62;
+  const g = el("g",{},f.svg);
+  for (const v of xt.ticks){ el("line",{x1:xs(v),x2:xs(v),y1:f.m.t,y2:f.m.t+rows.length*rowH,stroke:css("--rule"),"stroke-width":v===0?1.4:1},g); txt(g, xs(v), f.m.t+rows.length*rowH+18, xfmt(v), {"text-anchor":"middle"}); }
+  rows.forEach((r,i)=>{ const y=f.m.t+i*rowH+(rowH-bh)/2; const a=xs(Math.min(0,r.v)), b=xs(Math.max(0,r.v));
+    if (r.lo!==undefined){ el("rect",{x:xs(r.lo),y:y+bh*0.2,width:Math.max(2,xs(r.hi)-xs(r.lo)),height:bh*0.6,fill:r.color,opacity:.35,rx:2},g); shape(g,"circ",xs(r.v),y+bh/2,4.5,r.color,true); }
+    else el("rect",{x:a,y,width:Math.max(1,b-a),height:bh,fill:r.color,rx:2},g);
+    txt(g, f.m.l-8, y+bh/2+4, r.label, {"text-anchor":"end", class: r.bold?"lab":""});
+    const hit=el("rect",{x:f.m.l,y:f.m.t+i*rowH,width:f.iw,height:rowH,fill:"transparent"},g);
+    if (r.tip) hover(f, hit, xs(r.v), y, r.tip); });
+  if (ref!==undefined){ el("line",{x1:xs(ref),x2:xs(ref),y1:f.m.t-6,y2:f.m.t+rows.length*rowH,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, xs(ref)+4, f.m.t-4, refLabel, {class:"lab"}); }
+  return f;
+}
+
+/* vertical bars for a time series (used for honest/dishonest chart lessons) */
+function vbar(container,{title,sub,vals,ymin=0,yfmt=v=>v,color,H=280,source}){
+  const f=frame(container,{title,sub,H,m:{t:16,r:16,b:30,l:52}});
+  const ymax=Math.max(...vals.map(v=>v[1]))*1.08; const yt=niceTicks(ymin,ymax,4);
+  const top=Math.max(ymax, yt.ticks[yt.ticks.length-1]);
+  const ys=v=>f.m.t+f.ih-(v-ymin)/(top-ymin)*f.ih; const bw=f.iw/vals.length;
+  axes(f,i=>i,ys,{yticks:yt.ticks.filter(v=>v>=ymin&&v<=top),yfmt});
+  vals.forEach((v,i)=>{ const x=f.m.l+bw*i+bw*0.18, w=bw*0.64, y=ys(v[1]), h=ys(ymin)-y;
+    el("path",{d:`M${x},${y+h} V${y+3} Q${x},${y} ${x+3},${y} H${x+w-3} Q${x+w},${y} ${x+w},${y+3} V${y+h} Z`,fill:color},f.svg);
+    if (i%2===0||i===vals.length-1) txt(f.svg, x+w/2, f.H-f.m.b+18, v[0], {"text-anchor":"middle"});
+    const hit=el("rect",{x:f.m.l+bw*i,y:f.m.t,width:bw,height:f.ih,fill:"transparent"},f.svg);
+    hover(f, hit, x+w/2, y, `<b>${v[0]}</b>: ${yfmt(v[1])}`); });
+  if (source){ const s=document.createElement("div"); s.className="cs"; s.textContent=source; container.appendChild(s); }
+  return f;
+}
+
+/* tile-grid map of Europe: tiles {iso: value}; layout fixed */
+const TILE = {ISL:[0,0],NOR:[4,0],SWE:[5,0],FIN:[6,0],EST:[7,1],IRL:[1,2],GBR:[2,2],DNK:[4,2],LVA:[7,2],LTU:[7,3],NLD:[3,3],DEU:[4,3],POL:[6,3],BEL:[3,4],LUX:[3,5],CZE:[5,4],SVK:[6,4],FRA:[2,5],CHE:[3,6],AUT:[5,5],HUN:[6,5],ROU:[7,5],PRT:[0,7],ESP:[1,7],ITA:[4,7],SVN:[4,6],HRV:[5,6],MNE:[5,7],ALB:[6,8],MKD:[7,8],BGR:[7,6],GRC:[7,9],MLT:[4,9],CYP:[9,9]};
+function tileMap(container,{title,sub,vals,names,fmt=v=>v,lo,hi,note}){
+  container.innerHTML="";
+  const t=document.createElement("div"); t.className="ct"; t.textContent=title; container.appendChild(t);
+  if (sub){ const s=document.createElement("div"); s.className="cs"; s.textContent=sub; container.appendChild(s); }
+  const W=10, Hh=10, cell=44, svg=el("svg",{viewBox:`0 0 ${W*cell} ${Hh*cell}`,role:"img","aria-label":title}); container.appendChild(svg);
+  const tip=document.createElement("div"); tip.className="tip"; tip.hidden=true; container.appendChild(tip);
+  const f={svg,tip,W:W*cell,H:Hh*cell};
+  const vv=Object.values(vals).filter(v=>v!=null); lo=lo??Math.min(...vv); hi=hi??Math.max(...vv);
+  for (const iso in TILE){ const [cx,cy]=TILE[iso]; const v=vals[iso];
+    const tshare = v==null ? null : (v-lo)/(hi-lo||1);
+    const fill = v==null ? css("--soft") : `color-mix(in oklab, ${css("--accent")} ${Math.round(12+tshare*78)}%, ${css("--panel")})`;
+    const r=el("rect",{x:cx*cell+2,y:cy*cell+2,width:cell-4,height:cell-4,rx:4,fill,stroke:css("--rule")},svg);
+    const dark = tshare!=null && tshare>0.55;
+    const a=el("text",{x:cx*cell+cell/2,y:cy*cell+18,"text-anchor":"middle",style:`font-size:11px;font-weight:600;fill:${dark?"#fff":css("--ink")}`},svg); a.textContent=iso;
+    if (v!=null){ const b=el("text",{x:cx*cell+cell/2,y:cy*cell+33,"text-anchor":"middle",style:`font-size:10px;font-family:var(--f-mono);fill:${dark?"#fff":css("--ink2")}`},svg); b.textContent=fmt(v); }
+    hover(f, r, cx*cell+cell/2, cy*cell+4, `<b>${names?.[iso]||iso}</b>${v!=null?": "+fmt(v):": no data"}`);
+  }
+  if (note){ const s=document.createElement("div"); s.className="cs"; s.textContent=note; container.appendChild(s); }
+}
+
+/* ---------- copy buttons ---------- */
+function wireCopy(){ $$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{ const ta=$("#"+b.dataset.copy), out=$(`[data-copied="${b.dataset.copy}"]`);
+  const fallback=()=>{ ta.focus(); ta.select(); if (out) out.textContent="Selected: press Ctrl+C or Cmd+C."; };
+  try { navigator.clipboard.writeText(ta.value).then(()=>{ if (out) out.textContent="Copied."; },fallback); } catch(e){ fallback(); } })); }
+
+/* ---------- quiz ---------- */
+function quiz(box, scoreEl, QUIZ, stepId){
+  let qa = store.get("quiz",{});
+  const draw = () => {
+    box.innerHTML = QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?"Right. ":"Not quite. "}${q.e}</p>`:""}</div>`).join("");
+    $$("#"+box.id+" input").forEach(i=>i.addEventListener("change",()=>{ qa[+i.name.slice(2)]=+i.value; store.set("quiz",qa); draw(); }));
+    const n=Object.keys(qa).length, s=QUIZ.filter((q,i)=>qa[i]===q.a).length;
+    scoreEl.textContent = n===QUIZ.length ? `Score: ${s} out of ${QUIZ.length}.` : "";
+    if (n===QUIZ.length) markDone(stepId);
+  };
+  draw();
+}
+
+/* ---------- brief text areas (saved across sessions) ---------- */
+function wireBrief(){ $$("[data-brief]").forEach(t=>{ t.value = brief.get(t.dataset.brief, ""); t.addEventListener("input",()=>brief.set(t.dataset.brief, t.value)); }); }
+
+/* ---------- reset ---------- */
+function wireReset(){ const b=$("#resetBtn"); if (!b) return; b.addEventListener("click",()=>{ try{ Object.keys(localStorage).filter(k=>k.startsWith(PFX)).forEach(k=>localStorage.removeItem(k)); }catch(e){} location.reload(); }); }
+
+/* ---------- redraw hooks ---------- */
+function onRedraw(fn){
+  try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", fn); new MutationObserver(fn).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]}); } catch(e){}
+  let rz, lastW=innerWidth; addEventListener("resize",()=>{ if (innerWidth===lastW) return; lastW=innerWidth; clearTimeout(rz); rz=setTimeout(fn,200); });
+}
+
+/* Session 2 */
+const P = DATA.polls, RES = DATA.result;
+const moe = (p, n) => 1.96*Math.sqrt(p*(1-p)/n)*100;
+
+/* puzzle */
+$("#pollTable").innerHTML = `<tr><th>Pollster</th><th>Fieldwork</th><th class="num">Sample</th><th class="num">Yes %</th><th class="num">No %</th><th class="num">Undecided %</th></tr>` +
+  P.map(p=>`<tr><td>${p.p}</td><td style="text-align:left">${p.dates}</td><td class="num">${p.n.toLocaleString("en-GB")}</td><td class="num">${p.yes.toFixed(1)}</td><td class="num">${p.no.toFixed(1)}</td><td class="num">${p.und.toFixed(1)}</td></tr>`).join("");
+const gy = $("#guessYes"), gyo = $("#guessYesOut");
+gy.addEventListener("input",()=>gyo.textContent=gy.value+"%");
+function showGuess(){ const g=store.get("guess",null); if (g===null) return; gy.value=g; gyo.textContent=g+"%"; gy.disabled=true; $("#guessBtn").disabled=true; $("#guessSaved").textContent="Saved. The answer comes in step 4."; markDone("puzzle"); }
+$("#guessBtn").addEventListener("click",()=>{ store.set("guess", +gy.value); showGuess(); });
+
+/* lesson A calculator */
+function calc(){ const n=+$("#mN").value, p=+$("#mP").value/100; $("#mNout").textContent=n.toLocaleString("en-GB"); $("#mPout").textContent=Math.round(p*100)+"%";
+  $("#mOut").textContent = `± ${moe(p,n).toFixed(1)} points`; }
+["mN","mP"].forEach(id=>$("#"+id).addEventListener("input",()=>{calc(); markDone("lessonA");})); calc();
+$("#la-btn").addEventListener("click",()=>{ const [v]=readNums(["la-in"]); const t=moe(.5,1100);
+  if (isNaN(v)) return feedback($("#la-fb"),false,"Type a number first.");
+  if (Math.abs(v-t)<=0.15){ feedback($("#la-fb"),true,`Right: 1.96 × √(0.5 × 0.5 ÷ 1,100) = ${t.toFixed(2)}, about ±3 points.`); markDone("lessonA"); }
+  else feedback($("#la-fb"),false,"Not quite. Use p = 0.5 and n = 1,100, then multiply by 100 to get points."); });
+
+/* activity A */
+let stA = store.get("actA",{ok:false,revealed:false}); let und="drop";
+function est(p, how){ const dec=p.yes+p.no;
+  if (how==="drop") return {v:p.yes/dec*100, m:moe(p.yes/dec, p.n*dec/100)};
+  if (how==="split") { const v=p.yes+p.und/2; return {v, m:moe(v/100,p.n)}; }
+  return {v:p.yes, m:moe(p.yes/100,p.n)}; }
+function drawPolls(){
+  const rows = P.map(p=>{ const e=est(p,und); return {label:p.p.split("–")[0], v:e.v, lo:e.v-e.m, hi:e.v+e.m, color:css("--accent"), tip:`<b>${p.p}</b><br>Yes ${e.v.toFixed(1)}% ± ${e.m.toFixed(1)}`}; });
+  const f = hbar($("#pollChart"),{title:"Yes share, % ("+({drop:"undecided dropped",split:"undecided split evenly",no:"undecided all to No"})[und]+")", rows, xmin:30, xmax:75, xfmt:v=>v+"%", ref: stA.revealed?RES.home:undefined, refLabel: stA.revealed?"Result in Moldova 45.4%":undefined, rowH:44});
+  if (stA.revealed){ legend($("#pollChart"),[{label:"Poll estimate with 95% margin",color:css("--accent")},{label:"Result among voters in Moldova",color:css("--hi"),kind:"line",dash:"6 4"}]); }
+}
+seg("segUnd", v=>{ und=v; drawPolls(); });
+$("#aa-btn").addEventListener("click",()=>{ const [p,m]=readNums(["aa-p","aa-m"]); const e=est(P[0],"drop");
+  if (isNaN(p)||isNaN(m)) return feedback($("#aa-fb"),false,"Fill in both boxes.");
+  const okP=Math.abs(p-e.v)<=0.15, okM=Math.abs(m-e.m)<=0.15;
+  if (okP&&okM){ feedback($("#aa-fb"),true,`Right: 55.1 ÷ 89.6 = ${e.v.toFixed(1)}%; decided respondents 1,034 × 0.896 ≈ 926; margin ±${e.m.toFixed(1)}.`); stA.ok=true; store.set("actA",stA); }
+  else if (okP) feedback($("#aa-fb"),false,"The share is right. For the margin, use n = 1,034 × 0.896 and p = 0.615.");
+  else feedback($("#aa-fb"),false,"Not yet. Yes among decided = 55.1 ÷ (55.1 + 34.5)."); });
+$("#aa-reveal").addEventListener("click",()=>{ stA.revealed=true; store.set("actA",stA); drawPolls(); markDone("activityA"); openFA(); });
+$("#csvPolls").value = "pollster,n,yes,no,und\n"+P.map(p=>`${p.p},${p.n},${p.yes},${p.no},${p.und}`).join("\n");
+function openFA(){ $("#fa-locked").hidden=true; $("#fa-body").hidden=false; markDone("feedbackA");
+  const g=store.get("guess",null);
+  $("#fa-guess").textContent = g===null ? "You did not record a guess." : `Your guess was ${g}%. The result was 50.35%, a miss of ${Math.abs(g-50.35).toFixed(1)} points.`; }
+
+/* activity B */
+const PW = DATA.pew;
+let stB = store.get("actB",{ok:false,all:false});
+const dmoe = (a,b) => 1.96*Math.sqrt((a/100)*(1-a/100)/1000 + (b/100)*(1-b/100)/1000)*100;
+function drawPew(){
+  $("#pewTable").innerHTML = `<tr><th>Country</th><th class="num">2024 %</th><th class="num">2025 %</th><th class="num">Change</th><th class="num">Margin ±</th><th>Real change?</th></tr>` +
+    PW.map(r=>{ const has=r.y24!==null, show=stB.all||(r.c==="France"&&stB.ok);
+      const ch=has?r.y25-r.y24:null, m=has?dmoe(r.y24,r.y25):null;
+      return `<tr><td>${r.c}</td><td class="num">${has?r.y24:"–"}</td><td class="num">${r.y25}</td><td class="num">${show&&has?sgn(ch,0):has?"…":"–"}</td><td class="num">${show&&has?m.toFixed(1):has?"…":"–"}</td><td>${!has?'<span class="small">not comparable</span>':show?(Math.abs(ch)>m?'<span class="chip F">✓ yes</span>':'<span class="chip PF">✗ within noise</span>'):"…"}</td></tr>`; }).join("");
+  const rows = PW.filter(r=>r.y24!==null);
+  const f = frame($("#pewChart"),{title:"Favourable view of China, 2024 → 2025",sub:"% of adults",H:40+rows.length*30+30,m:{t:16,r:24,b:30,l:120}});
+  const xs=v=>f.m.l+(v)/70*f.iw;
+  for (const v of [0,10,20,30,40,50,60,70]){ el("line",{x1:xs(v),x2:xs(v),y1:f.m.t,y2:f.m.t+rows.length*30,stroke:css("--rule")},f.svg); txt(f.svg,xs(v),f.m.t+rows.length*30+18,v+"%",{"text-anchor":"middle"}); }
+  rows.forEach((r,i)=>{ const y=f.m.t+i*30+15; const show=stB.all||(r.c==="France"&&stB.ok); const real=Math.abs(r.y25-r.y24)>dmoe(r.y24,r.y25);
+    const col = show ? (real?css("--accent"):css("--grey")) : css("--ink2");
+    el("line",{x1:xs(r.y24),x2:xs(r.y25),y1:y,y2:y,stroke:col,"stroke-width":2},f.svg);
+    el("circle",{cx:xs(r.y24),cy:y,r:4,fill:css("--panel"),stroke:col,"stroke-width":2},f.svg);
+    shape(f.svg,show&&!real?"sq":"circ",xs(r.y25),y,5,col,true);
+    txt(f.svg,f.m.l-8,y+4,r.c,{"text-anchor":"end"});
+    const hit=el("rect",{x:f.m.l,y:y-15,width:f.iw,height:30,fill:"transparent"},f.svg); hover(f,hit,xs(r.y25),y-6,`<b>${r.c}</b><br>${r.y24}% → ${r.y25}%`); });
+  legend($("#pewChart"),[{label:"2024 (open) → 2025 (filled)",color:css("--ink2")},{label:"Real change",color:css("--accent")},{label:"Within noise",color:css("--grey"),kind:"sq"}]);
+}
+$("#pb-btn").addEventListener("click",()=>{ const [c,m]=readNums(["pb-ch","pb-m"]); const tm=dmoe(23,36);
+  if (isNaN(c)||isNaN(m)) return feedback($("#pb-fb"),false,"Fill in both boxes.");
+  if (Math.abs(c-13)<=0.5 && Math.abs(m-tm)<=0.2){ feedback($("#pb-fb"),true,`Right: +13 points against a margin of ±${tm.toFixed(1)}. The change is real.`); stB.ok=true; store.set("actB",stB); drawPew(); $("#pb-all").disabled=false; }
+  else if (Math.abs(c-13)<=0.5) feedback($("#pb-fb"),false,"Change right. Margin: 1.96 × √(0.23 × 0.77 ÷ 1,000 + 0.36 × 0.64 ÷ 1,000) × 100.");
+  else feedback($("#pb-fb"),false,"The change is 2025 minus 2024."); });
+$("#pb-all").addEventListener("click",()=>{ stB.all=true; store.set("actB",stB); drawPew(); markDone("activityB"); markDone("feedbackB"); });
+$("#csvPew").value = "country,y24,y25\n"+PW.filter(r=>r.y24!==null).map(r=>`${r.c},${r.y24},${r.y25}`).join("\n");
+const tn=$("#trendsNote"); tn.value=store.get("trends",""); tn.addEventListener("input",()=>{ store.set("trends",tn.value); if (tn.value.length>20) markDone("feedbackB"); });
+
+/* brief */
+wireBrief();
+const bq = brief.get("question","");
+$$("#bQuestion input").forEach(i=>{ i.checked = i.value===bq; i.addEventListener("change",()=>{ brief.set("question", i.value); markDone("brief"); }); });
+
+/* quiz */
+quiz($("#quizBox"), $("#quizScore"), [
+ {q:"A poll of 1,000 people gives 52% Yes. Roughly what is its margin of error?",o:["±1 point","±3 points","±10 points"],a:1,e:"1.96 × √(0.52 × 0.48 ÷ 1,000) ≈ 3.1 points."},
+ {q:"To halve the margin of error, a pollster must…",o:["double the sample","quadruple the sample","ask better questions"],a:1,e:"The margin shrinks with the square root of n: four times the sample, half the margin."},
+ {q:"The Moldovan polls missed the result among residents by far more than their margins. Which error did the margin not cover?",o:["The luck of who was sampled","Undecided voters, refusals and pressure on voters","Rounding"],a:1,e:"Non-sampling errors are outside the margin of error, and often larger."},
+ {q:"Spain: 33% favourable to China in 2024, 37% in 2025, about 1,000 people each year. What can you say?",o:["Views clearly improved","The change is within the noise","The poll is wrong"],a:1,e:"The margin of the difference is about ±4.2 points, larger than the 4-point change."},
+ {q:"Searches for “Taiwan” triple in one week. This shows…",o:["more support for Taiwan","more attention to Taiwan","nothing at all"],a:1,e:"Google Trends measures attention, not opinion."}], "quiz");
+
+/* boot */
+showGuess(); drawPolls(); drawPew(); if (stB.ok) $("#pb-all").disabled = stB.all;
+if (stA.revealed) openFA();
+wireCopy(); wireReset();
+onRedraw(()=>{ drawPolls(); drawPew(); });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Who Depends on Whom?</title>
+<meta name="description" content="Session 3: import dependence, concentration and vulnerability indices.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}
+
+/* Layout: a single reading column (about 68ch) of numbered steps, with a sticky step bar; wide charts and tables break out to 880px. */
+:root{
+  --bg:#F3F5F7; --panel:#FFFFFF; --ink:#15202A; --ink2:#43505C; --muted:#68747F; --rule:#D3DAE1; --soft:#E6EEF5;
+  --accent:#0072B2; --verm:#D55E00; --hi:#E69F00; --ok:#007A57; --grey:#7D8893;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --col:44rem; --wide:56rem; --r:6px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F151B; --panel:#17202A; --ink:#E4EAF0; --ink2:#B6C1CB; --muted:#8B97A2; --rule:#2A3541; --soft:#1B2834;
+  --accent:#3D9AD6; --verm:#E0662A; --hi:#E69F00; --ok:#2BB58A; --grey:#8C97A2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151B; --panel:#17202A; --ink:#E4EAF0; --ink2:#B6C1CB; --muted:#8B97A2; --rule:#2A3541; --soft:#1B2834;
+  --accent:#3D9AD6; --verm:#E0662A; --hi:#E69F00; --ok:#2BB58A; --grey:#8C97A2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6;margin:0}
+.wrap{padding-inline:16px;padding-block:0 4rem}
+.col{max-width:var(--col);margin-inline:auto}
+.wide{max-width:var(--wide);margin-inline:auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(2.1rem,6vw,3.3rem);font-weight:800;font-stretch:80%;letter-spacing:-.01em}
+h2{font-size:1.75rem;font-weight:750;font-stretch:85%}
+h3{font-size:1.2rem;font-weight:700;font-stretch:90%;margin-top:1.6rem}
+p{margin:.7rem 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,label:focus-within{outline:3px solid var(--hi);outline-offset:2px}
+.mono,.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+/* header */
+header.top{padding-block:2.4rem 1.6rem;border-bottom:1px solid var(--rule)}
+header.top .course{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+header.top .lede{font-size:1.15rem;color:var(--ink2);max-width:40rem;margin-top:1rem}
+.meta{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:1rem;font-size:.9rem;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+/* step bar */
+nav.steps{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);margin-inline:-16px;padding-inline:16px}
+nav.steps ol{list-style:none;display:flex;gap:.25rem;margin:0 auto;padding:.5rem 0;max-width:var(--wide);overflow-x:auto;scrollbar-width:thin}
+nav.steps a{display:flex;align-items:center;gap:.4rem;white-space:nowrap;text-decoration:none;color:var(--ink2);font-size:.82rem;padding:.3rem .55rem;border-radius:999px}
+nav.steps a:hover{background:var(--soft)}
+nav.steps .dot{width:.9rem;height:.9rem;border-radius:50%;border:1.5px solid var(--grey);display:inline-grid;place-items:center;font-size:.6rem;line-height:1;color:var(--panel)}
+nav.steps li.done .dot{background:var(--ok);border-color:var(--ok)}
+nav.steps li.done .dot::after{content:"✓";color:#fff}
+/* steps */
+section.step{padding-block:3rem 1rem;border-bottom:1px solid var(--rule);scroll-margin-top:3.5rem}
+.stephead{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.box{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.1rem;margin:1.2rem 0}
+.box.task{border-left:4px solid var(--accent)}
+.box.key{background:var(--soft);border-color:transparent}
+.box h4{font-family:var(--f-display);font-stretch:90%;font-size:1.02rem;margin:0 0 .4rem}
+.formula{font-family:var(--f-mono);font-size:.98rem;background:var(--soft);padding:.6rem .8rem;border-radius:var(--r);overflow-x:auto}
+ul.tight,ol.tight{padding-left:1.2rem;margin:.5rem 0}
+ul.tight li,ol.tight li{margin:.25rem 0}
+/* controls */
+button,.btn{font:inherit;font-size:.92rem;font-weight:600;border-radius:var(--r);border:1.5px solid var(--accent);background:var(--accent);color:#fff;padding:.45rem .9rem;cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.8rem 0}
+.choice{display:grid;gap:.5rem;margin:.8rem 0}
+.choice label{display:flex;gap:.6rem;align-items:flex-start;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.55rem .75rem;cursor:pointer}
+.choice label:has(input:checked){border-color:var(--accent);background:var(--soft)}
+.choice input{margin-top:.35rem;accent-color:var(--accent)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--accent);border-radius:var(--r);overflow:hidden}
+.seg button{border:0;border-radius:0;background:transparent;color:var(--accent);font-weight:500;padding:.35rem .75rem}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+input[type=number],input[type=text],textarea{font:inherit;font-family:var(--f-mono);font-size:.95rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--rule);border-radius:4px;padding:.3rem .45rem}
+input[type=number]{width:6.2rem}
+textarea{width:100%;font-family:var(--f-body);line-height:1.5}
+.fb{font-size:.95rem;margin:.4rem 0;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--verm)}
+.fb.ok::before{content:"✓ ";font-weight:700} .fb.no::before{content:"✗ ";font-weight:700}
+/* tables */
+.tscroll{overflow-x:auto;margin:1rem 0;border:1px solid var(--rule);border-radius:var(--r);background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:.45rem .6rem;border-bottom:1px solid var(--rule);text-align:right;vertical-align:middle}
+th{font-weight:600;font-size:.8rem;color:var(--ink2);background:var(--soft)}
+th:first-child,td:first-child{text-align:left}
+td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:600;padding:.1rem .45rem;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.chip.F{color:var(--accent)} .chip.NF{color:var(--verm)} .chip.PF{color:var(--grey)}
+/* charts */
+figure{margin:1.2rem 0}
+.chart{position:relative;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.8rem .6rem .4rem}
+.chart .ct{font-family:var(--f-display);font-stretch:90%;font-weight:700;font-size:1rem;padding:0 .3rem}
+.chart .cs{font-size:.82rem;color:var(--muted);padding:0 .3rem}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body);font-size:12px;fill:var(--muted)}
+.chart svg .lab{fill:var(--ink);font-weight:600}
+figcaption{font-size:.8rem;color:var(--muted);margin-top:.4rem}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem 1rem;font-size:.82rem;color:var(--ink2);padding:.3rem .3rem 0}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.8rem;line-height:1.35;padding:.35rem .55rem;border-radius:4px;white-space:nowrap;z-index:3;transform:translate(-50%,calc(-100% - 10px))}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem}
+.pair>*{min-width:0}
+.headline-claim{font-family:var(--f-display);font-weight:800;font-stretch:80%;font-size:1.3rem}
+details.jam{margin:1.2rem 0;border:1px dashed var(--rule);border-radius:var(--r);padding:.6rem .9rem;background:var(--panel)}
+details.jam summary{cursor:pointer;font-weight:600}
+details.jam textarea{font-family:var(--f-mono);font-size:.8rem;height:9rem;white-space:pre}
+.hidden-until{border-top:2px solid var(--accent);margin-top:1.4rem;padding-top:.4rem}
+.small{font-size:.88rem;color:var(--ink2)}
+footer{padding-block:2rem;color:var(--muted);font-size:.85rem}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+@media (max-width:520px){body{font-size:1rem}th,td{padding:.4rem .4rem}}
+.vh{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.crumbs{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:center;font-family:var(--f-mono);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.crumbs a{color:var(--accent);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.nextprev{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:1.4rem}
+.nextprev a{font-weight:600;text-decoration:none}
+.refs{padding-left:1.1rem;font-size:.9rem;color:var(--ink2)}
+.refs li{margin:.35rem 0}
+.brief-box{border:1.5px solid var(--hi);border-radius:var(--r);padding:1rem 1.1rem;margin:1.2rem 0;background:var(--panel)}
+.brief-box h4{font-family:var(--f-display);font-stretch:90%;font-size:1.02rem;margin:0 0 .4rem}
+.brief-box label{display:block;font-weight:600;font-size:.9rem;margin:.7rem 0 .25rem}
+input[type=range]{width:100%;accent-color:var(--accent)}
+select{font:inherit;font-size:.95rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--rule);border-radius:4px;padding:.3rem .45rem;max-width:100%}
+.kpi{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin:.6rem 0}
+.kpi div{display:flex;flex-direction:column}
+.kpi b{font-family:var(--f-mono);font-size:1.25rem;font-variant-numeric:tabular-nums}
+.kpi span{font-size:.8rem;color:var(--muted)}
+.prompt{font-family:var(--f-mono);font-size:.85rem;white-space:pre-wrap;background:var(--soft);padding:.7rem .8rem;border-radius:var(--r)}
+.chart .legend svg{display:inline-block;width:auto;height:auto;overflow:visible;flex:none}
+.sessions{display:grid;gap:.8rem;margin-top:1rem}
+.scard{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.1rem;text-decoration:none;color:var(--ink)}
+.scard:hover{border-color:var(--accent)}
+.scard strong{font-family:var(--f-display);font-stretch:85%;font-size:1.25rem;line-height:1.2}
+.scard .bar{display:block;height:4px;background:var(--soft);border-radius:2px;overflow:hidden;margin-top:.3rem}
+.scard .bar i{display:block;height:100%;background:var(--ok)}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.8rem;margin-top:1rem}
+.nums>div{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.9rem 1rem;min-width:0}
+.nums b{font-family:var(--f-display);font-stretch:80%;font-weight:800;font-size:1.7rem;color:var(--accent);line-height:1.1}
+.nums span{font-size:.92rem;color:var(--ink2)}
+.outcomes li{margin:.45rem 0}
+a.btn{color:#fff}
+.cert{background:var(--panel);border:2px solid var(--accent);outline:6px solid var(--soft);border-radius:4px;padding:2.4rem 2rem;text-align:center;margin:1rem 0;display:flex;flex-direction:column;gap:.6rem;align-items:center}
+.cert-k{font-family:var(--f-mono);letter-spacing:.14em;text-transform:uppercase;font-size:.85rem;color:var(--muted)}
+.cert-n{font-family:var(--f-display);font-weight:800;font-stretch:85%;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1}
+.cert-c{font-family:var(--f-display);font-weight:700;font-stretch:90%;font-size:1.35rem;color:var(--accent)}
+.cert-t{max-width:40rem;color:var(--ink2);margin:.2rem 0}
+.cert-f{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 2rem;font-size:.9rem;margin-top:.8rem}
+.cert-s{font-size:.75rem;color:var(--muted);margin-top:.6rem}
+@media print{ @page{size:A4 landscape;margin:12mm} body{background:#fff;color:#000} .noprint,nav.steps,footer{display:none!important} .cert{border-color:#0072B2;outline:none;box-shadow:none;margin:0} .wrap{padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Session 3 of 6</span></div>
+  <h1 style="margin-top:.6rem">Who depends on whom?</h1>
+  <p class="lede">Economic security has become a policy field of its own: the European Commission, NATO and every finance ministry now track dependencies. In this session you measure dependence the way they do, build a vulnerability index, and see how easily an index can be bent.</p>
+  <div class="meta"><span><b>About 3 hours</b> at your own pace</span><span><b>No software needed</b> in the browser; optional steps in jamovi</span><span><b>Your answers</b> stay in this browser only</span></div>
+</header>
+
+<nav class="steps" aria-label="Steps in this session"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Step 1 · Puzzle · 10 min</span><h2>Name the product</h2></div>
+  <p>For three of these eight products, China supplied more than 90% of everything the European Union imported from outside the EU in 2024. Which three?</p>
+  <div class="box task">
+    <div class="choice" id="q-prod"></div>
+    <p class="small" id="prodCount">Pick three.</p>
+    <p>And which EU country buys the largest share of all its imports from China?</p>
+    <select id="q-country" aria-label="Country"></select>
+    <div class="row"><button id="prodBtn" disabled>Lock in my answers</button></div>
+    <div id="prodOut" hidden><p class="fb" id="prodFb"></p><p id="prodTxt"></p></div>
+  </div>
+</section>
+
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Step 2 · Lesson · 25 min</span><h2>Measuring dependence</h2></div>
+  <h3>Import shares</h3>
+  <p>The simplest measure: what share of a product's imports comes from one supplier. The European Commission flags a product as a dependency when one or a few suppliers dominate and the EU cannot easily replace them.</p>
+  <h3>Concentration: the Herfindahl index</h3>
+  <p>A 50% share from one supplier is risky if the other 50% comes from one more country, much less so if it comes from twenty. The <strong>Herfindahl–Hirschman index (HHI)</strong> captures this: square each supplier's share (in %) and add them up.</p>
+  <p class="formula">HHI = s₁² + s₂² + s₃² + …   (from near 0 to 10,000)</p>
+  <p>One supplier with 100%: 10,000. Two suppliers with 50% each: 2,500 + 2,500 = 5,000. Ten suppliers with 10% each: 1,000. Competition authorities in the United States treat markets above roughly 1,800 to 2,500 as highly concentrated; trade analysts borrow the same scale.</p>
+  <h3>Can the supplier be replaced?</h3>
+  <p>Shares and concentration describe the past. What matters in a crisis is <em>substitutability</em>: whether other producers exist, how long it takes to switch, and whether stocks can bridge the gap.</p>
+  <h3>The Lithuanian case</h3>
+  <p>In 2021 Lithuania let Taiwan open a representative office under the name “Taiwanese” rather than “Taipei”. China retaliated. On paper, Lithuania was hardly exposed: China took 1.1% of its exports in 2020. Yet the pressure hurt, because China also blocked goods from other EU countries that contained Lithuanian parts, and German firms with plants in Lithuania warned they might leave (Global Taiwan Institute, 2022). Lithuanian exports to China fell to 0.2% of its total by 2022.</p>
+  <div class="box task"><h4>Check yourself</h4>
+    <p>Three suppliers with 60%, 30% and 10%. What is the HHI?</p>
+    <div class="row"><input type="number" id="la-in" aria-label="HHI"><button id="la-btn">Check</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Step 3 · Activity · 20 min</span><h2>Who depends on whom?</h2></div>
+  <p>EU imports from outside the EU, 2024, by supplier. Each row shows the largest suppliers' shares.</p>
+  <div class="box task"><h4>1. Wheat by hand</h4>
+    <p>Using the four shares shown for wheat, compute the HHI (ignore the small remaining suppliers). Nearest whole number.</p>
+    <div class="row"><input type="number" id="aa-in" aria-label="HHI for wheat"><button id="aa-btn">Check</button></div>
+    <p class="fb" id="aa-fb"></p>
+    <div class="row"><button id="aa-all" disabled>Compute all products</button></div>
+  </div>
+  <div class="tscroll wide"><table id="prodTable" aria-label="Product dependence"></table></div>
+  <figure class="wide"><div class="chart" id="prodChart"></div><figcaption>HHI computed on all suppliers. Source: UN Comtrade, EU (extra-EU) imports by partner, 2024, HS six-digit codes.</figcaption></figure>
+  <details class="jam"><summary>Now do it in jamovi (optional, 10 min)</summary>
+    <ol class="tight"><li>Paste the data below (one row per product and supplier).</li>
+      <li><b>Data → Compute</b>: <span class="mono">sq = share^2</span>.</li>
+      <li><b>Analyses → Exploration → Descriptives</b>: variable <span class="mono">sq</span>, split by <span class="mono">product</span>, statistic <b>Sum</b>. That sum is the HHI of the listed suppliers.</li></ol>
+    <textarea readonly id="csvProd" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvProd">Copy data</button><span class="small" data-copied="csvProd"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Step 4 · Feedback · 10 min</span><h2>Concentrated and hard to replace</h2></div>
+  <p>Solar panels, magnesium, permanent magnets and laptops all have HHIs above 7,000: one supplier, China, dominates. Crude oil is the opposite: the EU buys from many countries, so its HHI is below 1,000, even though Europe imports almost all its oil. Liquefied natural gas sits in between, with the United States now the largest supplier.</p>
+  <p>Which of these numbers would have warned Lithuania? None. Export shares measured direct trade with China, and they were tiny. The exposure ran through supply chains: Lithuanian parts inside German goods sold in China, and Chinese inputs inside Lithuanian factories. Dependence measures need to follow inputs, not just final trade.</p>
+  <div class="box key"><h4>Remember</h4>Share, concentration and substitutability are three different questions. A high share from a diversified, friendly market is not a vulnerability; a modest share of an irreplaceable input can be.</div>
+</section>
+
+<section class="step col" id="lessonB" data-read data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Step 5 · Lesson · 25 min</span><h2>Building an index and mapping it</h2></div>
+  <p>Think tanks and international organisations love composite indices: one number per country, a ranking, a map. Building one takes four steps, and each hides a choice.</p>
+  <ol class="tight">
+    <li><strong>Choose indicators.</strong> Here: the share of imports from China, the concentration (HHI) of import partners, and dependence on imported energy.</li>
+    <li><strong>Normalise</strong> them to a common scale, for example 0 for the lowest country and 100 for the highest.</li>
+    <li><strong>Weight</strong> them. Equal weights are a choice too.</li>
+    <li><strong>Aggregate and rank.</strong></li>
+  </ol>
+  <p class="formula">score = w₁ × norm(China share) + w₂ × norm(HHI) + w₃ × norm(energy dependence)</p>
+  <h3>Rules for a map</h3>
+  <ul class="tight">
+    <li>Map rates or shares, never totals: big countries are not more vulnerable for being big.</li>
+    <li>Use one colour that darkens with the value, and print the numbers where you can.</li>
+    <li>Say what is missing; a blank country is not a zero.</li>
+  </ul>
+  <p>The map in the next step is a <em>tile map</em>: each country is one equal square placed roughly where it lies, so Malta counts as much as France. Newspapers use them for exactly this reason.</p>
+</section>
+
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Step 6 · Activity · 20 min</span><h2>Rig the ranking</h2></div>
+  <div class="box task">
+    <p>Pick a country, then move the weights to push it as far up the vulnerability ranking as you can, then as far down. Same data, every time.</p>
+    <div class="row"><label for="rCountry">Country</label><select id="rCountry"></select></div>
+    <label class="small" for="w1">Weight on China import share: <b class="mono" id="w1o"></b></label><input type="range" id="w1" min="0" max="100" value="34">
+    <label class="small" for="w2">Weight on partner concentration (HHI): <b class="mono" id="w2o"></b></label><input type="range" id="w2" min="0" max="100" value="33">
+    <label class="small" for="w3">Weight on energy dependence: <b class="mono" id="w3o"></b></label><input type="range" id="w3" min="0" max="100" value="33">
+    <div class="kpi"><div><b id="rRank">–</b><span>rank out of 27 (1 = most vulnerable)</span></div><div><b id="rBest">–</b><span>highest rank you reached</span></div><div><b id="rWorst">–</b><span>lowest rank you reached</span></div></div>
+  </div>
+  <figure class="wide"><div class="chart" id="tileMap"></div></figure>
+  <div class="tscroll"><table id="rankTable" aria-label="Index ranking"></table></div>
+  <details class="jam"><summary>Now do it in jamovi (optional, 15 min)</summary>
+    <ol class="tight"><li>Paste the data below.</li>
+      <li>Normalise each indicator: <span class="mono">n_china = 100 * (china - MIN(china)) / (MAX(china) - MIN(china))</span>, and the same for <span class="mono">hhi</span> and <span class="mono">energy</span>.</li>
+      <li>Compute <span class="mono">score = (n_china + n_hhi + n_energy) / 3</span> and sort. Then try other weights.</li></ol>
+    <textarea readonly id="csvIdx" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvIdx">Copy data</button><span class="small" data-copied="csvIdx"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Step 7 · Feedback · 10 min</span><h2>Same data, opposite rankings</h2></div>
+  <p class="headline-claim" id="fbRange"></p>
+  <p>Most countries can be moved a long way up or down by weights alone. That is why serious indices publish their weights and show how rankings change when the weights change.</p>
+  <h3>The real case: Doing Business</h3>
+  <p>For years the World Bank's <em>Doing Business</em> report ranked countries on how easy it was to run a firm, and governments set targets to climb it. In 2021 an external investigation by the law firm WilmerHale found that, for the 2018 edition, changes to three data points had moved China from 85th to 78th. The World Bank discontinued the report in September 2021.</p>
+  <div class="box key"><h4>Remember</h4>Before quoting a ranking, ask what went in, how it was weighted, and how much the order changes with other reasonable choices.</div>
+</section>
+
+<section class="step col" id="brief" data-title="Your brief">
+  <div class="stephead"><span class="eyebrow">Step 8 · Your brief · 45 min</span><h2>First chart and main source</h2></div>
+  <p id="briefWho" class="small"></p>
+  <div class="brief-box">
+    <label for="bSource">Your main source, why you chose it, and its weaknesses (coverage, possible bias, revisions)</label>
+    <textarea id="bSource" data-brief="source" rows="5"></textarea>
+    <label for="bChart">Your first chart: its title (stating the finding), the unit, the years, and the source line</label>
+    <textarea id="bChart" data-brief="chart1" rows="4"></textarea>
+  </div>
+  <p class="small">For question B, the product and country data on this page are a starting point: UN Comtrade gives the same figures for any country and product. Draw the chart in <a href="https://www.datawrapper.de" target="_blank" rel="noopener">Datawrapper</a>.</p>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Step 9 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session2.html">← Session 2: Can we trust a poll?</a><a href="session4.html">Session 4: Poland, Spain and the line →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Readings and references</h3>
+  <ul class="refs">
+    <li>Bruegel, <a href="https://www.bruegel.org/blog-post/europe-failing-import-diversification" target="_blank" rel="noopener">“Is Europe failing on import diversification?”</a></li>
+    <li>European Commission (2022), <a href="https://ec.europa.eu/docsroom/documents/48878" target="_blank" rel="noopener">EU strategic dependencies and capacities: second stage of in-depth reviews</a>, executive summary.</li>
+    <li>Global Taiwan Institute (2022), <a href="https://globaltaiwan.org/2022/07/lithuanias-confrontation-with-china-over-taiwan-lessons-from-a-small-country/" target="_blank" rel="noopener">“Lithuania's confrontation with China over Taiwan: lessons from a small country”</a>.</li>
+    <li>On Doing Business: <a href="https://www.orfonline.org/index.php/expert-speak/the-world-bank-data-manipulation-controversy" target="_blank" rel="noopener">Observer Research Foundation, “The World Bank data manipulation controversy”</a>.</li>
+  </ul>
+  <h3>Data</h3>
+  <ul class="refs">
+    <li><a href="https://comtradeplus.un.org" target="_blank" rel="noopener">UN Comtrade</a>: EU imports by partner and product (2024); member states' imports by partner (2024); Lithuania's exports (2020–2022).</li>
+    <li>Eurostat, <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_ind_id/default/table" target="_blank" rel="noopener">energy import dependency (nrg_ind_id)</a>, 2023.</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Clear my answers for this session</button></p>
+</footer>
+
+</div>
+<script>
+window.SESSION=3;
+const DATA = {"products": [{"code": "810411", "name": "Unwrought magnesium", "total_bn": 0.21, "top": [["China", 91.9], ["Israel", 7.1], ["Russia", 0.3], ["Japan", 0.2], ["Brazil", 0.2], ["China, Hong Kong SAR", 0.2]], "hhi": 8499}, {"code": "850511", "name": "Permanent magnets", "total_bn": 1.17, "top": [["China", 90.2], ["Switzerland", 2.4], ["Philippines", 1.9], ["USA", 1.2], ["Vietnam", 1.2], ["United Kingdom", 0.8]], "hhi": 8145}, {"code": "847130", "name": "Laptops", "total_bn": 32.09, "top": [["China", 85.7], ["Vietnam", 9.3], ["Thailand", 2.0], ["Taiwan (\u201cOther Asia\u201d)", 1.3], ["United Kingdom", 0.5], ["USA", 0.4]], "hhi": 7443}, {"code": "854143", "name": "Solar panels", "total_bn": 12.0, "top": [["China", 98.0], ["Singapore", 0.6], ["Malaysia", 0.3], ["USA", 0.3], ["Vietnam", 0.3], ["United Kingdom", 0.1]], "hhi": 9612}, {"code": "280530", "name": "Rare-earth metals", "total_bn": 0.01, "top": [["China", 69.8], ["USA", 13.1], ["Vietnam", 8.1], ["Japan", 5.7], ["United Kingdom", 2.0], ["Thailand", 0.4]], "hhi": 5152}, {"code": "270900", "name": "Crude oil", "total_bn": 283.46, "top": [["USA", 16.1], ["Norway", 13.5], ["Kazakhstan", 11.5], ["Libya", 7.4], ["Saudi Arabia", 7.0], ["Nigeria", 6.1]], "hhi": 846}, {"code": "271111", "name": "Liquefied natural gas", "total_bn": 39.64, "top": [["USA", 41.5], ["Russia", 19.7], ["Algeria", 12.1], ["Qatar", 9.4], ["Nigeria", 5.0], ["Norway", 4.8]], "hhi": 2404}, {"code": "100199", "name": "Wheat", "total_bn": 2.19, "top": [["Ukraine", 66.0], ["Canada", 15.5], ["Moldova", 6.9], ["USA", 4.6], ["Serbia", 3.3], ["United Kingdom", 2.2]], "hhi": 4680}], "countries": [{"iso": "AUT", "n": "Austria", "china": 8.2, "hhi": 1243, "energy": 60.3, "top": [["Germany", 32.0], ["China", 8.2], ["Italy", 6.5]]}, {"iso": "BEL", "n": "Belgium", "china": 3.7, "hhi": 1013, "energy": 75.8, "top": [["Netherlands", 23.9], ["Germany", 13.6], ["France", 11.6]]}, {"iso": "BGR", "n": "Bulgaria", "china": 10.5, "hhi": 439, "energy": 39.5, "top": [["China", 10.5], ["Germany", 10.3], ["T\u00fcrkiye", 8.8]]}, {"iso": "HRV", "n": "Croatia", "china": 3.4, "hhi": 708, "energy": 55.7, "top": [["Germany", 14.3], ["Italy", 13.4], ["Slovenia", 11.8]]}, {"iso": "CYP", "n": "Cyprus", "china": 7.7, "hhi": 866, "energy": 92.2, "top": [["Greece", 23.8], ["Italy", 7.7], ["China", 7.7]]}, {"iso": "CZE", "n": "Czechia", "china": 17.1, "hhi": 879, "energy": 41.7, "top": [["Germany", 20.3], ["China", 17.1], ["Poland", 8.3]]}, {"iso": "DNK", "n": "Denmark", "china": 7.3, "hhi": 776, "energy": 39.7, "top": [["Germany", 19.4], ["Sweden", 11.5], ["Netherlands", 8.9]]}, {"iso": "EST", "n": "Estonia", "china": 10.2, "hhi": 521, "energy": 3.5, "top": [["Germany", 11.3], ["China", 10.2], ["Finland", 8.3]]}, {"iso": "FIN", "n": "Finland", "china": 10.0, "hhi": 594, "energy": 29.7, "top": [["Germany", 13.2], ["Sweden", 11.5], ["China", 10.0]]}, {"iso": "FRA", "n": "France", "china": 10.2, "hhi": 549, "energy": 44.8, "top": [["Germany", 12.4], ["China", 10.2], ["Belgium", 7.6]]}, {"iso": "DEU", "n": "Germany", "china": 12.3, "hhi": 453, "energy": 66.8, "top": [["China", 12.3], ["USA", 6.9], ["Netherlands", 6.8]]}, {"iso": "GRC", "n": "Greece", "china": 8.4, "hhi": 459, "energy": 75.4, "top": [["Germany", 10.6], ["China", 8.4], ["Italy", 8.4]]}, {"iso": "HUN", "n": "Hungary", "china": 6.8, "hhi": 808, "energy": 62.1, "top": [["Germany", 22.4], ["China", 6.8], ["Poland", 6.1]]}, {"iso": "IRL", "n": "Ireland", "china": 8.8, "hhi": 890, "energy": 77.8, "top": [["USA", 16.8], ["United Kingdom", 16.5], ["France", 10.1]]}, {"iso": "ITA", "n": "Italy", "china": 9.1, "hhi": 523, "energy": 75.4, "top": [["Germany", 14.5], ["China", 9.1], ["France", 7.7]]}, {"iso": "LVA", "n": "Latvia", "china": 3.8, "hhi": 887, "energy": 32.7, "top": [["Lithuania", 20.7], ["Germany", 11.7], ["Poland", 11.3]]}, {"iso": "LTU", "n": "Lithuania", "china": 4.6, "hhi": 617, "energy": 69.5, "top": [["Poland", 14.0], ["Germany", 12.5], ["Latvia", 8.2]]}, {"iso": "LUX", "n": "Luxembourg", "china": 3.1, "hhi": 1345, "energy": 91.4, "top": [["Germany", 23.7], ["Belgium", 23.5], ["France", 11.1]]}, {"iso": "MLT", "n": "Malta", "china": 4.0, "hhi": 880, "energy": 97.6, "top": [["Italy", 22.1], ["France", 13.6], ["Spain", 7.8]]}, {"iso": "NLD", "n": "Netherlands", "china": 8.6, "hhi": 638, "energy": 70.4, "top": [["Germany", 16.8], ["USA", 9.9], ["Belgium", 9.8]]}, {"iso": "POL", "n": "Poland", "china": 14.5, "hhi": 729, "energy": 48.0, "top": [["Germany", 19.2], ["China", 14.5], ["USA", 5.0]]}, {"iso": "PRT", "n": "Portugal", "china": 4.8, "hhi": 1387, "energy": 66.9, "top": [["Spain", 32.8], ["Germany", 11.3], ["France", 7.2]]}, {"iso": "ROU", "n": "Romania", "china": 6.2, "hhi": 683, "energy": 27.9, "top": [["Germany", 18.7], ["Italy", 8.3], ["Hungary", 6.6]]}, {"iso": "SVK", "n": "Slovakia", "china": 7.3, "hhi": 636, "energy": 58.4, "top": [["Germany", 14.9], ["Czechia", 9.8], ["Other Europe, nes", 9.3]]}, {"iso": "SVN", "n": "Slovenia", "china": 12.2, "hhi": 1015, "energy": 49.3, "top": [["Switzerland", 24.0], ["China", 12.2], ["Germany", 9.5]]}, {"iso": "ESP", "n": "Spain", "china": 10.3, "hhi": 482, "energy": 68.3, "top": [["Germany", 10.8], ["China", 10.3], ["France", 8.2]]}, {"iso": "SWE", "n": "Sweden", "china": 6.3, "hhi": 683, "energy": 26.4, "top": [["Germany", 16.2], ["Netherlands", 10.9], ["Norway", 9.4]]}], "ltu": {"y2020": 1.09, "y2021": 0.66, "y2022": 0.22}};
+/* ===== shared helpers for every session page ===== */
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const NS = "http://www.w3.org/2000/svg";
+const PFX = "qm" + (window.SESSION || 0) + ":";
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(PFX+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(PFX+k, JSON.stringify(v)); } catch(e){} }
+};
+/* the brief is shared across sessions */
+const brief = {
+  get(k, d=""){ try { const v = localStorage.getItem("qmbrief:"+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem("qmbrief:"+k, JSON.stringify(v)); } catch(e){} }
+};
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const sgn = (v, d=1) => (v>0?"+":v<0?"−":"") + Math.abs(v).toFixed(d);
+const num = (v, d=1) => (v<0?"−":"") + Math.abs(v).toFixed(d);
+
+/* ---------- step nav & progress ---------- */
+const steps = $$("section.step");
+const done = new Set(store.get("done", []));
+function markDone(id){ if (done.has(id)) return; done.add(id); store.set("done", [...done]); renderNav(); }
+function renderNav(){
+  const nav = $("#stepnav"); if (!nav) return;
+  nav.innerHTML = steps.map((s,i)=>`<li class="${done.has(s.id)?"done":""}"><a href="#${s.id}"><span class="dot" aria-hidden="true"></span>${i+1}. ${s.dataset.title}<span class="vh">${done.has(s.id)?" (done)":""}</span></a></li>`).join("");
+}
+renderNav();
+/* reading-only steps get a button to mark them as read */
+$$("section.step[data-read]").forEach(s=>{ const r=document.createElement("div"); r.className="row";
+  r.innerHTML=`<button class="ghost" type="button">Mark as read</button>`; s.appendChild(r);
+  const b=r.querySelector("button"); const sync=()=>{ if (done.has(s.id)){ b.textContent="Read ✓"; b.disabled=true; } };
+  b.addEventListener("click",()=>{ markDone(s.id); sync(); }); sync(); });
+
+/* ---------- answer checking ---------- */
+function feedback(elm, ok, msg){ elm.className = "fb " + (ok ? "ok" : "no"); elm.textContent = msg; }
+function readNums(ids){ return ids.map(id => parseFloat(String($("#"+id).value).replace(",", "."))); }
+
+/* ---------- radio-choice lock-in ---------- */
+function lockChoice({group, button, key, onReveal}){
+  const inputs = $$(`#${group} input`);
+  inputs.forEach(i=>i.addEventListener("change",()=>{ if (!store.get(key,null)) $("#"+button).disabled=false; }));
+  const apply = v => { inputs.forEach(i=>{ i.checked = i.value===v; i.disabled = true; }); $("#"+button).disabled = true; onReveal(v); };
+  $("#"+button).addEventListener("click",()=>{ const v = $(`#${group} input:checked`)?.value; if (!v) return; store.set(key, v); apply(v); });
+  const prev = store.get(key, null); if (prev) apply(prev);
+}
+
+/* ---------- segmented controls ---------- */
+function seg(id, cb){ $$(`#${id} button`).forEach(b=>b.addEventListener("click",()=>{ $$(`#${id} button`).forEach(x=>x.setAttribute("aria-pressed", x===b)); cb(b.dataset.v); })); }
+
+/* ---------- SVG charts ---------- */
+function el(tag, attrs={}, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function txt(parent, x, y, s, attrs={}){ const t = el("text", {x, y, ...attrs}, parent); t.textContent = s; return t; }
+function niceTicks(min, max, n=5){
+  if (max === min){ max = min + 1; }
+  const span = max-min, step0 = span/n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const err = step0/mag, step = (err>=7.5?10:err>=3.5?5:err>=1.5?2:1)*mag;
+  const t=[]; for (let v=Math.ceil(min/step-1e-9)*step; v<=max+1e-9; v+=step) t.push(+v.toFixed(10)); return {ticks:t, step};
+}
+function shape(g, kind, x, y, r, fill, ring){
+  const sw = ring ? 1.5 : 0, st = ring ? css("--panel") : "none";
+  if (kind==="tri") return el("path",{d:`M${x},${y-r*1.2} L${x+r*1.1},${y+r*0.8} L${x-r*1.1},${y+r*0.8} Z`,fill,stroke:st,"stroke-width":sw},g);
+  if (kind==="sq") return el("rect",{x:x-r*0.9,y:y-r*0.9,width:r*1.8,height:r*1.8,fill,stroke:st,"stroke-width":sw},g);
+  if (kind==="dia") return el("path",{d:`M${x},${y-r*1.25} L${x+r*1.1},${y} L${x},${y+r*1.25} L${x-r*1.1},${y} Z`,fill,stroke:st,"stroke-width":sw},g);
+  return el("circle",{cx:x,cy:y,r,fill,stroke:st,"stroke-width":sw},g);
+}
+function frame(container, {title, sub, H=320, m={t:14,r:20,b:34,l:52}}){
+  container.innerHTML = "";
+  const W = Math.round(Math.max(300, Math.min(900, container.clientWidth - 14)));
+  if (W < 480) H = Math.round(H*0.85);
+  if (title){ const t=document.createElement("div"); t.className="ct"; t.textContent=title; container.appendChild(t); }
+  if (sub){ const s=document.createElement("div"); s.className="cs"; s.textContent=sub; container.appendChild(s); }
+  const svg = el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":title||"chart"}); container.appendChild(svg);
+  const tip = document.createElement("div"); tip.className="tip"; tip.hidden=true; container.appendChild(tip);
+  return {svg, tip, W, H, m, iw:W-m.l-m.r, ih:H-m.t-m.b, narrow: W < 480};
+}
+function axes(f, xs, ys, {xfmt=v=>v, yfmt=v=>v, xticks=[], yticks=[], xlab, ylab}){
+  const g = el("g",{},f.svg);
+  for (const v of yticks){ const y=ys(v); el("line",{x1:f.m.l,x2:f.W-f.m.r,y1:y,y2:y,stroke:css("--rule"),"stroke-width":v===0?1.4:1},g); txt(g, f.m.l-8, y+4, yfmt(v), {"text-anchor":"end"}); }
+  for (const v of xticks){ txt(g, xs(v), f.H-f.m.b+18, xfmt(v), {"text-anchor":"middle"}); }
+  if (xlab) txt(g, f.m.l+f.iw/2, f.H-6, xlab, {"text-anchor":"middle"});
+  if (ylab) txt(g, f.m.l, f.m.t-4, ylab, {"text-anchor":"start"});
+  return g;
+}
+function showTip(f, x, y, html){ f.tip.innerHTML=html; f.tip.hidden=false;
+  const r=f.svg.getBoundingClientRect(), c=f.svg.parentNode.getBoundingClientRect();
+  const px = r.left - c.left + x*r.width/f.W, py = r.top - c.top + y*r.height/f.H;
+  f.tip.style.left = Math.min(Math.max(px, 80), c.width-80)+"px"; f.tip.style.top = py+"px"; }
+function hideTip(f){ f.tip.hidden=true; }
+function hover(f, node, x, y, html){ node.addEventListener("pointerenter",()=>showTip(f,x,y,html)); node.addEventListener("pointerleave",()=>hideTip(f)); }
+function legend(container, items){ const lg=document.createElement("div"); lg.className="legend";
+  lg.innerHTML = items.map(it=>{ const k=it.kind||"circ", c=it.color;
+    const sw = k==="line" ? `<svg width="18" height="12"><path d="M0,6 H18" stroke="${c}" stroke-width="2" ${it.dash?`stroke-dasharray="${it.dash}"`:""}/></svg>`
+      : k==="tri" ? `<svg width="12" height="12"><path d="M6,0 L12,11 L0,11Z" fill="${c}"/></svg>`
+      : k==="sq" ? `<svg width="12" height="12"><rect x="1" y="1" width="10" height="10" fill="${c}"/></svg>`
+      : k==="dia" ? `<svg width="12" height="12"><path d="M6,0 L12,6 L6,12 L0,6Z" fill="${c}"/></svg>`
+      : `<svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${c}"/></svg>`;
+    return `<span>${sw}${it.label}</span>`; }).join("");
+  container.appendChild(lg); }
+
+/* line chart: series [{name,color,shape,dash,pts:[[x,y]]}] ; x numeric or index with xlabels */
+function lineChart(container, {title, sub, series, yfmt=v=>v, xfmt=v=>v, ylab, zero=true, labelEnds=true, tipfmt, H=300, ymin:yminF, ymax:ymaxF, refY, refLabel, xticks:xtF, vline, vlabel}){
+  const f = frame(container,{title,sub,H,m:{t:22,r:labelEnds?96:20,b:30,l:52}});
+  const all = series.flatMap(s=>s.pts);
+  const xmin=Math.min(...all.map(p=>p[0])), xmax=Math.max(...all.map(p=>p[0]));
+  let ymin = yminF ?? (zero?Math.min(0,...all.map(p=>p[1])):Math.min(...all.map(p=>p[1]))), ymax = ymaxF ?? Math.max(...all.map(p=>p[1]));
+  if (refY!==undefined){ ymin=Math.min(ymin,refY); ymax=Math.max(ymax,refY); }
+  const yt = niceTicks(ymin, ymax, 4); ymax = Math.max(ymax, yt.ticks[yt.ticks.length-1]); ymin = Math.min(ymin, yt.ticks[0]);
+  const xs = v => f.m.l + (v-xmin)/(xmax-xmin||1)*f.iw, ys = v => f.m.t + f.ih - (v-ymin)/(ymax-ymin)*f.ih;
+  const xt = xtF || niceTicks(xmin,xmax,f.narrow?4:6).ticks.filter(v=>v>=xmin&&v<=xmax);
+  axes(f, xs, ys, {xticks:xt, yticks:yt.ticks, yfmt, xfmt, ylab});
+  if (refY!==undefined){ el("line",{x1:f.m.l,x2:f.m.l+f.iw,y1:ys(refY),y2:ys(refY),stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, f.m.l+4, ys(refY)-6, refLabel, {class:"lab"}); }
+  if (vline!==undefined){ el("line",{x1:xs(vline),x2:xs(vline),y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1.2,"stroke-dasharray":"4 3"},f.svg); if (vlabel) txt(f.svg, xs(vline)+5, f.m.t+12, vlabel, {class:"lab"}); }
+  const g = el("g",{},f.svg);
+  for (const s of series){
+    el("path",{d:s.pts.map((p,i)=>(i?"L":"M")+xs(p[0])+","+ys(p[1])).join(" "),fill:"none",stroke:s.color,"stroke-width":s.width||2,"stroke-linejoin":"round","stroke-dasharray":s.dash||""},g);
+    const last=s.pts[s.pts.length-1];
+    if (s.shape) shape(g, s.shape, xs(last[0]), ys(last[1]), 4.5, s.color, true);
+    if (labelEnds && s.name){ txt(g, xs(last[0])+9, ys(last[1])+4+(s.nudge||0), s.name, {class:"lab"}); }
+  }
+  const xsVals=[...new Set(all.map(p=>p[0]))].sort((a,b)=>a-b);
+  const cross = el("line",{y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1,"stroke-dasharray":"3 3",visibility:"hidden"},f.svg);
+  const hit = el("rect",{x:f.m.l,y:f.m.t,width:f.iw,height:f.ih,fill:"transparent"},f.svg);
+  hit.addEventListener("pointermove", ev => { const r=f.svg.getBoundingClientRect(); const sx=(ev.clientX-r.left)*f.W/r.width;
+    const xv = xmin + (sx-f.m.l)/f.iw*(xmax-xmin); const near = xsVals.reduce((a,b)=>Math.abs(b-xv)<Math.abs(a-xv)?b:a);
+    cross.setAttribute("x1",xs(near)); cross.setAttribute("x2",xs(near)); cross.setAttribute("visibility","visible");
+    const lines = series.map(s=>{const p=s.pts.find(q=>q[0]===near); return p?`${s.name||"Value"}: <b>${tipfmt?tipfmt(p[1]):yfmt(p[1])}</b>`:""}).filter(Boolean);
+    showTip(f, xs(near), f.m.t+10, `<b>${xfmt(near)}</b><br>${lines.join("<br>")}`); });
+  hit.addEventListener("pointerleave", ()=>{cross.setAttribute("visibility","hidden"); hideTip(f);});
+  return {f, xs, ys};
+}
+
+/* scatter: pts [{x,y,label,color,shape,tip}] ; line {a,b} optional */
+function scatter(container, {title, sub, pts, xmin, xmax, ymin, ymax, xticks, yticks, xfmt=v=>v, yfmt=v=>v, xlab, line, lineLabel, labels=true, H=380}){
+  const f = frame(container,{title,sub,H,m:{t:16,r:24,b:44,l:52}});
+  const xs=v=>f.m.l+(v-xmin)/(xmax-xmin)*f.iw, ys=v=>f.m.t+f.ih-(v-ymin)/(ymax-ymin)*f.ih;
+  axes(f,xs,ys,{xticks,yticks,xfmt,yfmt,xlab});
+  if (line){ el("path",{d:`M${xs(xmin)},${ys(line.a+line.b*xmin)} L${xs(xmax)},${ys(line.a+line.b*xmax)}`,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4",fill:"none"},f.svg);
+    if (lineLabel) txt(f.svg, xs(xmin)+6, ys(line.a+line.b*xmin)+(line.b<0?-8:18), lineLabel, {class:"lab"}); }
+  const g=el("g",{},f.svg);
+  for (const p of pts){
+    if (p.res && line) el("line",{x1:xs(p.x),x2:xs(p.x),y1:ys(p.y),y2:ys(line.a+line.b*p.x),stroke:p.color,"stroke-width":1.2,"stroke-dasharray":"2 2"},g);
+    shape(g, p.shape||"circ", xs(p.x), ys(p.y), p.r||5.5, p.color, true);
+    if (labels && p.label){ const right = xs(p.x) > f.m.l + f.iw*0.8; txt(g, xs(p.x)+(right?-9:9), ys(p.y)+4, p.label, {class:"lab","text-anchor":right?"end":"start"}); }
+    const hit=el("circle",{cx:xs(p.x),cy:ys(p.y),r:11,fill:"transparent"},g);
+    if (p.tip) hover(f, hit, xs(p.x), ys(p.y), p.tip);
+  }
+  return {f, xs, ys};
+}
+
+/* horizontal bars: rows [{label, v, color, tip, lo, hi}] */
+function hbar(container, {title, sub, rows, xmin=0, xmax, xfmt=v=>v, ref, refLabel, rowH=26}){
+  const H = 40 + rows.length*rowH + 30;
+  const f = frame(container,{title,sub,H,m:{t:16,r:24,b:30,l:Math.min(150, Math.max(80, 7.2*Math.max(...rows.map(r=>r.label.length))+14))}});
+  const lo = Math.min(xmin, ...rows.map(r=>Math.min(r.v, r.lo??r.v))), hi = xmax ?? Math.max(...rows.map(r=>Math.max(r.v, r.hi??r.v)));
+  const xt = niceTicks(lo, hi, f.narrow?4:6); const x0=xt.ticks[0], x1=Math.max(hi, xt.ticks[xt.ticks.length-1]);
+  const xs = v => f.m.l + (v-x0)/(x1-x0)*f.iw, bh = rowH*0.62;
+  const g = el("g",{},f.svg);
+  for (const v of xt.ticks){ el("line",{x1:xs(v),x2:xs(v),y1:f.m.t,y2:f.m.t+rows.length*rowH,stroke:css("--rule"),"stroke-width":v===0?1.4:1},g); txt(g, xs(v), f.m.t+rows.length*rowH+18, xfmt(v), {"text-anchor":"middle"}); }
+  rows.forEach((r,i)=>{ const y=f.m.t+i*rowH+(rowH-bh)/2; const a=xs(Math.min(0,r.v)), b=xs(Math.max(0,r.v));
+    if (r.lo!==undefined){ el("rect",{x:xs(r.lo),y:y+bh*0.2,width:Math.max(2,xs(r.hi)-xs(r.lo)),height:bh*0.6,fill:r.color,opacity:.35,rx:2},g); shape(g,"circ",xs(r.v),y+bh/2,4.5,r.color,true); }
+    else el("rect",{x:a,y,width:Math.max(1,b-a),height:bh,fill:r.color,rx:2},g);
+    txt(g, f.m.l-8, y+bh/2+4, r.label, {"text-anchor":"end", class: r.bold?"lab":""});
+    const hit=el("rect",{x:f.m.l,y:f.m.t+i*rowH,width:f.iw,height:rowH,fill:"transparent"},g);
+    if (r.tip) hover(f, hit, xs(r.v), y, r.tip); });
+  if (ref!==undefined){ el("line",{x1:xs(ref),x2:xs(ref),y1:f.m.t-6,y2:f.m.t+rows.length*rowH,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, xs(ref)+4, f.m.t-4, refLabel, {class:"lab"}); }
+  return f;
+}
+
+/* vertical bars for a time series (used for honest/dishonest chart lessons) */
+function vbar(container,{title,sub,vals,ymin=0,yfmt=v=>v,color,H=280,source}){
+  const f=frame(container,{title,sub,H,m:{t:16,r:16,b:30,l:52}});
+  const ymax=Math.max(...vals.map(v=>v[1]))*1.08; const yt=niceTicks(ymin,ymax,4);
+  const top=Math.max(ymax, yt.ticks[yt.ticks.length-1]);
+  const ys=v=>f.m.t+f.ih-(v-ymin)/(top-ymin)*f.ih; const bw=f.iw/vals.length;
+  axes(f,i=>i,ys,{yticks:yt.ticks.filter(v=>v>=ymin&&v<=top),yfmt});
+  vals.forEach((v,i)=>{ const x=f.m.l+bw*i+bw*0.18, w=bw*0.64, y=ys(v[1]), h=ys(ymin)-y;
+    el("path",{d:`M${x},${y+h} V${y+3} Q${x},${y} ${x+3},${y} H${x+w-3} Q${x+w},${y} ${x+w},${y+3} V${y+h} Z`,fill:color},f.svg);
+    if (i%2===0||i===vals.length-1) txt(f.svg, x+w/2, f.H-f.m.b+18, v[0], {"text-anchor":"middle"});
+    const hit=el("rect",{x:f.m.l+bw*i,y:f.m.t,width:bw,height:f.ih,fill:"transparent"},f.svg);
+    hover(f, hit, x+w/2, y, `<b>${v[0]}</b>: ${yfmt(v[1])}`); });
+  if (source){ const s=document.createElement("div"); s.className="cs"; s.textContent=source; container.appendChild(s); }
+  return f;
+}
+
+/* tile-grid map of Europe: tiles {iso: value}; layout fixed */
+const TILE = {ISL:[0,0],NOR:[4,0],SWE:[5,0],FIN:[6,0],EST:[7,1],IRL:[1,2],GBR:[2,2],DNK:[4,2],LVA:[7,2],LTU:[7,3],NLD:[3,3],DEU:[4,3],POL:[6,3],BEL:[3,4],LUX:[3,5],CZE:[5,4],SVK:[6,4],FRA:[2,5],CHE:[3,6],AUT:[5,5],HUN:[6,5],ROU:[7,5],PRT:[0,7],ESP:[1,7],ITA:[4,7],SVN:[4,6],HRV:[5,6],MNE:[5,7],ALB:[6,8],MKD:[7,8],BGR:[7,6],GRC:[7,9],MLT:[4,9],CYP:[9,9]};
+function tileMap(container,{title,sub,vals,names,fmt=v=>v,lo,hi,note}){
+  container.innerHTML="";
+  const t=document.createElement("div"); t.className="ct"; t.textContent=title; container.appendChild(t);
+  if (sub){ const s=document.createElement("div"); s.className="cs"; s.textContent=sub; container.appendChild(s); }
+  const W=10, Hh=10, cell=44, svg=el("svg",{viewBox:`0 0 ${W*cell} ${Hh*cell}`,role:"img","aria-label":title}); container.appendChild(svg);
+  const tip=document.createElement("div"); tip.className="tip"; tip.hidden=true; container.appendChild(tip);
+  const f={svg,tip,W:W*cell,H:Hh*cell};
+  const vv=Object.values(vals).filter(v=>v!=null); lo=lo??Math.min(...vv); hi=hi??Math.max(...vv);
+  for (const iso in TILE){ const [cx,cy]=TILE[iso]; const v=vals[iso];
+    const tshare = v==null ? null : (v-lo)/(hi-lo||1);
+    const fill = v==null ? css("--soft") : `color-mix(in oklab, ${css("--accent")} ${Math.round(12+tshare*78)}%, ${css("--panel")})`;
+    const r=el("rect",{x:cx*cell+2,y:cy*cell+2,width:cell-4,height:cell-4,rx:4,fill,stroke:css("--rule")},svg);
+    const dark = tshare!=null && tshare>0.55;
+    const a=el("text",{x:cx*cell+cell/2,y:cy*cell+18,"text-anchor":"middle",style:`font-size:11px;font-weight:600;fill:${dark?"#fff":css("--ink")}`},svg); a.textContent=iso;
+    if (v!=null){ const b=el("text",{x:cx*cell+cell/2,y:cy*cell+33,"text-anchor":"middle",style:`font-size:10px;font-family:var(--f-mono);fill:${dark?"#fff":css("--ink2")}`},svg); b.textContent=fmt(v); }
+    hover(f, r, cx*cell+cell/2, cy*cell+4, `<b>${names?.[iso]||iso}</b>${v!=null?": "+fmt(v):": no data"}`);
+  }
+  if (note){ const s=document.createElement("div"); s.className="cs"; s.textContent=note; container.appendChild(s); }
+}
+
+/* ---------- copy buttons ---------- */
+function wireCopy(){ $$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{ const ta=$("#"+b.dataset.copy), out=$(`[data-copied="${b.dataset.copy}"]`);
+  const fallback=()=>{ ta.focus(); ta.select(); if (out) out.textContent="Selected: press Ctrl+C or Cmd+C."; };
+  try { navigator.clipboard.writeText(ta.value).then(()=>{ if (out) out.textContent="Copied."; },fallback); } catch(e){ fallback(); } })); }
+
+/* ---------- quiz ---------- */
+function quiz(box, scoreEl, QUIZ, stepId){
+  let qa = store.get("quiz",{});
+  const draw = () => {
+    box.innerHTML = QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?"Right. ":"Not quite. "}${q.e}</p>`:""}</div>`).join("");
+    $$("#"+box.id+" input").forEach(i=>i.addEventListener("change",()=>{ qa[+i.name.slice(2)]=+i.value; store.set("quiz",qa); draw(); }));
+    const n=Object.keys(qa).length, s=QUIZ.filter((q,i)=>qa[i]===q.a).length;
+    scoreEl.textContent = n===QUIZ.length ? `Score: ${s} out of ${QUIZ.length}.` : "";
+    if (n===QUIZ.length) markDone(stepId);
+  };
+  draw();
+}
+
+/* ---------- brief text areas (saved across sessions) ---------- */
+function wireBrief(){ $$("[data-brief]").forEach(t=>{ t.value = brief.get(t.dataset.brief, ""); t.addEventListener("input",()=>brief.set(t.dataset.brief, t.value)); }); }
+
+/* ---------- reset ---------- */
+function wireReset(){ const b=$("#resetBtn"); if (!b) return; b.addEventListener("click",()=>{ try{ Object.keys(localStorage).filter(k=>k.startsWith(PFX)).forEach(k=>localStorage.removeItem(k)); }catch(e){} location.reload(); }); }
+
+/* ---------- redraw hooks ---------- */
+function onRedraw(fn){
+  try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", fn); new MutationObserver(fn).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]}); } catch(e){}
+  let rz, lastW=innerWidth; addEventListener("resize",()=>{ if (innerWidth===lastW) return; lastW=innerWidth; clearTimeout(rz); rz=setTimeout(fn,200); });
+}
+
+/* Session 3 */
+const PR = DATA.products, CO = DATA.countries;
+const NAMES = Object.fromEntries(CO.map(c=>[c.iso,c.n]));
+const RIGHT = ["854143","810411","850511"];
+
+/* puzzle */
+const order = ["847130","810411","100199","854143","270900","850511","271111","280530"];
+$("#q-prod").innerHTML = order.map(c=>{ const p=PR.find(x=>x.code===c); return `<label><input type="checkbox" value="${c}"> ${p.name}</label>`; }).join("");
+$("#q-country").innerHTML = '<option value="">Choose a country</option>' + [...CO].sort((a,b)=>a.n.localeCompare(b.n)).map(c=>`<option value="${c.iso}">${c.n}</option>`).join("");
+function puzzleState(){ const n=$$("#q-prod input:checked").length; $("#prodCount").textContent = n===3?"Three picked.":`Pick three (${n} so far).`; $("#prodBtn").disabled = !(n===3 && $("#q-country").value) || !!store.get("puz",null); }
+$$("#q-prod input").forEach(i=>i.addEventListener("change",()=>{ if ($$("#q-prod input:checked").length>3) i.checked=false; puzzleState(); }));
+$("#q-country").addEventListener("change", puzzleState);
+function puzzleReveal(v){
+  $$("#q-prod input").forEach(i=>{ i.checked=v.p.includes(i.value); i.disabled=true; }); $("#q-country").value=v.c; $("#q-country").disabled=true; $("#prodBtn").disabled=true;
+  const hits=v.p.filter(c=>RIGHT.includes(c)).length; $("#prodOut").hidden=false;
+  feedback($("#prodFb"), hits===3 && v.c==="CZE", `${hits} of 3 products right; country ${v.c==="CZE"?"right":"not quite"}.`);
+  $("#prodTxt").innerHTML = `China's share of EU imports from outside the EU, 2024: <b>solar panels 98%</b>, <b>unwrought magnesium 92%</b>, <b>permanent magnets 90%</b>; laptops come close at 86%. Among member states, <b>Czechia</b> buys the largest share of all its imports from China (17%), ahead of Poland (15%) and Germany (12%).`;
+  markDone("puzzle"); }
+$("#prodBtn").addEventListener("click",()=>{ const v={p:$$("#q-prod input:checked").map(i=>i.value), c:$("#q-country").value}; store.set("puz",v); puzzleReveal(v); });
+
+/* lesson A check */
+$("#la-btn").addEventListener("click",()=>{ const [v]=readNums(["la-in"]);
+  if (Math.abs(v-4600)<=1){ feedback($("#la-fb"),true,"Right: 3,600 + 900 + 100 = 4,600. Highly concentrated."); markDone("lessonA"); }
+  else feedback($("#la-fb"),false,"Square each share (60² = 3,600) and add them up."); });
+
+/* activity A */
+let stA = store.get("actA",{ok:false,all:false});
+const wheat = PR.find(p=>p.code==="100199"); const wheatH = wheat.top.slice(0,4).reduce((a,[,s])=>a+s*s,0);
+function drawProd(){
+  $("#prodTable").innerHTML = `<tr><th>Product</th><th>Largest suppliers (share of extra-EU imports, %)</th><th class="num">Imports, US$ bn</th><th class="num">HHI</th></tr>` +
+    PR.map(p=>{ const show = stA.all || (p.code==="100199" && stA.ok);
+      return `<tr><td><strong>${p.name}</strong></td><td style="text-align:left">${p.top.slice(0,4).map(([n,s])=>`${n} ${s.toFixed(1)}`).join(" · ")}</td><td class="num">${p.total_bn.toFixed(1)}</td><td class="num">${show?p.hhi.toLocaleString("en-GB"):"…"}</td></tr>`; }).join("");
+  if (!stA.all){ $("#prodChart").innerHTML = '<div class="cs" style="padding:2rem 1rem">The chart appears once you have computed all products.</div>'; return; }
+  const rows=[...PR].sort((a,b)=>b.hhi-a.hhi).map(p=>({label:p.name, v:p.hhi, color: p.top[0][0]==="China"?css("--verm"):css("--accent"), tip:`<b>${p.name}</b><br>HHI ${p.hhi.toLocaleString("en-GB")}<br>largest: ${p.top[0][0]} ${p.top[0][1]}%`}));
+  hbar($("#prodChart"),{title:"Concentration of EU import suppliers, 2024",sub:"Herfindahl–Hirschman index, 0 to 10,000",rows,xmin:0,xmax:10000,xfmt:v=>v.toLocaleString("en-GB"),ref:2500,refLabel:"2,500"});
+  legend($("#prodChart"),[{label:"China is the largest supplier",color:css("--verm"),kind:"sq"},{label:"Another country is",color:css("--accent"),kind:"sq"}]);
+}
+$("#aa-btn").addEventListener("click",()=>{ const [v]=readNums(["aa-in"]);
+  if (Math.abs(v-wheatH)<=15){ feedback($("#aa-fb"),true,`Right: 66.0² + 15.5² + 6.9² + 4.6² ≈ ${Math.round(wheatH).toLocaleString("en-GB")}. With all suppliers: ${wheat.hhi.toLocaleString("en-GB")}.`); stA.ok=true; store.set("actA",stA); $("#aa-all").disabled=false; drawProd(); }
+  else feedback($("#aa-fb"),false,"Square each of the four shares and add them: 66.0² = 4,356 to start."); });
+$("#aa-all").addEventListener("click",()=>{ stA.all=true; store.set("actA",stA); drawProd(); markDone("activityA"); markDone("feedbackA"); });
+$("#csvProd").value = "product,supplier,share\n"+PR.flatMap(p=>p.top.map(([n,s])=>`${p.name},${n.replace(/,/g,"")},${s}`)).join("\n");
+
+/* activity B: index */
+const ind = ["china","hhi","energy"];
+const mm = Object.fromEntries(ind.map(k=>[k,[Math.min(...CO.map(c=>c[k])),Math.max(...CO.map(c=>c[k]))]]));
+const norm = (c,k) => 100*(c[k]-mm[k][0])/(mm[k][1]-mm[k][0]);
+let stB = store.get("actB",{country:"DEU",best:null,worst:null});
+$("#rCountry").innerHTML = [...CO].sort((a,b)=>a.n.localeCompare(b.n)).map(c=>`<option value="${c.iso}" ${c.iso===stB.country?"selected":""}>${c.n}</option>`).join("");
+function scores(){ const w=["w1","w2","w3"].map(id=>+$("#"+id).value); const s=w.reduce((a,b)=>a+b,0)||1;
+  ["w1","w2","w3"].forEach((id,i)=>$("#"+id+"o").textContent=Math.round(w[i]/s*100)+"%");
+  return CO.map(c=>({...c, score: ind.reduce((a,k,i)=>a+w[i]/s*norm(c,k),0)})).sort((a,b)=>b.score-a.score).map((c,i)=>({...c,rank:i+1})); }
+function drawIdx(track=true){
+  const S=scores(), me=S.find(c=>c.iso===stB.country);
+  if (track){ if (stB.best===null||me.rank<stB.best) stB.best=me.rank; if (stB.worst===null||me.rank>stB.worst) stB.worst=me.rank; store.set("actB",stB); }
+  $("#rRank").textContent=me.rank; $("#rBest").textContent=stB.best??"–"; $("#rWorst").textContent=stB.worst??"–";
+  tileMap($("#tileMap"),{title:"Vulnerability index, EU-27",sub:"0 = least vulnerable, 100 = most; darker = more vulnerable",vals:Object.fromEntries(S.map(c=>[c.iso,c.score])),names:NAMES,fmt:v=>v.toFixed(0),lo:0,hi:100,note:"Grey tiles: not in the EU, no data. Sources: UN Comtrade 2024; Eurostat 2023."});
+  $("#rankTable").innerHTML = `<tr><th class="num">Rank</th><th>Country</th><th class="num">China share %</th><th class="num">Partner HHI</th><th class="num">Energy dependence %</th><th class="num">Score</th></tr>` +
+    S.map(c=>`<tr${c.iso===stB.country?' style="background:var(--soft);font-weight:600"':''}><td class="num">${c.rank}</td><td>${c.n}</td><td class="num">${c.china.toFixed(1)}</td><td class="num">${c.hhi}</td><td class="num">${c.energy.toFixed(1)}</td><td class="num">${c.score.toFixed(0)}</td></tr>`).join("");
+  if (stB.best!==null && stB.worst!==null && stB.worst-stB.best>=5){ markDone("activityB"); }
+  fbRange(); }
+function fbRange(){ if (stB.best===null) return; const n=NAMES[stB.country];
+  $("#fbRange").textContent = stB.worst-stB.best>0 ? `You moved ${n} between rank ${stB.best} and rank ${stB.worst} without changing a single number.` : `Try moving the weights to see how far ${n} can move.`;
+  if (stB.worst-stB.best>=5) markDone("feedbackB"); }
+["w1","w2","w3"].forEach(id=>$("#"+id).addEventListener("input",()=>drawIdx()));
+$("#rCountry").addEventListener("change",()=>{ stB={country:$("#rCountry").value,best:null,worst:null}; drawIdx(); });
+$("#csvIdx").value = "country,china,hhi,energy\n"+CO.map(c=>`${c.n},${c.china},${c.hhi},${c.energy}`).join("\n");
+
+/* brief */
+wireBrief();
+const bc=brief.get("country",""), bqq=brief.get("question","");
+$("#briefWho").textContent = bc||bqq ? `Your brief: ${bc||"country not chosen yet"}, question ${bqq||"not chosen yet"}.` : "You have not chosen a country and question yet (session 2, step 8). You can still draft here.";
+$("#bSource").addEventListener("input",()=>markDone("brief"));
+
+/* quiz */
+quiz($("#quizBox"), $("#quizScore"), [
+ {q:"Two suppliers, 50% each. What is the HHI?",o:["100","2,500","5,000"],a:2,e:"50² + 50² = 5,000."},
+ {q:"The EU imports almost all its crude oil, yet its supplier HHI is below 1,000. Why?",o:["Oil is not important","It buys from many countries","The data are wrong"],a:1,e:"Dependence on imports in general is not dependence on one supplier."},
+ {q:"China took about 1% of Lithuania's exports. Why did Chinese pressure still hurt?",o:["China blocked goods containing Lithuanian parts","Lithuania imports all its food from China","It did not hurt"],a:0,e:"The exposure ran through supply chains, invisible in direct trade shares."},
+ {q:"You change only the weights of an index and a country moves from 5th to 20th. What does this tell you?",o:["The country changed","The ranking depends heavily on choices","The index is fraudulent"],a:1,e:"Sensitivity to weights is a property of the index, not of the country."},
+ {q:"Which should you map with a colour scale?",o:["Total imports from China in dollars","Share of imports from China","Population"],a:1,e:"Map rates and shares; totals mostly show which countries are big."}], "quiz");
+
+/* boot */
+const pv=store.get("puz",null); if (pv) puzzleReveal(pv);
+drawProd(); if (stA.ok) $("#aa-all").disabled = stA.all;
+drawIdx(false); fbRange();
+wireCopy(); wireReset();
+onRedraw(()=>{ drawProd(); drawIdx(false); });
+
+</script>
+</body>
+</html>

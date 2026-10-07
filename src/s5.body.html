@@ -1,0 +1,154 @@
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Session 5 of 6</span></div>
+  <h1 style="margin-top:.6rem">Why did German cars flood into Kyrgyzstan?</h1>
+  <p class="lede">Do sanctions work, or do goods simply take a detour? International organisations answer such questions with policy evaluation. In this session you estimate how much EU trade with Russia was rerouted through its neighbours, using difference-in-differences and an event study on monthly Eurostat data.</p>
+  <div class="meta"><span><b>About 3 hours</b> at your own pace</span><span><b>No software needed</b> in the browser; optional steps in jamovi</span><span><b>Your answers</b> stay in this browser only</span></div>
+</header>
+
+<nav class="steps" aria-label="Steps in this session"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Step 1 · Puzzle · 10 min</span><h2>The chart</h2></div>
+  <figure class="wide"><div class="chart" id="carChart"></div></figure>
+  <p>German exports of cars and car parts to Kyrgyzstan, a country of seven million people bordering Kazakhstan, rose about sixtyfold between 2021 and 2023. Kyrgyzstan belongs to a customs union with Russia. Proof that sanctions fail?</p>
+  <div class="box task"><h4>Your guess</h4>
+    <p>The EU's exports to Russia collapsed after February 2022. Roughly what share of the lost exports came back through Armenia, Kazakhstan and Kyrgyzstan?</p>
+    <div class="choice" id="q-share">
+      <label><input type="radio" name="sh" value="5"> Less than 5%</label>
+      <label><input type="radio" name="sh" value="10"> About 10%</label>
+      <label><input type="radio" name="sh" value="30"> About 30%</label>
+      <label><input type="radio" name="sh" value="50"> More than half</label>
+    </div>
+    <div class="row"><button id="shBtn" disabled>Lock in my guess</button><span class="small" id="shOut"></span></div>
+  </div>
+</section>
+
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Step 2 · Lesson · 25 min</span><h2>What would have happened anyway?</h2></div>
+  <p>Every evaluation compares what happened with what would have happened without the policy: the <strong>counterfactual</strong>. We never observe it, so we build it.</p>
+  <h3>Before and after is not enough</h3>
+  <p>EU exports to Russia's neighbours more than doubled after 2022. But EU exports to the rest of the world also grew, with inflation and the post-COVID recovery. A before/after comparison mixes the effect of sanctions with everything else that changed.</p>
+  <h3>Difference-in-differences</h3>
+  <p>Take a <em>treated</em> group (Russia's neighbours) and a <em>comparison</em> group exposed to the same general shocks but not to the detour (the rest of the world, excluding Russia, its other neighbours and known trade hubs). Compute the change for each and subtract:</p>
+  <p class="formula">effect = (change for neighbours) − (change for comparison group)</p>
+  <p>The comparison group's change is our estimate of what would have happened to the neighbours anyway. We use percentage changes here because the two groups differ enormously in size.</p>
+  <h3>The key assumption: parallel trends</h3>
+  <p>The method assumes that, without sanctions, the two groups would have moved in parallel. You cannot test it after the event, but you can check whether they moved in parallel <em>before</em> it. That is the job of the event study in step 5.</p>
+  <div class="box task"><h4>Check yourself</h4>
+    <p>A treated group grows by 50%, the comparison group by 20%. What is the difference-in-differences estimate, in percentage points?</p>
+    <div class="row"><input type="number" id="la-in" aria-label="Estimate"><button id="la-btn">Check</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Step 3 · Activity · 20 min</span><h2>Be the sanctions monitor</h2></div>
+  <p>Average monthly EU exports, € million. Before: January 2019 to December 2021. After: March 2022 to December 2024.</p>
+  <div class="tscroll"><table id="ddTable" aria-label="Two by two table"></table></div>
+  <div class="box task"><h4>Compute the effect</h4>
+    <div class="row"><label for="aa1">Change for neighbours, %</label><input type="number" step="0.1" id="aa1"></div>
+    <div class="row"><label for="aa2">Change for rest of world, %</label><input type="number" step="0.1" id="aa2"></div>
+    <div class="row"><label for="aa3">Difference-in-differences, points</label><input type="number" step="0.1" id="aa3"><button id="aa-btn">Check</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <details class="jam"><summary>Now do it in jamovi (optional, 10 min)</summary>
+    <ol class="tight"><li>Paste the monthly data below (one row per month and group).</li>
+      <li>Compute <span class="mono">after = month >= "2022-03"</span> (or create it with <b>Transform</b>) and keep months up to 2024-12 with a filter.</li>
+      <li><b>Exploration → Descriptives</b>: mean of <span class="mono">exports</span> split by <span class="mono">group</span> and <span class="mono">after</span>. Fill the 2×2 table from the output.</li></ol>
+    <textarea readonly id="csvDD" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvDD">Copy data</button><span class="small" data-copied="csvDD"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Step 4 · Feedback · 10 min</span><h2>About a tenth came back</h2></div>
+  <p id="fa-locked" class="small">Complete the calculation in step 3 to unlock this feedback.</p>
+  <div id="fa-body" hidden>
+    <p class="headline-claim" id="faGuess"></p>
+    <p>Had the three neighbours' imports from the EU grown like the rest of the world's (+33%), they would have averaged about €770 million a month after March 2022. They averaged €1,334 million: an extra €564 million a month, or roughly €6.8 billion a year.</p>
+    <p>Over the same period, EU exports to Russia fell from €7.2 billion to €3.3 billion a month, while the comparison group grew by a third. Measured the same way, about €6.3 billion a month of exports to Russia were lost. The detour through Armenia, Kazakhstan and Kyrgyzstan therefore made up roughly <strong>9%</strong> of the loss. Real, large for those three economies, and small against the collapse.</p>
+    <div class="box key"><h4>In euros</h4>A difference in percentages becomes a policy number once you translate it back into money: the counterfactual level, the excess, the share of the total.</div>
+  </div>
+</section>
+
+<section class="step col" id="lessonB" data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Step 5 · Lesson · 25 min</span><h2>Month by month</h2></div>
+  <h3>The event study</h3>
+  <p>Instead of one before and one after, plot the ratio of the treated group to the comparison group for every month, scaled so that the pre-sanctions average equals 100. Three things to look for:</p>
+  <ul class="tight">
+    <li><strong>Before the event</strong>, the line should be flat around 100: that supports parallel trends.</li>
+    <li><strong>At the event</strong>, a jump that starts when the policy starts, not before.</li>
+    <li><strong>After</strong>, whether the effect persists, grows or fades.</li>
+  </ul>
+  <h3>The placebo test</h3>
+  <p>Pretend the event happened at a date when nothing happened, say March 2020, and rerun the comparison. A large “effect” at a fake date warns that something other than the policy moves the data. Here, the pandemic is that something: trade with small neighbours fell faster than the rest in 2020–21.</p>
+  <h3>What could make the estimate wrong</h3>
+  <ul class="tight">
+    <li>The comparison group may have been hit by other shocks, such as the energy crisis.</li>
+    <li>Some growth may be genuine demand from economies that kept growing, such as Kazakhstan.</li>
+    <li>Euro values include price increases that differ by product.</li>
+  </ul>
+</section>
+
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Step 6 · Activity · 20 min</span><h2>When did the detour start?</h2></div>
+  <div class="row"><span class="small">Partner</span><div class="seg" id="segP"><button aria-pressed="true" data-v="NBR">Three neighbours</button><button aria-pressed="false" data-v="KG">Kyrgyzstan</button><button aria-pressed="false" data-v="AM">Armenia</button><button aria-pressed="false" data-v="KZ">Kazakhstan</button><button aria-pressed="false" data-v="GE">Georgia</button><button aria-pressed="false" data-v="UZ">Uzbekistan</button></div></div>
+  <div class="row"><span class="small">Event date</span><div class="seg" id="segE"><button aria-pressed="true" data-v="2022-03">March 2022 (real)</button><button aria-pressed="false" data-v="2020-03">March 2020 (placebo)</button></div></div>
+  <figure class="wide"><div class="chart" id="esChart"></div><figcaption>EU exports to the partner divided by EU exports to the comparison group, three-month moving average, pre-event average = 100. Source: Eurostat Comext (DS-045409), monthly, € values.</figcaption></figure>
+  <div class="kpi" id="esK"></div>
+  <div class="box task"><h4>Your reading</h4>
+    <p>When did the jump start, does it fade, and what does the placebo show? Two or three sentences.</p>
+    <textarea id="esNote" rows="4" aria-label="Your reading"></textarea></div>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Step 7 · Feedback · 10 min</span><h2>A sharp jump, a slow fade</h2></div>
+  <p>The three neighbours' line jumps in spring 2022, exactly when sanctions start, peaks in 2023 at nearly twice its pre-war level relative to the rest of the world, and then fades slowly, still about 50% above it in 2026. Kyrgyzstan's line is the most extreme, six to seven times its pre-war level. That pattern fits rerouting: it begins with the sanctions, and it weakens as the EU tightened controls on re-exports from 2023.</p>
+  <p>The placebo is not clean: with a fake March 2020 date the neighbours fall about 13 points relative to the rest of the world, because the pandemic hit them harder. The pre-war trend was also drifting down in 2021. If anything, that makes our estimate conservative, but it is the kind of caveat an evaluation note must state.</p>
+  <p>Georgia and Uzbekistan, outside the Eurasian Economic Union, also rise: the detour is not limited to Russia's customs-union partners.</p>
+</section>
+
+<section class="step col" id="exercise" data-title="Exercise 2">
+  <div class="stephead"><span class="eyebrow">Step 8 · Exercise 2 · 45 min</span><h2>A new case: Türkiye</h2></div>
+  <p>Türkiye did not join EU sanctions and kept trading with Russia. Did EU exports to Türkiye rise because of the sanctions? Use the same method and the same comparison group.</p>
+  <div class="tscroll"><table id="trTable" aria-label="Türkiye two by two"></table></div>
+  <figure class="wide"><div class="chart" id="trChart"></div></figure>
+  <div class="box task"><h4>Write a one-page evaluation note</h4>
+    <label class="small" for="ex1"><b>1. The chart</b> you would show (describe it)</label><textarea id="ex1" rows="2"></textarea>
+    <label class="small" for="ex2"><b>2. The effect</b> in one sentence, with its number</label><textarea id="ex2" rows="2"></textarea>
+    <label class="small" for="ex3"><b>3. The assumption</b> it rests on</label><textarea id="ex3" rows="2"></textarea>
+    <label class="small" for="ex4"><b>4. One concrete reason</b> it could be wrong</label><textarea id="ex4" rows="2"></textarea>
+    <div class="row"><button class="ghost" id="exBtn">Compare with a model note</button></div>
+    <div id="exModel" hidden class="box key"></div>
+  </div>
+</section>
+
+<section class="step col" id="brief" data-title="Your brief">
+  <div class="stephead"><span class="eyebrow">Step 9 · Your brief · 10 min</span><h2>For question C</h2></div>
+  <p id="briefWho" class="small"></p>
+  <div class="brief-box">
+    <label for="bDid">If your question is C: your country's difference-in-differences estimate, the event-study pattern, and the main caveat. Comext has monthly data for every EU partner.</label>
+    <textarea id="bDid" data-brief="did" rows="5"></textarea>
+  </div>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Step 10 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session4.html">← Session 4: Poland, Spain and the line</a><a href="session6.html">Session 6: What Hormuz costs →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Readings and references</h3>
+  <ul class="refs">
+    <li>RFE/RL, <a href="https://www.rferl.org/a/kyrgyzstan-russia-car-reexports-sanctions-eeu/32781868.html" target="_blank" rel="noopener">“Kyrgyzstan's car re-export boom”</a>.</li>
+    <li>Chupilkin, M., Javorcik, B. and Plekhanov, A. (2023), <a href="https://users.ox.ac.uk/~econ0247/Roundabout.pdf" target="_blank" rel="noopener">“The Eurasian Roundabout: trade flows into Russia through the Caucasus and Central Asia”</a>, EBRD working paper, introduction.</li>
+    <li>Cunningham, S., <a href="https://mixtape.scunning.com" target="_blank" rel="noopener">Causal Inference: The Mixtape</a>, chapter on difference-in-differences (free online, for the curious).</li>
+  </ul>
+  <h3>Data</h3>
+  <ul class="refs">
+    <li>Eurostat Comext, <a href="https://ec.europa.eu/eurostat/web/international-trade-in-goods/database" target="_blank" rel="noopener">EU trade since 1988 by HS2-4-6 and CN8 (DS-045409)</a>: monthly EU exports by partner, January 2019 to July 2026; German exports to Kyrgyzstan of HS chapter 87 (vehicles and parts), annual.</li>
+    <li>Comparison group: all extra-EU exports minus Russia, Belarus, Ukraine, Armenia, Azerbaijan, Georgia, Kazakhstan, Kyrgyzstan, Mongolia, Tajikistan, Turkmenistan, Uzbekistan, Türkiye, the United Arab Emirates and China.</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Clear my answers for this session</button></p>
+</footer>

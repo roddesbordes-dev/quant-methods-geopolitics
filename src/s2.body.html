@@ -1,0 +1,168 @@
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Session 2 of 6</span></div>
+  <h1 style="margin-top:.6rem">Can we trust a poll?</h1>
+  <p class="lede">Polls tell governments, investors and diplomats what a country thinks. In this session you recount the polls before Moldova's 2024 referendum on the European Union, learn what a margin of error does and does not cover, and decide which changes in European views of China are real.</p>
+  <div class="meta"><span><b>About 3 hours</b> at your own pace</span><span><b>No software needed</b> in the browser; optional steps in jamovi</span><span><b>Your answers</b> stay in this browser only</span></div>
+</header>
+
+<nav class="steps" aria-label="Steps in this session"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Step 1 · Puzzle · 10 min</span><h2>Moldova, 20 October 2024</h2></div>
+  <p>Moldova voted on writing the goal of joining the European Union into its constitution. The vote mattered far beyond Moldova: it was read in Brussels and Moscow as a test of Russian influence. Three polls published in the final weeks gave these results.</p>
+  <div class="tscroll"><table id="pollTable" aria-label="Polls before the referendum"></table></div>
+  <div class="box task">
+    <h4>Your guess: what share voted Yes?</h4>
+    <div class="row"><input type="range" id="guessYes" min="30" max="80" step="1" value="55" aria-label="Yes share"><span class="mono" id="guessYesOut">55%</span></div>
+    <div class="row"><button id="guessBtn">Lock in my guess</button><span class="small" id="guessSaved"></span></div>
+  </div>
+</section>
+
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Step 2 · Lesson · 25 min</span><h2>How sure is a poll?</h2></div>
+  <h3>A sample stands in for a population</h3>
+  <p>A pollster cannot ask three million voters, so it asks about a thousand chosen at random and treats their answers as a scale model of the country. Another random thousand would give slightly different answers. The <strong>margin of error</strong> measures how much the result would move from one random sample to the next.</p>
+  <p class="formula">margin of error (95%) ≈ 1.96 × √( p × (1 − p) ÷ n )</p>
+  <p>Here <i>p</i> is the share answering Yes (as a proportion, 0.55 for 55%) and <i>n</i> the number of people asked. In 19 samples out of 20, the true share lies within that distance of the estimate. A handy rule: with 1,000 people the margin is about ±3 points; to halve it, you need four times as many people.</p>
+  <div class="box">
+    <h4>Try it</h4>
+    <div class="row"><label for="mN" class="small">People asked: <b class="mono" id="mNout">1000</b></label></div>
+    <input type="range" id="mN" min="100" max="5000" step="50" value="1000" aria-label="Sample size">
+    <div class="row"><label for="mP" class="small">Share answering Yes: <b class="mono" id="mPout">50%</b></label></div>
+    <input type="range" id="mP" min="5" max="95" step="1" value="50" aria-label="Share answering Yes">
+    <p class="headline-claim" id="mOut"></p>
+  </div>
+  <h3>What the margin of error does not cover</h3>
+  <ul class="tight">
+    <li><strong>Who refuses to answer.</strong> If supporters of one side hang up more often, every sample is biased in the same direction, and a bigger sample does not help.</li>
+    <li><strong>Who is not in the sample at all.</strong> A poll of residents misses voters abroad.</li>
+    <li><strong>The undecided.</strong> How they finally vote is a guess, and the guess is yours, not the pollster's.</li>
+    <li><strong>Late changes</strong>, and pressure on voters on the day.</li>
+  </ul>
+  <p>These are <em>non-sampling errors</em>. They are often larger than the margin of error, and no formula measures them.</p>
+  <div class="box task"><h4>Check yourself</h4>
+    <p>A poll of 1,100 people finds 50% Yes. What is the margin of error, in points? (One decimal.)</p>
+    <div class="row"><input type="number" step="0.1" id="la-in" aria-label="Margin of error"><button id="la-btn">Check</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Step 3 · Activity · 20 min</span><h2>Recount the Moldovan polls</h2></div>
+  <p>The polls include undecided voters, the referendum did not. You must decide what to do with them. There are three common choices: <b>drop</b> them (assume they split like the decided), <b>split</b> them evenly, or give them <b>all to No</b>.</p>
+  <div class="box task"><h4>1. Do the first poll by hand</h4>
+    <p>For CBS Research, compute the Yes share among decided voters, Yes ÷ (Yes + No), and its margin of error using the number of decided respondents (1,034 × the share who decided). One decimal each.</p>
+    <div class="row"><label for="aa-p">Yes among decided, %</label><input type="number" step="0.1" id="aa-p"><label for="aa-m">Margin, ±</label><input type="number" step="0.1" id="aa-m"><button id="aa-btn">Check</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <div class="box task"><h4>2. All three polls, three treatments</h4>
+    <div class="row"><span class="small">Undecided voters</span><div class="seg" id="segUnd"><button aria-pressed="true" data-v="drop">Dropped</button><button aria-pressed="false" data-v="split">Split evenly</button><button aria-pressed="false" data-v="no">All to No</button></div></div>
+    <figure><div class="chart" id="pollChart"></div><figcaption>Dots: poll estimate of Yes; bars: 95% margin of error. The result appears after you reveal it below. Sources: polls as reported in the Wikipedia compilation of referendum polling; result: Central Electoral Commission of Moldova.</figcaption></figure>
+    <div class="row"><button id="aa-reveal">Reveal the result</button></div>
+  </div>
+  <details class="jam"><summary>Now do it in jamovi (optional, 10 min)</summary>
+    <ol class="tight"><li>Copy the data below and paste it into an empty jamovi spreadsheet.</li>
+      <li><b>Data → Compute</b>: <span class="mono">dec = yes + no</span>, then <span class="mono">p = yes / dec</span>, then <span class="mono">moe = 1.96 * SQRT(p * (1 - p) / (n * dec / 100)) * 100</span>, then <span class="mono">pct = 100 * p</span>.</li>
+      <li>Compare <span class="mono">pct ± moe</span> with the result.</li></ol>
+    <textarea readonly id="csvPolls" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvPolls">Copy data</button><span class="small" data-copied="csvPolls"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Step 4 · Feedback · 10 min</span><h2>A miss far larger than the margin</h2></div>
+  <p id="fa-locked" class="small">Reveal the result in step 3 to unlock this feedback.</p>
+  <div id="fa-body" hidden>
+    <div class="kpi"><div><b>50.35%</b><span>Yes, all votes</span></div><div><b>45.4%</b><span>Yes, voters in Moldova</span></div><div><b>about 77%</b><span>Yes, voters abroad</span></div></div>
+    <p class="headline-claim" id="fa-guess"></p>
+    <p>Counting decided voters only, the three polls put Yes between 59% and 68%, with margins of about ±3 points. Among voters inside Moldova, the people the polls actually sampled, Yes got 45.4%. That is a miss of 13 to 22 points, four to seven times the margin of error. Only if <em>every</em> undecided voter chose No do two of the polls come close. The referendum passed because of the diaspora, which pollsters did not survey.</p>
+    <p>Why did the polls miss? Several explanations were discussed after the vote, none measured by any margin of error:</p>
+    <ul class="tight">
+      <li>Undecided voters broke heavily for No.</li>
+      <li>Some No voters may not have told pollsters their intention.</li>
+      <li>Vote buying: Moldovan police documented hundreds of cases, and President Sandu alleged a scheme aimed at buying up to 300,000 votes (Corman, Verfassungsblog, 2024).</li>
+    </ul>
+    <div class="box key"><h4>Remember</h4>A margin of error measures the luck of the sample. It says nothing about who was left out, who refused, or what the undecided will do.</div>
+  </div>
+</section>
+
+<section class="step col" id="lessonB" data-read data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Step 5 · Lesson · 25 min</span><h2>Comparing groups in a survey</h2></div>
+  <p>Most questions about opinion are comparisons: this year against last, young against old, France against Spain. Each number has its own margin of error, so the difference between two numbers is even less certain than either one.</p>
+  <p class="formula">margin of a difference ≈ 1.96 × √( p₁(1 − p₁)/n₁ + p₂(1 − p₂)/n₂ )</p>
+  <p>With about 1,000 people in each sample and shares around 30%, a difference must exceed about 4 points before you can call it real. Pew Research Center's samples are not pure random draws, so its own published margins are somewhat wider still.</p>
+  <h3>Filtering and recoding</h3>
+  <p>To compare groups you <em>filter</em> (keep only the rows you need, such as one country or one age group) and <em>recode</em> (merge categories, such as “very” and “somewhat” favourable into one “favourable”). Pew reports favourable views this way: the two positive answers added together.</p>
+  <h3>Attention is not opinion</h3>
+  <p>Google Trends measures what people search for, scaled from 0 to 100 relative to the busiest week. A spike in searches for “Taiwan” means attention, not support or hostility. Commentators often confuse the two.</p>
+</section>
+
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Step 6 · Activity · 20 min</span><h2>Is the change real?</h2></div>
+  <p>Share of adults with a favourable view of China, Pew Research Center, spring 2024 and spring 2025. Assume about 1,000 people per country and year.</p>
+  <div class="box task"><h4>1. France by hand</h4>
+    <p>France went from 23% to 36%. Compute the change and its margin (one decimal). Is the change real?</p>
+    <div class="row"><label for="pb-ch">Change, points</label><input type="number" step="1" id="pb-ch"><label for="pb-m">Margin, ±</label><input type="number" step="0.1" id="pb-m"><button id="pb-btn">Check</button></div>
+    <p class="fb" id="pb-fb"></p>
+    <div class="row"><button id="pb-all" disabled>Check the other countries</button></div>
+  </div>
+  <div class="tscroll wide"><table id="pewTable" aria-label="Favourable views of China"></table></div>
+  <figure class="wide"><div class="chart" id="pewChart"></div><figcaption>Source: Pew Research Center, Spring 2025 Global Attitudes Survey, topline (July 2025). Hungary and Poland changed survey method in 2024, so Pew does not compare them with earlier years.</figcaption></figure>
+  <details class="jam"><summary>Now do it in jamovi (optional, 10 min)</summary>
+    <ol class="tight"><li>Paste the data below into jamovi.</li>
+      <li>Compute <span class="mono">change = y25 - y24</span> and <span class="mono">moe = 1.96 * SQRT((y24/100)*(1-y24/100)/1000 + (y25/100)*(1-y25/100)/1000) * 100</span>.</li>
+      <li>Compute <span class="mono">real = ABS(change) > moe</span> and sort.</li></ol>
+    <textarea readonly id="csvPew" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvPew">Copy data</button><span class="small" data-copied="csvPew"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Step 7 · Feedback · 10 min</span><h2>A real warming, with exceptions</h2></div>
+  <p>Views of China became more favourable almost everywhere in Europe between 2024 and 2025, and in most countries the change is larger than the noise. Spain's 4-point rise is not: it is within the margin. Comparisons between countries need the same care: Spain (37%) and France (36%) are statistically the same, Italy (45%) and Germany (29%) are not.</p>
+  <p>Inside countries, Pew found large age gaps: in Poland and the United Kingdom, adults under 35 were 27 to 28 points more likely than those aged 50 and over to view China favourably. A national average can hide two very different countries.</p>
+  <div class="box task"><h4>Attention against opinion (5 min)</h4>
+    <p>Open <a href="https://trends.google.com/trends/explore?date=2024-01-01%202026-10-01&q=tariffs" target="_blank" rel="noopener">Google Trends for “tariffs”</a>. Find the week attention peaked. Did views of the United States or China in the Pew data move by anything like that much? Write one sentence on the difference between a spike in attention and a change in opinion.</p>
+    <textarea id="trendsNote" rows="3" aria-label="Your sentence"></textarea>
+  </div>
+</section>
+
+<section class="step col" id="brief" data-title="Your brief">
+  <div class="stephead"><span class="eyebrow">Step 8 · Your brief · 45 min</span><h2>Choose your country and question</h2></div>
+  <p>Across the course you write one two-page policy brief, advising the government of one country. Choose now; each later session adds a piece. Your choices and drafts are saved in this browser and collected on the <a href="index.html#brief">course home page</a>.</p>
+  <div class="brief-box">
+    <label for="bCountry">Country</label>
+    <input type="text" id="bCountry" data-brief="country" placeholder="for example Spain" style="width:100%">
+    <label>Question</label>
+    <div class="choice" id="bQuestion">
+      <label><input type="radio" name="bq" value="A"> A. Is it spending enough on defence, and would voters accept more? <span class="small">(sessions 1, 2, 4, 6)</span></label>
+      <label><input type="radio" name="bq" value="B"> B. Should it reduce its dependence on China for a critical product? <span class="small">(sessions 3, 6)</span></label>
+      <label><input type="radio" name="bq" value="C"> C. Are sanctions on Russia being circumvented through its trade? <span class="small">(sessions 1, 5)</span></label>
+      <label><input type="radio" name="bq" value="D"> D. Can we trust its official growth figures? <span class="small">(sessions 1, 4)</span></label>
+    </div>
+    <label for="bData">Data you will need, and where to download it</label>
+    <textarea id="bData" data-brief="data" rows="4" placeholder="for example SIPRI military expenditure for Spain, 2000–2024; Eurobarometer question on defence spending"></textarea>
+  </div>
+  <p class="small">For question A, Eurobarometer asks Europeans about defence spending; the margin-of-error method of this session applies directly.</p>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Step 9 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session1.html">← Session 1: Can we trust the numbers?</a><a href="session3.html">Session 3: Who depends on whom? →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Readings and references</h3>
+  <ul class="refs">
+    <li>Pew Research Center (2016), <a href="https://www.pewresearch.org/short-reads/2016/09/08/understanding-the-margin-of-error-in-election-polls/" target="_blank" rel="noopener">“Understanding the margin of error in election polls”</a>.</li>
+    <li>Corman, M.-R. (2024), <a href="https://verfassungsblog.de/three-takeaways-from-the-nearly-failed-eu-referendum-in-moldova/" target="_blank" rel="noopener">“Three takeaways from the nearly failed EU referendum in Moldova”</a>, Verfassungsblog, 1 November.</li>
+    <li>Diez, Çetinkaya-Rundel and Barr, <a href="https://www.openintro.org/book/os/" target="_blank" rel="noopener">OpenIntro Statistics</a>, sections 5.1–5.2 (free).</li>
+  </ul>
+  <h3>Data</h3>
+  <ul class="refs">
+    <li>Polls and results: <a href="https://en.wikipedia.org/wiki/2024_Moldovan_European_Union_membership_constitutional_referendum" target="_blank" rel="noopener">compilation of polling and official results</a> (Central Electoral Commission of Moldova).</li>
+    <li>Pew Research Center, <a href="https://www.pewresearch.org/global/2025/07/15/views-of-china-and-xi-jinping-2025/" target="_blank" rel="noopener">Views of China and Xi Jinping, 2025</a>, and <a href="https://www.pewresearch.org/wp-content/uploads/sites/20/2025/07/pg_2025.07.15_global-views-china-2025_topline.pdf" target="_blank" rel="noopener">topline</a>.</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Clear my answers for this session</button></p>
+</footer>

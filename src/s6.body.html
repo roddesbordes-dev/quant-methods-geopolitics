@@ -1,0 +1,139 @@
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Session 6 of 6</span></div>
+  <h1 style="margin-top:.6rem">What does the Hormuz closure cost?</h1>
+  <p class="lede">When a crisis breaks, a minister wants a number by the evening. In this session you cost the 2026 closure of the Strait of Hormuz for any country, give a range instead of a falsely precise figure, check an AI assistant's answer against your own, and finish your brief.</p>
+  <div class="meta"><span><b>About 3 hours</b> at your own pace</span><span><b>No software needed</b>; an AI assistant of your choice for one step</span><span><b>Your answers</b> stay in this browser only</span></div>
+</header>
+
+<nav class="steps" aria-label="Steps in this session"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Step 1 · Puzzle · 10 min</span><h2>The Hormuz shock</h2></div>
+  <p>About a fifth of the world's oil normally passes through the Strait of Hormuz. Satellite tracking of ships shows what happened in 2026.</p>
+  <figure class="wide"><div class="chart" id="hzChart"></div><figcaption>Weekly average of daily transits. Source: IMF PortWatch, Daily Chokepoints Data (AIS ship-tracking), downloaded October 2026.</figcaption></figure>
+  <div class="box task"><h4>Your guess</h4>
+    <p>For a typical EU country, what is the yearly cost of the oil and gas price rise that followed, as a share of GDP?</p>
+    <div class="choice" id="q-cost">
+      <label><input type="radio" name="cs" value="a"> Less than 0.5% of GDP</label>
+      <label><input type="radio" name="cs" value="b"> About 1% to 2%</label>
+      <label><input type="radio" name="cs" value="c"> About 3% to 5%</label>
+      <label><input type="radio" name="cs" value="d"> More than 5%</label>
+    </div>
+    <div class="row"><button id="csBtn" disabled>Lock in my guess</button><span class="small" id="csOut"></span></div>
+  </div>
+</section>
+
+<section class="step col" id="lesson" data-title="Lesson">
+  <div class="stephead"><span class="eyebrow">Step 2 · Lesson · 25 min</span><h2>Costing a shock</h2></div>
+  <h3>The first-round cost</h3>
+  <p>When energy prices jump, an importing country pays more for the same oil and gas. That extra bill, as a share of GDP, is the first-round cost:</p>
+  <p class="formula">cost (% of GDP) ≈ net energy imports (% of GDP) × price rise (%) × (1 − demand response)</p>
+  <ul class="tight">
+    <li><strong>Net energy imports</strong>: fuel imports minus fuel exports (oil, gas, coal), as a share of GDP. A net exporter such as Norway <em>gains</em> when prices rise.</li>
+    <li><strong>Price rise</strong>: Brent crude averaged $69 a barrel in 2025. From March to September 2026 it averaged about $100 (+44%), with a peak of $138 on 7 April (+100%).</li>
+    <li><strong>Demand response</strong>: in the short run, people and firms cut their use only a little, perhaps by up to 10%.</li>
+  </ul>
+  <h3>Why a range</h3>
+  <p>Every input is uncertain: how long the closure lasts, how high prices stay, how much demand adjusts. Give a <strong>low case</strong> and a <strong>high case</strong>, and say what each assumes. A single number to two decimals signals precision you do not have.</p>
+  <h3>What the first round leaves out</h3>
+  <p>Second-round effects (higher inflation, central-bank reactions, lost exports to Gulf customers) and physical shortages, which hit Asian importers of Gulf oil hardest. Say so in the brief.</p>
+  <h3>Reading PortWatch</h3>
+  <p>PortWatch counts ships from their automatic identification system (AIS) signals. In a war zone, ships switch their transponders off, so counts understate real traffic: the session 1 question, “who produced this number and how?”, again.</p>
+  <div class="box task"><h4>Check yourself</h4>
+    <p>Germany's net energy imports are 1.67% of GDP. With a 44% price rise and no demand response, what is the first-round cost, % of GDP (two decimals)?</p>
+    <div class="row"><input type="number" step="0.01" id="la-in" aria-label="Cost"><button id="la-btn">Check</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activity" data-title="Activity">
+  <div class="stephead"><span class="eyebrow">Step 3 · Activity · 20 min</span><h2>Beat the AI</h2></div>
+  <div class="box task"><h4>1. Your estimate</h4>
+    <div class="row"><label for="cC">Country</label><select id="cC"></select></div>
+    <p class="small" id="cInfo"></p>
+    <p>Low case: price +44%, demand falls 10%. High case: price +100% (the April peak sustained), no demand response. Compute both, % of GDP, two decimals.</p>
+    <div class="row"><label for="cLo">Low</label><input type="number" step="0.01" id="cLo"><label for="cHi">High</label><input type="number" step="0.01" id="cHi"><button id="cBtn">Check</button></div>
+    <p class="fb" id="cFb"></p>
+  </div>
+  <div class="box task"><h4>2. Ask an AI assistant</h4>
+    <p>Copy this prompt into any AI assistant, changing nothing but the country, and note its answer.</p>
+    <p class="prompt" id="aiPrompt"></p>
+    <div class="row"><button class="ghost" id="aiCopy">Copy the prompt</button><span class="small" id="aiCopied"></span></div>
+    <label class="small" for="aiAns">The AI's estimate (% of GDP, or its range)</label><textarea id="aiAns" rows="2"></textarea>
+  </div>
+  <figure class="wide"><div class="chart" id="costChart"></div><figcaption>Bars: low to high case; dot: low case. Sources: World Bank, World Development Indicators (fuel imports and exports, GDP, 2024); Brent price from the US Energy Information Administration via FRED.</figcaption></figure>
+</section>
+
+<section class="step col" id="feedback" data-title="Feedback">
+  <div class="stephead"><span class="eyebrow">Step 4 · Feedback · 10 min</span><h2>Who was closer?</h2></div>
+  <p class="headline-claim" id="fbGuess"></p>
+  <p>For a typical EU country, with net energy imports of about 2% of GDP, the first-round cost lies between about 0.8% (low case) and 2% of GDP (high case) a year. South Korea, Thailand and Malta are among the most exposed; Norway and Saudi Arabia are net exporters. Saudi Arabia's gain is theoretical while its tankers cannot leave the Gulf: pipelines to the Red Sea and, for the United Arab Emirates, to the Gulf of Oman carry only part of its exports.</p>
+  <div class="box task"><h4>Audit the AI's answer</h4>
+    <div class="choice" id="aiAudit">
+      <label><input type="checkbox" value="1"> It gave a range rather than one number</label>
+      <label><input type="checkbox" value="2"> It said which price rise it assumed, and the figure is close to the real one</label>
+      <label><input type="checkbox" value="3"> Its energy-import figure for the country is close to the World Bank's</label>
+      <label><input type="checkbox" value="4"> It named its sources, and the sources exist</label>
+      <label><input type="checkbox" value="5"> It said what its estimate leaves out</label>
+    </div>
+    <p class="small" id="aiScore"></p>
+    <p>AI assistants are fluent and fast, and useful for a first structure. They often state numbers without sources, use outdated prices, or invent references. Treat them as a junior colleague whose every number you check, never as an oracle.</p>
+  </div>
+</section>
+
+<section class="step col" id="brief" data-title="Finish the brief">
+  <div class="stephead"><span class="eyebrow">Step 5 · Finish your brief · 50 min</span><h2>Two pages for a minister</h2></div>
+  <p id="briefWho" class="small"></p>
+  <p>Every brief, whatever the question, contains the same six elements. Your earlier drafts are loaded below; edit them here.</p>
+  <div class="brief-box">
+    <label for="b1">1. Headline: the answer and the recommendation, in three lines</label><textarea id="b1" data-brief="headline" rows="3"></textarea>
+    <label for="b2">2. One to three honest charts (titles, units, sources)</label><textarea id="b2" data-brief="chart1" rows="3"></textarea>
+    <label for="b3">3. One estimate stated in words</label><textarea id="b3" data-brief="estimate" rows="3"></textarea>
+    <label for="b4">4. A range: low and high case, and what each assumes</label><textarea id="b4" data-brief="range" rows="3"></textarea>
+    <label for="b5">5. What could make the answer wrong</label><textarea id="b5" data-brief="limits" rows="3"></textarea>
+    <label for="b6">6. Sources</label><textarea id="b6" data-brief="source" rows="3"></textarea>
+  </div>
+  <p class="small">Notes from earlier sessions (regression, difference-in-differences, data) are collected on the <a href="index.html#brief">course home page</a>, where you can copy the whole brief into a document.</p>
+  <h3>A worked example: question A for Spain</h3>
+  <p>The brief charts Spain's defence spending since 2000 in % of GDP and in real terms (session 1). It locates Spain on the regression line of spending against distance from Moscow (session 4). It checks Eurobarometer results on support for higher defence spending against their margin of error (session 2). It costs the path to 3.5% of GDP with a low and a high case (this session). A headline might read: <em>“Spain spends more than its distance from Russia predicts but less than NATO's new target; reaching 3.5% would cost between X and Y billion euros a year.”</em></p>
+  <details class="box"><summary><b>Grading grid</b> (to assess your own brief)</summary>
+    <div class="tscroll"><table aria-label="Grading grid">
+      <tr><th>Criterion</th><th class="num">Weight</th><th>Excellent</th><th>Insufficient</th></tr>
+      <tr><td>Question</td><td class="num">15%</td><td style="text-align:left">Made precise for your country, relevant to a decision-maker</td><td style="text-align:left">Vague, or not answered</td></tr>
+      <tr><td>Source</td><td class="num">15%</td><td style="text-align:left">Chosen for a reason; reliability, coverage and bias discussed</td><td style="text-align:left">Taken as given</td></tr>
+      <tr><td>Chart</td><td class="num">15%</td><td style="text-align:left">Honest scale and units, readable in 10 seconds, sourced</td><td style="text-align:left">Misleading or decorative</td></tr>
+      <tr><td>Estimate</td><td class="num">20%</td><td style="text-align:left">Method fits the question; result in words with a range</td><td style="text-align:left">Numbers without interpretation</td></tr>
+      <tr><td>What could make us wrong</td><td class="num">15%</td><td style="text-align:left">Names the key assumption and how its failure would change the conclusion</td><td style="text-align:left">Missing or generic</td></tr>
+      <tr><td>Recommendation and presentation</td><td class="num">20%</td><td style="text-align:left">Follows from the evidence; key message in the first lines; answers questions with numbers</td><td style="text-align:left">Disconnected from the analysis</td></tr>
+    </table></div>
+  </details>
+</section>
+
+<section class="step col" id="present" data-title="Present">
+  <div class="stephead"><span class="eyebrow">Step 6 · Present · 20 min</span><h2>Three minutes, then two questions</h2></div>
+  <p>Record yourself presenting the brief in three minutes, with one chart on screen. Start with the answer, not the method. Then answer, in one minute each, the two questions a minister is most likely to ask:</p>
+  <ul class="tight"><li>“How sure are you?” Answer with your range and its assumptions.</li><li>“What would change your mind?” Answer with the main limitation.</li></ul>
+  <label class="checkline"><input type="checkbox" id="presDone"> I have recorded and watched my presentation</label>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Step 7 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session5.html">← Session 5: German cars in Kyrgyzstan</a><a href="certificate.html">Your certificate →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Readings and references</h3>
+  <ul class="refs">
+    <li>US Energy Information Administration (2026), <a href="https://www.eia.gov/outlooks/steo/report/energysecurity/article.php" target="_blank" rel="noopener">Global Energy Security Data</a>, on oil flows through the Strait of Hormuz.</li>
+    <li>IMF PortWatch, <a href="https://portwatch.imf.org" target="_blank" rel="noopener">chokepoint monitoring</a>: browse the Strait of Hormuz page.</li>
+    <li>Roberts, A. and Lamp, N. (2021), <a href="https://www.hup.harvard.edu/file/feeds/PDF/9780674269811_sample.pdf" target="_blank" rel="noopener">Six Faces of Globalization</a>, free sample chapter.</li>
+  </ul>
+  <h3>Data</h3>
+  <ul class="refs">
+    <li>IMF PortWatch, Daily Chokepoints Data (Strait of Hormuz), 1 January 2025 to 4 October 2026.</li>
+    <li>Brent crude oil, daily (DCOILBRENTEU), US Energy Information Administration via <a href="https://fred.stlouisfed.org/series/DCOILBRENTEU" target="_blank" rel="noopener">FRED</a>.</li>
+    <li>Fuel imports and exports (% of merchandise trade), merchandise trade and GDP, 2024: World Bank, <a href="https://databank.worldbank.org/source/world-development-indicators" target="_blank" rel="noopener">World Development Indicators</a>. Fuel = SITC section 3 (oil, gas, coal, electricity).</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Clear my answers for this session</button></p>
+</footer>

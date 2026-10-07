@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>German Cars in Kyrgyzstan</title>
+<meta name="description" content="Session 5: difference-in-differences and event studies of sanctions circumvention.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}
+
+/* Layout: a single reading column (about 68ch) of numbered steps, with a sticky step bar; wide charts and tables break out to 880px. */
+:root{
+  --bg:#F3F5F7; --panel:#FFFFFF; --ink:#15202A; --ink2:#43505C; --muted:#68747F; --rule:#D3DAE1; --soft:#E6EEF5;
+  --accent:#0072B2; --verm:#D55E00; --hi:#E69F00; --ok:#007A57; --grey:#7D8893;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --col:44rem; --wide:56rem; --r:6px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F151B; --panel:#17202A; --ink:#E4EAF0; --ink2:#B6C1CB; --muted:#8B97A2; --rule:#2A3541; --soft:#1B2834;
+  --accent:#3D9AD6; --verm:#E0662A; --hi:#E69F00; --ok:#2BB58A; --grey:#8C97A2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151B; --panel:#17202A; --ink:#E4EAF0; --ink2:#B6C1CB; --muted:#8B97A2; --rule:#2A3541; --soft:#1B2834;
+  --accent:#3D9AD6; --verm:#E0662A; --hi:#E69F00; --ok:#2BB58A; --grey:#8C97A2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6;margin:0}
+.wrap{padding-inline:16px;padding-block:0 4rem}
+.col{max-width:var(--col);margin-inline:auto}
+.wide{max-width:var(--wide);margin-inline:auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(2.1rem,6vw,3.3rem);font-weight:800;font-stretch:80%;letter-spacing:-.01em}
+h2{font-size:1.75rem;font-weight:750;font-stretch:85%}
+h3{font-size:1.2rem;font-weight:700;font-stretch:90%;margin-top:1.6rem}
+p{margin:.7rem 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,label:focus-within{outline:3px solid var(--hi);outline-offset:2px}
+.mono,.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+/* header */
+header.top{padding-block:2.4rem 1.6rem;border-bottom:1px solid var(--rule)}
+header.top .course{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+header.top .lede{font-size:1.15rem;color:var(--ink2);max-width:40rem;margin-top:1rem}
+.meta{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:1rem;font-size:.9rem;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+/* step bar */
+nav.steps{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);margin-inline:-16px;padding-inline:16px}
+nav.steps ol{list-style:none;display:flex;gap:.25rem;margin:0 auto;padding:.5rem 0;max-width:var(--wide);overflow-x:auto;scrollbar-width:thin}
+nav.steps a{display:flex;align-items:center;gap:.4rem;white-space:nowrap;text-decoration:none;color:var(--ink2);font-size:.82rem;padding:.3rem .55rem;border-radius:999px}
+nav.steps a:hover{background:var(--soft)}
+nav.steps .dot{width:.9rem;height:.9rem;border-radius:50%;border:1.5px solid var(--grey);display:inline-grid;place-items:center;font-size:.6rem;line-height:1;color:var(--panel)}
+nav.steps li.done .dot{background:var(--ok);border-color:var(--ok)}
+nav.steps li.done .dot::after{content:"✓";color:#fff}
+/* steps */
+section.step{padding-block:3rem 1rem;border-bottom:1px solid var(--rule);scroll-margin-top:3.5rem}
+.stephead{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.box{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.1rem;margin:1.2rem 0}
+.box.task{border-left:4px solid var(--accent)}
+.box.key{background:var(--soft);border-color:transparent}
+.box h4{font-family:var(--f-display);font-stretch:90%;font-size:1.02rem;margin:0 0 .4rem}
+.formula{font-family:var(--f-mono);font-size:.98rem;background:var(--soft);padding:.6rem .8rem;border-radius:var(--r);overflow-x:auto}
+ul.tight,ol.tight{padding-left:1.2rem;margin:.5rem 0}
+ul.tight li,ol.tight li{margin:.25rem 0}
+/* controls */
+button,.btn{font:inherit;font-size:.92rem;font-weight:600;border-radius:var(--r);border:1.5px solid var(--accent);background:var(--accent);color:#fff;padding:.45rem .9rem;cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.8rem 0}
+.choice{display:grid;gap:.5rem;margin:.8rem 0}
+.choice label{display:flex;gap:.6rem;align-items:flex-start;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.55rem .75rem;cursor:pointer}
+.choice label:has(input:checked){border-color:var(--accent);background:var(--soft)}
+.choice input{margin-top:.35rem;accent-color:var(--accent)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--accent);border-radius:var(--r);overflow:hidden}
+.seg button{border:0;border-radius:0;background:transparent;color:var(--accent);font-weight:500;padding:.35rem .75rem}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+input[type=number],input[type=text],textarea{font:inherit;font-family:var(--f-mono);font-size:.95rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--rule);border-radius:4px;padding:.3rem .45rem}
+input[type=number]{width:6.2rem}
+textarea{width:100%;font-family:var(--f-body);line-height:1.5}
+.fb{font-size:.95rem;margin:.4rem 0;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--verm)}
+.fb.ok::before{content:"✓ ";font-weight:700} .fb.no::before{content:"✗ ";font-weight:700}
+/* tables */
+.tscroll{overflow-x:auto;margin:1rem 0;border:1px solid var(--rule);border-radius:var(--r);background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:.45rem .6rem;border-bottom:1px solid var(--rule);text-align:right;vertical-align:middle}
+th{font-weight:600;font-size:.8rem;color:var(--ink2);background:var(--soft)}
+th:first-child,td:first-child{text-align:left}
+td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:600;padding:.1rem .45rem;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.chip.F{color:var(--accent)} .chip.NF{color:var(--verm)} .chip.PF{color:var(--grey)}
+/* charts */
+figure{margin:1.2rem 0}
+.chart{position:relative;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.8rem .6rem .4rem}
+.chart .ct{font-family:var(--f-display);font-stretch:90%;font-weight:700;font-size:1rem;padding:0 .3rem}
+.chart .cs{font-size:.82rem;color:var(--muted);padding:0 .3rem}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body);font-size:12px;fill:var(--muted)}
+.chart svg .lab{fill:var(--ink);font-weight:600}
+figcaption{font-size:.8rem;color:var(--muted);margin-top:.4rem}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem 1rem;font-size:.82rem;color:var(--ink2);padding:.3rem .3rem 0}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.8rem;line-height:1.35;padding:.35rem .55rem;border-radius:4px;white-space:nowrap;z-index:3;transform:translate(-50%,calc(-100% - 10px))}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem}
+.pair>*{min-width:0}
+.headline-claim{font-family:var(--f-display);font-weight:800;font-stretch:80%;font-size:1.3rem}
+details.jam{margin:1.2rem 0;border:1px dashed var(--rule);border-radius:var(--r);padding:.6rem .9rem;background:var(--panel)}
+details.jam summary{cursor:pointer;font-weight:600}
+details.jam textarea{font-family:var(--f-mono);font-size:.8rem;height:9rem;white-space:pre}
+.hidden-until{border-top:2px solid var(--accent);margin-top:1.4rem;padding-top:.4rem}
+.small{font-size:.88rem;color:var(--ink2)}
+footer{padding-block:2rem;color:var(--muted);font-size:.85rem}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+@media (max-width:520px){body{font-size:1rem}th,td{padding:.4rem .4rem}}
+.vh{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.crumbs{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:center;font-family:var(--f-mono);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.crumbs a{color:var(--accent);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.nextprev{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:1.4rem}
+.nextprev a{font-weight:600;text-decoration:none}
+.refs{padding-left:1.1rem;font-size:.9rem;color:var(--ink2)}
+.refs li{margin:.35rem 0}
+.brief-box{border:1.5px solid var(--hi);border-radius:var(--r);padding:1rem 1.1rem;margin:1.2rem 0;background:var(--panel)}
+.brief-box h4{font-family:var(--f-display);font-stretch:90%;font-size:1.02rem;margin:0 0 .4rem}
+.brief-box label{display:block;font-weight:600;font-size:.9rem;margin:.7rem 0 .25rem}
+input[type=range]{width:100%;accent-color:var(--accent)}
+select{font:inherit;font-size:.95rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--rule);border-radius:4px;padding:.3rem .45rem;max-width:100%}
+.kpi{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin:.6rem 0}
+.kpi div{display:flex;flex-direction:column}
+.kpi b{font-family:var(--f-mono);font-size:1.25rem;font-variant-numeric:tabular-nums}
+.kpi span{font-size:.8rem;color:var(--muted)}
+.prompt{font-family:var(--f-mono);font-size:.85rem;white-space:pre-wrap;background:var(--soft);padding:.7rem .8rem;border-radius:var(--r)}
+.chart .legend svg{display:inline-block;width:auto;height:auto;overflow:visible;flex:none}
+.sessions{display:grid;gap:.8rem;margin-top:1rem}
+.scard{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.1rem;text-decoration:none;color:var(--ink)}
+.scard:hover{border-color:var(--accent)}
+.scard strong{font-family:var(--f-display);font-stretch:85%;font-size:1.25rem;line-height:1.2}
+.scard .bar{display:block;height:4px;background:var(--soft);border-radius:2px;overflow:hidden;margin-top:.3rem}
+.scard .bar i{display:block;height:100%;background:var(--ok)}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.8rem;margin-top:1rem}
+.nums>div{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.9rem 1rem;min-width:0}
+.nums b{font-family:var(--f-display);font-stretch:80%;font-weight:800;font-size:1.7rem;color:var(--accent);line-height:1.1}
+.nums span{font-size:.92rem;color:var(--ink2)}
+.outcomes li{margin:.45rem 0}
+a.btn{color:#fff}
+.cert{background:var(--panel);border:2px solid var(--accent);outline:6px solid var(--soft);border-radius:4px;padding:2.4rem 2rem;text-align:center;margin:1rem 0;display:flex;flex-direction:column;gap:.6rem;align-items:center}
+.cert-k{font-family:var(--f-mono);letter-spacing:.14em;text-transform:uppercase;font-size:.85rem;color:var(--muted)}
+.cert-n{font-family:var(--f-display);font-weight:800;font-stretch:85%;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1}
+.cert-c{font-family:var(--f-display);font-weight:700;font-stretch:90%;font-size:1.35rem;color:var(--accent)}
+.cert-t{max-width:40rem;color:var(--ink2);margin:.2rem 0}
+.cert-f{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 2rem;font-size:.9rem;margin-top:.8rem}
+.cert-s{font-size:.75rem;color:var(--muted);margin-top:.6rem}
+@media print{ @page{size:A4 landscape;margin:12mm} body{background:#fff;color:#000} .noprint,nav.steps,footer{display:none!important} .cert{border-color:#0072B2;outline:none;box-shadow:none;margin:0} .wrap{padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Session 5 of 6</span></div>
+  <h1 style="margin-top:.6rem">Why did German cars flood into Kyrgyzstan?</h1>
+  <p class="lede">Do sanctions work, or do goods simply take a detour? International organisations answer such questions with policy evaluation. In this session you estimate how much EU trade with Russia was rerouted through its neighbours, using difference-in-differences and an event study on monthly Eurostat data.</p>
+  <div class="meta"><span><b>About 3 hours</b> at your own pace</span><span><b>No software needed</b> in the browser; optional steps in jamovi</span><span><b>Your answers</b> stay in this browser only</span></div>
+</header>
+
+<nav class="steps" aria-label="Steps in this session"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Step 1 · Puzzle · 10 min</span><h2>The chart</h2></div>
+  <figure class="wide"><div class="chart" id="carChart"></div></figure>
+  <p>German exports of cars and car parts to Kyrgyzstan, a country of seven million people bordering Kazakhstan, rose about sixtyfold between 2021 and 2023. Kyrgyzstan belongs to a customs union with Russia. Proof that sanctions fail?</p>
+  <div class="box task"><h4>Your guess</h4>
+    <p>The EU's exports to Russia collapsed after February 2022. Roughly what share of the lost exports came back through Armenia, Kazakhstan and Kyrgyzstan?</p>
+    <div class="choice" id="q-share">
+      <label><input type="radio" name="sh" value="5"> Less than 5%</label>
+      <label><input type="radio" name="sh" value="10"> About 10%</label>
+      <label><input type="radio" name="sh" value="30"> About 30%</label>
+      <label><input type="radio" name="sh" value="50"> More than half</label>
+    </div>
+    <div class="row"><button id="shBtn" disabled>Lock in my guess</button><span class="small" id="shOut"></span></div>
+  </div>
+</section>
+
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Step 2 · Lesson · 25 min</span><h2>What would have happened anyway?</h2></div>
+  <p>Every evaluation compares what happened with what would have happened without the policy: the <strong>counterfactual</strong>. We never observe it, so we build it.</p>
+  <h3>Before and after is not enough</h3>
+  <p>EU exports to Russia's neighbours more than doubled after 2022. But EU exports to the rest of the world also grew, with inflation and the post-COVID recovery. A before/after comparison mixes the effect of sanctions with everything else that changed.</p>
+  <h3>Difference-in-differences</h3>
+  <p>Take a <em>treated</em> group (Russia's neighbours) and a <em>comparison</em> group exposed to the same general shocks but not to the detour (the rest of the world, excluding Russia, its other neighbours and known trade hubs). Compute the change for each and subtract:</p>
+  <p class="formula">effect = (change for neighbours) − (change for comparison group)</p>
+  <p>The comparison group's change is our estimate of what would have happened to the neighbours anyway. We use percentage changes here because the two groups differ enormously in size.</p>
+  <h3>The key assumption: parallel trends</h3>
+  <p>The method assumes that, without sanctions, the two groups would have moved in parallel. You cannot test it after the event, but you can check whether they moved in parallel <em>before</em> it. That is the job of the event study in step 5.</p>
+  <div class="box task"><h4>Check yourself</h4>
+    <p>A treated group grows by 50%, the comparison group by 20%. What is the difference-in-differences estimate, in percentage points?</p>
+    <div class="row"><input type="number" id="la-in" aria-label="Estimate"><button id="la-btn">Check</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Step 3 · Activity · 20 min</span><h2>Be the sanctions monitor</h2></div>
+  <p>Average monthly EU exports, € million. Before: January 2019 to December 2021. After: March 2022 to December 2024.</p>
+  <div class="tscroll"><table id="ddTable" aria-label="Two by two table"></table></div>
+  <div class="box task"><h4>Compute the effect</h4>
+    <div class="row"><label for="aa1">Change for neighbours, %</label><input type="number" step="0.1" id="aa1"></div>
+    <div class="row"><label for="aa2">Change for rest of world, %</label><input type="number" step="0.1" id="aa2"></div>
+    <div class="row"><label for="aa3">Difference-in-differences, points</label><input type="number" step="0.1" id="aa3"><button id="aa-btn">Check</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <details class="jam"><summary>Now do it in jamovi (optional, 10 min)</summary>
+    <ol class="tight"><li>Paste the monthly data below (one row per month and group).</li>
+      <li>Compute <span class="mono">after = month >= "2022-03"</span> (or create it with <b>Transform</b>) and keep months up to 2024-12 with a filter.</li>
+      <li><b>Exploration → Descriptives</b>: mean of <span class="mono">exports</span> split by <span class="mono">group</span> and <span class="mono">after</span>. Fill the 2×2 table from the output.</li></ol>
+    <textarea readonly id="csvDD" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvDD">Copy data</button><span class="small" data-copied="csvDD"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Step 4 · Feedback · 10 min</span><h2>About a tenth came back</h2></div>
+  <p id="fa-locked" class="small">Complete the calculation in step 3 to unlock this feedback.</p>
+  <div id="fa-body" hidden>
+    <p class="headline-claim" id="faGuess"></p>
+    <p>Had the three neighbours' imports from the EU grown like the rest of the world's (+33%), they would have averaged about €770 million a month after March 2022. They averaged €1,334 million: an extra €564 million a month, or roughly €6.8 billion a year.</p>
+    <p>Over the same period, EU exports to Russia fell from €7.2 billion to €3.3 billion a month, while the comparison group grew by a third. Measured the same way, about €6.3 billion a month of exports to Russia were lost. The detour through Armenia, Kazakhstan and Kyrgyzstan therefore made up roughly <strong>9%</strong> of the loss. Real, large for those three economies, and small against the collapse.</p>
+    <div class="box key"><h4>In euros</h4>A difference in percentages becomes a policy number once you translate it back into money: the counterfactual level, the excess, the share of the total.</div>
+  </div>
+</section>
+
+<section class="step col" id="lessonB" data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Step 5 · Lesson · 25 min</span><h2>Month by month</h2></div>
+  <h3>The event study</h3>
+  <p>Instead of one before and one after, plot the ratio of the treated group to the comparison group for every month, scaled so that the pre-sanctions average equals 100. Three things to look for:</p>
+  <ul class="tight">
+    <li><strong>Before the event</strong>, the line should be flat around 100: that supports parallel trends.</li>
+    <li><strong>At the event</strong>, a jump that starts when the policy starts, not before.</li>
+    <li><strong>After</strong>, whether the effect persists, grows or fades.</li>
+  </ul>
+  <h3>The placebo test</h3>
+  <p>Pretend the event happened at a date when nothing happened, say March 2020, and rerun the comparison. A large “effect” at a fake date warns that something other than the policy moves the data. Here, the pandemic is that something: trade with small neighbours fell faster than the rest in 2020–21.</p>
+  <h3>What could make the estimate wrong</h3>
+  <ul class="tight">
+    <li>The comparison group may have been hit by other shocks, such as the energy crisis.</li>
+    <li>Some growth may be genuine demand from economies that kept growing, such as Kazakhstan.</li>
+    <li>Euro values include price increases that differ by product.</li>
+  </ul>
+</section>
+
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Step 6 · Activity · 20 min</span><h2>When did the detour start?</h2></div>
+  <div class="row"><span class="small">Partner</span><div class="seg" id="segP"><button aria-pressed="true" data-v="NBR">Three neighbours</button><button aria-pressed="false" data-v="KG">Kyrgyzstan</button><button aria-pressed="false" data-v="AM">Armenia</button><button aria-pressed="false" data-v="KZ">Kazakhstan</button><button aria-pressed="false" data-v="GE">Georgia</button><button aria-pressed="false" data-v="UZ">Uzbekistan</button></div></div>
+  <div class="row"><span class="small">Event date</span><div class="seg" id="segE"><button aria-pressed="true" data-v="2022-03">March 2022 (real)</button><button aria-pressed="false" data-v="2020-03">March 2020 (placebo)</button></div></div>
+  <figure class="wide"><div class="chart" id="esChart"></div><figcaption>EU exports to the partner divided by EU exports to the comparison group, three-month moving average, pre-event average = 100. Source: Eurostat Comext (DS-045409), monthly, € values.</figcaption></figure>
+  <div class="kpi" id="esK"></div>
+  <div class="box task"><h4>Your reading</h4>
+    <p>When did the jump start, does it fade, and what does the placebo show? Two or three sentences.</p>
+    <textarea id="esNote" rows="4" aria-label="Your reading"></textarea></div>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Step 7 · Feedback · 10 min</span><h2>A sharp jump, a slow fade</h2></div>
+  <p>The three neighbours' line jumps in spring 2022, exactly when sanctions start, peaks in 2023 at nearly twice its pre-war level relative to the rest of the world, and then fades slowly, still about 50% above it in 2026. Kyrgyzstan's line is the most extreme, six to seven times its pre-war level. That pattern fits rerouting: it begins with the sanctions, and it weakens as the EU tightened controls on re-exports from 2023.</p>
+  <p>The placebo is not clean: with a fake March 2020 date the neighbours fall about 13 points relative to the rest of the world, because the pandemic hit them harder. The pre-war trend was also drifting down in 2021. If anything, that makes our estimate conservative, but it is the kind of caveat an evaluation note must state.</p>
+  <p>Georgia and Uzbekistan, outside the Eurasian Economic Union, also rise: the detour is not limited to Russia's customs-union partners.</p>
+</section>
+
+<section class="step col" id="exercise" data-title="Exercise 2">
+  <div class="stephead"><span class="eyebrow">Step 8 · Exercise 2 · 45 min</span><h2>A new case: Türkiye</h2></div>
+  <p>Türkiye did not join EU sanctions and kept trading with Russia. Did EU exports to Türkiye rise because of the sanctions? Use the same method and the same comparison group.</p>
+  <div class="tscroll"><table id="trTable" aria-label="Türkiye two by two"></table></div>
+  <figure class="wide"><div class="chart" id="trChart"></div></figure>
+  <div class="box task"><h4>Write a one-page evaluation note</h4>
+    <label class="small" for="ex1"><b>1. The chart</b> you would show (describe it)</label><textarea id="ex1" rows="2"></textarea>
+    <label class="small" for="ex2"><b>2. The effect</b> in one sentence, with its number</label><textarea id="ex2" rows="2"></textarea>
+    <label class="small" for="ex3"><b>3. The assumption</b> it rests on</label><textarea id="ex3" rows="2"></textarea>
+    <label class="small" for="ex4"><b>4. One concrete reason</b> it could be wrong</label><textarea id="ex4" rows="2"></textarea>
+    <div class="row"><button class="ghost" id="exBtn">Compare with a model note</button></div>
+    <div id="exModel" hidden class="box key"></div>
+  </div>
+</section>
+
+<section class="step col" id="brief" data-title="Your brief">
+  <div class="stephead"><span class="eyebrow">Step 9 · Your brief · 10 min</span><h2>For question C</h2></div>
+  <p id="briefWho" class="small"></p>
+  <div class="brief-box">
+    <label for="bDid">If your question is C: your country's difference-in-differences estimate, the event-study pattern, and the main caveat. Comext has monthly data for every EU partner.</label>
+    <textarea id="bDid" data-brief="did" rows="5"></textarea>
+  </div>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Step 10 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session4.html">← Session 4: Poland, Spain and the line</a><a href="session6.html">Session 6: What Hormuz costs →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Readings and references</h3>
+  <ul class="refs">
+    <li>RFE/RL, <a href="https://www.rferl.org/a/kyrgyzstan-russia-car-reexports-sanctions-eeu/32781868.html" target="_blank" rel="noopener">“Kyrgyzstan's car re-export boom”</a>.</li>
+    <li>Chupilkin, M., Javorcik, B. and Plekhanov, A. (2023), <a href="https://users.ox.ac.uk/~econ0247/Roundabout.pdf" target="_blank" rel="noopener">“The Eurasian Roundabout: trade flows into Russia through the Caucasus and Central Asia”</a>, EBRD working paper, introduction.</li>
+    <li>Cunningham, S., <a href="https://mixtape.scunning.com" target="_blank" rel="noopener">Causal Inference: The Mixtape</a>, chapter on difference-in-differences (free online, for the curious).</li>
+  </ul>
+  <h3>Data</h3>
+  <ul class="refs">
+    <li>Eurostat Comext, <a href="https://ec.europa.eu/eurostat/web/international-trade-in-goods/database" target="_blank" rel="noopener">EU trade since 1988 by HS2-4-6 and CN8 (DS-045409)</a>: monthly EU exports by partner, January 2019 to July 2026; German exports to Kyrgyzstan of HS chapter 87 (vehicles and parts), annual.</li>
+    <li>Comparison group: all extra-EU exports minus Russia, Belarus, Ukraine, Armenia, Azerbaijan, Georgia, Kazakhstan, Kyrgyzstan, Mongolia, Tajikistan, Turkmenistan, Uzbekistan, Türkiye, the United Arab Emirates and China.</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Clear my answers for this session</button></p>
+</footer>
+
+</div>
+<script>
+window.SESSION=5;
+const DATA = {"months": ["2019-01", "2019-02", "2019-03", "2019-04", "2019-05", "2019-06", "2019-07", "2019-08", "2019-09", "2019-10", "2019-11", "2019-12", "2020-01", "2020-02", "2020-03", "2020-04", "2020-05", "2020-06", "2020-07", "2020-08", "2020-09", "2020-10", "2020-11", "2020-12", "2021-01", "2021-02", "2021-03", "2021-04", "2021-05", "2021-06", "2021-07", "2021-08", "2021-09", "2021-10", "2021-11", "2021-12", "2022-01", "2022-02", "2022-03", "2022-04", "2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10", "2022-11", "2022-12", "2023-01", "2023-02", "2023-03", "2023-04", "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11", "2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"], "m": {"NBR": [536.5, 577.1, 692.1, 562.6, 578.3, 702.7, 699.7, 570.9, 767.8, 617.0, 574.2, 580.0, 512.8, 616.2, 726.9, 492.0, 502.9, 553.9, 546.7, 521.1, 530.9, 613.5, 593.8, 687.8, 403.7, 470.9, 663.4, 581.5, 496.4, 574.2, 529.5, 542.6, 509.0, 513.4, 565.5, 657.6, 395.6, 641.5, 755.5, 671.9, 863.8, 943.8, 1145.0, 1279.6, 1558.1, 1668.3, 1659.7, 1833.7, 1218.1, 1487.3, 1696.1, 1381.0, 1428.8, 1548.6, 1363.8, 1379.1, 1345.8, 1406.8, 1582.2, 1206.7, 1138.2, 1275.6, 1316.9, 1349.0, 1362.0, 1440.5, 1327.8, 1314.0, 1210.6, 1351.0, 1406.1, 1438.2, 1159.3, 1234.4, 1349.7, 1237.5, 1316.2, 1091.1, 1219.1, 1031.0, 1103.9, 1401.0, 1205.5, 1319.9, 800.3, 1214.8, 1368.1, 1297.1, 1270.9, 1250.9, 1416.1], "AM": [44.1, 68.2, 76.7, 64.5, 63.7, 62.9, 62.2, 58.5, 63.9, 81.3, 78.9, 76.6, 56.0, 61.6, 61.4, 70.9, 51.4, 58.5, 79.8, 55.2, 56.0, 57.6, 53.4, 56.2, 50.6, 55.7, 61.1, 59.3, 59.4, 57.4, 60.9, 57.8, 70.2, 77.2, 72.8, 75.1, 53.0, 62.2, 95.0, 93.8, 126.2, 137.9, 172.5, 193.1, 225.2, 244.0, 249.4, 232.4, 178.1, 190.7, 209.4, 178.1, 198.7, 192.8, 169.6, 173.9, 164.4, 164.3, 185.7, 154.1, 142.3, 145.2, 159.1, 159.6, 155.2, 154.1, 177.1, 158.1, 169.2, 170.9, 187.3, 167.6, 127.0, 157.4, 166.7, 170.8, 155.0, 154.1, 179.5, 135.3, 159.1, 187.5, 161.1, 199.3, 122.6, 168.2, 202.0, 189.4, 347.3, 201.2, 313.6], "KZ": [469.5, 482.5, 589.8, 471.2, 490.3, 617.1, 612.1, 485.1, 674.1, 504.0, 457.9, 469.9, 439.1, 531.6, 643.6, 407.1, 438.9, 477.1, 443.2, 449.8, 454.3, 531.1, 518.2, 611.6, 334.9, 393.6, 576.9, 497.8, 418.1, 495.2, 447.0, 464.3, 413.8, 416.5, 467.0, 562.1, 324.7, 552.8, 628.2, 547.5, 700.8, 748.1, 889.0, 966.0, 1173.1, 1260.6, 1196.7, 1373.1, 881.3, 1082.6, 1219.3, 975.5, 981.5, 1109.1, 982.1, 985.7, 974.0, 999.5, 1143.6, 819.8, 826.7, 887.4, 910.9, 982.5, 983.2, 1062.7, 909.5, 945.1, 826.7, 955.9, 1014.0, 1097.0, 894.4, 895.9, 1002.2, 871.6, 980.0, 763.1, 844.7, 742.4, 779.8, 1000.3, 857.5, 927.2, 545.9, 830.8, 952.3, 883.2, 749.1, 836.4, 864.2], "KG": [23.0, 26.4, 25.6, 26.9, 24.3, 22.8, 25.4, 27.3, 29.7, 31.8, 37.5, 33.5, 17.7, 23.0, 21.8, 14.0, 12.6, 18.4, 23.7, 16.2, 20.6, 24.8, 22.2, 20.0, 18.1, 21.7, 25.4, 24.4, 18.9, 21.6, 21.6, 20.6, 25.1, 19.7, 25.8, 20.4, 17.9, 26.4, 32.3, 30.6, 36.9, 57.7, 83.5, 120.5, 159.8, 163.6, 213.5, 228.2, 158.7, 214.0, 267.4, 227.3, 248.6, 246.7, 212.1, 219.6, 207.4, 243.0, 252.9, 232.8, 169.1, 243.0, 246.9, 206.9, 223.6, 223.7, 241.2, 210.8, 214.7, 224.2, 204.7, 173.5, 137.9, 181.2, 180.8, 195.0, 181.2, 174.0, 194.8, 153.3, 165.0, 213.2, 186.9, 193.4, 131.8, 215.8, 213.9, 224.5, 174.5, 213.3, 238.3], "GE": [141.4, 143.6, 213.7, 161.8, 178.0, 163.5, 179.9, 159.0, 187.8, 207.8, 179.6, 186.3, 143.4, 151.7, 138.8, 97.5, 86.2, 136.5, 145.9, 129.8, 135.7, 143.5, 141.3, 144.6, 105.9, 132.6, 169.9, 155.0, 136.8, 158.5, 163.1, 215.5, 189.9, 205.2, 201.1, 211.6, 167.4, 215.0, 199.7, 221.4, 242.6, 270.9, 296.5, 269.9, 332.4, 304.5, 340.0, 368.1, 238.4, 279.3, 353.5, 265.2, 286.3, 300.5, 279.8, 284.5, 304.8, 333.7, 379.8, 316.5, 247.9, 317.1, 395.0, 339.1, 310.1, 312.3, 371.4, 373.1, 398.6, 404.3, 423.4, 430.9, 293.7, 342.9, 362.6, 368.7, 352.8, 371.8, 374.3, 352.7, 371.8, 402.3, 384.0, 329.1, 276.9, 329.9, 396.6, 324.6, 330.8, 443.1, 536.5], "UZ": [136.3, 168.8, 268.6, 285.8, 214.1, 214.7, 205.8, 184.5, 225.5, 203.7, 215.5, 217.6, 139.6, 177.7, 195.1, 131.6, 134.9, 156.2, 219.9, 155.8, 176.0, 184.9, 203.2, 350.2, 121.9, 153.3, 212.6, 173.3, 160.4, 197.2, 175.3, 177.0, 212.8, 202.0, 218.6, 294.1, 170.9, 312.8, 430.7, 195.9, 196.7, 254.3, 319.4, 303.4, 304.6, 308.0, 364.7, 605.8, 257.4, 291.8, 426.2, 295.2, 380.0, 489.2, 389.0, 336.5, 343.6, 340.2, 343.8, 460.6, 245.6, 332.8, 326.6, 308.3, 285.2, 296.5, 310.1, 359.8, 343.0, 344.3, 394.9, 356.1, 248.5, 328.2, 484.5, 358.8, 437.8, 325.7, 469.0, 308.2, 336.3, 359.8, 381.3, 474.1, 267.2, 297.6, 335.9, 358.9, 299.2, 331.4, 387.7], "TR": [5009.2, 5670.8, 6816.4, 6062.4, 6351.3, 6143.8, 6374.8, 5242.8, 5840.3, 6875.1, 6649.6, 6963.4, 6621.5, 6067.6, 6020.5, 3989.6, 4091.2, 5526.7, 6102.7, 4942.4, 6752.4, 7614.5, 6644.4, 6453.2, 5870.2, 6218.3, 7585.8, 6567.5, 5850.6, 6767.3, 6008.4, 5972.2, 6485.1, 6700.3, 7532.0, 7570.8, 6554.1, 7284.8, 8518.7, 7571.6, 8397.0, 9014.9, 8275.0, 8087.8, 9061.9, 8649.5, 9373.8, 9437.5, 8737.7, 9328.0, 11026.1, 8742.7, 10043.6, 9679.4, 9413.2, 8069.6, 8815.0, 10099.1, 9703.7, 8724.1, 8491.9, 10098.8, 10191.7, 9890.2, 10055.2, 8377.7, 9551.3, 8298.1, 9199.1, 10096.3, 9980.6, 8979.3, 9091.2, 10028.7, 10355.6, 10423.7, 9626.8, 9132.3, 10178.4, 7446.4, 9020.3, 9748.6, 9579.4, 9507.6, 8401.3, 9053.0, 9713.4, 9714.9, 8393.5, 9739.9, 9330.0], "ROW": [118659.5, 120927.5, 132430.4, 131163.0, 137945.1, 126227.4, 139156.9, 118956.1, 128697.1, 144438.6, 131170.6, 129403.2, 122265.6, 136795.0, 140850.0, 95588.9, 100557.4, 118759.2, 131648.8, 107890.4, 133607.8, 139476.2, 137618.1, 135392.8, 116515.2, 129087.4, 151901.4, 139221.6, 135065.2, 147358.1, 148166.6, 130715.6, 147703.8, 150226.0, 159239.5, 155029.2, 143786.5, 152509.3, 181946.5, 165642.0, 182394.2, 184377.0, 172212.9, 167767.0, 190002.4, 184447.7, 193055.9, 175695.1, 160628.7, 167483.2, 196587.5, 156268.7, 176494.1, 184994.6, 168208.6, 162513.7, 172501.1, 183347.5, 183806.9, 162053.2, 163751.3, 171447.8, 178847.9, 181662.7, 176363.6, 174712.4, 188335.4, 160586.3, 174570.7, 187970.7, 183435.9, 170970.4, 174363.3, 186427.5, 214933.5, 179593.4, 179363.0, 176316.5, 187365.3, 151889.5, 190056.1, 185730.1, 173481.3, 171888.9, 157283.4, 170012.3, 196104.8, 187622.3, 180691.9, 199154.5, 205759.7], "RU": [6190.1, 6827.1, 7413.3, 7387.6, 7789.1, 7169.8, 7951.4, 7802.2, 7722.6, 9573.5, 8352.6, 6574.0, 6433.3, 7118.8, 7276.3, 5297.4, 5367.8, 6511.9, 6886.1, 6013.4, 7181.2, 7484.0, 7270.1, 6385.3, 5669.5, 6623.7, 8017.1, 7523.4, 7430.2, 7527.7, 8060.9, 6832.2, 7688.0, 7646.5, 8441.5, 7708.5, 7120.3, 7276.5, 3861.8, 2916.5, 3898.7, 4571.9, 4129.7, 3934.2, 4156.2, 4173.1, 5071.5, 3939.5, 3561.7, 3597.6, 4311.7, 2961.8, 3059.1, 3052.3, 2984.5, 2941.0, 2920.2, 3008.2, 3212.8, 2683.0, 2591.1, 2795.8, 2693.8, 2891.0, 2569.1, 2429.1, 3026.2, 2496.3, 2637.7, 2879.3, 2889.3, 2085.1, 2336.3, 2500.6, 2787.6, 2608.4, 2322.7, 2453.2, 2628.9, 2328.8, 2488.1, 3045.4, 2686.8, 2148.6, 2138.2, 2561.3, 2959.7, 2452.3, 2121.2, 2576.6, 2620.0]}, "de_kg_cars": {"2019": 14.6, "2020": 4.6, "2021": 6.3, "2022": 173.9, "2023": 373.8, "2024": 307.8, "2025": 107.8}};
+/* ===== shared helpers for every session page ===== */
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const NS = "http://www.w3.org/2000/svg";
+const PFX = "qm" + (window.SESSION || 0) + ":";
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(PFX+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(PFX+k, JSON.stringify(v)); } catch(e){} }
+};
+/* the brief is shared across sessions */
+const brief = {
+  get(k, d=""){ try { const v = localStorage.getItem("qmbrief:"+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem("qmbrief:"+k, JSON.stringify(v)); } catch(e){} }
+};
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const sgn = (v, d=1) => (v>0?"+":v<0?"−":"") + Math.abs(v).toFixed(d);
+const num = (v, d=1) => (v<0?"−":"") + Math.abs(v).toFixed(d);
+
+/* ---------- step nav & progress ---------- */
+const steps = $$("section.step");
+const done = new Set(store.get("done", []));
+function markDone(id){ if (done.has(id)) return; done.add(id); store.set("done", [...done]); renderNav(); }
+function renderNav(){
+  const nav = $("#stepnav"); if (!nav) return;
+  nav.innerHTML = steps.map((s,i)=>`<li class="${done.has(s.id)?"done":""}"><a href="#${s.id}"><span class="dot" aria-hidden="true"></span>${i+1}. ${s.dataset.title}<span class="vh">${done.has(s.id)?" (done)":""}</span></a></li>`).join("");
+}
+renderNav();
+/* reading-only steps get a button to mark them as read */
+$$("section.step[data-read]").forEach(s=>{ const r=document.createElement("div"); r.className="row";
+  r.innerHTML=`<button class="ghost" type="button">Mark as read</button>`; s.appendChild(r);
+  const b=r.querySelector("button"); const sync=()=>{ if (done.has(s.id)){ b.textContent="Read ✓"; b.disabled=true; } };
+  b.addEventListener("click",()=>{ markDone(s.id); sync(); }); sync(); });
+
+/* ---------- answer checking ---------- */
+function feedback(elm, ok, msg){ elm.className = "fb " + (ok ? "ok" : "no"); elm.textContent = msg; }
+function readNums(ids){ return ids.map(id => parseFloat(String($("#"+id).value).replace(",", "."))); }
+
+/* ---------- radio-choice lock-in ---------- */
+function lockChoice({group, button, key, onReveal}){
+  const inputs = $$(`#${group} input`);
+  inputs.forEach(i=>i.addEventListener("change",()=>{ if (!store.get(key,null)) $("#"+button).disabled=false; }));
+  const apply = v => { inputs.forEach(i=>{ i.checked = i.value===v; i.disabled = true; }); $("#"+button).disabled = true; onReveal(v); };
+  $("#"+button).addEventListener("click",()=>{ const v = $(`#${group} input:checked`)?.value; if (!v) return; store.set(key, v); apply(v); });
+  const prev = store.get(key, null); if (prev) apply(prev);
+}
+
+/* ---------- segmented controls ---------- */
+function seg(id, cb){ $$(`#${id} button`).forEach(b=>b.addEventListener("click",()=>{ $$(`#${id} button`).forEach(x=>x.setAttribute("aria-pressed", x===b)); cb(b.dataset.v); })); }
+
+/* ---------- SVG charts ---------- */
+function el(tag, attrs={}, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function txt(parent, x, y, s, attrs={}){ const t = el("text", {x, y, ...attrs}, parent); t.textContent = s; return t; }
+function niceTicks(min, max, n=5){
+  if (max === min){ max = min + 1; }
+  const span = max-min, step0 = span/n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const err = step0/mag, step = (err>=7.5?10:err>=3.5?5:err>=1.5?2:1)*mag;
+  const t=[]; for (let v=Math.ceil(min/step-1e-9)*step; v<=max+1e-9; v+=step) t.push(+v.toFixed(10)); return {ticks:t, step};
+}
+function shape(g, kind, x, y, r, fill, ring){
+  const sw = ring ? 1.5 : 0, st = ring ? css("--panel") : "none";
+  if (kind==="tri") return el("path",{d:`M${x},${y-r*1.2} L${x+r*1.1},${y+r*0.8} L${x-r*1.1},${y+r*0.8} Z`,fill,stroke:st,"stroke-width":sw},g);
+  if (kind==="sq") return el("rect",{x:x-r*0.9,y:y-r*0.9,width:r*1.8,height:r*1.8,fill,stroke:st,"stroke-width":sw},g);
+  if (kind==="dia") return el("path",{d:`M${x},${y-r*1.25} L${x+r*1.1},${y} L${x},${y+r*1.25} L${x-r*1.1},${y} Z`,fill,stroke:st,"stroke-width":sw},g);
+  return el("circle",{cx:x,cy:y,r,fill,stroke:st,"stroke-width":sw},g);
+}
+function frame(container, {title, sub, H=320, m={t:14,r:20,b:34,l:52}}){
+  container.innerHTML = "";
+  const W = Math.round(Math.max(300, Math.min(900, container.clientWidth - 14)));
+  if (W < 480) H = Math.round(H*0.85);
+  if (title){ const t=document.createElement("div"); t.className="ct"; t.textContent=title; container.appendChild(t); }
+  if (sub){ const s=document.createElement("div"); s.className="cs"; s.textContent=sub; container.appendChild(s); }
+  const svg = el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":title||"chart"}); container.appendChild(svg);
+  const tip = document.createElement("div"); tip.className="tip"; tip.hidden=true; container.appendChild(tip);
+  return {svg, tip, W, H, m, iw:W-m.l-m.r, ih:H-m.t-m.b, narrow: W < 480};
+}
+function axes(f, xs, ys, {xfmt=v=>v, yfmt=v=>v, xticks=[], yticks=[], xlab, ylab}){
+  const g = el("g",{},f.svg);
+  for (const v of yticks){ const y=ys(v); el("line",{x1:f.m.l,x2:f.W-f.m.r,y1:y,y2:y,stroke:css("--rule"),"stroke-width":v===0?1.4:1},g); txt(g, f.m.l-8, y+4, yfmt(v), {"text-anchor":"end"}); }
+  for (const v of xticks){ txt(g, xs(v), f.H-f.m.b+18, xfmt(v), {"text-anchor":"middle"}); }
+  if (xlab) txt(g, f.m.l+f.iw/2, f.H-6, xlab, {"text-anchor":"middle"});
+  if (ylab) txt(g, f.m.l, f.m.t-4, ylab, {"text-anchor":"start"});
+  return g;
+}
+function showTip(f, x, y, html){ f.tip.innerHTML=html; f.tip.hidden=false;
+  const r=f.svg.getBoundingClientRect(), c=f.svg.parentNode.getBoundingClientRect();
+  const px = r.left - c.left + x*r.width/f.W, py = r.top - c.top + y*r.height/f.H;
+  f.tip.style.left = Math.min(Math.max(px, 80), c.width-80)+"px"; f.tip.style.top = py+"px"; }
+function hideTip(f){ f.tip.hidden=true; }
+function hover(f, node, x, y, html){ node.addEventListener("pointerenter",()=>showTip(f,x,y,html)); node.addEventListener("pointerleave",()=>hideTip(f)); }
+function legend(container, items){ const lg=document.createElement("div"); lg.className="legend";
+  lg.innerHTML = items.map(it=>{ const k=it.kind||"circ", c=it.color;
+    const sw = k==="line" ? `<svg width="18" height="12"><path d="M0,6 H18" stroke="${c}" stroke-width="2" ${it.dash?`stroke-dasharray="${it.dash}"`:""}/></svg>`
+      : k==="tri" ? `<svg width="12" height="12"><path d="M6,0 L12,11 L0,11Z" fill="${c}"/></svg>`
+      : k==="sq" ? `<svg width="12" height="12"><rect x="1" y="1" width="10" height="10" fill="${c}"/></svg>`
+      : k==="dia" ? `<svg width="12" height="12"><path d="M6,0 L12,6 L6,12 L0,6Z" fill="${c}"/></svg>`
+      : `<svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${c}"/></svg>`;
+    return `<span>${sw}${it.label}</span>`; }).join("");
+  container.appendChild(lg); }
+
+/* line chart: series [{name,color,shape,dash,pts:[[x,y]]}] ; x numeric or index with xlabels */
+function lineChart(container, {title, sub, series, yfmt=v=>v, xfmt=v=>v, ylab, zero=true, labelEnds=true, tipfmt, H=300, ymin:yminF, ymax:ymaxF, refY, refLabel, xticks:xtF, vline, vlabel}){
+  const f = frame(container,{title,sub,H,m:{t:22,r:labelEnds?96:20,b:30,l:52}});
+  const all = series.flatMap(s=>s.pts);
+  const xmin=Math.min(...all.map(p=>p[0])), xmax=Math.max(...all.map(p=>p[0]));
+  let ymin = yminF ?? (zero?Math.min(0,...all.map(p=>p[1])):Math.min(...all.map(p=>p[1]))), ymax = ymaxF ?? Math.max(...all.map(p=>p[1]));
+  if (refY!==undefined){ ymin=Math.min(ymin,refY); ymax=Math.max(ymax,refY); }
+  const yt = niceTicks(ymin, ymax, 4); ymax = Math.max(ymax, yt.ticks[yt.ticks.length-1]); ymin = Math.min(ymin, yt.ticks[0]);
+  const xs = v => f.m.l + (v-xmin)/(xmax-xmin||1)*f.iw, ys = v => f.m.t + f.ih - (v-ymin)/(ymax-ymin)*f.ih;
+  const xt = xtF || niceTicks(xmin,xmax,f.narrow?4:6).ticks.filter(v=>v>=xmin&&v<=xmax);
+  axes(f, xs, ys, {xticks:xt, yticks:yt.ticks, yfmt, xfmt, ylab});
+  if (refY!==undefined){ el("line",{x1:f.m.l,x2:f.m.l+f.iw,y1:ys(refY),y2:ys(refY),stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, f.m.l+4, ys(refY)-6, refLabel, {class:"lab"}); }
+  if (vline!==undefined){ el("line",{x1:xs(vline),x2:xs(vline),y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1.2,"stroke-dasharray":"4 3"},f.svg); if (vlabel) txt(f.svg, xs(vline)+5, f.m.t+12, vlabel, {class:"lab"}); }
+  const g = el("g",{},f.svg);
+  for (const s of series){
+    el("path",{d:s.pts.map((p,i)=>(i?"L":"M")+xs(p[0])+","+ys(p[1])).join(" "),fill:"none",stroke:s.color,"stroke-width":s.width||2,"stroke-linejoin":"round","stroke-dasharray":s.dash||""},g);
+    const last=s.pts[s.pts.length-1];
+    if (s.shape) shape(g, s.shape, xs(last[0]), ys(last[1]), 4.5, s.color, true);
+    if (labelEnds && s.name){ txt(g, xs(last[0])+9, ys(last[1])+4+(s.nudge||0), s.name, {class:"lab"}); }
+  }
+  const xsVals=[...new Set(all.map(p=>p[0]))].sort((a,b)=>a-b);
+  const cross = el("line",{y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1,"stroke-dasharray":"3 3",visibility:"hidden"},f.svg);
+  const hit = el("rect",{x:f.m.l,y:f.m.t,width:f.iw,height:f.ih,fill:"transparent"},f.svg);
+  hit.addEventListener("pointermove", ev => { const r=f.svg.getBoundingClientRect(); const sx=(ev.clientX-r.left)*f.W/r.width;
+    const xv = xmin + (sx-f.m.l)/f.iw*(xmax-xmin); const near = xsVals.reduce((a,b)=>Math.abs(b-xv)<Math.abs(a-xv)?b:a);
+    cross.setAttribute("x1",xs(near)); cross.setAttribute("x2",xs(near)); cross.setAttribute("visibility","visible");
+    const lines = series.map(s=>{const p=s.pts.find(q=>q[0]===near); return p?`${s.name||"Value"}: <b>${tipfmt?tipfmt(p[1]):yfmt(p[1])}</b>`:""}).filter(Boolean);
+    showTip(f, xs(near), f.m.t+10, `<b>${xfmt(near)}</b><br>${lines.join("<br>")}`); });
+  hit.addEventListener("pointerleave", ()=>{cross.setAttribute("visibility","hidden"); hideTip(f);});
+  return {f, xs, ys};
+}
+
+/* scatter: pts [{x,y,label,color,shape,tip}] ; line {a,b} optional */
+function scatter(container, {title, sub, pts, xmin, xmax, ymin, ymax, xticks, yticks, xfmt=v=>v, yfmt=v=>v, xlab, line, lineLabel, labels=true, H=380}){
+  const f = frame(container,{title,sub,H,m:{t:16,r:24,b:44,l:52}});
+  const xs=v=>f.m.l+(v-xmin)/(xmax-xmin)*f.iw, ys=v=>f.m.t+f.ih-(v-ymin)/(ymax-ymin)*f.ih;
+  axes(f,xs,ys,{xticks,yticks,xfmt,yfmt,xlab});
+  if (line){ el("path",{d:`M${xs(xmin)},${ys(line.a+line.b*xmin)} L${xs(xmax)},${ys(line.a+line.b*xmax)}`,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4",fill:"none"},f.svg);
+    if (lineLabel) txt(f.svg, xs(xmin)+6, ys(line.a+line.b*xmin)+(line.b<0?-8:18), lineLabel, {class:"lab"}); }
+  const g=el("g",{},f.svg);
+  for (const p of pts){
+    if (p.res && line) el("line",{x1:xs(p.x),x2:xs(p.x),y1:ys(p.y),y2:ys(line.a+line.b*p.x),stroke:p.color,"stroke-width":1.2,"stroke-dasharray":"2 2"},g);
+    shape(g, p.shape||"circ", xs(p.x), ys(p.y), p.r||5.5, p.color, true);
+    if (labels && p.label){ const right = xs(p.x) > f.m.l + f.iw*0.8; txt(g, xs(p.x)+(right?-9:9), ys(p.y)+4, p.label, {class:"lab","text-anchor":right?"end":"start"}); }
+    const hit=el("circle",{cx:xs(p.x),cy:ys(p.y),r:11,fill:"transparent"},g);
+    if (p.tip) hover(f, hit, xs(p.x), ys(p.y), p.tip);
+  }
+  return {f, xs, ys};
+}
+
+/* horizontal bars: rows [{label, v, color, tip, lo, hi}] */
+function hbar(container, {title, sub, rows, xmin=0, xmax, xfmt=v=>v, ref, refLabel, rowH=26}){
+  const H = 40 + rows.length*rowH + 30;
+  const f = frame(container,{title,sub,H,m:{t:16,r:24,b:30,l:Math.min(150, Math.max(80, 7.2*Math.max(...rows.map(r=>r.label.length))+14))}});
+  const lo = Math.min(xmin, ...rows.map(r=>Math.min(r.v, r.lo??r.v))), hi = xmax ?? Math.max(...rows.map(r=>Math.max(r.v, r.hi??r.v)));
+  const xt = niceTicks(lo, hi, f.narrow?4:6); const x0=xt.ticks[0], x1=Math.max(hi, xt.ticks[xt.ticks.length-1]);
+  const xs = v => f.m.l + (v-x0)/(x1-x0)*f.iw, bh = rowH*0.62;
+  const g = el("g",{},f.svg);
+  for (const v of xt.ticks){ el("line",{x1:xs(v),x2:xs(v),y1:f.m.t,y2:f.m.t+rows.length*rowH,stroke:css("--rule"),"stroke-width":v===0?1.4:1},g); txt(g, xs(v), f.m.t+rows.length*rowH+18, xfmt(v), {"text-anchor":"middle"}); }
+  rows.forEach((r,i)=>{ const y=f.m.t+i*rowH+(rowH-bh)/2; const a=xs(Math.min(0,r.v)), b=xs(Math.max(0,r.v));
+    if (r.lo!==undefined){ el("rect",{x:xs(r.lo),y:y+bh*0.2,width:Math.max(2,xs(r.hi)-xs(r.lo)),height:bh*0.6,fill:r.color,opacity:.35,rx:2},g); shape(g,"circ",xs(r.v),y+bh/2,4.5,r.color,true); }
+    else el("rect",{x:a,y,width:Math.max(1,b-a),height:bh,fill:r.color,rx:2},g);
+    txt(g, f.m.l-8, y+bh/2+4, r.label, {"text-anchor":"end", class: r.bold?"lab":""});
+    const hit=el("rect",{x:f.m.l,y:f.m.t+i*rowH,width:f.iw,height:rowH,fill:"transparent"},g);
+    if (r.tip) hover(f, hit, xs(r.v), y, r.tip); });
+  if (ref!==undefined){ el("line",{x1:xs(ref),x2:xs(ref),y1:f.m.t-6,y2:f.m.t+rows.length*rowH,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, xs(ref)+4, f.m.t-4, refLabel, {class:"lab"}); }
+  return f;
+}
+
+/* vertical bars for a time series (used for honest/dishonest chart lessons) */
+function vbar(container,{title,sub,vals,ymin=0,yfmt=v=>v,color,H=280,source}){
+  const f=frame(container,{title,sub,H,m:{t:16,r:16,b:30,l:52}});
+  const ymax=Math.max(...vals.map(v=>v[1]))*1.08; const yt=niceTicks(ymin,ymax,4);
+  const top=Math.max(ymax, yt.ticks[yt.ticks.length-1]);
+  const ys=v=>f.m.t+f.ih-(v-ymin)/(top-ymin)*f.ih; const bw=f.iw/vals.length;
+  axes(f,i=>i,ys,{yticks:yt.ticks.filter(v=>v>=ymin&&v<=top),yfmt});
+  vals.forEach((v,i)=>{ const x=f.m.l+bw*i+bw*0.18, w=bw*0.64, y=ys(v[1]), h=ys(ymin)-y;
+    el("path",{d:`M${x},${y+h} V${y+3} Q${x},${y} ${x+3},${y} H${x+w-3} Q${x+w},${y} ${x+w},${y+3} V${y+h} Z`,fill:color},f.svg);
+    if (i%2===0||i===vals.length-1) txt(f.svg, x+w/2, f.H-f.m.b+18, v[0], {"text-anchor":"middle"});
+    const hit=el("rect",{x:f.m.l+bw*i,y:f.m.t,width:bw,height:f.ih,fill:"transparent"},f.svg);
+    hover(f, hit, x+w/2, y, `<b>${v[0]}</b>: ${yfmt(v[1])}`); });
+  if (source){ const s=document.createElement("div"); s.className="cs"; s.textContent=source; container.appendChild(s); }
+  return f;
+}
+
+/* tile-grid map of Europe: tiles {iso: value}; layout fixed */
+const TILE = {ISL:[0,0],NOR:[4,0],SWE:[5,0],FIN:[6,0],EST:[7,1],IRL:[1,2],GBR:[2,2],DNK:[4,2],LVA:[7,2],LTU:[7,3],NLD:[3,3],DEU:[4,3],POL:[6,3],BEL:[3,4],LUX:[3,5],CZE:[5,4],SVK:[6,4],FRA:[2,5],CHE:[3,6],AUT:[5,5],HUN:[6,5],ROU:[7,5],PRT:[0,7],ESP:[1,7],ITA:[4,7],SVN:[4,6],HRV:[5,6],MNE:[5,7],ALB:[6,8],MKD:[7,8],BGR:[7,6],GRC:[7,9],MLT:[4,9],CYP:[9,9]};
+function tileMap(container,{title,sub,vals,names,fmt=v=>v,lo,hi,note}){
+  container.innerHTML="";
+  const t=document.createElement("div"); t.className="ct"; t.textContent=title; container.appendChild(t);
+  if (sub){ const s=document.createElement("div"); s.className="cs"; s.textContent=sub; container.appendChild(s); }
+  const W=10, Hh=10, cell=44, svg=el("svg",{viewBox:`0 0 ${W*cell} ${Hh*cell}`,role:"img","aria-label":title}); container.appendChild(svg);
+  const tip=document.createElement("div"); tip.className="tip"; tip.hidden=true; container.appendChild(tip);
+  const f={svg,tip,W:W*cell,H:Hh*cell};
+  const vv=Object.values(vals).filter(v=>v!=null); lo=lo??Math.min(...vv); hi=hi??Math.max(...vv);
+  for (const iso in TILE){ const [cx,cy]=TILE[iso]; const v=vals[iso];
+    const tshare = v==null ? null : (v-lo)/(hi-lo||1);
+    const fill = v==null ? css("--soft") : `color-mix(in oklab, ${css("--accent")} ${Math.round(12+tshare*78)}%, ${css("--panel")})`;
+    const r=el("rect",{x:cx*cell+2,y:cy*cell+2,width:cell-4,height:cell-4,rx:4,fill,stroke:css("--rule")},svg);
+    const dark = tshare!=null && tshare>0.55;
+    const a=el("text",{x:cx*cell+cell/2,y:cy*cell+18,"text-anchor":"middle",style:`font-size:11px;font-weight:600;fill:${dark?"#fff":css("--ink")}`},svg); a.textContent=iso;
+    if (v!=null){ const b=el("text",{x:cx*cell+cell/2,y:cy*cell+33,"text-anchor":"middle",style:`font-size:10px;font-family:var(--f-mono);fill:${dark?"#fff":css("--ink2")}`},svg); b.textContent=fmt(v); }
+    hover(f, r, cx*cell+cell/2, cy*cell+4, `<b>${names?.[iso]||iso}</b>${v!=null?": "+fmt(v):": no data"}`);
+  }
+  if (note){ const s=document.createElement("div"); s.className="cs"; s.textContent=note; container.appendChild(s); }
+}
+
+/* ---------- copy buttons ---------- */
+function wireCopy(){ $$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{ const ta=$("#"+b.dataset.copy), out=$(`[data-copied="${b.dataset.copy}"]`);
+  const fallback=()=>{ ta.focus(); ta.select(); if (out) out.textContent="Selected: press Ctrl+C or Cmd+C."; };
+  try { navigator.clipboard.writeText(ta.value).then(()=>{ if (out) out.textContent="Copied."; },fallback); } catch(e){ fallback(); } })); }
+
+/* ---------- quiz ---------- */
+function quiz(box, scoreEl, QUIZ, stepId){
+  let qa = store.get("quiz",{});
+  const draw = () => {
+    box.innerHTML = QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?"Right. ":"Not quite. "}${q.e}</p>`:""}</div>`).join("");
+    $$("#"+box.id+" input").forEach(i=>i.addEventListener("change",()=>{ qa[+i.name.slice(2)]=+i.value; store.set("quiz",qa); draw(); }));
+    const n=Object.keys(qa).length, s=QUIZ.filter((q,i)=>qa[i]===q.a).length;
+    scoreEl.textContent = n===QUIZ.length ? `Score: ${s} out of ${QUIZ.length}.` : "";
+    if (n===QUIZ.length) markDone(stepId);
+  };
+  draw();
+}
+
+/* ---------- brief text areas (saved across sessions) ---------- */
+function wireBrief(){ $$("[data-brief]").forEach(t=>{ t.value = brief.get(t.dataset.brief, ""); t.addEventListener("input",()=>brief.set(t.dataset.brief, t.value)); }); }
+
+/* ---------- reset ---------- */
+function wireReset(){ const b=$("#resetBtn"); if (!b) return; b.addEventListener("click",()=>{ try{ Object.keys(localStorage).filter(k=>k.startsWith(PFX)).forEach(k=>localStorage.removeItem(k)); }catch(e){} location.reload(); }); }
+
+/* ---------- redraw hooks ---------- */
+function onRedraw(fn){
+  try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", fn); new MutationObserver(fn).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]}); } catch(e){}
+  let rz, lastW=innerWidth; addEventListener("resize",()=>{ if (innerWidth===lastW) return; lastW=innerWidth; clearTimeout(rz); rz=setTimeout(fn,200); });
+}
+
+/* Session 5 */
+const M = DATA.months, S = DATA.m;
+const tnum = m => +m.slice(0,4) + (+m.slice(5,7)-1)/12;
+const avg = (p,a,b) => { const v=M.map((m,i)=>[m,S[p][i]]).filter(([m])=>m>=a&&m<=b).map(([,x])=>x); return v.reduce((s,x)=>s+x,0)/v.length; };
+const PRE=["2019-01","2021-12"], POST=["2022-03","2024-12"];
+const g = p => avg(p,...POST)/avg(p,...PRE)-1;
+const NAMES={NBR:"Three neighbours",KG:"Kyrgyzstan",AM:"Armenia",KZ:"Kazakhstan",GE:"Georgia",UZ:"Uzbekistan",TR:"Türkiye"};
+
+/* puzzle */
+function drawCars(){ const v=Object.entries(DATA.de_kg_cars).map(([y,x])=>[y,x]);
+  vbar($("#carChart"),{title:"German exports of cars and car parts to Kyrgyzstan",sub:"€ million (HS chapter 87)",vals:v,ymin:0,yfmt:x=>"€"+x.toFixed(0)+"m",color:css("--accent"),H:260,source:"Source: Eurostat Comext (DS-045409)."}); }
+lockChoice({group:"q-share", button:"shBtn", key:"guess", onReveal:()=>{ $("#shOut").textContent="Saved. The answer comes in step 4."; markDone("puzzle"); faGuess(); }});
+
+/* lesson A */
+$("#la-btn").addEventListener("click",()=>{ const [v]=readNums(["la-in"]);
+  if (Math.abs(v-30)<=0.5){ feedback($("#la-fb"),true,"Right: 50 − 20 = 30 percentage points."); markDone("lessonA"); }
+  else feedback($("#la-fb"),false,"Subtract the comparison group's change from the treated group's change."); });
+
+/* activity A */
+const n0=avg("NBR",...PRE), n1=avg("NBR",...POST), r0=avg("ROW",...PRE), r1=avg("ROW",...POST);
+const fmtM = v => v.toLocaleString("en-GB",{maximumFractionDigits:1, minimumFractionDigits:1});
+$("#ddTable").innerHTML = `<tr><th>Group</th><th class="num">Before</th><th class="num">After</th></tr><tr><td><strong>Armenia + Kazakhstan + Kyrgyzstan</strong></td><td class="num">${fmtM(n0)}</td><td class="num">${fmtM(n1)}</td></tr><tr><td><strong>Rest of the world (comparison)</strong></td><td class="num">${fmtM(r0)}</td><td class="num">${fmtM(r1)}</td></tr>`;
+const gN=(n1/n0-1)*100, gR=(r1/r0-1)*100, DD=gN-gR;
+let stA=store.get("actA",{ok:false});
+$("#aa-btn").addEventListener("click",()=>{ const [a,b,c]=readNums(["aa1","aa2","aa3"]);
+  if ([a,b,c].some(isNaN)) return feedback($("#aa-fb"),false,"Fill in the three boxes.");
+  const ok1=Math.abs(a-gN)<=0.6, ok2=Math.abs(b-gR)<=0.6, ok3=Math.abs(c-DD)<=1;
+  if (ok1&&ok2&&ok3){ feedback($("#aa-fb"),true,`Right: +${gN.toFixed(1)}% against +${gR.toFixed(1)}%, a difference of ${DD.toFixed(1)} points.`); stA.ok=true; store.set("actA",stA); markDone("activityA"); openFA(); }
+  else feedback($("#aa-fb"),false, !ok1 ? "Neighbours: (after ÷ before − 1) × 100." : !ok2 ? "Same formula for the rest of the world." : "Subtract the second change from the first."); });
+function openFA(){ $("#fa-locked").hidden=true; $("#fa-body").hidden=false; markDone("feedbackA"); faGuess(); }
+function faGuess(){ const gss=store.get("guess",null); if (!gss||$("#fa-body").hidden) return;
+  $("#faGuess").textContent = gss==="10" ? "Your guess, about 10%, was right." : `Your guess was ${({5:"less than 5%",30:"about 30%",50:"more than half"})[gss]}. The answer is about 9%.`; }
+$("#csvDD").value = "month,group,exports\n"+M.flatMap((m,i)=>[`${m},neighbours,${S.NBR[i]}`,`${m},rest_of_world,${S.ROW[i]}`]).join("\n");
+
+/* activity B: event study */
+let part="NBR", ev="2022-03";
+function series(p, evd){
+  const ratio=M.map((m,i)=>S[p][i]/S.ROW[i]);
+  const preIdx=M.map((m,i)=>i).filter(i=> evd==="2022-03" ? M[i]<="2021-12" : M[i]<="2019-12");
+  const base=preIdx.reduce((s,i)=>s+ratio[i],0)/preIdx.length;
+  const idx=ratio.map(r=>r/base*100);
+  const ma=idx.map((v,i)=> i<2 ? null : (idx[i]+idx[i-1]+idx[i-2])/3);
+  return M.map((m,i)=>[tnum(m), ma[i]]).filter(p=>p[1]!==null && (evd==="2022-03" || M[M.length-1] && true)).filter(p=> evd==="2022-03" ? true : p[0] < 2022);
+}
+function drawES(){
+  const pts=series(part, ev);
+  lineChart($("#esChart"),{title:`${NAMES[part]}: EU exports relative to the rest of the world`,sub:"Index, pre-event average = 100",series:[{name:NAMES[part],color:css("--accent"),shape:"circ",pts}],yfmt:v=>v.toFixed(0),xfmt:v=>Math.floor(v+1e-6),tipfmt:v=>v.toFixed(0),refY:100,refLabel:"Pre-event level",vline: ev==="2022-03"?2022+2/12:2020+2/12, vlabel: ev==="2022-03"?"Sanctions":"Placebo date",labelEnds:false,H:320,zero:false,xticks: ev==="2022-03"?[2019,2020,2021,2022,2023,2024,2025,2026]:[2019,2020,2021,2022]});
+  const evt = ev==="2022-03";
+  const pre = evt ? avg(part,"2019-01","2021-12")/avg("ROW","2019-01","2021-12") : avg(part,"2019-01","2019-12")/avg("ROW","2019-01","2019-12");
+  const post = evt ? avg(part,"2022-03","2024-12")/avg("ROW","2022-03","2024-12") : avg(part,"2020-03","2021-12")/avg("ROW","2020-03","2021-12");
+  $("#esK").innerHTML = `<div><b>${sgn((post/pre-1)*100,0)}%</b><span>change relative to the rest of the world, ${evt?"Mar 2022–Dec 2024 vs 2019–2021":"Mar 2020–Dec 2021 vs 2019 (placebo)"}</span></div>`;
+}
+seg("segP", v=>{ part=v; drawES(); markDone("activityB"); });
+seg("segE", v=>{ ev=v; drawES(); markDone("lessonB"); });
+const esn=$("#esNote"); esn.value=store.get("esNote",""); esn.addEventListener("input",()=>{ store.set("esNote",esn.value); if (esn.value.length>40) markDone("feedbackB"); });
+
+/* exercise: Türkiye */
+const t0=avg("TR",...PRE), t1=avg("TR",...POST), gT=(t1/t0-1)*100;
+$("#trTable").innerHTML = `<tr><th>Group</th><th class="num">Before, € m a month</th><th class="num">After</th><th class="num">Change</th></tr><tr><td><strong>Türkiye</strong></td><td class="num">${fmtM(t0)}</td><td class="num">${fmtM(t1)}</td><td class="num">${sgn(gT,1)}%</td></tr><tr><td><strong>Rest of the world</strong></td><td class="num">${fmtM(r0)}</td><td class="num">${fmtM(r1)}</td><td class="num">${sgn(gR,1)}%</td></tr>`;
+function drawTR(){ lineChart($("#trChart"),{title:"Türkiye: EU exports relative to the rest of the world",sub:"Index, 2019–2021 average = 100, three-month moving average",series:[{name:"Türkiye",color:css("--verm"),shape:"tri",pts:series("TR","2022-03")}],yfmt:v=>v.toFixed(0),xfmt:v=>Math.floor(v+1e-6),refY:100,vline:2022+2/12,vlabel:"Sanctions",labelEnds:false,H:280,zero:false,xticks:[2019,2020,2021,2022,2023,2024,2025,2026]}); }
+["ex1","ex2","ex3","ex4"].forEach(id=>{ const t=$("#"+id); t.value=store.get(id,""); t.addEventListener("input",()=>store.set(id,t.value)); });
+$("#exModel").innerHTML = `<h4>Model note</h4>
+<p><b>Chart.</b> The event-study line above: EU exports to Türkiye relative to the comparison group, flat around 100 before 2022, rising to about 115 in 2023 and easing back after.</p>
+<p><b>Effect.</b> EU exports to Türkiye grew by ${gT.toFixed(0)}% between 2019–2021 and March 2022–December 2024, against ${gR.toFixed(0)}% for the comparison group: about ${(gT-gR).toFixed(0)} percentage points more, roughly €${((t1-t0*(1+gR/100))).toFixed(0)} million a month.</p>
+<p><b>Assumption.</b> Without sanctions, exports to Türkiye would have grown like exports to the comparison group. The flat pre-2022 line supports this.</p>
+<p><b>Why it could be wrong.</b> Türkiye's very high inflation and currency swings after 2021 changed its demand for EU goods for reasons unrelated to Russia; euro values also mix prices and volumes. The estimate is an upper bound on rerouting, much smaller than for Kyrgyzstan.</p>`;
+$("#exBtn").addEventListener("click",()=>{ $("#exModel").hidden=!$("#exModel").hidden; markDone("exercise"); });
+
+/* brief */
+wireBrief();
+const bc=brief.get("country",""), bqq=brief.get("question","");
+$("#briefWho").textContent = bc||bqq ? `Your brief: ${bc||"country not chosen yet"}, question ${bqq||"not chosen yet"}.${bqq&&bqq!=="C"?" This step matters only for question C; you can skip it.":""}` : "You have not chosen a country and question yet (session 2, step 8).";
+$("#bDid").addEventListener("input",()=>markDone("brief"));
+if (bqq && bqq!=="C") markDone("brief");
+
+/* quiz */
+quiz($("#quizBox"), $("#quizScore"), [
+ {q:"Why is a before/after comparison not enough to measure the effect of sanctions?",o:["Because other things changed at the same time","Because trade data are secret","Because sanctions have no effect"],a:0,e:"Inflation, recovery and other shocks also changed trade; the comparison group absorbs them."},
+ {q:"Treated group +130%, comparison group +33%. The difference-in-differences estimate is…",o:["+163 points","+97 points","+33 points"],a:1,e:"130 − 33 = 97 percentage points."},
+ {q:"What does the parallel-trends assumption say?",o:["Both groups have the same level","Without the policy, both groups would have moved alike","The policy affects both groups equally"],a:1,e:"Levels can differ; trends must be comparable."},
+ {q:"A placebo test at a fake date shows a large effect. What should you conclude?",o:["The policy worked twice","Something other than the policy moves the data; be cautious","Nothing"],a:1,e:"Here the pandemic hit small neighbours harder; state it as a caveat."},
+ {q:"The detour through three neighbours made up about 9% of lost EU exports to Russia. What does this say about sanctions?",o:["They failed completely","Rerouting was real but small relative to the collapse","They had no effect on Russia"],a:1,e:"Both headlines, “sanctions fail” and “no leakage”, are wrong."}], "quiz");
+
+/* boot */
+drawCars(); drawES(); drawTR(); if (stA.ok) openFA(); faGuess();
+wireCopy(); wireReset();
+onRedraw(()=>{ drawCars(); drawES(); drawTR(); });
+
+</script>
+</body>
+</html>

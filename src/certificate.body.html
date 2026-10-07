@@ -1,0 +1,26 @@
+<header class="top col noprint">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Certificate</span></div>
+  <h1 style="margin-top:.6rem">Certificate of completion</h1>
+  <p class="lede">The certificate unlocks once every step of the six sessions is done. Your progress is read from this browser.</p>
+</header>
+<section class="col noprint" style="padding-block:1.5rem">
+  <div class="tscroll"><table id="progTable" aria-label="Your progress"></table></div>
+  <div id="locked" class="box key" hidden><h4>Not yet</h4><p id="lockedTxt"></p></div>
+  <div id="unlock" class="box task" hidden>
+    <h4>Well done: all six sessions are complete</h4>
+    <label for="certName" class="small">Your name, as it should appear on the certificate</label>
+    <div class="row"><input type="text" id="certName" style="flex:1;min-width:12rem"><button id="certBtn">Create my certificate</button></div>
+  </div>
+</section>
+<section class="col" id="certWrap" hidden>
+  <div class="cert" id="cert">
+    <div class="cert-k">Certificate of completion</div>
+    <div class="cert-n" id="cN"></div>
+    <p class="cert-t">has completed the self-paced course</p>
+    <div class="cert-c">Quantitative Methods for Geopolitics and Geoeconomics</div>
+    <p class="cert-t">six sessions, about 18 hours: trusting official numbers and honest charts; polls and margins of error; dependence and composite indices; regression; policy evaluation with difference-in-differences; costing a geopolitical shock and auditing AI analysis; a two-page policy brief.</p>
+    <div class="cert-f"><span id="cD"></span><span>Course designed by Rodolphe Desbordes</span><span class="mono" id="cC"></span></div>
+    <p class="cert-s">Self-assessed completion of all activities, recorded in the learner's browser. It does not certify graded assessment.</p>
+  </div>
+  <div class="row noprint"><button id="printBtn">Print or save as PDF</button><span class="small">In the print window, choose “Save as PDF” and landscape.</span></div>
+</section>

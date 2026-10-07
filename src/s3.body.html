@@ -1,0 +1,150 @@
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Session 3 of 6</span></div>
+  <h1 style="margin-top:.6rem">Who depends on whom?</h1>
+  <p class="lede">Economic security has become a policy field of its own: the European Commission, NATO and every finance ministry now track dependencies. In this session you measure dependence the way they do, build a vulnerability index, and see how easily an index can be bent.</p>
+  <div class="meta"><span><b>About 3 hours</b> at your own pace</span><span><b>No software needed</b> in the browser; optional steps in jamovi</span><span><b>Your answers</b> stay in this browser only</span></div>
+</header>
+
+<nav class="steps" aria-label="Steps in this session"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Step 1 · Puzzle · 10 min</span><h2>Name the product</h2></div>
+  <p>For three of these eight products, China supplied more than 90% of everything the European Union imported from outside the EU in 2024. Which three?</p>
+  <div class="box task">
+    <div class="choice" id="q-prod"></div>
+    <p class="small" id="prodCount">Pick three.</p>
+    <p>And which EU country buys the largest share of all its imports from China?</p>
+    <select id="q-country" aria-label="Country"></select>
+    <div class="row"><button id="prodBtn" disabled>Lock in my answers</button></div>
+    <div id="prodOut" hidden><p class="fb" id="prodFb"></p><p id="prodTxt"></p></div>
+  </div>
+</section>
+
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Step 2 · Lesson · 25 min</span><h2>Measuring dependence</h2></div>
+  <h3>Import shares</h3>
+  <p>The simplest measure: what share of a product's imports comes from one supplier. The European Commission flags a product as a dependency when one or a few suppliers dominate and the EU cannot easily replace them.</p>
+  <h3>Concentration: the Herfindahl index</h3>
+  <p>A 50% share from one supplier is risky if the other 50% comes from one more country, much less so if it comes from twenty. The <strong>Herfindahl–Hirschman index (HHI)</strong> captures this: square each supplier's share (in %) and add them up.</p>
+  <p class="formula">HHI = s₁² + s₂² + s₃² + …   (from near 0 to 10,000)</p>
+  <p>One supplier with 100%: 10,000. Two suppliers with 50% each: 2,500 + 2,500 = 5,000. Ten suppliers with 10% each: 1,000. Competition authorities in the United States treat markets above roughly 1,800 to 2,500 as highly concentrated; trade analysts borrow the same scale.</p>
+  <h3>Can the supplier be replaced?</h3>
+  <p>Shares and concentration describe the past. What matters in a crisis is <em>substitutability</em>: whether other producers exist, how long it takes to switch, and whether stocks can bridge the gap.</p>
+  <h3>The Lithuanian case</h3>
+  <p>In 2021 Lithuania let Taiwan open a representative office under the name “Taiwanese” rather than “Taipei”. China retaliated. On paper, Lithuania was hardly exposed: China took 1.1% of its exports in 2020. Yet the pressure hurt, because China also blocked goods from other EU countries that contained Lithuanian parts, and German firms with plants in Lithuania warned they might leave (Global Taiwan Institute, 2022). Lithuanian exports to China fell to 0.2% of its total by 2022.</p>
+  <div class="box task"><h4>Check yourself</h4>
+    <p>Three suppliers with 60%, 30% and 10%. What is the HHI?</p>
+    <div class="row"><input type="number" id="la-in" aria-label="HHI"><button id="la-btn">Check</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Step 3 · Activity · 20 min</span><h2>Who depends on whom?</h2></div>
+  <p>EU imports from outside the EU, 2024, by supplier. Each row shows the largest suppliers' shares.</p>
+  <div class="box task"><h4>1. Wheat by hand</h4>
+    <p>Using the four shares shown for wheat, compute the HHI (ignore the small remaining suppliers). Nearest whole number.</p>
+    <div class="row"><input type="number" id="aa-in" aria-label="HHI for wheat"><button id="aa-btn">Check</button></div>
+    <p class="fb" id="aa-fb"></p>
+    <div class="row"><button id="aa-all" disabled>Compute all products</button></div>
+  </div>
+  <div class="tscroll wide"><table id="prodTable" aria-label="Product dependence"></table></div>
+  <figure class="wide"><div class="chart" id="prodChart"></div><figcaption>HHI computed on all suppliers. Source: UN Comtrade, EU (extra-EU) imports by partner, 2024, HS six-digit codes.</figcaption></figure>
+  <details class="jam"><summary>Now do it in jamovi (optional, 10 min)</summary>
+    <ol class="tight"><li>Paste the data below (one row per product and supplier).</li>
+      <li><b>Data → Compute</b>: <span class="mono">sq = share^2</span>.</li>
+      <li><b>Analyses → Exploration → Descriptives</b>: variable <span class="mono">sq</span>, split by <span class="mono">product</span>, statistic <b>Sum</b>. That sum is the HHI of the listed suppliers.</li></ol>
+    <textarea readonly id="csvProd" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvProd">Copy data</button><span class="small" data-copied="csvProd"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Step 4 · Feedback · 10 min</span><h2>Concentrated and hard to replace</h2></div>
+  <p>Solar panels, magnesium, permanent magnets and laptops all have HHIs above 7,000: one supplier, China, dominates. Crude oil is the opposite: the EU buys from many countries, so its HHI is below 1,000, even though Europe imports almost all its oil. Liquefied natural gas sits in between, with the United States now the largest supplier.</p>
+  <p>Which of these numbers would have warned Lithuania? None. Export shares measured direct trade with China, and they were tiny. The exposure ran through supply chains: Lithuanian parts inside German goods sold in China, and Chinese inputs inside Lithuanian factories. Dependence measures need to follow inputs, not just final trade.</p>
+  <div class="box key"><h4>Remember</h4>Share, concentration and substitutability are three different questions. A high share from a diversified, friendly market is not a vulnerability; a modest share of an irreplaceable input can be.</div>
+</section>
+
+<section class="step col" id="lessonB" data-read data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Step 5 · Lesson · 25 min</span><h2>Building an index and mapping it</h2></div>
+  <p>Think tanks and international organisations love composite indices: one number per country, a ranking, a map. Building one takes four steps, and each hides a choice.</p>
+  <ol class="tight">
+    <li><strong>Choose indicators.</strong> Here: the share of imports from China, the concentration (HHI) of import partners, and dependence on imported energy.</li>
+    <li><strong>Normalise</strong> them to a common scale, for example 0 for the lowest country and 100 for the highest.</li>
+    <li><strong>Weight</strong> them. Equal weights are a choice too.</li>
+    <li><strong>Aggregate and rank.</strong></li>
+  </ol>
+  <p class="formula">score = w₁ × norm(China share) + w₂ × norm(HHI) + w₃ × norm(energy dependence)</p>
+  <h3>Rules for a map</h3>
+  <ul class="tight">
+    <li>Map rates or shares, never totals: big countries are not more vulnerable for being big.</li>
+    <li>Use one colour that darkens with the value, and print the numbers where you can.</li>
+    <li>Say what is missing; a blank country is not a zero.</li>
+  </ul>
+  <p>The map in the next step is a <em>tile map</em>: each country is one equal square placed roughly where it lies, so Malta counts as much as France. Newspapers use them for exactly this reason.</p>
+</section>
+
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Step 6 · Activity · 20 min</span><h2>Rig the ranking</h2></div>
+  <div class="box task">
+    <p>Pick a country, then move the weights to push it as far up the vulnerability ranking as you can, then as far down. Same data, every time.</p>
+    <div class="row"><label for="rCountry">Country</label><select id="rCountry"></select></div>
+    <label class="small" for="w1">Weight on China import share: <b class="mono" id="w1o"></b></label><input type="range" id="w1" min="0" max="100" value="34">
+    <label class="small" for="w2">Weight on partner concentration (HHI): <b class="mono" id="w2o"></b></label><input type="range" id="w2" min="0" max="100" value="33">
+    <label class="small" for="w3">Weight on energy dependence: <b class="mono" id="w3o"></b></label><input type="range" id="w3" min="0" max="100" value="33">
+    <div class="kpi"><div><b id="rRank">–</b><span>rank out of 27 (1 = most vulnerable)</span></div><div><b id="rBest">–</b><span>highest rank you reached</span></div><div><b id="rWorst">–</b><span>lowest rank you reached</span></div></div>
+  </div>
+  <figure class="wide"><div class="chart" id="tileMap"></div></figure>
+  <div class="tscroll"><table id="rankTable" aria-label="Index ranking"></table></div>
+  <details class="jam"><summary>Now do it in jamovi (optional, 15 min)</summary>
+    <ol class="tight"><li>Paste the data below.</li>
+      <li>Normalise each indicator: <span class="mono">n_china = 100 * (china - MIN(china)) / (MAX(china) - MIN(china))</span>, and the same for <span class="mono">hhi</span> and <span class="mono">energy</span>.</li>
+      <li>Compute <span class="mono">score = (n_china + n_hhi + n_energy) / 3</span> and sort. Then try other weights.</li></ol>
+    <textarea readonly id="csvIdx" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvIdx">Copy data</button><span class="small" data-copied="csvIdx"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Step 7 · Feedback · 10 min</span><h2>Same data, opposite rankings</h2></div>
+  <p class="headline-claim" id="fbRange"></p>
+  <p>Most countries can be moved a long way up or down by weights alone. That is why serious indices publish their weights and show how rankings change when the weights change.</p>
+  <h3>The real case: Doing Business</h3>
+  <p>For years the World Bank's <em>Doing Business</em> report ranked countries on how easy it was to run a firm, and governments set targets to climb it. In 2021 an external investigation by the law firm WilmerHale found that, for the 2018 edition, changes to three data points had moved China from 85th to 78th. The World Bank discontinued the report in September 2021.</p>
+  <div class="box key"><h4>Remember</h4>Before quoting a ranking, ask what went in, how it was weighted, and how much the order changes with other reasonable choices.</div>
+</section>
+
+<section class="step col" id="brief" data-title="Your brief">
+  <div class="stephead"><span class="eyebrow">Step 8 · Your brief · 45 min</span><h2>First chart and main source</h2></div>
+  <p id="briefWho" class="small"></p>
+  <div class="brief-box">
+    <label for="bSource">Your main source, why you chose it, and its weaknesses (coverage, possible bias, revisions)</label>
+    <textarea id="bSource" data-brief="source" rows="5"></textarea>
+    <label for="bChart">Your first chart: its title (stating the finding), the unit, the years, and the source line</label>
+    <textarea id="bChart" data-brief="chart1" rows="4"></textarea>
+  </div>
+  <p class="small">For question B, the product and country data on this page are a starting point: UN Comtrade gives the same figures for any country and product. Draw the chart in <a href="https://www.datawrapper.de" target="_blank" rel="noopener">Datawrapper</a>.</p>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Step 9 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session2.html">← Session 2: Can we trust a poll?</a><a href="session4.html">Session 4: Poland, Spain and the line →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Readings and references</h3>
+  <ul class="refs">
+    <li>Bruegel, <a href="https://www.bruegel.org/blog-post/europe-failing-import-diversification" target="_blank" rel="noopener">“Is Europe failing on import diversification?”</a></li>
+    <li>European Commission (2022), <a href="https://ec.europa.eu/docsroom/documents/48878" target="_blank" rel="noopener">EU strategic dependencies and capacities: second stage of in-depth reviews</a>, executive summary.</li>
+    <li>Global Taiwan Institute (2022), <a href="https://globaltaiwan.org/2022/07/lithuanias-confrontation-with-china-over-taiwan-lessons-from-a-small-country/" target="_blank" rel="noopener">“Lithuania's confrontation with China over Taiwan: lessons from a small country”</a>.</li>
+    <li>On Doing Business: <a href="https://www.orfonline.org/index.php/expert-speak/the-world-bank-data-manipulation-controversy" target="_blank" rel="noopener">Observer Research Foundation, “The World Bank data manipulation controversy”</a>.</li>
+  </ul>
+  <h3>Data</h3>
+  <ul class="refs">
+    <li><a href="https://comtradeplus.un.org" target="_blank" rel="noopener">UN Comtrade</a>: EU imports by partner and product (2024); member states' imports by partner (2024); Lithuania's exports (2020–2022).</li>
+    <li>Eurostat, <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_ind_id/default/table" target="_blank" rel="noopener">energy import dependency (nrg_ind_id)</a>, 2023.</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Clear my answers for this session</button></p>
+</footer>

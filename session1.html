@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Can We Trust the Numbers?</title>
+<meta name="description" content="Session 1: night lights, defence spending and honest charts.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}
+
+/* Layout: a single reading column (about 68ch) of numbered steps, with a sticky step bar; wide charts and tables break out to 880px. */
+:root{
+  --bg:#F3F5F7; --panel:#FFFFFF; --ink:#15202A; --ink2:#43505C; --muted:#68747F; --rule:#D3DAE1; --soft:#E6EEF5;
+  --accent:#0072B2; --verm:#D55E00; --hi:#E69F00; --ok:#007A57; --grey:#7D8893;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --col:44rem; --wide:56rem; --r:6px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F151B; --panel:#17202A; --ink:#E4EAF0; --ink2:#B6C1CB; --muted:#8B97A2; --rule:#2A3541; --soft:#1B2834;
+  --accent:#3D9AD6; --verm:#E0662A; --hi:#E69F00; --ok:#2BB58A; --grey:#8C97A2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151B; --panel:#17202A; --ink:#E4EAF0; --ink2:#B6C1CB; --muted:#8B97A2; --rule:#2A3541; --soft:#1B2834;
+  --accent:#3D9AD6; --verm:#E0662A; --hi:#E69F00; --ok:#2BB58A; --grey:#8C97A2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6;margin:0}
+.wrap{padding-inline:16px;padding-block:0 4rem}
+.col{max-width:var(--col);margin-inline:auto}
+.wide{max-width:var(--wide);margin-inline:auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(2.1rem,6vw,3.3rem);font-weight:800;font-stretch:80%;letter-spacing:-.01em}
+h2{font-size:1.75rem;font-weight:750;font-stretch:85%}
+h3{font-size:1.2rem;font-weight:700;font-stretch:90%;margin-top:1.6rem}
+p{margin:.7rem 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,label:focus-within{outline:3px solid var(--hi);outline-offset:2px}
+.mono,.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+/* header */
+header.top{padding-block:2.4rem 1.6rem;border-bottom:1px solid var(--rule)}
+header.top .course{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+header.top .lede{font-size:1.15rem;color:var(--ink2);max-width:40rem;margin-top:1rem}
+.meta{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:1rem;font-size:.9rem;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+/* step bar */
+nav.steps{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);margin-inline:-16px;padding-inline:16px}
+nav.steps ol{list-style:none;display:flex;gap:.25rem;margin:0 auto;padding:.5rem 0;max-width:var(--wide);overflow-x:auto;scrollbar-width:thin}
+nav.steps a{display:flex;align-items:center;gap:.4rem;white-space:nowrap;text-decoration:none;color:var(--ink2);font-size:.82rem;padding:.3rem .55rem;border-radius:999px}
+nav.steps a:hover{background:var(--soft)}
+nav.steps .dot{width:.9rem;height:.9rem;border-radius:50%;border:1.5px solid var(--grey);display:inline-grid;place-items:center;font-size:.6rem;line-height:1;color:var(--panel)}
+nav.steps li.done .dot{background:var(--ok);border-color:var(--ok)}
+nav.steps li.done .dot::after{content:"✓";color:#fff}
+/* steps */
+section.step{padding-block:3rem 1rem;border-bottom:1px solid var(--rule);scroll-margin-top:3.5rem}
+.stephead{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.box{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.1rem;margin:1.2rem 0}
+.box.task{border-left:4px solid var(--accent)}
+.box.key{background:var(--soft);border-color:transparent}
+.box h4{font-family:var(--f-display);font-stretch:90%;font-size:1.02rem;margin:0 0 .4rem}
+.formula{font-family:var(--f-mono);font-size:.98rem;background:var(--soft);padding:.6rem .8rem;border-radius:var(--r);overflow-x:auto}
+ul.tight,ol.tight{padding-left:1.2rem;margin:.5rem 0}
+ul.tight li,ol.tight li{margin:.25rem 0}
+/* controls */
+button,.btn{font:inherit;font-size:.92rem;font-weight:600;border-radius:var(--r);border:1.5px solid var(--accent);background:var(--accent);color:#fff;padding:.45rem .9rem;cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.8rem 0}
+.choice{display:grid;gap:.5rem;margin:.8rem 0}
+.choice label{display:flex;gap:.6rem;align-items:flex-start;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.55rem .75rem;cursor:pointer}
+.choice label:has(input:checked){border-color:var(--accent);background:var(--soft)}
+.choice input{margin-top:.35rem;accent-color:var(--accent)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--accent);border-radius:var(--r);overflow:hidden}
+.seg button{border:0;border-radius:0;background:transparent;color:var(--accent);font-weight:500;padding:.35rem .75rem}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+input[type=number],input[type=text],textarea{font:inherit;font-family:var(--f-mono);font-size:.95rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--rule);border-radius:4px;padding:.3rem .45rem}
+input[type=number]{width:6.2rem}
+textarea{width:100%;font-family:var(--f-body);line-height:1.5}
+.fb{font-size:.95rem;margin:.4rem 0;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--verm)}
+.fb.ok::before{content:"✓ ";font-weight:700} .fb.no::before{content:"✗ ";font-weight:700}
+/* tables */
+.tscroll{overflow-x:auto;margin:1rem 0;border:1px solid var(--rule);border-radius:var(--r);background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:.45rem .6rem;border-bottom:1px solid var(--rule);text-align:right;vertical-align:middle}
+th{font-weight:600;font-size:.8rem;color:var(--ink2);background:var(--soft)}
+th:first-child,td:first-child{text-align:left}
+td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:600;padding:.1rem .45rem;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.chip.F{color:var(--accent)} .chip.NF{color:var(--verm)} .chip.PF{color:var(--grey)}
+/* charts */
+figure{margin:1.2rem 0}
+.chart{position:relative;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.8rem .6rem .4rem}
+.chart .ct{font-family:var(--f-display);font-stretch:90%;font-weight:700;font-size:1rem;padding:0 .3rem}
+.chart .cs{font-size:.82rem;color:var(--muted);padding:0 .3rem}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body);font-size:12px;fill:var(--muted)}
+.chart svg .lab{fill:var(--ink);font-weight:600}
+figcaption{font-size:.8rem;color:var(--muted);margin-top:.4rem}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem 1rem;font-size:.82rem;color:var(--ink2);padding:.3rem .3rem 0}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.8rem;line-height:1.35;padding:.35rem .55rem;border-radius:4px;white-space:nowrap;z-index:3;transform:translate(-50%,calc(-100% - 10px))}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem}
+.pair>*{min-width:0}
+.headline-claim{font-family:var(--f-display);font-weight:800;font-stretch:80%;font-size:1.3rem}
+details.jam{margin:1.2rem 0;border:1px dashed var(--rule);border-radius:var(--r);padding:.6rem .9rem;background:var(--panel)}
+details.jam summary{cursor:pointer;font-weight:600}
+details.jam textarea{font-family:var(--f-mono);font-size:.8rem;height:9rem;white-space:pre}
+.hidden-until{border-top:2px solid var(--accent);margin-top:1.4rem;padding-top:.4rem}
+.small{font-size:.88rem;color:var(--ink2)}
+footer{padding-block:2rem;color:var(--muted);font-size:.85rem}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+@media (max-width:520px){body{font-size:1rem}th,td{padding:.4rem .4rem}}
+.vh{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.crumbs{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:center;font-family:var(--f-mono);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.crumbs a{color:var(--accent);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.nextprev{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:1.4rem}
+.nextprev a{font-weight:600;text-decoration:none}
+.refs{padding-left:1.1rem;font-size:.9rem;color:var(--ink2)}
+.refs li{margin:.35rem 0}
+.brief-box{border:1.5px solid var(--hi);border-radius:var(--r);padding:1rem 1.1rem;margin:1.2rem 0;background:var(--panel)}
+.brief-box h4{font-family:var(--f-display);font-stretch:90%;font-size:1.02rem;margin:0 0 .4rem}
+.brief-box label{display:block;font-weight:600;font-size:.9rem;margin:.7rem 0 .25rem}
+input[type=range]{width:100%;accent-color:var(--accent)}
+select{font:inherit;font-size:.95rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--rule);border-radius:4px;padding:.3rem .45rem;max-width:100%}
+.kpi{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin:.6rem 0}
+.kpi div{display:flex;flex-direction:column}
+.kpi b{font-family:var(--f-mono);font-size:1.25rem;font-variant-numeric:tabular-nums}
+.kpi span{font-size:.8rem;color:var(--muted)}
+.prompt{font-family:var(--f-mono);font-size:.85rem;white-space:pre-wrap;background:var(--soft);padding:.7rem .8rem;border-radius:var(--r)}
+.chart .legend svg{display:inline-block;width:auto;height:auto;overflow:visible;flex:none}
+.sessions{display:grid;gap:.8rem;margin-top:1rem}
+.scard{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.1rem;text-decoration:none;color:var(--ink)}
+.scard:hover{border-color:var(--accent)}
+.scard strong{font-family:var(--f-display);font-stretch:85%;font-size:1.25rem;line-height:1.2}
+.scard .bar{display:block;height:4px;background:var(--soft);border-radius:2px;overflow:hidden;margin-top:.3rem}
+.scard .bar i{display:block;height:100%;background:var(--ok)}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.8rem;margin-top:1rem}
+.nums>div{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:.9rem 1rem;min-width:0}
+.nums b{font-family:var(--f-display);font-stretch:80%;font-weight:800;font-size:1.7rem;color:var(--accent);line-height:1.1}
+.nums span{font-size:.92rem;color:var(--ink2)}
+.outcomes li{margin:.45rem 0}
+a.btn{color:#fff}
+.cert{background:var(--panel);border:2px solid var(--accent);outline:6px solid var(--soft);border-radius:4px;padding:2.4rem 2rem;text-align:center;margin:1rem 0;display:flex;flex-direction:column;gap:.6rem;align-items:center}
+.cert-k{font-family:var(--f-mono);letter-spacing:.14em;text-transform:uppercase;font-size:.85rem;color:var(--muted)}
+.cert-n{font-family:var(--f-display);font-weight:800;font-stretch:85%;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1}
+.cert-c{font-family:var(--f-display);font-weight:700;font-stretch:90%;font-size:1.35rem;color:var(--accent)}
+.cert-t{max-width:40rem;color:var(--ink2);margin:.2rem 0}
+.cert-f{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 2rem;font-size:.9rem;margin-top:.8rem}
+.cert-s{font-size:.75rem;color:var(--muted);margin-top:.6rem}
+@media print{ @page{size:A4 landscape;margin:12mm} body{background:#fff;color:#000} .noprint,nav.steps,footer{display:none!important} .cert{border-color:#0072B2;outline:none;box-shadow:none;margin:0} .wrap{padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Course home</a><span>Session 1 of 6</span></div>
+  <h1 style="margin-top:.6rem">Can we trust the numbers?</h1>
+  <p class="lede">Governments, journalists and think tanks fight with numbers. In this session you learn where those numbers come from, catch an autocracy inflating its growth with satellite images of the Earth at night, and redraw a misleading chart so that it no longer misleads.</p>
+  <div class="meta"><span><b>About 3 hours</b> at your own pace</span><span><b>No software needed</b> in the browser; optional steps in jamovi</span><span><b>Your answers</b> stay in this browser only</span></div>
+</header>
+
+<nav class="steps" aria-label="Steps in this session"><ol id="stepnav"></ol></nav>
+
+<!-- STEP 1 PUZZLE -->
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Step 1 · Puzzle · 10 min</span><h2>Is Europe disarming or rearming?</h2></div>
+  <p>Two commentators look at the same official database of military spending for the 27 countries of today's European Union. One writes <em>“Europe has disarmed since the Cold War”</em>. The other writes <em>“Europe has never spent more on defence”</em>. Here are their charts, both for 1990 to 2021.</p>
+  <div class="pair wide" id="puzzleCharts"></div>
+  <div class="box task">
+    <h4>Your call: which headline is true?</h4>
+    <div class="choice" id="q-puzzle" role="radiogroup">
+      <label><input type="radio" name="puz" value="a"> Only “Europe has disarmed”</label>
+      <label><input type="radio" name="puz" value="b"> Only “Europe has never spent more”</label>
+      <label><input type="radio" name="puz" value="both"> Both are true</label>
+      <label><input type="radio" name="puz" value="neither"> Neither is true</label>
+    </div>
+    <div class="row"><button id="puzBtn" disabled>Lock in my answer</button></div>
+    <div id="puzOut" hidden>
+      <p class="fb" id="puzFb"></p>
+      <p><strong>Both are true.</strong> Measured in dollars of each year, spending rose from 143 to 262 billion. Measured as a share of the economy, it fell from 2.4% to 1.5% of GDP, because the EU economy grew much faster than its defence budgets. Neither commentator lied: each picked the measure that told the story they wanted. By the end of this session you will know a third measure, spending in real terms, that settles much of the argument.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 2 LESSON A -->
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Step 2 · Lesson · 25 min</span><h2>Where numbers come from</h2></div>
+  <h3>Every number has a producer</h3>
+  <p>A country's gross domestic product (GDP) is not observed; it is estimated. A national statistics office combines surveys of firms and households, tax records and assumptions about activity no one records, such as street trading. Defence spending is reported by governments and compiled by researchers, for instance at the Stockholm International Peace Research Institute (SIPRI), which the World Bank republishes. Before using a number, ask who produced it and how.</p>
+  <h3>Producers have motives</h3>
+  <p>High growth is a claim to competence. Where officials are promoted for hitting targets and no free press or independent statistics office checks them, the temptation to round up is strong. Governments can also simply stop publishing: after the invasion of Ukraine, Russia stopped releasing detailed foreign-trade statistics in 2022, which made the effect of sanctions harder for outsiders to judge (<a href="https://carnegieendowment.org/russia-eurasia/politika/2022/07/secret-economy-what-hiding-the-stats-does-for-russia" target="_blank" rel="noopener">Carnegie Endowment</a>).</p>
+  <h3>An outside witness: light at night</h3>
+  <p>From 1992 to 2013, US military weather satellites photographed the whole Earth at night. Factories, cities, roads and homes emit light, so when an economy grows, it usually gets brighter. No statistics office can edit a satellite image. Economists therefore use the growth of night lights as an independent check on official growth.</p>
+  <h3>The test</h3>
+  <p>The idea, from Luis Martínez (<a href="https://bfi.uchicago.edu/insight/research-summary/how-much-should-we-trust-the-dictators-gdp-growth-estimates/" target="_blank" rel="noopener">Journal of Political Economy, 2022</a>), takes two steps.</p>
+  <ol class="tight">
+    <li>In democracies, where official statistics face scrutiny, measure how official growth usually relates to light growth.</li>
+    <li>Apply that relationship to every country. A country whose official growth sits well above what its light growth implies is a suspect.</li>
+  </ol>
+  <p>Using the 43 countries rated <em>Free</em> by Freedom House in most years between 1992 and 2013, the relationship is:</p>
+  <p class="formula">expected official growth = 1.74 + 0.38 × light growth</p>
+  <p>Read it in words: a democracy whose lights did not grow at all still grew by about 1.7% a year, and each extra point of light growth went with about 0.38 extra points of GDP growth. The <strong>gap</strong> is official growth minus expected growth. Martínez found that autocracies' official growth rates are inflated by about 35% on average.</p>
+  <div class="box key"><h4>Light is a witness, not a judge</h4>
+    <ul class="tight">
+      <li>Lights saturate: the centre of a rich city cannot get brighter on the image, so growth there is understated.</li>
+      <li>Some light is not output, such as gas flares at oil fields.</li>
+      <li>Some growth makes little light: software, finance and other services.</li>
+    </ul>
+    A gap makes a country a suspect worth investigating. It does not prove fraud.</div>
+  <div class="box task">
+    <h4>Check yourself</h4>
+    <p>A country's lights grew by 5% a year. What official growth would we expect, in % a year?</p>
+    <div class="row"><input type="number" step="0.01" id="la-in" aria-label="Expected growth"><button id="la-btn">Check</button></div>
+    <p class="fb" id="la-fb"></p>
+  </div>
+</section>
+
+<!-- STEP 3 ACTIVITY A -->
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Step 3 · Activity · 20 min</span><h2>Catch the dictator</h2></div>
+  <p>Ten real countries, names hidden. For each, average official GDP growth and average growth of night lights, both in % a year over 1992 to 2013. Five are autocracies, five are democracies.</p>
+  <div class="box task">
+    <h4>1. Work out country A by hand</h4>
+    <p>Use the formula: expected = 1.74 + 0.38 × light growth, then gap = official − expected. Round to two decimals.</p>
+    <div class="row"><label for="aa-exp">Expected growth for A</label><input type="number" step="0.01" id="aa-exp"><label for="aa-gap">Gap for A</label><input type="number" step="0.01" id="aa-gap"><button id="aa-btn">Check</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <div class="box task">
+    <h4>2. Let the computer do the other nine</h4>
+    <p>Once A is right, compute the rest and look at the chart. Points far above the line grew faster on paper than their lights suggest.</p>
+    <div class="row"><button id="aa-all" disabled>Compute the other nine</button></div>
+  </div>
+  <div class="tscroll wide"><table id="tenTable" aria-label="Ten anonymised countries"></table></div>
+  <figure class="wide"><div class="chart" id="tenChart"></div><figcaption>Each letter is a country. The line shows what official growth would be if the country behaved like the average democracy. Sources: Martínez (2022) replication data (night lights, Li et al. harmonised series); World Bank, real GDP.</figcaption></figure>
+  <div class="box task">
+    <h4>3. Name your suspects</h4>
+    <p>Tick up to four countries in the last column of the table that you think are autocracies inflating their figures. Then reveal.</p>
+    <div class="row"><button id="aa-reveal" disabled>Reveal the names</button><span class="small" id="aa-count">0 of 4 picked</span></div>
+  </div>
+  <details class="jam"><summary>Now do it in jamovi (optional, 15 min)</summary>
+    <ol class="tight">
+      <li>Open jamovi. Click <b>Copy data</b> below, click the first cell of the empty spreadsheet and paste (Ctrl+V or Cmd+V). Accept the first row as column names.</li>
+      <li><b>Data → Compute</b>: name the new variable <span class="mono">expected</span> and type the formula <span class="mono">1.74 + 0.38 * light</span>.</li>
+      <li>Compute a second variable <span class="mono">gap</span> with the formula <span class="mono">official - expected</span>.</li>
+      <li><b>Analyses → Exploration → Scatterplot</b>: X = <span class="mono">light</span>, Y = <span class="mono">official</span>, tick <b>Linear</b> regression line. (If Scatterplot is missing, add the <i>scatr</i> module from the <b>+ Modules</b> library.)</li>
+      <li>Sort by <span class="mono">gap</span>: do you get the same suspects as in the browser?</li>
+    </ol>
+    <textarea readonly id="csvTen" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvTen">Copy data</button><span class="small" data-copied="csvTen"></span></div>
+  </details>
+</section>
+
+<!-- STEP 4 FEEDBACK A -->
+<section class="step col" id="feedbackA" data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Step 4 · Feedback · 10 min</span><h2>Who were they?</h2></div>
+  <p id="fa-locked" class="small">Reveal the names in step 3 to unlock this feedback. You can also <button class="ghost" id="fa-skip" style="padding:.15rem .5rem">show it anyway</button>.</p>
+  <div id="fa-body" hidden>
+    <p id="fa-score" class="headline-claim"></p>
+    <p>The four largest gaps belong to China, Myanmar, Uzbekistan and Azerbaijan, all rated <em>Not Free</em>. But two cases do not fit the simple story, and they matter more than the four that do.</p>
+    <ul class="tight">
+      <li><strong>India (E)</strong>, a democracy, has a large gap. A likely reason is that much of its growth came from services, such as software and call centres, which add output without adding much light.</li>
+      <li><strong>Russia (J)</strong>, an autocracy, has no gap. Its lights include gas flares, and its official statistics after the 1990s collapse may simply have been accurate on average.</li>
+    </ul>
+    <p>So the method finds suspects, not culprits. Its strength comes from many countries at once. Here are all 105 countries with more than three million people and usable data:</p>
+    <figure class="wide"><div class="chart" id="allChart"></div><figcaption>Regime = Freedom House status in at least half the years 1992–2013; countries in between are <i>Partly Free</i>. Hover over a point for the country. Sources as above.</figcaption></figure>
+    <div class="tscroll"><table aria-label="Average gap by regime">
+      <tr><th>Regime</th><th class="num">Countries</th><th class="num">Average official growth, % a year</th><th class="num">Average gap, points a year</th></tr>
+      <tr><td><span class="chip F">● Free</span></td><td class="num">43</td><td class="num">2.97</td><td class="num">−0.01</td></tr>
+      <tr><td><span class="chip PF">■ Partly Free</span></td><td class="num">34</td><td class="num">4.09</td><td class="num">+0.61</td></tr>
+      <tr><td><span class="chip NF">▲ Not Free</span></td><td class="num">28</td><td class="num">3.95</td><td class="num">+0.70</td></tr>
+    </table></div>
+    <p>On average, autocracies report growth about 0.7 points a year above what their lights imply, roughly a fifth more than the light-implied rate. Martínez's fuller method, which follows each country year by year and controls for many alternative explanations, finds about 35%. Compounded over twenty years, a 0.7-point gap makes an economy look about 15% larger than it is.</p>
+  </div>
+</section>
+
+<!-- STEP 5 LESSON B -->
+<section class="step col" id="lessonB" data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Step 5 · Lesson · 25 min</span><h2>Indicators and honest charts</h2></div>
+  <p>Back to the puzzle. The same spending can be expressed in at least three ways, and each answers a different question.</p>
+  <div class="tscroll"><table aria-label="Three measures of defence spending">
+    <tr><th>Measure</th><th>Question it answers</th><th>Trap</th></tr>
+    <tr><td><strong>Current dollars</strong></td><td style="text-align:left">How much money was spent that year?</td><td style="text-align:left">Mixes real increases with inflation and exchange-rate swings</td></tr>
+    <tr><td><strong>% of GDP</strong></td><td style="text-align:left">How much effort relative to the size of the economy? NATO's targets use this measure.</td><td style="text-align:left">Can fall while spending rises, if the economy grows faster</td></tr>
+    <tr><td><strong>Real terms</strong></td><td style="text-align:left">How much could the money buy, at constant prices?</td><td style="text-align:left">Depends on the price index and base year chosen</td></tr>
+  </table></div>
+  <p>A useful trick: if you know spending as a share of GDP and GDP in constant prices, you get spending in real terms by multiplying them.</p>
+  <p class="formula">real spending = (share of GDP ÷ 100) × real GDP</p>
+  <p>Now play with the European Union series. Change the measure and the starting year, and watch the story change.</p>
+  <div class="row"><span class="small">Measure</span><div class="seg" id="segMeasure"><button aria-pressed="true" data-v="usd">Current dollars</button><button aria-pressed="false" data-v="share">% of GDP</button><button aria-pressed="false" data-v="real">Real terms</button></div></div>
+  <div class="row"><span class="small">Start in</span><div class="seg" id="segStart"><button aria-pressed="true" data-v="1990">1990</button><button aria-pressed="false" data-v="2000">2000</button><button aria-pressed="false" data-v="2014">2014</button></div></div>
+  <figure class="wide"><div class="chart" id="euChart"></div><figcaption>EU-27 military spending. Real terms = share of GDP × GDP in constant 2015 dollars. Source: SIPRI via World Bank, World Development Indicators.</figcaption></figure>
+  <p class="headline-claim" id="euSentence"></p>
+  <h3>Five rules for an honest chart</h3>
+  <ol class="tight">
+    <li><strong>Bars start at zero.</strong> A bar's length is its value; cut the axis and you distort the comparison.</li>
+    <li><strong>Say the unit</strong>, and whether values are current or real.</li>
+    <li><strong>Choose the start year for a reason</strong>, and say it. 1990, 2000 and 2014 tell three stories.</li>
+    <li><strong>Name the source and years.</strong></li>
+    <li><strong>Write a title the data support</strong>, not a slogan.</li>
+  </ol>
+  <p class="small">Further reading: Claus Wilke, <a href="https://clauswilke.com/dataviz/" target="_blank" rel="noopener">Fundamentals of Data Visualization</a>, chapters 6 and 13 (free online).</p>
+</section>
+
+<!-- STEP 6 ACTIVITY B -->
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Step 6 · Activity · 20 min</span><h2>Who rearmed fastest after 2021?</h2></div>
+  <div class="box task">
+    <h4>1. Guess first</h4>
+    <p>Between 2021 and 2024, which country increased its defence spending most in real terms?</p>
+    <div class="choice" id="q-guessB">
+      <label><input type="radio" name="gb" value="POL"> Poland</label>
+      <label><input type="radio" name="gb" value="DEU"> Germany</label>
+      <label><input type="radio" name="gb" value="ITA"> Italy</label>
+    </div>
+    <div class="row"><button id="gbBtn" disabled>Lock in my guess</button><span class="small" id="gbOut"></span></div>
+  </div>
+  <div class="box task">
+    <h4>2. Compute Poland by hand</h4>
+    <p>Use the table: real spending = share ÷ 100 × real GDP. Give billions of 2015 dollars to one decimal, and the change in % to the nearest whole number.</p>
+    <div class="row"><label for="pb-21">2021</label><input type="number" step="0.1" id="pb-21"><label for="pb-24">2024</label><input type="number" step="0.1" id="pb-24"><label for="pb-ch">Change %</label><input type="number" step="1" id="pb-ch"><button id="pb-btn">Check</button></div>
+    <p class="fb" id="pb-fb"></p>
+    <div class="row"><button id="pb-all" disabled>Compute Germany and Italy</button></div>
+  </div>
+  <div class="tscroll wide"><table id="threeTable" aria-label="Defence spending in three countries"></table></div>
+  <figure class="wide"><div class="chart" id="threeChart"></div><figcaption>Index, 2021 = 100, real terms. Source: SIPRI via World Bank, World Development Indicators.</figcaption></figure>
+  <div class="box task">
+    <h4>3. Download a series yourself (10 min)</h4>
+    <p>Analysts download data every day, so do it once now. Open the World Bank indicator <a href="https://data.worldbank.org/indicator/MS.MIL.XPND.GD.ZS?locations=DE" target="_blank" rel="noopener">“Military expenditure (% of GDP)”</a>, which republishes SIPRI's figures, select Germany, and download it as CSV (or read the value off the page). The original source is the <a href="https://www.sipri.org/databases/milex" target="_blank" rel="noopener">SIPRI Military Expenditure Database</a>.</p>
+    <p>What share of GDP did Germany spend in 2024 (two decimals)?</p>
+    <div class="row"><input type="number" step="0.01" id="dl-in" aria-label="Germany 2024"><button id="dl-btn">Check</button></div>
+    <p class="fb" id="dl-fb"></p>
+  </div>
+  <details class="jam"><summary>Now do it in jamovi (optional, 10 min)</summary>
+    <ol class="tight">
+      <li>Copy the data below and paste it into an empty jamovi spreadsheet.</li>
+      <li><b>Data → Compute</b>: <span class="mono">real = share / 100 * gdp_real</span>.</li>
+      <li>Filter to the years 2021 and 2024 (<b>Data → Filters</b>: <span class="mono">year == 2021 or year == 2024</span>) and compare.</li>
+      <li>For the chart, use <b>Exploration → Descriptives</b> split by country, or paste the computed column into Datawrapper.</li>
+    </ol>
+    <textarea readonly id="csvThree" aria-label="Data for jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvThree">Copy data</button><span class="small" data-copied="csvThree"></span></div>
+  </details>
+</section>
+
+<!-- STEP 7 FEEDBACK B -->
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Step 7 · Feedback · 10 min</span><h2>Poland, by a distance</h2></div>
+  <p id="fbB-guess" class="headline-claim"></p>
+  <p>In real terms Poland roughly doubled its defence spending in three years (+104%), from 2.2% to 4.2% of GDP. Germany rose by 46%. Italy barely moved (+3%), and its share of GDP actually fell slightly.</p>
+  <p>Now compare with current dollars: Poland +148%, Germany +57%, Italy +5%. The dollar figures overstate every increase because they include rising prices and, for Poland, a stronger zloty. Distance from Russia is part of the explanation, a question you will test properly with a regression in session 4.</p>
+  <div class="box key"><h4>Remember</h4>Before comparing spending across years, ask: current or real? Before comparing across countries, ask: money or share of GDP? Both questions change rankings.</div>
+</section>
+
+<!-- STEP 8 EXERCISE -->
+<section class="step col" id="exercise" data-title="Exercise">
+  <div class="stephead"><span class="eyebrow">Step 8 · Exercise 1 · 45 min · not graded</span><h2>Fix a misleading chart</h2></div>
+  <p>A news site publishes this chart.</p>
+  <figure class="wide"><div class="chart" id="badChart"></div></figure>
+  <div class="box task">
+    <h4>1. What is wrong? Tick every problem.</h4>
+    <div class="choice" id="q-bad">
+      <label><input type="checkbox" value="axis"> The vertical axis starts at 40 billion, not zero</label>
+      <label><input type="checkbox" value="nominal"> Current dollars mix real increases with inflation and exchange rates</label>
+      <label><input type="checkbox" value="source"> No source is given</label>
+      <label><input type="checkbox" value="invented"> The figures are invented</label>
+      <label><input type="checkbox" value="bars"> Bars should never be used for time series</label>
+    </div>
+    <div class="row"><button id="badBtn">Check</button></div>
+    <p class="fb" id="badFb"></p>
+  </div>
+  <div class="box task">
+    <h4>2. Redraw it without the distortion</h4>
+    <div class="row"><span class="small">Measure</span><div class="seg" id="segBadM"><button aria-pressed="true" data-v="usd">Current dollars</button><button aria-pressed="false" data-v="real">Real terms</button><button aria-pressed="false" data-v="share">% of GDP</button></div></div>
+    <div class="row"><span class="small">Axis starts at</span><div class="seg" id="segBadA"><button aria-pressed="true" data-v="cut">40 billion</button><button aria-pressed="false" data-v="zero">Zero</button></div></div>
+    <figure><div class="chart" id="fixChart"></div></figure>
+    <p class="fb" id="fixFb"></p>
+  </div>
+  <div class="box task">
+    <h4>3. Write the note (150 words)</h4>
+    <p>Explain what was wrong and what the honest chart shows. Your text is saved in this browser only.</p>
+    <textarea id="note" rows="8" aria-label="Your note"></textarea>
+    <div class="row"><span class="small" id="wc">0 words</span><button class="ghost" id="modelBtn">Compare with a model note</button></div>
+    <div id="model" hidden class="box key"><h4>Model note</h4><p>The chart exaggerates the rise. Its axis starts at 40 billion dollars, so the 2024 bar looks ten times the 2014 bar when spending roughly doubled. It also uses current dollars, which mix real increases with inflation and exchange-rate movements. In constant 2015 dollars, German defence spending rose by about 83% between 2014 and 2024, from 38 to 70 billion, and most of the increase came after 2021. As a share of GDP it rose from 1.1% to 1.9% by SIPRI's measure; NATO's own estimate, which counts more items, put Germany above 2% in 2024. An honest chart starts at zero, shows real values, says so, and names the source (SIPRI, via the World Bank). The story is still one of strong growth, told without exaggeration.</p></div>
+  </div>
+</section>
+
+<!-- STEP 9 QUIZ -->
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Step 9 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><span></span><a href="session2.html">Session 2: Can we trust a poll? →</a></div>
+  <h3>Before session 2</h3>
+  <p>Read Pew Research Center, <a href="https://www.pewresearch.org/short-reads/2016/09/08/understanding-the-margin-of-error-in-election-polls/" target="_blank" rel="noopener">“Understanding the margin of error in election polls”</a>. Next session: why did the polls before Moldova's 2024 EU referendum miss?</p>
+</section>
+
+<footer class="col">
+  <h3>Readings and references</h3>
+  <ul class="refs">
+    <li>Martínez, L. R. (2022), “How much should we trust the dictator's GDP growth estimates?”, <i>Journal of Political Economy</i> 130(10): <a href="https://bfi.uchicago.edu/insight/research-summary/how-much-should-we-trust-the-dictators-gdp-growth-estimates/" target="_blank" rel="noopener">BFI summary</a>; full paper free on <a href="https://papers.ssrn.com/abstract=3093296" target="_blank" rel="noopener">SSRN</a>.</li>
+    <li>Carnegie Endowment (2022), <a href="https://carnegieendowment.org/russia-eurasia/politika/2022/07/secret-economy-what-hiding-the-stats-does-for-russia" target="_blank" rel="noopener">“Secret economy: what hiding the stats does for Russia”</a>.</li>
+    <li>OSW Centre for Eastern Studies (2025), <a href="https://www.osw.waw.pl/en/publikacje/osw-commentary/2025-06-26/nato-summit-hague-trumps-return-and-a-two-component-5-gdp" target="_blank" rel="noopener">“NATO summit in The Hague: Trump's return and a two-component 5% of GDP”</a>.</li>
+    <li>Wilke, C. O., <a href="https://clauswilke.com/dataviz/" target="_blank" rel="noopener">Fundamentals of Data Visualization</a>, chapters 6 and 13 (free online).</li>
+  </ul>
+  <h3>Data</h3>
+  <p>Data: Martínez (2022), <a href="https://doi.org/10.7910/DVN/9M0S0M" target="_blank" rel="noopener">replication files</a> (night lights, Freedom House status); World Bank, <a href="https://databank.worldbank.org/source/world-development-indicators" target="_blank" rel="noopener">World Development Indicators</a> (real GDP; military expenditure from <a href="https://www.sipri.org/databases/milex" target="_blank" rel="noopener">SIPRI</a>), data updated July 2026. Light and GDP growth are average annual log growth rates, 1992–2013; sample restricted to countries with more than three million people.</p>
+  <p><button class="ghost" id="resetBtn">Clear my answers</button></p>
+</footer>
+
+</div>
+<script>
+window.SESSION=1;
+const DATA = {"ten": [{"id": "A", "name": "Brazil", "grp": "F", "off": 3.34, "lig": 4.62}, {"id": "B", "name": "China", "grp": "NF", "off": 9.62, "lig": 6.47}, {"id": "C", "name": "Sweden", "grp": "F", "off": 2.27, "lig": 1.1}, {"id": "D", "name": "Uzbekistan", "grp": "NF", "off": 4.71, "lig": -0.27}, {"id": "E", "name": "India", "grp": "F", "off": 6.17, "lig": 4.48}, {"id": "F", "name": "Germany", "grp": "F", "off": 1.25, "lig": 1.33}, {"id": "G", "name": "Azerbaijan", "grp": "NF", "off": 5.59, "lig": 2.76}, {"id": "H", "name": "Costa Rica", "grp": "F", "off": 4.35, "lig": 6.0}, {"id": "I", "name": "Myanmar", "grp": "NF", "off": 9.25, "lig": 8.63}, {"id": "J", "name": "Russia", "grp": "NF", "off": 1.82, "lig": 1.34}], "all": [{"n": "Algeria", "g": "NF", "o": 3.05, "l": 2.87}, {"n": "Argentina", "g": "F", "o": 3.05, "l": 4.99}, {"n": "Australia", "g": "F", "o": 3.42, "l": 2.45}, {"n": "Austria", "g": "F", "o": 1.84, "l": 3.23}, {"n": "Azerbaijan", "g": "NF", "o": 5.59, "l": 2.76}, {"n": "Bangladesh", "g": "PF", "o": 5.22, "l": 2.76}, {"n": "Belarus", "g": "NF", "o": 3.75, "l": 2.05}, {"n": "Belgium", "g": "F", "o": 1.81, "l": 0.76}, {"n": "Benin", "g": "F", "o": 4.32, "l": 5.71}, {"n": "Bolivia", "g": "PF", "o": 4.03, "l": 4.15}, {"n": "Bosnia and Herzegovina", "g": "PF", "o": 7.86, "l": 12.99}, {"n": "Brazil", "g": "F", "o": 3.34, "l": 4.62}, {"n": "Bulgaria", "g": "F", "o": 1.88, "l": 2.36}, {"n": "Burundi", "g": "NF", "o": 0.96, "l": 4.24}, {"n": "Cameroon", "g": "NF", "o": 3.32, "l": 3.47}, {"n": "Canada", "g": "F", "o": 2.62, "l": 0.55}, {"n": "Chile", "g": "F", "o": 4.78, "l": 5.98}, {"n": "China", "g": "NF", "o": 9.62, "l": 6.47}, {"n": "Colombia", "g": "PF", "o": 3.61, "l": 3.86}, {"n": "Congo", "g": "NF", "o": 3.21, "l": 7.11}, {"n": "Costa Rica", "g": "F", "o": 4.35, "l": 6.0}, {"n": "Cote d'Ivoire", "g": "NF", "o": 2.59, "l": 7.67}, {"n": "Croatia", "g": "F", "o": 2.07, "l": 7.42}, {"n": "Cuba", "g": "NF", "o": 3.26, "l": 6.46}, {"n": "Czechia", "g": "F", "o": 2.33, "l": 0.89}, {"n": "Denmark", "g": "F", "o": 1.59, "l": 0.97}, {"n": "Dominican Republic", "g": "F", "o": 4.87, "l": 4.87}, {"n": "Ecuador", "g": "PF", "o": 3.6, "l": 5.67}, {"n": "Egypt", "g": "NF", "o": 4.4, "l": 4.09}, {"n": "El Salvador", "g": "F", "o": 2.34, "l": 3.97}, {"n": "Finland", "g": "F", "o": 2.36, "l": 3.25}, {"n": "France", "g": "F", "o": 1.7, "l": 2.34}, {"n": "Georgia", "g": "PF", "o": 3.1, "l": 3.63}, {"n": "Germany", "g": "F", "o": 1.25, "l": 1.33}, {"n": "Ghana", "g": "F", "o": 5.64, "l": 5.48}, {"n": "Greece", "g": "F", "o": 0.8, "l": 3.85}, {"n": "Guatemala", "g": "PF", "o": 3.59, "l": 6.56}, {"n": "Haiti", "g": "PF", "o": 1.33, "l": 5.94}, {"n": "Honduras", "g": "PF", "o": 8.73, "l": 7.57}, {"n": "Hungary", "g": "F", "o": 1.97, "l": 2.42}, {"n": "India", "g": "F", "o": 6.17, "l": 4.48}, {"n": "Indonesia", "g": "PF", "o": 4.45, "l": 5.75}, {"n": "Iran", "g": "NF", "o": 2.81, "l": 3.46}, {"n": "Iraq", "g": "NF", "o": 8.01, "l": 4.1}, {"n": "Ireland", "g": "F", "o": 4.46, "l": 3.06}, {"n": "Israel", "g": "F", "o": 4.08, "l": 2.49}, {"n": "Italy", "g": "F", "o": 0.62, "l": 2.21}, {"n": "Japan", "g": "F", "o": 0.81, "l": 0.99}, {"n": "Jordan", "g": "PF", "o": 4.76, "l": 4.67}, {"n": "Kazakhstan", "g": "NF", "o": 3.7, "l": 2.04}, {"n": "Kenya", "g": "PF", "o": 3.48, "l": 5.21}, {"n": "South Korea", "g": "F", "o": 5.17, "l": 3.47}, {"n": "Kuwait", "g": "PF", "o": 5.38, "l": 3.37}, {"n": "Kyrgyzstan", "g": "PF", "o": 1.85, "l": 3.64}, {"n": "Lebanon", "g": "PF", "o": 4.93, "l": 4.1}, {"n": "Libya", "g": "NF", "o": 0.67, "l": 0.79}, {"n": "Malawi", "g": "PF", "o": 4.35, "l": 3.0}, {"n": "Malaysia", "g": "PF", "o": 5.29, "l": 7.68}, {"n": "Mexico", "g": "PF", "o": 2.26, "l": 3.03}, {"n": "Morocco", "g": "PF", "o": 4.08, "l": 5.69}, {"n": "Myanmar", "g": "NF", "o": 9.25, "l": 8.63}, {"n": "Nepal", "g": "PF", "o": 4.2, "l": 3.8}, {"n": "Netherlands", "g": "F", "o": 2.03, "l": 0.86}, {"n": "New Zealand", "g": "F", "o": 3.01, "l": 2.39}, {"n": "Nicaragua", "g": "PF", "o": 3.77, "l": 5.72}, {"n": "Nigeria", "g": "PF", "o": 4.92, "l": -0.16}, {"n": "Norway", "g": "F", "o": 2.55, "l": 3.73}, {"n": "Oman", "g": "NF", "o": 3.74, "l": 5.76}, {"n": "Pakistan", "g": "PF", "o": 3.78, "l": 1.82}, {"n": "Panama", "g": "F", "o": 6.11, "l": 6.3}, {"n": "Paraguay", "g": "PF", "o": 3.15, "l": 6.73}, {"n": "Peru", "g": "F", "o": 5.17, "l": 6.02}, {"n": "Philippines", "g": "PF", "o": 4.42, "l": 5.39}, {"n": "Poland", "g": "F", "o": 4.13, "l": 4.29}, {"n": "Portugal", "g": "F", "o": 1.12, "l": 4.25}, {"n": "Romania", "g": "F", "o": 2.77, "l": 6.33}, {"n": "Russia", "g": "NF", "o": 1.82, "l": 1.34}, {"n": "Rwanda", "g": "NF", "o": 4.62, "l": 6.02}, {"n": "Saudi Arabia", "g": "NF", "o": 3.4, "l": 4.16}, {"n": "Senegal", "g": "PF", "o": 3.25, "l": 6.09}, {"n": "Singapore", "g": "PF", "o": 6.06, "l": 0.08}, {"n": "Slovakia", "g": "F", "o": 3.91, "l": 0.01}, {"n": "South Africa", "g": "F", "o": 3.01, "l": 2.54}, {"n": "Spain", "g": "F", "o": 1.87, "l": 2.44}, {"n": "Sri Lanka", "g": "PF", "o": 5.38, "l": 5.2}, {"n": "Sweden", "g": "F", "o": 2.27, "l": 1.1}, {"n": "Switzerland", "g": "F", "o": 1.89, "l": 2.52}, {"n": "Syria", "g": "NF", "o": 1.41, "l": -1.38}, {"n": "Tajikistan", "g": "NF", "o": 2.13, "l": -0.07}, {"n": "Thailand", "g": "PF", "o": 3.92, "l": 7.17}, {"n": "Togo", "g": "PF", "o": 3.12, "l": 3.1}, {"n": "Tunisia", "g": "NF", "o": 3.82, "l": 4.3}, {"n": "Turkiye", "g": "PF", "o": 4.45, "l": 5.8}, {"n": "Turkmenistan", "g": "NF", "o": 5.0, "l": 4.09}, {"n": "Ukraine", "g": "PF", "o": -0.8, "l": -1.8}, {"n": "United Arab Emirates", "g": "NF", "o": 4.53, "l": 4.05}, {"n": "United Kingdom", "g": "F", "o": 2.31, "l": 0.15}, {"n": "United States", "g": "F", "o": 2.56, "l": 1.03}, {"n": "Uruguay", "g": "F", "o": 3.13, "l": 5.19}, {"n": "Uzbekistan", "g": "NF", "o": 4.71, "l": -0.27}, {"n": "Venezuela", "g": "PF", "o": 2.25, "l": 3.51}, {"n": "Vietnam", "g": "NF", "o": 6.66, "l": 10.47}, {"n": "Yemen", "g": "NF", "o": 3.64, "l": 5.52}, {"n": "Zambia", "g": "PF", "o": 5.13, "l": 3.57}, {"n": "Zimbabwe", "g": "NF", "o": 0.83, "l": 1.09}], "eu": {"1990": {"share": 2.378, "usd_bn": 143.24, "real_bn": 217.34, "gdp_real_bn": 9138.5}, "1991": {"share": 2.179, "usd_bn": 140.74, "real_bn": 202.07, "gdp_real_bn": 9272.0}, "1992": {"share": 2.081, "usd_bn": 147.96, "real_bn": 194.67, "gdp_real_bn": 9355.6}, "1993": {"share": 2.019, "usd_bn": 132.71, "real_bn": 187.76, "gdp_real_bn": 9299.8}, "1994": {"share": 1.94, "usd_bn": 135.61, "real_bn": 185.27, "gdp_real_bn": 9551.1}, "1995": {"share": 1.792, "usd_bn": 148.08, "real_bn": 175.79, "gdp_real_bn": 9811.3}, "1996": {"share": 1.765, "usd_bn": 148.26, "real_bn": 176.53, "gdp_real_bn": 9999.3}, "1997": {"share": 1.753, "usd_bn": 135.03, "real_bn": 179.98, "gdp_real_bn": 10267.7}, "1998": {"share": 1.71, "usd_bn": 135.45, "real_bn": 180.76, "gdp_real_bn": 10573.8}, "1999": {"share": 1.688, "usd_bn": 133.96, "real_bn": 183.84, "gdp_real_bn": 10891.4}, "2000": {"share": 1.65, "usd_bn": 119.91, "real_bn": 186.8, "gdp_real_bn": 11319.9}, "2001": {"share": 1.607, "usd_bn": 118.84, "real_bn": 185.89, "gdp_real_bn": 11564.5}, "2002": {"share": 1.59, "usd_bn": 128.08, "real_bn": 185.86, "gdp_real_bn": 11691.5}, "2003": {"share": 1.583, "usd_bn": 157.16, "real_bn": 186.83, "gdp_real_bn": 11801.0}, "2004": {"share": 1.558, "usd_bn": 177.91, "real_bn": 188.67, "gdp_real_bn": 12107.8}, "2005": {"share": 1.523, "usd_bn": 181.75, "real_bn": 188.02, "gdp_real_bn": 12348.0}, "2006": {"share": 1.473, "usd_bn": 187.68, "real_bn": 188.34, "gdp_real_bn": 12788.5}, "2007": {"share": 1.433, "usd_bn": 211.53, "real_bn": 189.02, "gdp_real_bn": 13190.3}, "2008": {"share": 1.452, "usd_bn": 236.65, "real_bn": 192.69, "gdp_real_bn": 13271.8}, "2009": {"share": 1.527, "usd_bn": 225.76, "real_bn": 193.87, "gdp_real_bn": 12699.5}, "2010": {"share": 1.461, "usd_bn": 213.72, "real_bn": 189.56, "gdp_real_bn": 12976.6}, "2011": {"share": 1.397, "usd_bn": 221.55, "real_bn": 184.85, "gdp_real_bn": 13231.0}, "2012": {"share": 1.396, "usd_bn": 205.67, "real_bn": 183.28, "gdp_real_bn": 13129.9}, "2013": {"share": 1.347, "usd_bn": 207.38, "real_bn": 176.8, "gdp_real_bn": 13125.5}, "2014": {"share": 1.317, "usd_bn": 207.31, "real_bn": 175.63, "gdp_real_bn": 13339.8}, "2015": {"share": 1.303, "usd_bn": 177.79, "real_bn": 177.88, "gdp_real_bn": 13656.3}, "2016": {"share": 1.307, "usd_bn": 182.63, "real_bn": 181.85, "gdp_real_bn": 13918.5}, "2017": {"share": 1.314, "usd_bn": 194.13, "real_bn": 188.06, "gdp_real_bn": 14310.7}, "2018": {"share": 1.338, "usd_bn": 215.28, "real_bn": 195.44, "gdp_real_bn": 14603.5}, "2019": {"share": 1.374, "usd_bn": 217.33, "real_bn": 204.47, "gdp_real_bn": 14877.4}, "2020": {"share": 1.536, "usd_bn": 237.69, "real_bn": 215.7, "gdp_real_bn": 14047.4}, "2021": {"share": 1.499, "usd_bn": 262.31, "real_bn": 224.03, "gdp_real_bn": 14943.3}, "2022": {"share": 1.525, "usd_bn": 258.99, "real_bn": 235.98, "gdp_real_bn": 15476.0}, "2023": {"share": 1.645, "usd_bn": 305.73, "real_bn": 255.68, "gdp_real_bn": 15543.8}, "2024": {"share": 1.901, "usd_bn": 368.5, "real_bn": 298.69, "gdp_real_bn": 15712.7}}, "three": {"POL": {"2014": {"share": 1.908, "usd_bn": 10.35, "real_bn": 8.77, "gdp_real_bn": 459.7}, "2015": {"share": 2.127, "usd_bn": 10.21, "real_bn": 10.21, "gdp_real_bn": 480.1}, "2016": {"share": 1.936, "usd_bn": 9.16, "real_bn": 9.58, "gdp_real_bn": 494.6}, "2017": {"share": 1.888, "usd_bn": 9.87, "real_bn": 9.82, "gdp_real_bn": 520.1}, "2018": {"share": 2.025, "usd_bn": 12.04, "real_bn": 11.19, "gdp_real_bn": 552.6}, "2019": {"share": 1.953, "usd_bn": 11.79, "real_bn": 11.29, "gdp_real_bn": 577.9}, "2020": {"share": 2.263, "usd_bn": 13.72, "real_bn": 12.81, "gdp_real_bn": 566.1}, "2021": {"share": 2.217, "usd_bn": 15.3, "real_bn": 13.42, "gdp_real_bn": 605.3}, "2022": {"share": 2.205, "usd_bn": 15.34, "real_bn": 14.05, "gdp_real_bn": 637.2}, "2023": {"share": 3.27, "usd_bn": 26.34, "real_bn": 20.89, "gdp_real_bn": 638.7}, "2024": {"share": 4.154, "usd_bn": 38.0, "real_bn": 27.34, "gdp_real_bn": 658.1}}, "DEU": {"2014": {"share": 1.128, "usd_bn": 44.66, "real_bn": 37.99, "gdp_real_bn": 3369.1}, "2015": {"share": 1.115, "usd_bn": 38.17, "real_bn": 38.2, "gdp_real_bn": 3425.1}, "2016": {"share": 1.129, "usd_bn": 39.91, "real_bn": 39.53, "gdp_real_bn": 3501.2}, "2017": {"share": 1.131, "usd_bn": 42.28, "real_bn": 40.72, "gdp_real_bn": 3599.2}, "2018": {"share": 1.148, "usd_bn": 46.5, "real_bn": 41.79, "gdp_real_bn": 3640.0}, "2019": {"share": 1.24, "usd_bn": 49.08, "real_bn": 45.58, "gdp_real_bn": 3675.6}, "2020": {"share": 1.356, "usd_bn": 53.32, "real_bn": 47.78, "gdp_real_bn": 3523.8}, "2021": {"share": 1.3, "usd_bn": 56.51, "real_bn": 47.59, "gdp_real_bn": 3661.5}, "2022": {"share": 1.35, "usd_bn": 56.15, "real_bn": 50.34, "gdp_real_bn": 3727.8}, "2023": {"share": 1.488, "usd_bn": 67.29, "real_bn": 54.99, "gdp_real_bn": 3695.4}, "2024": {"share": 1.892, "usd_bn": 88.46, "real_bn": 69.57, "gdp_real_bn": 3677.0}}, "ITA": {"2014": {"share": 1.276, "usd_bn": 27.7, "real_bn": 23.35, "gdp_real_bn": 1829.2}, "2015": {"share": 1.202, "usd_bn": 22.18, "real_bn": 22.19, "gdp_real_bn": 1845.4}, "2016": {"share": 1.328, "usd_bn": 25.03, "real_bn": 24.81, "gdp_real_bn": 1868.2}, "2017": {"share": 1.351, "usd_bn": 26.45, "real_bn": 25.65, "gdp_real_bn": 1898.2}, "2018": {"share": 1.354, "usd_bn": 28.42, "real_bn": 25.92, "gdp_real_bn": 1913.9}, "2019": {"share": 1.306, "usd_bn": 26.38, "real_bn": 25.1, "gdp_real_bn": 1922.1}, "2020": {"share": 1.73, "usd_bn": 32.93, "real_bn": 30.3, "gdp_real_bn": 1751.7}, "2021": {"share": 1.663, "usd_bn": 36.23, "real_bn": 31.73, "gdp_real_bn": 1908.1}, "2022": {"share": 1.652, "usd_bn": 34.69, "real_bn": 33.03, "gdp_real_bn": 2000.1}, "2023": {"share": 1.606, "usd_bn": 36.93, "real_bn": 32.43, "gdp_real_bn": 2018.5}, "2024": {"share": 1.609, "usd_bn": 37.96, "real_bn": 32.74, "gdp_real_bn": 2034.3}}}};
+/* ===== shared helpers for every session page ===== */
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const NS = "http://www.w3.org/2000/svg";
+const PFX = "qm" + (window.SESSION || 0) + ":";
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(PFX+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(PFX+k, JSON.stringify(v)); } catch(e){} }
+};
+/* the brief is shared across sessions */
+const brief = {
+  get(k, d=""){ try { const v = localStorage.getItem("qmbrief:"+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem("qmbrief:"+k, JSON.stringify(v)); } catch(e){} }
+};
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const sgn = (v, d=1) => (v>0?"+":v<0?"−":"") + Math.abs(v).toFixed(d);
+const num = (v, d=1) => (v<0?"−":"") + Math.abs(v).toFixed(d);
+
+/* ---------- step nav & progress ---------- */
+const steps = $$("section.step");
+const done = new Set(store.get("done", []));
+function markDone(id){ if (done.has(id)) return; done.add(id); store.set("done", [...done]); renderNav(); }
+function renderNav(){
+  const nav = $("#stepnav"); if (!nav) return;
+  nav.innerHTML = steps.map((s,i)=>`<li class="${done.has(s.id)?"done":""}"><a href="#${s.id}"><span class="dot" aria-hidden="true"></span>${i+1}. ${s.dataset.title}<span class="vh">${done.has(s.id)?" (done)":""}</span></a></li>`).join("");
+}
+renderNav();
+/* reading-only steps get a button to mark them as read */
+$$("section.step[data-read]").forEach(s=>{ const r=document.createElement("div"); r.className="row";
+  r.innerHTML=`<button class="ghost" type="button">Mark as read</button>`; s.appendChild(r);
+  const b=r.querySelector("button"); const sync=()=>{ if (done.has(s.id)){ b.textContent="Read ✓"; b.disabled=true; } };
+  b.addEventListener("click",()=>{ markDone(s.id); sync(); }); sync(); });
+
+/* ---------- answer checking ---------- */
+function feedback(elm, ok, msg){ elm.className = "fb " + (ok ? "ok" : "no"); elm.textContent = msg; }
+function readNums(ids){ return ids.map(id => parseFloat(String($("#"+id).value).replace(",", "."))); }
+
+/* ---------- radio-choice lock-in ---------- */
+function lockChoice({group, button, key, onReveal}){
+  const inputs = $$(`#${group} input`);
+  inputs.forEach(i=>i.addEventListener("change",()=>{ if (!store.get(key,null)) $("#"+button).disabled=false; }));
+  const apply = v => { inputs.forEach(i=>{ i.checked = i.value===v; i.disabled = true; }); $("#"+button).disabled = true; onReveal(v); };
+  $("#"+button).addEventListener("click",()=>{ const v = $(`#${group} input:checked`)?.value; if (!v) return; store.set(key, v); apply(v); });
+  const prev = store.get(key, null); if (prev) apply(prev);
+}
+
+/* ---------- segmented controls ---------- */
+function seg(id, cb){ $$(`#${id} button`).forEach(b=>b.addEventListener("click",()=>{ $$(`#${id} button`).forEach(x=>x.setAttribute("aria-pressed", x===b)); cb(b.dataset.v); })); }
+
+/* ---------- SVG charts ---------- */
+function el(tag, attrs={}, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function txt(parent, x, y, s, attrs={}){ const t = el("text", {x, y, ...attrs}, parent); t.textContent = s; return t; }
+function niceTicks(min, max, n=5){
+  if (max === min){ max = min + 1; }
+  const span = max-min, step0 = span/n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const err = step0/mag, step = (err>=7.5?10:err>=3.5?5:err>=1.5?2:1)*mag;
+  const t=[]; for (let v=Math.ceil(min/step-1e-9)*step; v<=max+1e-9; v+=step) t.push(+v.toFixed(10)); return {ticks:t, step};
+}
+function shape(g, kind, x, y, r, fill, ring){
+  const sw = ring ? 1.5 : 0, st = ring ? css("--panel") : "none";
+  if (kind==="tri") return el("path",{d:`M${x},${y-r*1.2} L${x+r*1.1},${y+r*0.8} L${x-r*1.1},${y+r*0.8} Z`,fill,stroke:st,"stroke-width":sw},g);
+  if (kind==="sq") return el("rect",{x:x-r*0.9,y:y-r*0.9,width:r*1.8,height:r*1.8,fill,stroke:st,"stroke-width":sw},g);
+  if (kind==="dia") return el("path",{d:`M${x},${y-r*1.25} L${x+r*1.1},${y} L${x},${y+r*1.25} L${x-r*1.1},${y} Z`,fill,stroke:st,"stroke-width":sw},g);
+  return el("circle",{cx:x,cy:y,r,fill,stroke:st,"stroke-width":sw},g);
+}
+function frame(container, {title, sub, H=320, m={t:14,r:20,b:34,l:52}}){
+  container.innerHTML = "";
+  const W = Math.round(Math.max(300, Math.min(900, container.clientWidth - 14)));
+  if (W < 480) H = Math.round(H*0.85);
+  if (title){ const t=document.createElement("div"); t.className="ct"; t.textContent=title; container.appendChild(t); }
+  if (sub){ const s=document.createElement("div"); s.className="cs"; s.textContent=sub; container.appendChild(s); }
+  const svg = el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":title||"chart"}); container.appendChild(svg);
+  const tip = document.createElement("div"); tip.className="tip"; tip.hidden=true; container.appendChild(tip);
+  return {svg, tip, W, H, m, iw:W-m.l-m.r, ih:H-m.t-m.b, narrow: W < 480};
+}
+function axes(f, xs, ys, {xfmt=v=>v, yfmt=v=>v, xticks=[], yticks=[], xlab, ylab}){
+  const g = el("g",{},f.svg);
+  for (const v of yticks){ const y=ys(v); el("line",{x1:f.m.l,x2:f.W-f.m.r,y1:y,y2:y,stroke:css("--rule"),"stroke-width":v===0?1.4:1},g); txt(g, f.m.l-8, y+4, yfmt(v), {"text-anchor":"end"}); }
+  for (const v of xticks){ txt(g, xs(v), f.H-f.m.b+18, xfmt(v), {"text-anchor":"middle"}); }
+  if (xlab) txt(g, f.m.l+f.iw/2, f.H-6, xlab, {"text-anchor":"middle"});
+  if (ylab) txt(g, f.m.l, f.m.t-4, ylab, {"text-anchor":"start"});
+  return g;
+}
+function showTip(f, x, y, html){ f.tip.innerHTML=html; f.tip.hidden=false;
+  const r=f.svg.getBoundingClientRect(), c=f.svg.parentNode.getBoundingClientRect();
+  const px = r.left - c.left + x*r.width/f.W, py = r.top - c.top + y*r.height/f.H;
+  f.tip.style.left = Math.min(Math.max(px, 80), c.width-80)+"px"; f.tip.style.top = py+"px"; }
+function hideTip(f){ f.tip.hidden=true; }
+function hover(f, node, x, y, html){ node.addEventListener("pointerenter",()=>showTip(f,x,y,html)); node.addEventListener("pointerleave",()=>hideTip(f)); }
+function legend(container, items){ const lg=document.createElement("div"); lg.className="legend";
+  lg.innerHTML = items.map(it=>{ const k=it.kind||"circ", c=it.color;
+    const sw = k==="line" ? `<svg width="18" height="12"><path d="M0,6 H18" stroke="${c}" stroke-width="2" ${it.dash?`stroke-dasharray="${it.dash}"`:""}/></svg>`
+      : k==="tri" ? `<svg width="12" height="12"><path d="M6,0 L12,11 L0,11Z" fill="${c}"/></svg>`
+      : k==="sq" ? `<svg width="12" height="12"><rect x="1" y="1" width="10" height="10" fill="${c}"/></svg>`
+      : k==="dia" ? `<svg width="12" height="12"><path d="M6,0 L12,6 L6,12 L0,6Z" fill="${c}"/></svg>`
+      : `<svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${c}"/></svg>`;
+    return `<span>${sw}${it.label}</span>`; }).join("");
+  container.appendChild(lg); }
+
+/* line chart: series [{name,color,shape,dash,pts:[[x,y]]}] ; x numeric or index with xlabels */
+function lineChart(container, {title, sub, series, yfmt=v=>v, xfmt=v=>v, ylab, zero=true, labelEnds=true, tipfmt, H=300, ymin:yminF, ymax:ymaxF, refY, refLabel, xticks:xtF, vline, vlabel}){
+  const f = frame(container,{title,sub,H,m:{t:22,r:labelEnds?96:20,b:30,l:52}});
+  const all = series.flatMap(s=>s.pts);
+  const xmin=Math.min(...all.map(p=>p[0])), xmax=Math.max(...all.map(p=>p[0]));
+  let ymin = yminF ?? (zero?Math.min(0,...all.map(p=>p[1])):Math.min(...all.map(p=>p[1]))), ymax = ymaxF ?? Math.max(...all.map(p=>p[1]));
+  if (refY!==undefined){ ymin=Math.min(ymin,refY); ymax=Math.max(ymax,refY); }
+  const yt = niceTicks(ymin, ymax, 4); ymax = Math.max(ymax, yt.ticks[yt.ticks.length-1]); ymin = Math.min(ymin, yt.ticks[0]);
+  const xs = v => f.m.l + (v-xmin)/(xmax-xmin||1)*f.iw, ys = v => f.m.t + f.ih - (v-ymin)/(ymax-ymin)*f.ih;
+  const xt = xtF || niceTicks(xmin,xmax,f.narrow?4:6).ticks.filter(v=>v>=xmin&&v<=xmax);
+  axes(f, xs, ys, {xticks:xt, yticks:yt.ticks, yfmt, xfmt, ylab});
+  if (refY!==undefined){ el("line",{x1:f.m.l,x2:f.m.l+f.iw,y1:ys(refY),y2:ys(refY),stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, f.m.l+4, ys(refY)-6, refLabel, {class:"lab"}); }
+  if (vline!==undefined){ el("line",{x1:xs(vline),x2:xs(vline),y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1.2,"stroke-dasharray":"4 3"},f.svg); if (vlabel) txt(f.svg, xs(vline)+5, f.m.t+12, vlabel, {class:"lab"}); }
+  const g = el("g",{},f.svg);
+  for (const s of series){
+    el("path",{d:s.pts.map((p,i)=>(i?"L":"M")+xs(p[0])+","+ys(p[1])).join(" "),fill:"none",stroke:s.color,"stroke-width":s.width||2,"stroke-linejoin":"round","stroke-dasharray":s.dash||""},g);
+    const last=s.pts[s.pts.length-1];
+    if (s.shape) shape(g, s.shape, xs(last[0]), ys(last[1]), 4.5, s.color, true);
+    if (labelEnds && s.name){ txt(g, xs(last[0])+9, ys(last[1])+4+(s.nudge||0), s.name, {class:"lab"}); }
+  }
+  const xsVals=[...new Set(all.map(p=>p[0]))].sort((a,b)=>a-b);
+  const cross = el("line",{y1:f.m.t,y2:f.m.t+f.ih,stroke:css("--muted"),"stroke-width":1,"stroke-dasharray":"3 3",visibility:"hidden"},f.svg);
+  const hit = el("rect",{x:f.m.l,y:f.m.t,width:f.iw,height:f.ih,fill:"transparent"},f.svg);
+  hit.addEventListener("pointermove", ev => { const r=f.svg.getBoundingClientRect(); const sx=(ev.clientX-r.left)*f.W/r.width;
+    const xv = xmin + (sx-f.m.l)/f.iw*(xmax-xmin); const near = xsVals.reduce((a,b)=>Math.abs(b-xv)<Math.abs(a-xv)?b:a);
+    cross.setAttribute("x1",xs(near)); cross.setAttribute("x2",xs(near)); cross.setAttribute("visibility","visible");
+    const lines = series.map(s=>{const p=s.pts.find(q=>q[0]===near); return p?`${s.name||"Value"}: <b>${tipfmt?tipfmt(p[1]):yfmt(p[1])}</b>`:""}).filter(Boolean);
+    showTip(f, xs(near), f.m.t+10, `<b>${xfmt(near)}</b><br>${lines.join("<br>")}`); });
+  hit.addEventListener("pointerleave", ()=>{cross.setAttribute("visibility","hidden"); hideTip(f);});
+  return {f, xs, ys};
+}
+
+/* scatter: pts [{x,y,label,color,shape,tip}] ; line {a,b} optional */
+function scatter(container, {title, sub, pts, xmin, xmax, ymin, ymax, xticks, yticks, xfmt=v=>v, yfmt=v=>v, xlab, line, lineLabel, labels=true, H=380}){
+  const f = frame(container,{title,sub,H,m:{t:16,r:24,b:44,l:52}});
+  const xs=v=>f.m.l+(v-xmin)/(xmax-xmin)*f.iw, ys=v=>f.m.t+f.ih-(v-ymin)/(ymax-ymin)*f.ih;
+  axes(f,xs,ys,{xticks,yticks,xfmt,yfmt,xlab});
+  if (line){ el("path",{d:`M${xs(xmin)},${ys(line.a+line.b*xmin)} L${xs(xmax)},${ys(line.a+line.b*xmax)}`,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4",fill:"none"},f.svg);
+    if (lineLabel) txt(f.svg, xs(xmin)+6, ys(line.a+line.b*xmin)+(line.b<0?-8:18), lineLabel, {class:"lab"}); }
+  const g=el("g",{},f.svg);
+  for (const p of pts){
+    if (p.res && line) el("line",{x1:xs(p.x),x2:xs(p.x),y1:ys(p.y),y2:ys(line.a+line.b*p.x),stroke:p.color,"stroke-width":1.2,"stroke-dasharray":"2 2"},g);
+    shape(g, p.shape||"circ", xs(p.x), ys(p.y), p.r||5.5, p.color, true);
+    if (labels && p.label){ const right = xs(p.x) > f.m.l + f.iw*0.8; txt(g, xs(p.x)+(right?-9:9), ys(p.y)+4, p.label, {class:"lab","text-anchor":right?"end":"start"}); }
+    const hit=el("circle",{cx:xs(p.x),cy:ys(p.y),r:11,fill:"transparent"},g);
+    if (p.tip) hover(f, hit, xs(p.x), ys(p.y), p.tip);
+  }
+  return {f, xs, ys};
+}
+
+/* horizontal bars: rows [{label, v, color, tip, lo, hi}] */
+function hbar(container, {title, sub, rows, xmin=0, xmax, xfmt=v=>v, ref, refLabel, rowH=26}){
+  const H = 40 + rows.length*rowH + 30;
+  const f = frame(container,{title,sub,H,m:{t:16,r:24,b:30,l:Math.min(150, Math.max(80, 7.2*Math.max(...rows.map(r=>r.label.length))+14))}});
+  const lo = Math.min(xmin, ...rows.map(r=>Math.min(r.v, r.lo??r.v))), hi = xmax ?? Math.max(...rows.map(r=>Math.max(r.v, r.hi??r.v)));
+  const xt = niceTicks(lo, hi, f.narrow?4:6); const x0=xt.ticks[0], x1=Math.max(hi, xt.ticks[xt.ticks.length-1]);
+  const xs = v => f.m.l + (v-x0)/(x1-x0)*f.iw, bh = rowH*0.62;
+  const g = el("g",{},f.svg);
+  for (const v of xt.ticks){ el("line",{x1:xs(v),x2:xs(v),y1:f.m.t,y2:f.m.t+rows.length*rowH,stroke:css("--rule"),"stroke-width":v===0?1.4:1},g); txt(g, xs(v), f.m.t+rows.length*rowH+18, xfmt(v), {"text-anchor":"middle"}); }
+  rows.forEach((r,i)=>{ const y=f.m.t+i*rowH+(rowH-bh)/2; const a=xs(Math.min(0,r.v)), b=xs(Math.max(0,r.v));
+    if (r.lo!==undefined){ el("rect",{x:xs(r.lo),y:y+bh*0.2,width:Math.max(2,xs(r.hi)-xs(r.lo)),height:bh*0.6,fill:r.color,opacity:.35,rx:2},g); shape(g,"circ",xs(r.v),y+bh/2,4.5,r.color,true); }
+    else el("rect",{x:a,y,width:Math.max(1,b-a),height:bh,fill:r.color,rx:2},g);
+    txt(g, f.m.l-8, y+bh/2+4, r.label, {"text-anchor":"end", class: r.bold?"lab":""});
+    const hit=el("rect",{x:f.m.l,y:f.m.t+i*rowH,width:f.iw,height:rowH,fill:"transparent"},g);
+    if (r.tip) hover(f, hit, xs(r.v), y, r.tip); });
+  if (ref!==undefined){ el("line",{x1:xs(ref),x2:xs(ref),y1:f.m.t-6,y2:f.m.t+rows.length*rowH,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4"},f.svg); if (refLabel) txt(f.svg, xs(ref)+4, f.m.t-4, refLabel, {class:"lab"}); }
+  return f;
+}
+
+/* vertical bars for a time series (used for honest/dishonest chart lessons) */
+function vbar(container,{title,sub,vals,ymin=0,yfmt=v=>v,color,H=280,source}){
+  const f=frame(container,{title,sub,H,m:{t:16,r:16,b:30,l:52}});
+  const ymax=Math.max(...vals.map(v=>v[1]))*1.08; const yt=niceTicks(ymin,ymax,4);
+  const top=Math.max(ymax, yt.ticks[yt.ticks.length-1]);
+  const ys=v=>f.m.t+f.ih-(v-ymin)/(top-ymin)*f.ih; const bw=f.iw/vals.length;
+  axes(f,i=>i,ys,{yticks:yt.ticks.filter(v=>v>=ymin&&v<=top),yfmt});
+  vals.forEach((v,i)=>{ const x=f.m.l+bw*i+bw*0.18, w=bw*0.64, y=ys(v[1]), h=ys(ymin)-y;
+    el("path",{d:`M${x},${y+h} V${y+3} Q${x},${y} ${x+3},${y} H${x+w-3} Q${x+w},${y} ${x+w},${y+3} V${y+h} Z`,fill:color},f.svg);
+    if (i%2===0||i===vals.length-1) txt(f.svg, x+w/2, f.H-f.m.b+18, v[0], {"text-anchor":"middle"});
+    const hit=el("rect",{x:f.m.l+bw*i,y:f.m.t,width:bw,height:f.ih,fill:"transparent"},f.svg);
+    hover(f, hit, x+w/2, y, `<b>${v[0]}</b>: ${yfmt(v[1])}`); });
+  if (source){ const s=document.createElement("div"); s.className="cs"; s.textContent=source; container.appendChild(s); }
+  return f;
+}
+
+/* tile-grid map of Europe: tiles {iso: value}; layout fixed */
+const TILE = {ISL:[0,0],NOR:[4,0],SWE:[5,0],FIN:[6,0],EST:[7,1],IRL:[1,2],GBR:[2,2],DNK:[4,2],LVA:[7,2],LTU:[7,3],NLD:[3,3],DEU:[4,3],POL:[6,3],BEL:[3,4],LUX:[3,5],CZE:[5,4],SVK:[6,4],FRA:[2,5],CHE:[3,6],AUT:[5,5],HUN:[6,5],ROU:[7,5],PRT:[0,7],ESP:[1,7],ITA:[4,7],SVN:[4,6],HRV:[5,6],MNE:[5,7],ALB:[6,8],MKD:[7,8],BGR:[7,6],GRC:[7,9],MLT:[4,9],CYP:[9,9]};
+function tileMap(container,{title,sub,vals,names,fmt=v=>v,lo,hi,note}){
+  container.innerHTML="";
+  const t=document.createElement("div"); t.className="ct"; t.textContent=title; container.appendChild(t);
+  if (sub){ const s=document.createElement("div"); s.className="cs"; s.textContent=sub; container.appendChild(s); }
+  const W=10, Hh=10, cell=44, svg=el("svg",{viewBox:`0 0 ${W*cell} ${Hh*cell}`,role:"img","aria-label":title}); container.appendChild(svg);
+  const tip=document.createElement("div"); tip.className="tip"; tip.hidden=true; container.appendChild(tip);
+  const f={svg,tip,W:W*cell,H:Hh*cell};
+  const vv=Object.values(vals).filter(v=>v!=null); lo=lo??Math.min(...vv); hi=hi??Math.max(...vv);
+  for (const iso in TILE){ const [cx,cy]=TILE[iso]; const v=vals[iso];
+    const tshare = v==null ? null : (v-lo)/(hi-lo||1);
+    const fill = v==null ? css("--soft") : `color-mix(in oklab, ${css("--accent")} ${Math.round(12+tshare*78)}%, ${css("--panel")})`;
+    const r=el("rect",{x:cx*cell+2,y:cy*cell+2,width:cell-4,height:cell-4,rx:4,fill,stroke:css("--rule")},svg);
+    const dark = tshare!=null && tshare>0.55;
+    const a=el("text",{x:cx*cell+cell/2,y:cy*cell+18,"text-anchor":"middle",style:`font-size:11px;font-weight:600;fill:${dark?"#fff":css("--ink")}`},svg); a.textContent=iso;
+    if (v!=null){ const b=el("text",{x:cx*cell+cell/2,y:cy*cell+33,"text-anchor":"middle",style:`font-size:10px;font-family:var(--f-mono);fill:${dark?"#fff":css("--ink2")}`},svg); b.textContent=fmt(v); }
+    hover(f, r, cx*cell+cell/2, cy*cell+4, `<b>${names?.[iso]||iso}</b>${v!=null?": "+fmt(v):": no data"}`);
+  }
+  if (note){ const s=document.createElement("div"); s.className="cs"; s.textContent=note; container.appendChild(s); }
+}
+
+/* ---------- copy buttons ---------- */
+function wireCopy(){ $$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{ const ta=$("#"+b.dataset.copy), out=$(`[data-copied="${b.dataset.copy}"]`);
+  const fallback=()=>{ ta.focus(); ta.select(); if (out) out.textContent="Selected: press Ctrl+C or Cmd+C."; };
+  try { navigator.clipboard.writeText(ta.value).then(()=>{ if (out) out.textContent="Copied."; },fallback); } catch(e){ fallback(); } })); }
+
+/* ---------- quiz ---------- */
+function quiz(box, scoreEl, QUIZ, stepId){
+  let qa = store.get("quiz",{});
+  const draw = () => {
+    box.innerHTML = QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?"Right. ":"Not quite. "}${q.e}</p>`:""}</div>`).join("");
+    $$("#"+box.id+" input").forEach(i=>i.addEventListener("change",()=>{ qa[+i.name.slice(2)]=+i.value; store.set("quiz",qa); draw(); }));
+    const n=Object.keys(qa).length, s=QUIZ.filter((q,i)=>qa[i]===q.a).length;
+    scoreEl.textContent = n===QUIZ.length ? `Score: ${s} out of ${QUIZ.length}.` : "";
+    if (n===QUIZ.length) markDone(stepId);
+  };
+  draw();
+}
+
+/* ---------- brief text areas (saved across sessions) ---------- */
+function wireBrief(){ $$("[data-brief]").forEach(t=>{ t.value = brief.get(t.dataset.brief, ""); t.addEventListener("input",()=>brief.set(t.dataset.brief, t.value)); }); }
+
+/* ---------- reset ---------- */
+function wireReset(){ const b=$("#resetBtn"); if (!b) return; b.addEventListener("click",()=>{ try{ Object.keys(localStorage).filter(k=>k.startsWith(PFX)).forEach(k=>localStorage.removeItem(k)); }catch(e){} location.reload(); }); }
+
+/* ---------- redraw hooks ---------- */
+function onRedraw(fn){
+  try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", fn); new MutationObserver(fn).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]}); } catch(e){}
+  let rz, lastW=innerWidth; addEventListener("resize",()=>{ if (innerWidth===lastW) return; lastW=innerWidth; clearTimeout(rz); rz=setTimeout(fn,200); });
+}
+
+const fmt = num;
+/* ---------- STEP 1 PUZZLE ---------- */
+const euYears = Object.keys(DATA.eu).map(Number).sort((a,b)=>a-b);
+function euPts(measure, from=1990, to=2024){ return euYears.filter(y=>y>=from&&y<=to).map(y=>[y, measure==="share"?DATA.eu[y].share: measure==="real"?DATA.eu[y].real_bn: DATA.eu[y].usd_bn]); }
+function drawPuzzle(){
+  const box=$("#puzzleCharts"); box.innerHTML='<div class="chart" id="pzA"></div><div class="chart" id="pzB"></div>';
+  lineChart($("#pzA"),{title:"“Europe has disarmed”",sub:"Military spending, % of GDP, EU-27",series:[{name:"",color:css("--verm"),shape:"tri",pts:euPts("share",1990,2021)}],yfmt:v=>v.toFixed(1)+"%",labelEnds:false,H:260});
+  lineChart($("#pzB"),{title:"“Europe has never spent more”",sub:"Military spending, billion current US$, EU-27",series:[{name:"",color:css("--accent"),shape:"circ",pts:euPts("usd",1990,2021)}],yfmt:v=>"$"+v.toFixed(0),labelEnds:false,H:260});
+}
+$$('#q-puzzle input').forEach(i=>i.addEventListener("change",()=>$("#puzBtn").disabled=false));
+function puzReveal(v){
+  $("#puzOut").hidden=false;
+  const fb=$("#puzFb"); fb.className="fb "+(v==="both"?"ok":"no");
+  fb.textContent = v==="both" ? "Right." : "Not quite. Your answer: "+({a:"only the first",b:"only the second",neither:"neither"}[v])+".";
+}
+$("#puzBtn").addEventListener("click",()=>{ const v=$('#q-puzzle input:checked')?.value; if(!v) return; store.set("puz",v); puzReveal(v); markDone("puzzle"); });
+
+/* ---------- STEP 2 check ---------- */
+$("#la-btn").addEventListener("click",()=>{ const v=parseFloat($("#la-in").value), fb=$("#la-fb");
+  if (isNaN(v)){ fb.className="fb no"; fb.textContent="Type a number first."; return; }
+  if (Math.abs(v-3.64)<=0.06){ fb.className="fb ok"; fb.textContent="Right: 1.74 + 0.38 × 5 = 3.64% a year."; markDone("lessonA"); }
+  else { fb.className="fb no"; fb.textContent="Not quite. Multiply 0.38 by 5 first, then add 1.74."; } });
+
+/* ---------- STEP 3 ACTIVITY A ---------- */
+const A=1.74, B=0.38;
+const ten = DATA.ten.map(d=>({...d, exp:A+B*d.lig, gap:d.off-(A+B*d.lig)}));
+let stA = store.get("actA", {aOk:false, all:false, picks:[], revealed:false});
+function saveA(){ store.set("actA", stA); }
+function drawTenTable(){
+  const t=$("#tenTable");
+  const head = `<tr><th>Country</th>${stA.revealed?"<th>Name</th><th>Regime</th>":""}<th class="num">Official growth</th><th class="num">Light growth</th><th class="num">Expected</th><th class="num">Gap</th><th>Suspect?</th></tr>`;
+  t.innerHTML = head + ten.map(d=>{
+    const show = stA.all || (d.id==="A" && stA.aOk);
+    const picked = stA.picks.includes(d.id);
+    return `<tr><td><strong>${d.id}</strong></td>${stA.revealed?`<td>${d.name}</td><td><span class="chip ${d.grp}">${d.grp==="NF"?"▲ Not Free":"● Free"}</span></td>`:""}
+      <td class="num">${d.off.toFixed(2)}</td><td class="num">${d.lig.toFixed(2)}</td>
+      <td class="num">${show?d.exp.toFixed(2):"…"}</td><td class="num">${show?sgn(d.gap,2):"…"}</td>
+      <td><label style="display:inline-flex;gap:.3rem;align-items:center"><input type="checkbox" data-pick="${d.id}" ${picked?"checked":""} ${stA.revealed?"disabled":""}><span class="small">${picked?"suspect":""}</span></label></td></tr>`; }).join("");
+  $$("[data-pick]").forEach(c=>c.addEventListener("change",()=>{
+    const id=c.dataset.pick; if (c.checked){ if (stA.picks.length>=4){ c.checked=false; $("#aa-count").textContent="You can pick four at most."; return; } stA.picks.push(id);} else stA.picks=stA.picks.filter(x=>x!==id);
+    saveA(); drawTenTable(); drawTenChart(); }));
+  $("#aa-count").textContent = `${stA.picks.length} of 4 picked`;
+  $("#aa-reveal").disabled = stA.picks.length===0 || stA.revealed;
+  $("#aa-all").disabled = !stA.aOk || stA.all;
+}
+function drawTenChart(){
+  const f = frame($("#tenChart"),{title:"Official growth against light growth, 1992–2013",sub:"% a year; the line is what a typical democracy would report",H:380,m:{t:16,r:24,b:44,l:48}});
+  const xmin=-2,xmax=10,ymin=0,ymax=10;
+  const xs=v=>f.m.l+(v-xmin)/(xmax-xmin)*f.iw, ys=v=>f.m.t+f.ih-(v-ymin)/(ymax-ymin)*f.ih;
+  axes(f,xs,ys,{xticks:[-2,0,2,4,6,8,10],yticks:[0,2,4,6,8,10],yfmt:v=>v+"%",xfmt:v=>v+"%"});
+  const t=el("text",{x:f.m.l+f.iw/2,y:f.H-6,"text-anchor":"middle"},f.svg); t.textContent="Growth of night lights, % a year";
+  el("path",{d:`M${xs(xmin)},${ys(A+B*xmin)} L${xs(xmax)},${ys(A+B*xmax)}`,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4",fill:"none"},f.svg);
+  const lt=el("text",{x:xs(-1.8),y:ys(A+B*-1.8)+20,"text-anchor":"start",class:"lab"},f.svg); lt.textContent="Expected (democracies)";
+  const g=el("g",{},f.svg);
+  for (const d of ten){
+    const show = stA.all || (d.id==="A" && stA.aOk);
+    const col = stA.revealed ? (d.grp==="NF"?css("--verm"):css("--accent")) : css("--ink2");
+    if (show) el("line",{x1:xs(d.lig),x2:xs(d.lig),y1:ys(d.off),y2:ys(d.exp),stroke:col,"stroke-width":1.2,"stroke-dasharray":"2 2"},g);
+    const s = shape(g, stA.revealed?(d.grp==="NF"?"tri":"circ"):"circ", xs(d.lig), ys(d.off), 6, col, true);
+    const right = d.lig > 7; const lab=el("text",{x:xs(d.lig)+(right?-9:9),y:ys(d.off)+4,class:"lab","text-anchor":right?"end":"start"},g); lab.textContent = d.id + (stA.revealed?" "+d.name:"") + (stA.picks.includes(d.id)?" ★":"");
+    const hit=el("circle",{cx:xs(d.lig),cy:ys(d.off),r:14,fill:"transparent"},g);
+    hit.addEventListener("pointerenter",()=>showTip(f,xs(d.lig),ys(d.off),`<b>${d.id}${stA.revealed?" · "+d.name:""}</b><br>official ${d.off.toFixed(2)}% · lights ${d.lig.toFixed(2)}%${show?"<br>gap "+sgn(d.gap,2):""}`));
+    hit.addEventListener("pointerleave",()=>hideTip(f));
+  }
+  if (stA.revealed){ const lg=document.createElement("div"); lg.className="legend"; lg.innerHTML=`<span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${css("--accent")}"/></svg>Free</span><span><svg width="12" height="12"><path d="M6,0 L12,11 L0,11Z" fill="${css("--verm")}"/></svg>Not Free</span><span>★ your suspects</span>`; $("#tenChart").appendChild(lg); }
+}
+$("#aa-btn").addEventListener("click",()=>{ const e=parseFloat($("#aa-exp").value), g=parseFloat($("#aa-gap").value), fb=$("#aa-fb"); const a=ten[0];
+  if (isNaN(e)||isNaN(g)){ fb.className="fb no"; fb.textContent="Fill in both boxes."; return; }
+  const okE=Math.abs(e-a.exp)<=0.03, okG=Math.abs(g-a.gap)<=0.04;
+  if (okE&&okG){ fb.className="fb ok"; fb.textContent=`Right: 1.74 + 0.38 × ${a.lig} = ${a.exp.toFixed(2)}, and ${a.off} − ${a.exp.toFixed(2)} = ${sgn(a.gap,2)}. A grew slightly less than its lights suggest.`; stA.aOk=true; saveA(); drawTenTable(); drawTenChart(); }
+  else if (okE){ fb.className="fb no"; fb.textContent="Expected is right. For the gap, subtract expected from official growth (the answer is negative)."; }
+  else { fb.className="fb no"; fb.textContent=`Not yet. Expected = 1.74 + 0.38 × ${a.lig}.`; } });
+$("#aa-all").addEventListener("click",()=>{ stA.all=true; saveA(); drawTenTable(); drawTenChart(); });
+$("#aa-reveal").addEventListener("click",()=>{ stA.revealed=true; saveA(); drawTenTable(); drawTenChart(); markDone("activityA"); openFeedbackA(); });
+$("#csvTen").value = "country,official,light\n"+ten.map(d=>`${d.id},${d.off},${d.lig}`).join("\n");
+
+/* ---------- STEP 4 FEEDBACK A ---------- */
+function openFeedbackA(){
+  $("#fa-locked").hidden=true; $("#fa-body").hidden=false;
+  const hits = stA.picks.filter(id=>ten.find(d=>d.id===id).grp==="NF").length;
+  $("#fa-score").textContent = stA.picks.length ? `${hits} of your ${stA.picks.length} suspects ${hits===1?"was":"were"} rated Not Free.` : "You did not pick any suspects; here are the answers.";
+  drawAllChart(); markDone("feedbackA");
+}
+$("#fa-skip").addEventListener("click", openFeedbackA);
+function drawAllChart(){
+  const f=frame($("#allChart"),{title:"105 countries: official growth against light growth, 1992–2013",sub:"% a year",H:420,m:{t:16,r:24,b:44,l:48}});
+  const xmin=-4,xmax=14,ymin=-2,ymax=12;
+  const xs=v=>f.m.l+(v-xmin)/(xmax-xmin)*f.iw, ys=v=>f.m.t+f.ih-(v-ymin)/(ymax-ymin)*f.ih;
+  axes(f,xs,ys,{xticks:[-4,-2,0,2,4,6,8,10,12,14],yticks:[-2,0,2,4,6,8,10,12],yfmt:v=>v+"%",xfmt:v=>v+"%"});
+  const t=el("text",{x:f.m.l+f.iw/2,y:f.H-6,"text-anchor":"middle"},f.svg); t.textContent="Growth of night lights, % a year";
+  el("path",{d:`M${xs(xmin)},${ys(A+B*xmin)} L${xs(xmax)},${ys(A+B*xmax)}`,stroke:css("--hi"),"stroke-width":2,"stroke-dasharray":"6 4",fill:"none"},f.svg);
+  const g=el("g",{},f.svg);
+  const order={PF:0,F:1,NF:2};
+  const colr={F:css("--accent"),NF:css("--verm"),PF:css("--grey")}, shp={F:"circ",NF:"tri",PF:"sq"};
+  for (const d of [...DATA.all].sort((a,b)=>order[a.g]-order[b.g])){
+    if (d.l<xmin||d.l>xmax||d.o<ymin||d.o>ymax) continue;
+    shape(g, shp[d.g], xs(d.l), ys(d.o), 5, colr[d.g], true);
+    const hit=el("circle",{cx:xs(d.l),cy:ys(d.o),r:9,fill:"transparent"},g);
+    const gap=d.o-(A+B*d.l);
+    hit.addEventListener("pointerenter",()=>showTip(f,xs(d.l),ys(d.o),`<b>${d.n}</b> · ${({F:"Free",PF:"Partly Free",NF:"Not Free"})[d.g]}<br>official ${d.o.toFixed(2)}% · lights ${d.l.toFixed(2)}%<br>gap ${sgn(gap,2)}`));
+    hit.addEventListener("pointerleave",()=>hideTip(f));
+  }
+  for (const n of ["China","Myanmar","India","Germany","Russia"]){ const d=DATA.all.find(x=>x.n===n); if(!d) continue; const tl=el("text",{x:xs(d.l)+8,y:ys(d.o)-7,class:"lab"},g); tl.textContent=n; }
+  const lg=document.createElement("div"); lg.className="legend";
+  lg.innerHTML=`<span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${colr.F}"/></svg>Free</span><span><svg width="12" height="12"><rect x="1" y="1" width="10" height="10" fill="${colr.PF}"/></svg>Partly Free</span><span><svg width="12" height="12"><path d="M6,0 L12,11 L0,11Z" fill="${colr.NF}"/></svg>Not Free</span><span><svg width="18" height="12"><path d="M0,6 H18" stroke="${css("--hi")}" stroke-width="2" stroke-dasharray="5 3"/></svg>Expected (democracies)</span>`;
+  $("#allChart").appendChild(lg);
+}
+
+/* ---------- STEP 5 LESSON B ---------- */
+let euM="usd", euS=1990;
+function drawEU(){
+  const pts=euPts(euM, euS, 2024);
+  const lab={usd:["Billion current US$",v=>"$"+v.toFixed(0)],share:["% of GDP",v=>v.toFixed(1)+"%"],real:["Billion US$ at 2015 prices",v=>"$"+v.toFixed(0)]}[euM];
+  lineChart($("#euChart"),{title:"EU-27 military spending, "+euS+"–2024",sub:lab[0],series:[{name:"",color:css("--accent"),shape:"circ",pts}],yfmt:lab[1],labelEnds:false,H:300});
+  const a=pts[0][1], b=pts[pts.length-1][1], ch=(b/a-1)*100;
+  $("#euSentence").textContent = euM==="share" ? `${euS} to 2024: from ${a.toFixed(1)}% to ${b.toFixed(1)}% of GDP (${sgn(b-a,1)} points).` : `${euS} to 2024: ${sgn(ch,0)}% (${lab[1](a)} to ${lab[1](b)} billion).`;
+}
+function seg(id, cb){ $$(`#${id} button`).forEach(b=>b.addEventListener("click",()=>{ $$(`#${id} button`).forEach(x=>x.setAttribute("aria-pressed", x===b)); cb(b.dataset.v); })); }
+seg("segMeasure", v=>{euM=v; drawEU(); markDone("lessonB");});
+seg("segStart", v=>{euS=+v; drawEU(); markDone("lessonB");});
+
+/* ---------- STEP 6 ACTIVITY B ---------- */
+const NAMES={POL:"Poland",DEU:"Germany",ITA:"Italy"};
+const T=DATA.three;
+let stB=store.get("actB",{guess:null,pOk:false,all:false});
+function saveB(){ store.set("actB",stB); }
+const rr = (c,y)=>T[c][y].real_bn;
+function drawThreeTable(){
+  const rows=["POL","DEU","ITA"].map(c=>{ const show=stB.all||(c==="POL"&&stB.pOk);
+    const a=rr(c,2021), b=rr(c,2024);
+    return `<tr><td><strong>${NAMES[c]}</strong></td><td class="num">${T[c][2021].share.toFixed(2)}</td><td class="num">${T[c][2024].share.toFixed(2)}</td><td class="num">${T[c][2021].gdp_real_bn.toFixed(1)}</td><td class="num">${T[c][2024].gdp_real_bn.toFixed(1)}</td><td class="num">${show?a.toFixed(1):"…"}</td><td class="num">${show?b.toFixed(1):"…"}</td><td class="num">${show?sgn((b/a-1)*100,0)+"%":"…"}</td></tr>`; });
+  $("#threeTable").innerHTML=`<tr><th>Country</th><th class="num">Share of GDP 2021, %</th><th class="num">Share 2024, %</th><th class="num">Real GDP 2021, $bn</th><th class="num">Real GDP 2024, $bn</th><th class="num">Real spending 2021, $bn</th><th class="num">Real spending 2024, $bn</th><th class="num">Change</th></tr>`+rows.join("");
+  $("#pb-all").disabled=!stB.pOk||stB.all;
+}
+function drawThreeChart(){
+  const cols={POL:css("--accent"),DEU:css("--verm"),ITA:css("--hi")}, shp={POL:"circ",DEU:"tri",ITA:"sq"};
+  const show = stB.all ? ["POL","DEU","ITA"] : stB.pOk ? ["POL"] : [];
+  if (!show.length){ $("#threeChart").innerHTML='<div class="cs" style="padding:2rem 1rem">The chart appears once you have computed Poland.</div>'; return; }
+  const series=show.map(c=>({name:NAMES[c],color:cols[c],shape:shp[c],pts:Object.keys(T[c]).map(Number).sort((a,b)=>a-b).map(y=>[y, T[c][y].real_bn/rr(c,2021)*100])}));
+  lineChart($("#threeChart"),{title:"Real defence spending, 2014–2024",sub:"Index, 2021 = 100",series,yfmt:v=>v.toFixed(0),H:300});
+}
+$$('#q-guessB input').forEach(i=>i.addEventListener("change",()=>{ if(!stB.guess) $("#gbBtn").disabled=false; }));
+function showGuess(){ if(!stB.guess) return; $("#gbOut").textContent="Your guess: "+NAMES[stB.guess]+". Now check it."; $("#gbBtn").disabled=true; $$('#q-guessB input').forEach(i=>{i.disabled=true; i.checked=i.value===stB.guess;}); fbB(); }
+$("#gbBtn").addEventListener("click",()=>{ const v=$('#q-guessB input:checked')?.value; if(!v) return; stB.guess=v; saveB(); showGuess(); });
+$("#pb-btn").addEventListener("click",()=>{ const a=parseFloat($("#pb-21").value), b=parseFloat($("#pb-24").value), c=parseFloat($("#pb-ch").value), fb=$("#pb-fb");
+  const A1=rr("POL",2021), B1=rr("POL",2024), C1=(B1/A1-1)*100;
+  if ([a,b,c].some(isNaN)){ fb.className="fb no"; fb.textContent="Fill in all three boxes."; return; }
+  const ok1=Math.abs(a-A1)<=0.15, ok2=Math.abs(b-B1)<=0.15, ok3=Math.abs(c-C1)<=2;
+  if (ok1&&ok2&&ok3){ fb.className="fb ok"; fb.textContent=`Right: 2.217/100 × 605.3 = ${A1.toFixed(1)}; 4.154/100 × 658.1 = ${B1.toFixed(1)}; change ${sgn(C1,0)}%.`; stB.pOk=true; saveB(); drawThreeTable(); drawThreeChart(); }
+  else { fb.className="fb no"; fb.textContent = !ok1||!ok2 ? "Check the spending: divide the share by 100, then multiply by real GDP." : "Spending is right. Change = (2024 ÷ 2021 − 1) × 100."; } });
+$("#pb-all").addEventListener("click",()=>{ stB.all=true; saveB(); drawThreeTable(); drawThreeChart(); markDone("activityB"); fbB(); });
+function fbB(){ const g=stB.guess; $("#fbB-guess").textContent = !g ? "Make your guess in step 6 to compare." : g==="POL" ? "Your guess, Poland, was right." : `Your guess was ${NAMES[g]}. The answer is Poland.`; if (g && stB.all) markDone("feedbackB"); }
+$("#csvThree").value="country,year,share,gdp_real\n"+["POL","DEU","ITA"].flatMap(c=>Object.keys(T[c]).map(y=>`${NAMES[c]},${y},${T[c][y].share},${T[c][y].gdp_real_bn}`)).join("\n");
+
+/* ---------- STEP 8 EXERCISE ---------- */
+const DE=T.DEU, deYears=Object.keys(DE).map(Number).sort((a,b)=>a-b);
+function barChart(container,{title,sub,vals,ymin,yfmt,color,H=300,source}){
+  const f=frame(container,{title,sub,H,m:{t:16,r:16,b:30,l:52}});
+  const ymax=Math.max(...vals.map(v=>v[1]))*1.08; const yt=niceTicks(ymin,ymax,4);
+  const top=yt.ticks[yt.ticks.length-1]>=ymax?yt.ticks[yt.ticks.length-1]:ymax;
+  const ys=v=>f.m.t+f.ih-(v-ymin)/(top-ymin)*f.ih; const bw=f.iw/vals.length;
+  axes(f,i=>f.m.l+bw*(i+.5),ys,{xticks:[],yticks:yt.ticks.filter(v=>v>=ymin&&v<=top),yfmt});
+  vals.forEach((v,i)=>{ const x=f.m.l+bw*i+bw*0.18, w=bw*0.64, y=ys(v[1]), h=ys(ymin)-y;
+    el("path",{d:`M${x},${y+h} V${y+3} Q${x},${y} ${x+3},${y} H${x+w-3} Q${x+w},${y} ${x+w},${y+3} V${y+h} Z`,fill:color},f.svg);
+    if (i%2===0||i===vals.length-1){ const t=el("text",{x:x+w/2,y:f.H-f.m.b+18,"text-anchor":"middle"},f.svg); t.textContent=v[0]; }
+    const hit=el("rect",{x:f.m.l+bw*i,y:f.m.t,width:bw,height:f.ih,fill:"transparent"},f.svg);
+    hit.addEventListener("pointerenter",()=>showTip(f,x+w/2,y,`<b>${v[0]}</b>: ${yfmt(v[1])}`)); hit.addEventListener("pointerleave",()=>hideTip(f)); });
+  if (source){ const s=document.createElement("div"); s.className="cs"; s.textContent=source; container.appendChild(s); }
+}
+function drawBad(){ barChart($("#badChart"),{title:"Germany's defence spending has exploded!",sub:"Billion US$",vals:deYears.map(y=>[y,DE[y].usd_bn]),ymin:40,yfmt:v=>v.toFixed(0),color:css("--verm"),H:280}); }
+let bM="usd", bA="cut";
+function drawFix(){
+  const m={usd:["Billion current US$",y=>DE[y].usd_bn,v=>v.toFixed(0),40],real:["Billion US$ at 2015 prices",y=>DE[y].real_bn,v=>v.toFixed(0),30],share:["% of GDP",y=>DE[y].share,v=>v.toFixed(1)+"%",1]}[bM];
+  const ymin = bA==="zero"?0:m[3];
+  barChart($("#fixChart"),{title:"German defence spending, 2014–2024",sub:m[0]+(bA==="zero"?"":" (axis cut)"),vals:deYears.map(y=>[y,m[1](y)]),ymin,yfmt:m[2],color:css("--accent"),H:260,source:"Source: SIPRI via World Bank, World Development Indicators"});
+  const fb=$("#fixFb");
+  if (bA==="cut"){ fb.className="fb no"; fb.textContent="The axis is still cut: bar lengths are not proportional to the values."; }
+  else if (bM==="usd"){ fb.className="fb no"; fb.textContent="Axis fixed. Current dollars still mix real growth with inflation and exchange rates."; }
+  else { fb.className="fb ok"; fb.textContent = bM==="real" ? "Honest: real terms, from zero. Spending rose by about 83% in ten years, most of it after 2021." : "Honest too: a share of GDP from zero, 1.1% to 1.9%. This answers a different question: effort relative to the economy."; markDone("exercise"); }
+}
+seg("segBadM",v=>{bM=v;drawFix();}); seg("segBadA",v=>{bA=v;drawFix();});
+$("#badBtn").addEventListener("click",()=>{ const sel=$$('#q-bad input:checked').map(i=>i.value), right=["axis","nominal","source"];
+  const ok = right.every(r=>sel.includes(r)) && sel.length===3, fb=$("#badFb");
+  fb.className="fb "+(ok?"ok":"no");
+  fb.textContent = ok ? "Right: three problems. The numbers themselves are real (SIPRI), and bars are fine for yearly totals." : sel.includes("invented") ? "The figures are real SIPRI data; the problem is how they are shown." : sel.includes("bars") ? "Bars are fine for yearly totals, as long as they start at zero." : "There are three problems to find."; });
+const note=$("#note"); note.value=store.get("note","");
+function wc(){ const n=note.value.trim()?note.value.trim().split(/\s+/).length:0; $("#wc").textContent=n+" words"; }
+note.addEventListener("input",()=>{store.set("note",note.value); wc();}); wc();
+$("#modelBtn").addEventListener("click",()=>{ $("#model").hidden=!$("#model").hidden; });
+
+/* ---------- STEP 9 QUIZ ---------- */
+const QUIZ=[
+ {q:"EU defence spending rose in current dollars between 1990 and 2021 but fell as a share of GDP. How?",o:["One of the two series must be wrong","GDP grew faster than defence spending","Inflation lowered the share of GDP"],a:1,e:"A share falls whenever the denominator, GDP, grows faster than the numerator."},
+ {q:"Spending in real terms removes the effect of…",o:["changes in prices","changes in the size of the economy","changes in the number of soldiers"],a:0,e:"Real terms hold prices constant; the share of GDP is what adjusts for the size of the economy."},
+ {q:"Why are night lights useful for checking official growth?",o:["They measure GDP exactly","They are produced by someone the government cannot edit","They are brighter in democracies"],a:1,e:"Satellite images are an outside witness; they are noisy, but not manipulable by a statistics office."},
+ {q:"A country's official growth is 2 points a year above what its lights imply. What can you conclude?",o:["Its government falsifies statistics","It is worth investigating","Nothing at all"],a:1,e:"A gap makes a suspect, not a culprit: think of services-led growth or saturated city lights."},
+ {q:"A bar chart's vertical axis starts at 40 instead of 0. What goes wrong?",o:["Nothing, if the axis is labelled","Bar lengths are no longer proportional to the values","The bars become harder to colour"],a:1,e:"Readers compare bar lengths; a cut axis exaggerates differences."}];
+let qa=store.get("quiz",{});
+function drawQuiz(){
+  $("#quizBox").innerHTML=QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?"Right. ":"Not quite. "}${q.e}</p>`:""}</div>`).join("");
+  $$("#quizBox input").forEach(i=>i.addEventListener("change",()=>{ qa[+i.name.slice(2)]=+i.value; store.set("quiz",qa); drawQuiz(); }));
+  const n=Object.keys(qa).length, s=QUIZ.filter((q,i)=>qa[i]===q.a).length;
+  $("#quizScore").textContent = n===QUIZ.length ? `Score: ${s} out of ${QUIZ.length}.` : "";
+  if (n===QUIZ.length) markDone("quiz");
+}
+
+$("#dl-btn").addEventListener("click",()=>{ const [v]=readNums(["dl-in"]);
+  if (Math.abs(v-1.89)<=0.02) feedback($("#dl-fb"),true,"Right: 1.89% of GDP in 2024 (SIPRI). If your download shows a slightly different figure, the database has been revised since October 2026: always note the date you downloaded.");
+  else feedback($("#dl-fb"),false,"Look for 2024 in the Germany series; it should be just under 2%."); });
+wireCopy(); wireReset();
+/* ---------- boot ---------- */
+function drawCharts(){ drawPuzzle(); drawTenChart(); if (!$("#fa-body").hidden) drawAllChart(); drawEU(); drawThreeChart(); drawBad(); drawFix(); }
+function drawAll(){
+  drawTenTable(); drawThreeTable(); drawQuiz(); drawCharts();
+  const p=store.get("puz",null); if (p){ $$('#q-puzzle input').forEach(i=>{i.checked=i.value===p; i.disabled=true;}); $("#puzBtn").disabled=true; puzReveal(p); }
+  if (stA.revealed) openFeedbackA();
+  if (stA.aOk){ const a=ten[0]; $("#aa-exp").value=a.exp.toFixed(2); $("#aa-gap").value=a.gap.toFixed(2); }
+  showGuess(); fbB();
+}
+drawAll();
+// redraw charts when the theme changes so colours follow the tokens
+try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", drawCharts); new MutationObserver(drawCharts).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]}); } catch(e){}
+let rz, lastW=innerWidth; addEventListener("resize",()=>{ if (innerWidth===lastW) return; lastW=innerWidth; clearTimeout(rz); rz=setTimeout(drawCharts,200);});
+
+</script>
+</body>
+</html>
