@@ -283,27 +283,8 @@ a.btn{color:#fff}
   </div>
 </section>
 
-<section class="step col" id="brief" data-title="Your brief">
-  <div class="stephead"><span class="eyebrow">Step 8 · Your brief · 45 min</span><h2>Choose your country and question</h2></div>
-  <p>Across the course you write one two-page policy brief, advising the government of one country. Choose now; each later session adds a piece. Your choices and drafts are saved in this browser and collected on the <a href="index.html#brief">course home page</a>.</p>
-  <div class="brief-box">
-    <label for="bCountry">Country</label>
-    <input type="text" id="bCountry" data-brief="country" placeholder="for example Spain" style="width:100%">
-    <label>Question</label>
-    <div class="choice" id="bQuestion">
-      <label><input type="radio" name="bq" value="A"> A. Is it spending enough on defence, and would voters accept more? <span class="small">(sessions 1, 2, 4, 6)</span></label>
-      <label><input type="radio" name="bq" value="B"> B. Should it reduce its dependence on China for a critical product? <span class="small">(sessions 3, 6)</span></label>
-      <label><input type="radio" name="bq" value="C"> C. Are sanctions on Russia being circumvented through its trade? <span class="small">(sessions 1, 5)</span></label>
-      <label><input type="radio" name="bq" value="D"> D. Can we trust its official growth figures? <span class="small">(sessions 1, 4)</span></label>
-    </div>
-    <label for="bData">Data you will need, and where to download it</label>
-    <textarea id="bData" data-brief="data" rows="4" placeholder="for example SIPRI military expenditure for Spain, 2000–2024; Eurobarometer question on defence spending"></textarea>
-  </div>
-  <p class="small">For question A, Eurobarometer asks Europeans about defence spending; the margin-of-error method of this session applies directly.</p>
-</section>
-
 <section class="step col" id="quiz" data-title="Self-check">
-  <div class="stephead"><span class="eyebrow">Step 9 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div class="stephead"><span class="eyebrow">Step 8 · Self-check · 5 min</span><h2>Five questions</h2></div>
   <div id="quizBox"></div>
   <p class="headline-claim" id="quizScore"></p>
   <div class="nextprev"><a href="session1.html">← Session 1: Can we trust the numbers?</a><a href="session3.html">Session 3: Who depends on whom? →</a></div>
@@ -332,6 +313,7 @@ const DATA = {"polls": [{"p": "CBS Research\u2013WatchDog", "dates": "11\u201316
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const NS = "http://www.w3.org/2000/svg";
 const PFX = "qm" + (window.SESSION || 0) + ":";
+function learnerCode(name){ let h=2166136261; for (const ch of String(name).trim().toLowerCase().replace(/\s+/g," ")){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619); } return "QM-"+(h>>>0).toString(36).toUpperCase().padStart(7,"0"); }
 const store = {
   get(k, d){ try { const v = localStorage.getItem(PFX+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
   set(k, v){ try { localStorage.setItem(PFX+k, JSON.stringify(v)); } catch(e){} }
@@ -638,11 +620,6 @@ $("#pb-btn").addEventListener("click",()=>{ const [c,m]=readNums(["pb-ch","pb-m"
 $("#pb-all").addEventListener("click",()=>{ stB.all=true; store.set("actB",stB); drawPew(); markDone("activityB"); markDone("feedbackB"); });
 $("#csvPew").value = "country,y24,y25\n"+PW.filter(r=>r.y24!==null).map(r=>`${r.c},${r.y24},${r.y25}`).join("\n");
 const tn=$("#trendsNote"); tn.value=store.get("trends",""); tn.addEventListener("input",()=>{ store.set("trends",tn.value); if (tn.value.length>20) markDone("feedbackB"); });
-
-/* brief */
-wireBrief();
-const bq = brief.get("question","");
-$$("#bQuestion input").forEach(i=>{ i.checked = i.value===bq; i.addEventListener("change",()=>{ brief.set("question", i.value); markDone("brief"); }); });
 
 /* quiz */
 quiz($("#quizBox"), $("#quizScore"), [

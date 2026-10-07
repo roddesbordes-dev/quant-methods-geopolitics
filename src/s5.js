@@ -66,13 +66,6 @@ $("#exModel").innerHTML = `<h4>Model note</h4>
 <p><b>Why it could be wrong.</b> Türkiye's very high inflation and currency swings after 2021 changed its demand for EU goods for reasons unrelated to Russia; euro values also mix prices and volumes. The estimate is an upper bound on rerouting, much smaller than for Kyrgyzstan.</p>`;
 $("#exBtn").addEventListener("click",()=>{ $("#exModel").hidden=!$("#exModel").hidden; markDone("exercise"); });
 
-/* brief */
-wireBrief();
-const bc=brief.get("country",""), bqq=brief.get("question","");
-$("#briefWho").textContent = bc||bqq ? `Your brief: ${bc||"country not chosen yet"}, question ${bqq||"not chosen yet"}.${bqq&&bqq!=="C"?" This step matters only for question C; you can skip it.":""}` : "You have not chosen a country and question yet (session 2, step 8).";
-$("#bDid").addEventListener("input",()=>markDone("brief"));
-if (bqq && bqq!=="C") markDone("brief");
-
 /* quiz */
 quiz($("#quizBox"), $("#quizScore"), [
  {q:"Why is a before/after comparison not enough to measure the effect of sanctions?",o:["Because other things changed at the same time","Because trade data are secret","Because sanctions have no effect"],a:0,e:"Inflation, recovery and other shocks also changed trade; the comparison group absorbs them."},

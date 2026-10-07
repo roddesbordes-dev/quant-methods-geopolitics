@@ -18,8 +18,7 @@ $("#la-btn").addEventListener("click",()=>{ const [v]=readNums(["la-in"]); const
 
 /* activity */
 $("#cC").innerHTML = F.map(f=>`<option value="${f.iso}">${f.n}</option>`).join("");
-const myF = F.find(f=>f.n.toLowerCase()===(brief.get("country","")||"").trim().toLowerCase());
-$("#cC").value = store.get("country", myF?myF.iso:"DEU");
+$("#cC").value = store.get("country","DEU");
 function cur(){ return F.find(f=>f.iso===$("#cC").value); }
 function info(){ const f=cur(); $("#cInfo").innerHTML = `${f.n}: net energy imports <b>${f.net_pct.toFixed(2)}% of GDP</b> (${f.year}).${f.net_pct<0?" A net exporter: the formula gives a gain, shown as a negative cost.":""}`;
   $("#aiPrompt").textContent = `What would the closure of the Strait of Hormuz from March 2026 cost ${f.n}, as a share of GDP per year? Give a low and a high estimate, state the oil price rise you assume, the size of ${f.n}'s net energy imports as a share of GDP, and your sources.`; }
@@ -41,13 +40,6 @@ function drawCost(){
 function fbGuess(){ const g=store.get("guess",null); if (!g) return; $("#fbGuess").textContent = g==="b" ? "Your guess, about 1% to 2% of GDP, was right for a typical EU country." : `Your guess was ${({a:"less than 0.5%",c:"about 3% to 5%",d:"more than 5%"})[g]}. For a typical EU country the answer is about 1% to 2% of GDP.`; }
 const au=store.get("audit",[]); $$("#aiAudit input").forEach(i=>{ i.checked=au.includes(i.value); i.addEventListener("change",()=>{ const v=$$("#aiAudit input:checked").map(x=>x.value); store.set("audit",v); $("#aiScore").textContent=`The AI passed ${v.length} of 5 checks.`; markDone("feedback"); }); });
 if (au.length) $("#aiScore").textContent=`The AI passed ${au.length} of 5 checks.`;
-
-/* brief */
-wireBrief();
-const bc=brief.get("country",""), bqq=brief.get("question","");
-$("#briefWho").textContent = bc||bqq ? `Your brief: ${bc||"country not chosen yet"}, question ${bqq||"not chosen yet"}.` : "You have not chosen a country and question yet (session 2, step 8).";
-$$("[data-brief]").forEach(t=>t.addEventListener("input",()=>{ if ($("#b1").value.length>30 && $("#b3").value.length>20) markDone("brief"); }));
-const pd=$("#presDone"); pd.checked=store.get("pres",false); pd.addEventListener("change",()=>{ store.set("pres",pd.checked); if (pd.checked) markDone("present"); });
 
 /* quiz */
 quiz($("#quizBox"), $("#quizScore"), [

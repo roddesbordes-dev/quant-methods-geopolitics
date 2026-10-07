@@ -66,12 +66,6 @@ function fbRange(){ if (stB.best===null) return; const n=NAMES[stB.country];
 $("#rCountry").addEventListener("change",()=>{ stB={country:$("#rCountry").value,best:null,worst:null}; drawIdx(); });
 $("#csvIdx").value = "country,china,hhi,energy\n"+CO.map(c=>`${c.n},${c.china},${c.hhi},${c.energy}`).join("\n");
 
-/* brief */
-wireBrief();
-const bc=brief.get("country",""), bqq=brief.get("question","");
-$("#briefWho").textContent = bc||bqq ? `Your brief: ${bc||"country not chosen yet"}, question ${bqq||"not chosen yet"}.` : "You have not chosen a country and question yet (session 2, step 8). You can still draft here.";
-$("#bSource").addEventListener("input",()=>markDone("brief"));
-
 /* quiz */
 quiz($("#quizBox"), $("#quizScore"), [
  {q:"Two suppliers, 50% each. What is the HHI?",o:["100","2,500","5,000"],a:2,e:"50² + 50² = 5,000."},

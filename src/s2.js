@@ -74,11 +74,6 @@ $("#pb-all").addEventListener("click",()=>{ stB.all=true; store.set("actB",stB);
 $("#csvPew").value = "country,y24,y25\n"+PW.filter(r=>r.y24!==null).map(r=>`${r.c},${r.y24},${r.y25}`).join("\n");
 const tn=$("#trendsNote"); tn.value=store.get("trends",""); tn.addEventListener("input",()=>{ store.set("trends",tn.value); if (tn.value.length>20) markDone("feedbackB"); });
 
-/* brief */
-wireBrief();
-const bq = brief.get("question","");
-$$("#bQuestion input").forEach(i=>{ i.checked = i.value===bq; i.addEventListener("change",()=>{ brief.set("question", i.value); markDone("brief"); }); });
-
 /* quiz */
 quiz($("#quizBox"), $("#quizScore"), [
  {q:"A poll of 1,000 people gives 52% Yes. Roughly what is its margin of error?",o:["±1 point","±3 points","±10 points"],a:1,e:"1.96 × √(0.52 × 0.48 ÷ 1,000) ≈ 3.1 points."},

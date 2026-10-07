@@ -192,7 +192,7 @@ a.btn{color:#fff}
     <li><strong>Estimate and interpret a regression</strong> with controls, explain outliers, and say why it shows association rather than cause. <span class="small">(session 4)</span></li>
     <li><strong>Evaluate a policy</strong> with difference-in-differences and an event study, and state the assumptions behind the estimate. <span class="small">(session 5)</span></li>
     <li><strong>Cost a geopolitical shock</strong> with a range rather than a single number, and audit an AI assistant's analysis. <span class="small">(session 6)</span></li>
-    <li><strong>Communicate findings</strong> in a two-page policy brief and a three-minute presentation. <span class="small">(sessions 2–6)</span></li>
+    <li><strong>Communicate findings</strong> to a decision-maker: an honest chart, a claim audit, a one-page evaluation note and a short policy note. <span class="small">(sessions 1, 4, 5, 6)</span></li>
   </ol>
 </section>
 
@@ -210,7 +210,7 @@ a.btn{color:#fff}
     <tr><td>Estimate a difference-in-differences and draw an event study</td><td style="text-align:left">jamovi, Datawrapper</td><td style="text-align:left">Evaluating sanctions, aid and reforms</td></tr>
     <tr><td>Cost a scenario with low and high cases</td><td style="text-align:left">Spreadsheet arithmetic</td><td style="text-align:left">Crisis notes, risk assessments</td></tr>
     <tr><td>Audit a published claim and an AI assistant's answer</td><td style="text-align:left">A checklist of four questions</td><td style="text-align:left">Fact-checking, quality control</td></tr>
-    <tr><td>Write a two-page brief and present it in three minutes</td><td style="text-align:left">Word processor, slides</td><td style="text-align:left">Advising decision-makers</td></tr>
+    <tr><td>Write a one-page evaluation note and a short policy note</td><td style="text-align:left">Word processor</td><td style="text-align:left">Advising decision-makers</td></tr>
   </table></div>
   <p class="small">On your CV: data analysis (jamovi), data visualisation and mapping (Datawrapper), policy evaluation (difference-in-differences), indicator and index construction, scenario analysis.</p>
 </section>
@@ -220,9 +220,9 @@ a.btn{color:#fff}
   <ul class="tight">
     <li><strong>Six sessions of about three hours</strong>, at your own pace. Do them in order: each builds on the previous one.</li>
     <li><strong>Every session has the same rhythm</strong>: a puzzle on which you record a guess; two blocks of lesson, activity and feedback; and a final task.</li>
-    <li><strong>Final tasks</strong>: a practice exercise (session 1), the choice of your brief question (session 2), the first chart of your brief (session 3), a claim audit (session 4), an evaluation note (session 5), and the finished brief and presentation (session 6).</li>
+    <li><strong>Final tasks</strong>: a practice exercise (session 1), a claim audit (session 4), an evaluation note (session 5), and an optional two-page policy note (session 6); the other sessions end with a self-check quiz. The certificate of completion unlocks once every step is done.</li>
     <li><strong>Before each session</strong>, read the short reading listed at the bottom of its page (about 30 minutes).</li>
-    <li><strong>Your answers and your brief</strong> are saved in this browser only: nothing is sent anywhere. Use the same browser throughout.</li>
+    <li><strong>Your answers</strong> are saved in this browser only: nothing is sent anywhere. Use the same browser throughout.</li>
   </ul>
   <div class="nextprev"><a href="index.html">← Course home</a><a href="session1.html">Start with session 1: Can we trust the numbers? →</a></div>
 </section>
@@ -235,6 +235,7 @@ const DATA = {};
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const NS = "http://www.w3.org/2000/svg";
 const PFX = "qm" + (window.SESSION || 0) + ":";
+function learnerCode(name){ let h=2166136261; for (const ch of String(name).trim().toLowerCase().replace(/\s+/g," ")){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619); } return "QM-"+(h>>>0).toString(36).toUpperCase().padStart(7,"0"); }
 const store = {
   get(k, d){ try { const v = localStorage.getItem(PFX+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
   set(k, v){ try { localStorage.setItem(PFX+k, JSON.stringify(v)); } catch(e){} }

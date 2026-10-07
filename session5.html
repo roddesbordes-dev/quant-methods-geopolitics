@@ -279,17 +279,8 @@ a.btn{color:#fff}
   </div>
 </section>
 
-<section class="step col" id="brief" data-title="Your brief">
-  <div class="stephead"><span class="eyebrow">Step 9 · Your brief · 10 min</span><h2>For question C</h2></div>
-  <p id="briefWho" class="small"></p>
-  <div class="brief-box">
-    <label for="bDid">If your question is C: your country's difference-in-differences estimate, the event-study pattern, and the main caveat. Comext has monthly data for every EU partner.</label>
-    <textarea id="bDid" data-brief="did" rows="5"></textarea>
-  </div>
-</section>
-
 <section class="step col" id="quiz" data-title="Self-check">
-  <div class="stephead"><span class="eyebrow">Step 10 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div class="stephead"><span class="eyebrow">Step 9 · Self-check · 5 min</span><h2>Five questions</h2></div>
   <div id="quizBox"></div>
   <p class="headline-claim" id="quizScore"></p>
   <div class="nextprev"><a href="session4.html">← Session 4: Poland, Spain and the line</a><a href="session6.html">Session 6: What Hormuz costs →</a></div>
@@ -318,6 +309,7 @@ const DATA = {"months": ["2019-01", "2019-02", "2019-03", "2019-04", "2019-05", 
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const NS = "http://www.w3.org/2000/svg";
 const PFX = "qm" + (window.SESSION || 0) + ":";
+function learnerCode(name){ let h=2166136261; for (const ch of String(name).trim().toLowerCase().replace(/\s+/g," ")){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619); } return "QM-"+(h>>>0).toString(36).toUpperCase().padStart(7,"0"); }
 const store = {
   get(k, d){ try { const v = localStorage.getItem(PFX+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
   set(k, v){ try { localStorage.setItem(PFX+k, JSON.stringify(v)); } catch(e){} }
@@ -616,13 +608,6 @@ $("#exModel").innerHTML = `<h4>Model note</h4>
 <p><b>Assumption.</b> Without sanctions, exports to Türkiye would have grown like exports to the comparison group. The flat pre-2022 line supports this.</p>
 <p><b>Why it could be wrong.</b> Türkiye's very high inflation and currency swings after 2021 changed its demand for EU goods for reasons unrelated to Russia; euro values also mix prices and volumes. The estimate is an upper bound on rerouting, much smaller than for Kyrgyzstan.</p>`;
 $("#exBtn").addEventListener("click",()=>{ $("#exModel").hidden=!$("#exModel").hidden; markDone("exercise"); });
-
-/* brief */
-wireBrief();
-const bc=brief.get("country",""), bqq=brief.get("question","");
-$("#briefWho").textContent = bc||bqq ? `Your brief: ${bc||"country not chosen yet"}, question ${bqq||"not chosen yet"}.${bqq&&bqq!=="C"?" This step matters only for question C; you can skip it.":""}` : "You have not chosen a country and question yet (session 2, step 8).";
-$("#bDid").addEventListener("input",()=>markDone("brief"));
-if (bqq && bqq!=="C") markDone("brief");
 
 /* quiz */
 quiz($("#quizBox"), $("#quizScore"), [

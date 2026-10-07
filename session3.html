@@ -271,20 +271,8 @@ a.btn{color:#fff}
   <div class="box key"><h4>Remember</h4>Before quoting a ranking, ask what went in, how it was weighted, and how much the order changes with other reasonable choices.</div>
 </section>
 
-<section class="step col" id="brief" data-title="Your brief">
-  <div class="stephead"><span class="eyebrow">Step 8 · Your brief · 45 min</span><h2>First chart and main source</h2></div>
-  <p id="briefWho" class="small"></p>
-  <div class="brief-box">
-    <label for="bSource">Your main source, why you chose it, and its weaknesses (coverage, possible bias, revisions)</label>
-    <textarea id="bSource" data-brief="source" rows="5"></textarea>
-    <label for="bChart">Your first chart: its title (stating the finding), the unit, the years, and the source line</label>
-    <textarea id="bChart" data-brief="chart1" rows="4"></textarea>
-  </div>
-  <p class="small">For question B, the product and country data on this page are a starting point: UN Comtrade gives the same figures for any country and product. Draw the chart in <a href="https://www.datawrapper.de" target="_blank" rel="noopener">Datawrapper</a>.</p>
-</section>
-
 <section class="step col" id="quiz" data-title="Self-check">
-  <div class="stephead"><span class="eyebrow">Step 9 · Self-check · 5 min</span><h2>Five questions</h2></div>
+  <div class="stephead"><span class="eyebrow">Step 8 · Self-check · 5 min</span><h2>Five questions</h2></div>
   <div id="quizBox"></div>
   <p class="headline-claim" id="quizScore"></p>
   <div class="nextprev"><a href="session2.html">← Session 2: Can we trust a poll?</a><a href="session4.html">Session 4: Poland, Spain and the line →</a></div>
@@ -314,6 +302,7 @@ const DATA = {"products": [{"code": "810411", "name": "Unwrought magnesium", "to
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const NS = "http://www.w3.org/2000/svg";
 const PFX = "qm" + (window.SESSION || 0) + ":";
+function learnerCode(name){ let h=2166136261; for (const ch of String(name).trim().toLowerCase().replace(/\s+/g," ")){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619); } return "QM-"+(h>>>0).toString(36).toUpperCase().padStart(7,"0"); }
 const store = {
   get(k, d){ try { const v = localStorage.getItem(PFX+k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
   set(k, v){ try { localStorage.setItem(PFX+k, JSON.stringify(v)); } catch(e){} }
@@ -612,12 +601,6 @@ function fbRange(){ if (stB.best===null) return; const n=NAMES[stB.country];
 ["w1","w2","w3"].forEach(id=>$("#"+id).addEventListener("input",()=>drawIdx()));
 $("#rCountry").addEventListener("change",()=>{ stB={country:$("#rCountry").value,best:null,worst:null}; drawIdx(); });
 $("#csvIdx").value = "country,china,hhi,energy\n"+CO.map(c=>`${c.n},${c.china},${c.hhi},${c.energy}`).join("\n");
-
-/* brief */
-wireBrief();
-const bc=brief.get("country",""), bqq=brief.get("question","");
-$("#briefWho").textContent = bc||bqq ? `Your brief: ${bc||"country not chosen yet"}, question ${bqq||"not chosen yet"}.` : "You have not chosen a country and question yet (session 2, step 8). You can still draft here.";
-$("#bSource").addEventListener("input",()=>markDone("brief"));
 
 /* quiz */
 quiz($("#quizBox"), $("#quizScore"), [
