@@ -1,0 +1,145 @@
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Accueil du cours</a><span>Séance 5 sur 6</span></div>
+  <h1 style="margin-top:.6rem">Pourquoi les voitures allemandes ont-elles afflué au Kirghizstan ?</h1>
+  <p class="lede">Les sanctions fonctionnent-elles, ou les marchandises font-elles simplement un détour ? Les organisations internationales répondent à ce type de question par l'évaluation des politiques publiques. Dans cette séance, vous estimez quelle part du commerce de l'UE avec la Russie a été détournée via ses voisins, à l'aide d'une différence de différences et d'une étude d'événement sur des données mensuelles d'Eurostat.</p>
+  <div class="meta"><span><b>Environ 3 heures</b> à votre rythme</span><span><b>Aucun logiciel nécessaire</b> dans le navigateur ; étapes facultatives dans jamovi</span><span><b>Vos réponses</b> restent uniquement dans ce navigateur</span></div>
+</header>
+
+<nav class="steps" aria-label="Étapes de cette séance"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Étape 1 · Énigme · 10 min</span><h2>Le graphique</h2></div>
+  <figure class="wide"><div class="chart" id="carChart"></div></figure>
+  <p>Les exportations allemandes de voitures et de pièces automobiles vers le Kirghizstan, pays de sept millions d'habitants voisin du Kazakhstan, ont été multipliées par soixante environ entre 2021 et 2023. Le Kirghizstan appartient à une union douanière avec la Russie. Est-ce la preuve que les sanctions échouent ?</p>
+  <div class="box task"><h4>Votre estimation</h4>
+    <p>Les exportations de l'UE vers la Russie se sont effondrées après février 2022. Quelle part approximative des exportations perdues est revenue par l'Arménie, le Kazakhstan et le Kirghizstan ?</p>
+    <div class="choice" id="q-share">
+      <label><input type="radio" name="sh" value="5"> Moins de 5 %</label>
+      <label><input type="radio" name="sh" value="10"> Environ 10 %</label>
+      <label><input type="radio" name="sh" value="30"> Environ 30 %</label>
+      <label><input type="radio" name="sh" value="50"> Plus de la moitié</label>
+    </div>
+    <div class="row"><button id="shBtn" disabled>Valider mon estimation</button><span class="small" id="shOut"></span></div>
+  </div>
+</section>
+
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Étape 2 · Leçon · 25 min</span><h2>Que se serait-il passé de toute façon ?</h2></div>
+  <p>Toute évaluation compare ce qui s'est passé avec ce qui se serait passé sans la politique : le <strong>contrefactuel</strong>. Nous ne l'observons jamais, nous devons donc le construire.</p>
+  <h3>Comparer avant et après ne suffit pas</h3>
+  <p>Les exportations de l'UE vers les voisins de la Russie ont plus que doublé après 2022. Mais les exportations de l'UE vers le reste du monde ont aussi augmenté, avec l'inflation et la reprise post-COVID. Une comparaison avant/après mélange l'effet des sanctions avec tout ce qui a changé par ailleurs.</p>
+  <h3>La différence de différences</h3>
+  <p>Prenez un groupe <em>traité</em> (les voisins de la Russie) et un groupe de <em>comparaison</em> exposé aux mêmes chocs généraux mais pas au détour (le reste du monde, hors Russie, ses autres voisins et les plateformes commerciales connues). Calculez la variation de chacun et faites la soustraction :</p>
+  <p class="formula">effet = (variation pour les voisins) − (variation pour le groupe de comparaison)</p>
+  <p>La variation du groupe de comparaison est notre estimation de ce qui serait arrivé aux voisins de toute façon. Nous utilisons ici des variations en pourcentage, car les deux groupes ont des tailles très différentes.</p>
+  <h3>L'hypothèse clé : les tendances parallèles</h3>
+  <p>La méthode suppose que, sans sanctions, les deux groupes auraient évolué en parallèle. On ne peut pas la tester après l'événement, mais on peut vérifier s'ils évoluaient en parallèle <em>avant</em>. C'est le rôle de l'étude d'événement de l'étape 5.</p>
+  <div class="box task"><h4>Vérifiez-vous</h4>
+    <p>Un groupe traité croît de 50 %, le groupe de comparaison de 20 %. Quelle est l'estimation par différence de différences, en points de pourcentage ?</p>
+    <div class="row"><input type="number" id="la-in" aria-label="Estimation"><button id="la-btn">Vérifier</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Étape 3 · Activité · 20 min</span><h2>Dans la peau du contrôleur des sanctions</h2></div>
+  <p>Exportations mensuelles moyennes de l'UE, en millions d'euros. Avant : de janvier 2019 à décembre 2021. Après : de mars 2022 à décembre 2024.</p>
+  <div class="tscroll"><table id="ddTable" aria-label="Tableau à double entrée"></table></div>
+  <div class="box task"><h4>Calculez l'effet</h4>
+    <div class="row"><label for="aa1">Variation pour les voisins, %</label><input type="number" step="0.1" id="aa1"></div>
+    <div class="row"><label for="aa2">Variation pour le reste du monde, %</label><input type="number" step="0.1" id="aa2"></div>
+    <div class="row"><label for="aa3">Différence de différences, en points</label><input type="number" step="0.1" id="aa3"><button id="aa-btn">Vérifier</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <details class="jam"><summary>À faire maintenant dans jamovi (facultatif, 10 min)</summary>
+    <ol class="tight"><li>Collez les données mensuelles ci-dessous (une ligne par mois et par groupe).</li>
+      <li>Calculez <span class="mono">after = month >= "2022-03"</span> (ou créez-la avec <b>Transform</b> ; noms des menus de l'interface anglaise de jamovi) et ne conservez que les mois jusqu'à 2024-12 à l'aide d'un filtre.</li>
+      <li><b>Exploration → Descriptives</b> : moyenne de <span class="mono">exports</span> ventilée par <span class="mono">group</span> et <span class="mono">after</span>. Remplissez le tableau 2×2 à partir des résultats.</li></ol>
+    <textarea readonly id="csvDD" aria-label="Données pour jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvDD">Copier les données</button><span class="small" data-copied="csvDD"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Étape 4 · Retour · 10 min</span><h2>Environ un dixième est revenu</h2></div>
+  <p id="fa-locked" class="small">Terminez le calcul de l'étape 3 pour débloquer ce retour.</p>
+  <div id="fa-body" hidden>
+    <p class="headline-claim" id="faGuess"></p>
+    <p>Si les importations des trois voisins en provenance de l'UE avaient progressé comme celles du reste du monde (+33 %), elles auraient atteint en moyenne environ 770 millions d'euros par mois après mars 2022. Elles ont atteint en moyenne 1 334 millions d'euros : un surplus de 564 millions d'euros par mois, soit environ 6,8 milliards d'euros par an.</p>
+    <p>Sur la même période, les exportations de l'UE vers la Russie sont tombées de 7,2 à 3,3 milliards d'euros par mois, tandis que le groupe de comparaison progressait d'un tiers. Mesurées de la même façon, environ 6,3 milliards d'euros par mois d'exportations vers la Russie ont été perdus. Le détour par l'Arménie, le Kazakhstan et le Kirghizstan a donc compensé environ <strong>9 %</strong> de la perte. Un effet réel, important pour ces trois économies, et faible au regard de l'effondrement.</p>
+    <div class="box key"><h4>En euros</h4>Une différence de pourcentages devient un chiffre utile pour la décision publique une fois reconvertie en montants : le niveau contrefactuel, l'excédent, la part du total.</div>
+  </div>
+</section>
+
+<section class="step col" id="lessonB" data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Étape 5 · Leçon · 25 min</span><h2>Mois par mois</h2></div>
+  <h3>L'étude d'événement</h3>
+  <p>Au lieu d'un seul avant et d'un seul après, représentez pour chaque mois le rapport entre le groupe traité et le groupe de comparaison, normalisé pour que la moyenne d'avant les sanctions soit égale à 100. Trois points à examiner :</p>
+  <ul class="tight">
+    <li><strong>Avant l'événement</strong>, la courbe doit être plate autour de 100 : cela conforte l'hypothèse de tendances parallèles.</li>
+    <li><strong>Au moment de l'événement</strong>, un saut qui commence quand la politique commence, et pas avant.</li>
+    <li><strong>Après</strong>, si l'effet persiste, s'amplifie ou s'estompe.</li>
+  </ul>
+  <h3>Le test placebo</h3>
+  <p>Faites comme si l'événement avait eu lieu à une date où rien ne s'est passé, par exemple mars 2020, et refaites la comparaison. Un « effet » important à une date fictive signale que quelque chose d'autre que la politique fait bouger les données. Ici, ce quelque chose est la pandémie : le commerce avec les petits voisins a reculé plus vite que le reste en 2020–21.</p>
+  <h3>Ce qui pourrait fausser l'estimation</h3>
+  <ul class="tight">
+    <li>Le groupe de comparaison a pu subir d'autres chocs, comme la crise énergétique.</li>
+    <li>Une partie de la croissance peut refléter une demande réelle d'économies restées en croissance, comme le Kazakhstan.</li>
+    <li>Les valeurs en euros incluent des hausses de prix qui diffèrent selon les produits.</li>
+  </ul>
+</section>
+
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Étape 6 · Activité · 20 min</span><h2>Quand le détour a-t-il commencé ?</h2></div>
+  <div class="row"><span class="small">Partenaire</span><div class="seg" id="segP"><button aria-pressed="true" data-v="NBR">Trois voisins</button><button aria-pressed="false" data-v="KG">Kirghizstan</button><button aria-pressed="false" data-v="AM">Arménie</button><button aria-pressed="false" data-v="KZ">Kazakhstan</button><button aria-pressed="false" data-v="GE">Géorgie</button><button aria-pressed="false" data-v="UZ">Ouzbékistan</button></div></div>
+  <div class="row"><span class="small">Date de l'événement</span><div class="seg" id="segE"><button aria-pressed="true" data-v="2022-03">Mars 2022 (réelle)</button><button aria-pressed="false" data-v="2020-03">Mars 2020 (placebo)</button></div></div>
+  <figure class="wide"><div class="chart" id="esChart"></div><figcaption>Exportations de l'UE vers le partenaire divisées par les exportations de l'UE vers le groupe de comparaison, moyenne mobile sur trois mois, moyenne d'avant l'événement = 100. Source : Eurostat Comext (DS-045409), données mensuelles, valeurs en euros.</figcaption></figure>
+  <div class="kpi" id="esK"></div>
+  <div class="box task"><h4>Votre lecture</h4>
+    <p>Quand le saut a-t-il commencé, s'estompe-t-il, et que montre le placebo ? Deux ou trois phrases.</p>
+    <textarea id="esNote" rows="4" aria-label="Votre lecture"></textarea></div>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Étape 7 · Retour · 10 min</span><h2>Un saut brutal, un lent reflux</h2></div>
+  <p>La courbe des trois voisins bondit au printemps 2022, exactement au début des sanctions, culmine en 2023 à près du double de son niveau d'avant-guerre par rapport au reste du monde, puis reflue lentement, tout en restant environ 50 % au-dessus en 2026. La courbe du Kirghizstan est la plus extrême, à six ou sept fois son niveau d'avant-guerre. Ce profil correspond à un détournement : il commence avec les sanctions et s'affaiblit à mesure que l'UE renforce les contrôles sur les réexportations à partir de 2023.</p>
+  <p>Le placebo n'est pas propre : avec une date fictive en mars 2020, les voisins reculent d'environ 13 points par rapport au reste du monde, car la pandémie les a frappés plus durement. La tendance d'avant-guerre était aussi orientée à la baisse en 2021. Cela rend plutôt notre estimation prudente, mais c'est le type de réserve qu'une note d'évaluation doit mentionner.</p>
+  <p>La Géorgie et l'Ouzbékistan, qui n'appartiennent pas à l'Union économique eurasiatique, progressent aussi : le détour ne se limite pas aux partenaires de la Russie au sein de l'union douanière.</p>
+</section>
+
+<section class="step col" id="exercise" data-title="Exercise 2">
+  <div class="stephead"><span class="eyebrow">Étape 8 · Exercice 2 · 45 min</span><h2>Un nouveau cas : la Turquie</h2></div>
+  <p>La Turquie ne s'est pas associée aux sanctions de l'UE et a continué à commercer avec la Russie. Les exportations de l'UE vers la Turquie ont-elles augmenté à cause des sanctions ? Utilisez la même méthode et le même groupe de comparaison.</p>
+  <div class="tscroll"><table id="trTable" aria-label="Turquie, tableau à double entrée"></table></div>
+  <figure class="wide"><div class="chart" id="trChart"></div></figure>
+  <div class="box task"><h4>Rédigez une note d'évaluation d'une page</h4>
+    <label class="small" for="ex1"><b>1. Le graphique</b> que vous montreriez (décrivez-le)</label><textarea id="ex1" rows="2"></textarea>
+    <label class="small" for="ex2"><b>2. L'effet</b> en une phrase, avec son chiffre</label><textarea id="ex2" rows="2"></textarea>
+    <label class="small" for="ex3"><b>3. L'hypothèse</b> sur laquelle il repose</label><textarea id="ex3" rows="2"></textarea>
+    <label class="small" for="ex4"><b>4. Une raison concrète</b> pour laquelle il pourrait être faux</label><textarea id="ex4" rows="2"></textarea>
+    <div class="row"><button class="ghost" id="exBtn">Comparer avec une note modèle</button></div>
+    <div id="exModel" hidden class="box key"></div>
+  </div>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Étape 9 · Autoévaluation · 5 min</span><h2>Cinq questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session4.html">← Séance 4 : La Pologne, l'Espagne et la droite</a><a href="session6.html">Séance 6 : Ce que coûte Ormuz →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Lectures et références</h3>
+  <ul class="refs">
+    <li>RFE/RL, <a href="https://www.rferl.org/a/kyrgyzstan-russia-car-reexports-sanctions-eeu/32781868.html" target="_blank" rel="noopener">« Kyrgyzstan's car re-export boom »</a> (en anglais).</li>
+    <li>Chupilkin, M., Javorcik, B. et Plekhanov, A. (2023), <a href="https://users.ox.ac.uk/~econ0247/Roundabout.pdf" target="_blank" rel="noopener">« The Eurasian Roundabout: trade flows into Russia through the Caucasus and Central Asia »</a>, document de travail de la BERD, introduction.</li>
+    <li>Cunningham, S., <a href="https://mixtape.scunning.com" target="_blank" rel="noopener">Causal Inference: The Mixtape</a>, chapitre sur la différence de différences (gratuit en ligne, pour les curieux).</li>
+  </ul>
+  <h3>Données</h3>
+  <ul class="refs">
+    <li>Eurostat Comext, <a href="https://ec.europa.eu/eurostat/web/international-trade-in-goods/database" target="_blank" rel="noopener">EU trade since 1988 by HS2-4-6 and CN8 (DS-045409)</a> : exportations mensuelles de l'UE par partenaire, de janvier 2019 à juillet 2026 ; exportations allemandes vers le Kirghizstan du chapitre 87 du SH (véhicules et pièces), données annuelles.</li>
+    <li>Groupe de comparaison : ensemble des exportations extra-UE, hors Russie, Biélorussie, Ukraine, Arménie, Azerbaïdjan, Géorgie, Kazakhstan, Kirghizstan, Mongolie, Tadjikistan, Turkménistan, Ouzbékistan, Turquie, Émirats arabes unis et Chine.</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Effacer mes réponses pour cette séance</button></p>
+</footer>

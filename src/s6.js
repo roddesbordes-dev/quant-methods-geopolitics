@@ -49,6 +49,10 @@ quiz($("#quizBox"), $("#quizScore"), [
  {q:"PortWatch shows almost no ships in the strait. Why might the true number be higher?",o:["Ships switch off transponders in war zones","Satellites cannot see at night","PortWatch counts only tankers"],a:0,e:"AIS-based counts understate traffic when ships go dark."},
  {q:"An AI assistant gives a precise cost with three references. What do you do first?",o:["Use it: it cites sources","Check that the references exist and that the numbers match the data","Ask another AI"],a:1,e:"Fluent answers can contain invented sources and outdated numbers."}], "quiz");
 
+/* help when stuck */
+helpAfter("la-btn","la-fb",()=>({"la-in":"0.73"}));
+helpAfter("cBtn","cFb",()=>{ const f=cur(); return {"cLo":lowC(f).toFixed(2),"cHi":highC(f).toFixed(2)}; });
+
 /* boot */
 drawHZ(); info(); drawCost(); fbGuess();
 wireReset();

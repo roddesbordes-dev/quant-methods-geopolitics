@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Course Certificate</title>
-<meta name="description" content="Certificate of completion for the self-paced course.">
+<title>Ce que coûte Ormuz</title>
+<meta name="description" content="Séance 6 : chiffrer un choc géoéconomique et vérifier l'analyse d'une IA.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}
 
@@ -164,38 +164,138 @@ a.btn{color:#fff}
 </head>
 <body>
 <div class="wrap">
-<header class="top col noprint">
-  <div class="crumbs"><a href="index.html">Course home</a><span>Certificate</span></div>
-  <h1 style="margin-top:.6rem">Certificate of completion</h1>
-  <p class="lede">The certificate unlocks once every step of the six sessions is done. Your progress is read from this browser.</p>
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Accueil du cours</a><span>Séance 6 sur 6</span></div>
+  <h1 style="margin-top:.6rem">Combien coûte la fermeture d'Ormuz ?</h1>
+  <p class="lede">Quand une crise éclate, un ministre veut un chiffre le soir même. Dans cette séance, vous chiffrez le coût de la fermeture du détroit d'Ormuz en 2026 pour le pays de votre choix, vous donnez une fourchette plutôt qu'un chiffre faussement précis, et vous comparez la réponse d'un assistant d'IA à la vôtre.</p>
+  <div class="meta"><span><b>Environ 3 heures</b> à votre rythme</span><span><b>Aucun logiciel requis</b> ; un assistant d'IA de votre choix pour une étape</span><span><b>Vos réponses</b> restent dans ce navigateur uniquement</span></div>
 </header>
-<section class="col noprint" style="padding-block:1.5rem">
-  <div class="tscroll"><table id="progTable" aria-label="Your progress"></table></div>
-  <div id="locked" class="box key" hidden><h4>Not yet</h4><p id="lockedTxt"></p></div>
-  <div id="unlock" class="box task" hidden>
-    <h4>Well done: all six sessions are complete</h4>
-    <label for="certName" class="small">Your name, as it should appear on the certificate</label>
-    <div class="row"><input type="text" id="certName" style="flex:1;min-width:12rem"><button id="certBtn">Create my certificate</button></div>
+
+<nav class="steps" aria-label="Étapes de cette séance"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Énigme">
+  <div class="stephead"><span class="eyebrow">Étape 1 · Énigme · 10 min</span><h2>Le choc d'Ormuz</h2></div>
+  <p>En temps normal, environ un cinquième du pétrole mondial transite par le détroit d'Ormuz. Le suivi des navires par satellite montre ce qui s'est passé en 2026.</p>
+  <figure class="wide"><div class="chart" id="hzChart"></div><figcaption>Moyenne hebdomadaire des passages quotidiens. Source : FMI PortWatch, Daily Chokepoints Data (suivi des navires par AIS), téléchargé en octobre 2026.</figcaption></figure>
+  <div class="box task"><h4>Votre estimation</h4>
+    <p>Pour un pays type de l'UE, quel est le coût annuel de la hausse des prix du pétrole et du gaz qui a suivi, en part du PIB ?</p>
+    <div class="choice" id="q-cost">
+      <label><input type="radio" name="cs" value="a"> Moins de 0,5 % du PIB</label>
+      <label><input type="radio" name="cs" value="b"> Environ 1 % à 2 %</label>
+      <label><input type="radio" name="cs" value="c"> Environ 3 % à 5 %</label>
+      <label><input type="radio" name="cs" value="d"> Plus de 5 %</label>
+    </div>
+    <div class="row"><button id="csBtn" disabled>Valider mon estimation</button><span class="small" id="csOut"></span></div>
   </div>
 </section>
-<section class="col" id="certWrap" hidden>
-  <div class="cert" id="cert">
-    <div class="cert-k">Certificate of completion</div>
-    <div class="cert-n" id="cN"></div>
-    <p class="cert-t">has completed the self-paced course</p>
-    <div class="cert-c">Quantitative Methods for Geopolitics and Geoeconomics</div>
-    <p class="cert-t">six sessions, about 18 hours: trusting official numbers and honest charts; polls and margins of error; dependence and composite indices; regression; policy evaluation with difference-in-differences; costing a geopolitical shock and auditing AI analysis.</p>
-    <div class="cert-f"><span id="cD"></span><span>Course designed by Rodolphe Desbordes</span><span class="mono" id="cC"></span></div>
-    <p class="cert-s">Self-assessed completion of all activities, recorded in the learner's browser. It does not certify graded assessment.</p>
-  </div>
-  <div class="row noprint"><button id="printBtn">Print or save as PDF</button><span class="small">In the print window, choose “Save as PDF” and landscape.</span></div>
+
+<section class="step col" id="lesson" data-title="Leçon">
+  <div class="stephead"><span class="eyebrow">Étape 2 · Leçon · 25 min</span><h2>Chiffrer un choc</h2></div>
+  <h3>Le coût de premier tour</h3>
+  <p>Quand les prix de l'énergie bondissent, un pays importateur paie plus cher la même quantité de pétrole et de gaz. Ce surcoût, rapporté au PIB, est le coût de premier tour :</p>
+  <p class="formula">coût (% du PIB) ≈ importations nettes d'énergie (% du PIB) × hausse des prix (%) × (1 − réaction de la demande)</p>
+  <ul class="tight">
+    <li><strong>Importations nettes d'énergie</strong> : importations de combustibles moins exportations de combustibles (pétrole, gaz, charbon), en part du PIB. Un exportateur net comme la Norvège <em>gagne</em> quand les prix montent.</li>
+    <li><strong>Hausse des prix</strong> : le Brent s'est établi en moyenne à 69 dollars le baril en 2025. De mars à septembre 2026, il a atteint en moyenne environ 100 dollars (+44 %), avec un pic à 138 dollars le 7 avril (+100 %).</li>
+    <li><strong>Réaction de la demande</strong> : à court terme, ménages et entreprises ne réduisent que peu leur consommation, peut-être jusqu'à 10 %.</li>
+  </ul>
+  <h3>Pourquoi une fourchette</h3>
+  <p>Chaque paramètre est incertain : la durée de la fermeture, le niveau auquel les prix se maintiennent, l'ampleur de l'ajustement de la demande. Donnez un <strong>scénario bas</strong> et un <strong>scénario haut</strong>, et indiquez les hypothèses de chacun. Un chiffre unique à deux décimales suggère une précision que vous n'avez pas.</p>
+  <h3>Ce que le premier tour laisse de côté</h3>
+  <p>Les effets de second tour (hausse de l'inflation, réaction des banques centrales, exportations perdues vers les clients du Golfe) et les pénuries physiques, qui frappent le plus durement les importateurs asiatiques de pétrole du Golfe. Mentionnez-le dans votre note.</p>
+  <h3>Lire PortWatch</h3>
+  <p>PortWatch compte les navires à partir des signaux de leur système d'identification automatique (AIS). En zone de guerre, les navires coupent leur transpondeur, si bien que les comptages sous-estiment le trafic réel : on retrouve la question de la séance 1, « qui a produit ce chiffre, et comment ? ».</p>
+  <div class="box task"><h4>Vérifiez votre compréhension</h4>
+    <p>Les importations nettes d'énergie de l'Allemagne représentent 1,67 % du PIB. Avec une hausse des prix de 44 % et sans réaction de la demande, quel est le coût de premier tour, en % du PIB (deux décimales) ?</p>
+    <div class="row"><input type="text" inputmode="decimal" step="0.01" id="la-in" aria-label="Coût"><button id="la-btn">Vérifier</button></div>
+    <p class="fb" id="la-fb"></p></div>
 </section>
+
+<section class="step col" id="activity" data-title="Activité">
+  <div class="stephead"><span class="eyebrow">Étape 3 · Activité · 20 min</span><h2>Faites mieux que l'IA</h2></div>
+  <div class="box task"><h4>1. Votre estimation</h4>
+    <div class="row"><label for="cC">Pays</label><select id="cC"></select></div>
+    <p class="small" id="cInfo"></p>
+    <p>Scénario bas : prix +44 %, baisse de la demande de 10 %. Scénario haut : prix +100 % (le pic d'avril maintenu), aucune réaction de la demande. Calculez les deux, en % du PIB, avec deux décimales.</p>
+    <div class="row"><label for="cLo">Bas</label><input type="text" inputmode="decimal" step="0.01" id="cLo"><label for="cHi">Haut</label><input type="text" inputmode="decimal" step="0.01" id="cHi"><button id="cBtn">Vérifier</button></div>
+    <p class="fb" id="cFb"></p>
+  </div>
+  <div class="box task"><h4>2. Interrogez un assistant d'IA</h4>
+    <p>Copiez cette requête dans l'assistant d'IA de votre choix, sans rien changer d'autre que le pays, et notez sa réponse.</p>
+    <p class="prompt" id="aiPrompt"></p>
+    <div class="row"><button class="ghost" id="aiCopy">Copier la requête</button><span class="small" id="aiCopied"></span></div>
+    <label class="small" for="aiAns">L'estimation de l'IA (% du PIB, ou sa fourchette)</label><textarea id="aiAns" rows="2"></textarea>
+  </div>
+  <figure class="wide"><div class="chart" id="costChart"></div><figcaption>Barres : du scénario bas au scénario haut ; point : scénario bas. Sources : Banque mondiale, World Development Indicators (importations et exportations de combustibles, PIB, 2024) ; prix du Brent de l'US Energy Information Administration via FRED.</figcaption></figure>
+</section>
+
+<section class="step col" id="feedback" data-title="Retour">
+  <div class="stephead"><span class="eyebrow">Étape 4 · Retour · 10 min</span><h2>Qui était le plus proche ?</h2></div>
+  <p class="headline-claim" id="fbGuess"></p>
+  <p>Pour un pays type de l'UE, dont les importations nettes d'énergie avoisinent 2 % du PIB, le coût de premier tour se situe entre environ 0,8 % (scénario bas) et 2 % du PIB (scénario haut) par an. La Corée du Sud, la Thaïlande et Malte figurent parmi les pays les plus exposés ; la Norvège et l'Arabie saoudite sont exportatrices nettes. Le gain de l'Arabie saoudite reste théorique tant que ses pétroliers ne peuvent pas quitter le Golfe : les oléoducs vers la mer Rouge et, pour les Émirats arabes unis, vers le golfe d'Oman n'acheminent qu'une partie de ses exportations.</p>
+  <div class="box task"><h4>Auditez la réponse de l'IA</h4>
+    <div class="choice" id="aiAudit">
+      <label><input type="checkbox" value="1"> Elle a donné une fourchette plutôt qu'un chiffre unique</label>
+      <label><input type="checkbox" value="2"> Elle a indiqué la hausse des prix retenue, et ce chiffre est proche de la réalité</label>
+      <label><input type="checkbox" value="3"> Son chiffre d'importations d'énergie pour le pays est proche de celui de la Banque mondiale</label>
+      <label><input type="checkbox" value="4"> Elle a cité ses sources, et ces sources existent</label>
+      <label><input type="checkbox" value="5"> Elle a précisé ce que son estimation laisse de côté</label>
+    </div>
+    <p class="small" id="aiScore"></p>
+    <p>Les assistants d'IA sont fluides et rapides, et utiles pour une première structure. Ils avancent souvent des chiffres sans source, utilisent des prix périmés ou inventent des références. Traitez-les comme un collègue débutant dont vous vérifiez chaque chiffre, jamais comme un oracle.</p>
+  </div>
+</section>
+
+<section class="step col" id="together" data-read data-title="Synthèse">
+  <div class="stephead"><span class="eyebrow">Étape 5 · Synthèse · facultative, 45 min</span><h2>Une note de deux pages pour un ministre</h2></div>
+  <p>Vous disposez désormais de toutes les méthodes dont un analyste a besoin pour une courte note de politique publique. Pour vous entraîner, choisissez un pays et une question, et rédigez seul deux pages. Quatre questions qui mobilisent les méthodes du cours :</p>
+  <ul class="tight">
+    <li>Le pays dépense-t-il assez pour sa défense, et ses électeurs accepteraient-ils davantage ? <span class="small">(séances 1, 2, 4 et celle-ci)</span></li>
+    <li>Doit-il réduire sa dépendance à la Chine pour un produit critique ? <span class="small">(séances 3 et celle-ci)</span></li>
+    <li>Les sanctions contre la Russie sont-elles contournées via son commerce ? <span class="small">(séances 1 et 5)</span></li>
+    <li>Peut-on se fier à ses chiffres officiels de croissance ? <span class="small">(séances 1 et 4)</span></li>
+  </ul>
+  <p>Quelle que soit la question, une bonne note contient six éléments : un titre qui donne la réponse en trois lignes ; un à trois graphiques honnêtes ; une estimation formulée en mots ; une fourchette avec un scénario bas et un scénario haut ; ce qui pourrait rendre la réponse fausse ; et ses sources. Utilisez cette grille pour vérifier votre travail.</p>
+  <div class="tscroll"><table aria-label="Grille de vérification">
+    <tr><th>Critère</th><th>Excellent</th><th>Insuffisant</th></tr>
+    <tr><td>Question</td><td style="text-align:left">Précisée pour votre pays, pertinente pour un décideur</td><td style="text-align:left">Vague, ou sans réponse</td></tr>
+    <tr><td>Source</td><td style="text-align:left">Choisie pour une raison ; fiabilité, couverture et biais discutés</td><td style="text-align:left">Prise telle quelle</td></tr>
+    <tr><td>Graphique</td><td style="text-align:left">Échelle et unités honnêtes, lisible en 10 secondes, sourcé</td><td style="text-align:left">Trompeur ou décoratif</td></tr>
+    <tr><td>Estimation</td><td style="text-align:left">Méthode adaptée à la question ; résultat en mots avec une fourchette</td><td style="text-align:left">Chiffres sans interprétation</td></tr>
+    <tr><td>Ce qui pourrait nous donner tort</td><td style="text-align:left">Nomme l'hypothèse clé et la façon dont son échec modifierait la conclusion</td><td style="text-align:left">Absent ou générique</td></tr>
+    <tr><td>Recommandation</td><td style="text-align:left">Découle des données ; message clé dans les premières lignes</td><td style="text-align:left">Déconnectée de l'analyse</td></tr>
+  </table></div>
+</section>
+
+<section class="step col" id="quiz" data-title="Autoévaluation">
+  <div class="stephead"><span class="eyebrow">Étape 6 · Autoévaluation · 5 min</span><h2>Cinq questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session5.html">← Séance 5 : des voitures allemandes au Kirghizstan</a><a href="certificate.html">Votre certificat →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Lectures et références (en anglais)</h3>
+  <ul class="refs">
+    <li>US Energy Information Administration (2026), <a href="https://www.eia.gov/outlooks/steo/report/energysecurity/article.php" target="_blank" rel="noopener">Global Energy Security Data</a>, sur les flux pétroliers à travers le détroit d'Ormuz.</li>
+    <li>FMI PortWatch, <a href="https://portwatch.imf.org" target="_blank" rel="noopener">suivi des points de passage stratégiques</a> : consultez la page consacrée au détroit d'Ormuz.</li>
+    <li>Roberts, A. et Lamp, N. (2021), <a href="https://www.hup.harvard.edu/file/feeds/PDF/9780674269811_sample.pdf" target="_blank" rel="noopener">Six Faces of Globalization</a>, chapitre gratuit en accès libre.</li>
+  </ul>
+  <h3>Données</h3>
+  <ul class="refs">
+    <li>FMI PortWatch, Daily Chokepoints Data (détroit d'Ormuz), du 1er janvier 2025 au 4 octobre 2026.</li>
+    <li>Pétrole brut Brent, quotidien (DCOILBRENTEU), US Energy Information Administration via <a href="https://fred.stlouisfed.org/series/DCOILBRENTEU" target="_blank" rel="noopener">FRED</a>.</li>
+    <li>Importations et exportations de combustibles (% du commerce de marchandises), commerce de marchandises et PIB, 2024 : Banque mondiale, <a href="https://databank.worldbank.org/source/world-development-indicators" target="_blank" rel="noopener">World Development Indicators</a>. Combustibles = section 3 de la CTCI (pétrole, gaz, charbon, électricité).</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Effacer mes réponses pour cette séance</button></p>
+</footer>
 
 </div>
 <script>
-window.SESSION='cert';
-window.LANG="en";
-const DATA = {};
+window.SESSION=6;
+window.LANG="fr";
+const __tf=Number.prototype.toFixed; Number.prototype.toFixed=function(d){ return __tf.call(this,d).replace(".", ","); };
+const DATA = {"hormuz": [["2024-12-30", 68], ["2025-01-06", 69.3], ["2025-01-13", 70.4], ["2025-01-20", 71.4], ["2025-01-27", 69.7], ["2025-02-03", 69.7], ["2025-02-10", 85.4], ["2025-02-17", 80.7], ["2025-02-24", 60.6], ["2025-03-03", 81.9], ["2025-03-10", 87], ["2025-03-17", 86.9], ["2025-03-24", 83], ["2025-03-31", 111.6], ["2025-04-07", 102.6], ["2025-04-14", 84.9], ["2025-04-21", 109.4], ["2025-04-28", 97.9], ["2025-05-05", 97.9], ["2025-05-12", 107], ["2025-05-19", 111], ["2025-05-26", 101.1], ["2025-06-02", 95.3], ["2025-06-09", 109.1], ["2025-06-16", 103.4], ["2025-06-23", 102.9], ["2025-06-30", 89.1], ["2025-07-07", 90.7], ["2025-07-14", 104.4], ["2025-07-21", 92.7], ["2025-07-28", 94.9], ["2025-08-04", 80.4], ["2025-08-11", 105], ["2025-08-18", 96.1], ["2025-08-25", 100.1], ["2025-09-01", 95.4], ["2025-09-08", 75], ["2025-09-15", 87.3], ["2025-09-22", 86.4], ["2025-09-29", 111.3], ["2025-10-06", 70.6], ["2025-10-13", 73.7], ["2025-10-20", 102], ["2025-10-27", 90.3], ["2025-11-03", 75.3], ["2025-11-10", 79.9], ["2025-11-17", 60.6], ["2025-11-24", 53.9], ["2025-12-01", 56.6], ["2025-12-08", 54.1], ["2025-12-15", 48.6], ["2025-12-22", 60], ["2025-12-29", 58.6], ["2026-01-05", 64.4], ["2026-01-12", 53.3], ["2026-01-19", 56.3], ["2026-01-26", 60], ["2026-02-02", 60.7], ["2026-02-09", 76.4], ["2026-02-16", 94.3], ["2026-02-23", 77.6], ["2026-03-02", 2.6], ["2026-03-09", 2.1], ["2026-03-16", 1.4], ["2026-03-23", 3.6], ["2026-03-30", 5.3], ["2026-04-06", 5.9], ["2026-04-13", 7.4], ["2026-04-20", 4], ["2026-04-27", 12.3], ["2026-05-04", 1.4], ["2026-05-11", 5.4], ["2026-05-18", 4.9], ["2026-05-25", 3], ["2026-06-01", 4.4], ["2026-06-08", 2.4], ["2026-06-15", 12.1], ["2026-06-22", 30.4], ["2026-06-29", 23.1], ["2026-07-06", 14], ["2026-07-13", 6.3], ["2026-07-20", 3.6], ["2026-07-27", 5.3], ["2026-08-03", 5.6], ["2026-08-10", 4.4], ["2026-08-17", 5], ["2026-08-24", 4.3], ["2026-08-31", 3.1], ["2026-09-07", 5.3], ["2026-09-14", 3.1], ["2026-09-21", 3.1], ["2026-09-28", 2.7]], "tankers": [["2024-12-30", 38.6], ["2025-01-06", 38.6], ["2025-01-13", 38.6], ["2025-01-20", 42.3], ["2025-01-27", 39.6], ["2025-02-03", 38], ["2025-02-10", 48.7], ["2025-02-17", 43.6], ["2025-02-24", 34.6], ["2025-03-03", 51.6], ["2025-03-10", 47.1], ["2025-03-17", 49.1], ["2025-03-24", 47.6], ["2025-03-31", 61.7], ["2025-04-07", 57.7], ["2025-04-14", 48], ["2025-04-21", 62.9], ["2025-04-28", 56], ["2025-05-05", 55.1], ["2025-05-12", 60.7], ["2025-05-19", 60.7], ["2025-05-26", 55.3], ["2025-06-02", 55.3], ["2025-06-09", 60.6], ["2025-06-16", 58.3], ["2025-06-23", 58.6], ["2025-06-30", 51.4], ["2025-07-07", 52.1], ["2025-07-14", 58.3], ["2025-07-21", 52.6], ["2025-07-28", 54.9], ["2025-08-04", 43.9], ["2025-08-11", 60.4], ["2025-08-18", 54.3], ["2025-08-25", 54.6], ["2025-09-01", 55.1], ["2025-09-08", 41.4], ["2025-09-15", 50.1], ["2025-09-22", 48.9], ["2025-09-29", 64.9], ["2025-10-06", 35.6], ["2025-10-13", 40.1], ["2025-10-20", 58.1], ["2025-10-27", 50.1], ["2025-11-03", 43.6], ["2025-11-10", 44.4], ["2025-11-17", 34.9], ["2025-11-24", 30], ["2025-12-01", 32.3], ["2025-12-08", 31.1], ["2025-12-15", 25.7], ["2025-12-22", 30.3], ["2025-12-29", 31.3], ["2026-01-05", 34.3], ["2026-01-12", 28.7], ["2026-01-19", 30.7], ["2026-01-26", 30.9], ["2026-02-02", 33.7], ["2026-02-09", 43.1], ["2026-02-16", 52.7], ["2026-02-23", 42.3], ["2026-03-02", 0.6], ["2026-03-09", 0.6], ["2026-03-16", 0.4], ["2026-03-23", 1.1], ["2026-03-30", 2.1], ["2026-04-06", 1.9], ["2026-04-13", 4], ["2026-04-20", 1.7], ["2026-04-27", 5.6], ["2026-05-04", 0.4], ["2026-05-11", 2], ["2026-05-18", 1.9], ["2026-05-25", 0.4], ["2026-06-01", 1.1], ["2026-06-08", 0.9], ["2026-06-15", 4.4], ["2026-06-22", 14], ["2026-06-29", 13.3], ["2026-07-06", 6.4], ["2026-07-13", 2.3], ["2026-07-20", 0.9], ["2026-07-27", 1.4], ["2026-08-03", 1.9], ["2026-08-10", 1.6], ["2026-08-17", 2.4], ["2026-08-24", 1.9], ["2026-08-31", 0.9], ["2026-09-07", 1.4], ["2026-09-14", 0.6], ["2026-09-21", 1.3], ["2026-09-28", 0.9]], "brent": [["2025-01", 79.3], ["2025-02", 75.4], ["2025-03", 72.7], ["2025-04", 68.1], ["2025-05", 64.5], ["2025-06", 71.4], ["2025-07", 71.0], ["2025-08", 67.9], ["2025-09", 68.0], ["2025-10", 64.5], ["2025-11", 63.8], ["2025-12", 62.5], ["2026-01", 66.6], ["2026-02", 70.9], ["2026-03", 103.1], ["2026-04", 117.3], ["2026-05", 107.1], ["2026-06", 85.4], ["2026-07", 83.8], ["2026-08", 91.1], ["2026-09", 114.1]], "fuel": [{"iso": "AUT", "n": "Austria", "year": 2024, "imp_pct": 2.95, "net_pct": 1.84}, {"iso": "BEL", "n": "Belgium", "year": 2024, "imp_pct": 12.55, "net_pct": 2.96}, {"iso": "BGR", "n": "Bulgaria", "year": 2024, "imp_pct": 5.95, "net_pct": 2.67}, {"iso": "HRV", "n": "Croatia", "year": 2024, "imp_pct": 7.85, "net_pct": 4.19}, {"iso": "CYP", "n": "Cyprus", "year": 2024, "imp_pct": 8.05, "net_pct": 0.84}, {"iso": "CZE", "n": "Czechia", "year": 2024, "imp_pct": 3.66, "net_pct": 2.41}, {"iso": "DNK", "n": "Denmark", "year": 2024, "imp_pct": 1.99, "net_pct": 0.8}, {"iso": "EST", "n": "Estonia", "year": 2024, "imp_pct": 4.66, "net_pct": 1.27}, {"iso": "FIN", "n": "Finland", "year": 2024, "imp_pct": 3.66, "net_pct": 1.69}, {"iso": "FRA", "n": "France", "year": 2024, "imp_pct": 3.01, "net_pct": 2.12}, {"iso": "DEU", "n": "Germany", "year": 2024, "imp_pct": 2.41, "net_pct": 1.67}, {"iso": "GRC", "n": "Greece", "year": 2024, "imp_pct": 9.47, "net_pct": 3.09}, {"iso": "HUN", "n": "Hungary", "year": 2024, "imp_pct": 6.04, "net_pct": 3.65}, {"iso": "IRL", "n": "Ireland", "year": 2024, "imp_pct": 1.48, "net_pct": 1.34}, {"iso": "ITA", "n": "Italy", "year": 2024, "imp_pct": 3.3, "net_pct": 2.44}, {"iso": "LVA", "n": "Latvia", "year": 2024, "imp_pct": 5.95, "net_pct": 2.66}, {"iso": "LTU", "n": "Lithuania", "year": 2024, "imp_pct": 9.41, "net_pct": 2.86}, {"iso": "LUX", "n": "Luxembourg", "year": 2024, "imp_pct": 2.09, "net_pct": 2.06}, {"iso": "MLT", "n": "Malta", "year": 2024, "imp_pct": 8.02, "net_pct": 6.5}, {"iso": "NLD", "n": "Netherlands", "year": 2024, "imp_pct": 11.06, "net_pct": 1.45}, {"iso": "POL", "n": "Poland", "year": 2024, "imp_pct": 3.16, "net_pct": 2.08}, {"iso": "PRT", "n": "Portugal", "year": 2024, "imp_pct": 3.98, "net_pct": 2.09}, {"iso": "ROU", "n": "Romania", "year": 2024, "imp_pct": 2.93, "net_pct": 1.65}, {"iso": "SVK", "n": "Slovakia", "year": 2024, "imp_pct": 6.57, "net_pct": 3.31}, {"iso": "SVN", "n": "Slovenia", "year": 2024, "imp_pct": 7.96, "net_pct": 2.92}, {"iso": "ESP", "n": "Spain", "year": 2024, "imp_pct": 3.72, "net_pct": 2.28}, {"iso": "SWE", "n": "Sweden", "year": 2024, "imp_pct": 3.24, "net_pct": 0.94}, {"iso": "GBR", "n": "United Kingdom", "year": 2024, "imp_pct": 2.24, "net_pct": 1.03}, {"iso": "NOR", "n": "Norway", "year": 2024, "imp_pct": 1.32, "net_pct": -20.66}, {"iso": "CHE", "n": "Switzerland", "year": 2024, "imp_pct": 1.22, "net_pct": 0.67}, {"iso": "JPN", "n": "Japan", "year": 2024, "imp_pct": 4.03, "net_pct": 3.79}, {"iso": "KOR", "n": "South Korea", "year": 2024, "imp_pct": 8.64, "net_pct": 5.84}, {"iso": "IND", "n": "India", "year": 2024, "imp_pct": 6.02, "net_pct": 4.01}, {"iso": "CHN", "n": "China", "year": 2024, "imp_pct": 2.82, "net_pct": 2.53}, {"iso": "USA", "n": "United States", "year": 2024, "imp_pct": 0.86, "net_pct": -0.43}, {"iso": "SAU", "n": "Saudi Arabia", "year": 2024, "imp_pct": 1.05, "net_pct": -18.29}, {"iso": "EGY", "n": "Egypt", "year": 2024, "imp_pct": 3.97, "net_pct": 2.62}, {"iso": "PAK", "n": "Pakistan", "year": 2024, "imp_pct": 5.04, "net_pct": 4.89}, {"iso": "THA", "n": "Thailand", "year": 2024, "imp_pct": 9.75, "net_pct": 7.81}], "brent2025": 69.1, "brentShock": 99.8, "brentPeak": 138.2};
 /* Glossary: matching forms per language, definitions, first session */
 const GLOSSARY = [
  {en:["GDP"], fr:["PIB"], s:1, den:"Gross domestic product: the value of everything produced in a country in a year.", dfr:"Produit intérieur brut : la valeur de tout ce qu'un pays produit en une année."},
@@ -527,19 +627,65 @@ function glossify(){
 }
 setTimeout(glossify, 0);
 
-/* Certificate */
-const SES=[[1,"Can we trust the numbers?",9],[2,"Can we trust a poll?",8],[3,"Who depends on whom?",8],[4,"Why does Poland spend so much, and Spain so little?",9],[5,"Why did German cars flood into Kyrgyzstan?",9],[6,"What does the Hormuz closure cost?",6]];
-const got=n=>{ try { const v=localStorage.getItem("qm"+n+":done"); return v?JSON.parse(v).length:0; } catch(e){ return 0; } };
-let all=true;
-$("#progTable").innerHTML=`<tr><th>Session</th><th class="num">Steps done</th><th>Status</th></tr>`+SES.map(([n,t,k])=>{ const g=Math.min(got(n),k); if (g<k) all=false;
-  return `<tr><td><a href="session${n}.html">${n}. ${t}</a></td><td class="num">${g} of ${k}</td><td>${g>=k?'<span class="chip F">✓ complete</span>':'<span class="chip PF">in progress</span>'}</td></tr>`; }).join("");
-if (all){ $("#unlock").hidden=false; } else { $("#locked").hidden=false; $("#lockedTxt").textContent="Finish the remaining steps, shown above, then come back. Each step is ticked in the bar at the top of its session page."; }
-function make(name){ const d=store.get("date", new Date().toISOString().slice(0,10)); store.set("date",d); store.set("name",name);
-  $("#cN").textContent=name; $("#cD").textContent=new Date(d+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}); $("#cC").textContent=learnerCode(name+"|"+d);
-  $("#certWrap").hidden=false; }
-$("#certBtn").addEventListener("click",()=>{ const n=$("#certName").value.trim(); if (n.length<2) return; make(n); });
-$("#printBtn").addEventListener("click",()=>window.print());
-const prev=store.get("name",""); if (all && prev){ $("#certName").value=prev; make(prev); }
+/* Session 6 */
+const F = [...DATA.fuel].sort((a,b)=>a.n.localeCompare(b.n));
+const LOWP = DATA.brentShock/DATA.brent2025-1, HIGHP = DATA.brentPeak/DATA.brent2025-1;
+const lowC = f => f.net_pct*LOWP*0.9, highC = f => f.net_pct*HIGHP;
+const wk = s => { const d=new Date(s+"T00:00:00Z"); return d.getUTCFullYear()+(d - Date.UTC(d.getUTCFullYear(),0,1))/(365*864e5); };
+
+/* puzzle */
+function drawHZ(){
+  lineChart($("#hzChart"),{title:"Navires traversant le détroit d'Ormuz",sub:"Passages moyens par jour, par semaine",series:[{name:"Tous navires",color:css("--accent"),shape:"circ",pts:DATA.hormuz.map(([d,v])=>[wk(d),v])},{name:"Pétroliers",color:css("--verm"),shape:"tri",dash:"5 3",pts:DATA.tankers.map(([d,v])=>[wk(d),v])}],yfmt:v=>v.toFixed(0),xfmt:v=>{ const y=Math.floor(v+1e-6), m=Math.round((v-y)*12); return ["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."][Math.min(11,m)]+" "+y; },xticks:[2025,2025.5,2026,2026.5],vline:2026+2/12,vlabel:"1er mars 2026",H:300,labelEnds:false});
+  legend($("#hzChart"),[{label:"Tous navires",color:css("--accent")},{label:"Pétroliers",color:css("--verm"),kind:"line",dash:"5 3"}]);
+}
+lockChoice({group:"q-cost", button:"csBtn", key:"guess", onReveal:()=>{ $("#csOut").textContent="Enregistré. La réponse vient à l'étape 4."; markDone("puzzle"); fbGuess(); }});
+
+/* lesson */
+$("#la-btn").addEventListener("click",()=>{ const [v]=readNums(["la-in"]); const t=1.67*0.44;
+  if (Math.abs(v-t)<=0.02){ feedback($("#la-fb"),true,"Exact : 1,67 × 0,44 ≈ 0,73 % du PIB par an."); markDone("lesson"); }
+  else feedback($("#la-fb"),false,"Multipliez 1,67 par 0,44."); });
+
+/* activity */
+$("#cC").innerHTML = F.map(f=>`<option value="${f.iso}">${f.n}</option>`).join("");
+$("#cC").value = store.get("country","DEU");
+function cur(){ return F.find(f=>f.iso===$("#cC").value); }
+function info(){ const f=cur(); $("#cInfo").innerHTML = `${f.n} : importations nettes d'énergie <b>${f.net_pct.toFixed(2)} % du PIB</b> (${f.year}).${f.net_pct<0?" Exportateur net : la formule donne un gain, présenté comme un coût négatif.":""}`;
+  $("#aiPrompt").textContent = `Que coûterait au pays suivant, ${f.n}, la fermeture du détroit d'Ormuz à partir de mars 2026, en part du PIB par an ? Donnez une estimation basse et une estimation haute, indiquez la hausse du prix du pétrole que vous retenez, le montant des importations nettes d'énergie de ce pays en part du PIB, et vos sources.`; }
+$("#cC").addEventListener("change",()=>{ store.set("country",$("#cC").value); info(); $("#cFb").textContent=""; });
+$("#cBtn").addEventListener("click",()=>{ const f=cur(); const [lo,hi]=readNums(["cLo","cHi"]); const L=lowC(f), Hh=highC(f);
+  if (isNaN(lo)||isNaN(hi)) return feedback($("#cFb"),false,"Remplissez les deux cases.");
+  if (Math.abs(lo-L)<=0.03+Math.abs(L)*0.02 && Math.abs(hi-Hh)<=0.03+Math.abs(Hh)*0.02){ feedback($("#cFb"),true,`Exact : bas ${f.net_pct.toFixed(2)} × ${LOWP.toFixed(2)} × 0,9 = ${L.toFixed(2)} ; haut ${f.net_pct.toFixed(2)} × ${HIGHP.toFixed(2)} = ${Hh.toFixed(2)} % du PIB.`); store.set("done1",true); markDone("activity"); drawCost(); }
+  else feedback($("#cFb"),false,`Bas : importations nettes × ${LOWP.toFixed(2)} × 0,9. Haut : importations nettes × ${HIGHP.toFixed(2)}.`); });
+$("#aiCopy").addEventListener("click",()=>{ const t=$("#aiPrompt").textContent; try { navigator.clipboard.writeText(t).then(()=>$("#aiCopied").textContent="Copié.",()=>$("#aiCopied").textContent="Sélectionnez le texte et copiez-le."); } catch(e){ $("#aiCopied").textContent="Sélectionnez le texte et copiez-le."; } });
+const aiA=$("#aiAns"); aiA.value=store.get("ai",""); aiA.addEventListener("input",()=>store.set("ai",aiA.value));
+function drawCost(){
+  if (!store.get("done1",false)){ $("#costChart").innerHTML='<div class="cs" style="padding:2rem 1rem">Le graphique pour tous les pays s\'affiche une fois que vous avez calculé votre propre estimation.</div>'; return; }
+  const sel=$("#cC").value;
+  const rows=[...F].filter(f=>f.net_pct>0).sort((a,b)=>highC(b)-highC(a)).map(f=>({label:f.n,v:lowC(f),lo:lowC(f),hi:highC(f),bold:f.iso===sel,color:f.iso===sel?css("--verm"):css("--accent"),tip:`<b>${f.n}</b><br>bas ${lowC(f).toFixed(2)} % · haut ${highC(f).toFixed(2)} % du PIB`}));
+  hbar($("#costChart"),{title:"Coût de premier tour du choc des prix de l'énergie de 2026",sub:"% du PIB par an, importateurs nets d'énergie ; votre pays en surbrillance",rows,xmin:0,xfmt:v=>v.toFixed(0)+" %",rowH:20});
+}
+
+/* feedback */
+function fbGuess(){ const g=store.get("guess",null); if (!g) return; $("#fbGuess").textContent = g==="b" ? "Votre estimation, environ 1 % à 2 % du PIB, était juste pour un pays type de l'UE." : `Votre estimation était ${({a:"moins de 0,5 %",c:"environ 3 % à 5 %",d:"plus de 5 %"})[g]}. Pour un pays type de l'UE, la réponse est d'environ 1 % à 2 % du PIB.`; }
+const au=store.get("audit",[]); $$("#aiAudit input").forEach(i=>{ i.checked=au.includes(i.value); i.addEventListener("change",()=>{ const v=$$("#aiAudit input:checked").map(x=>x.value); store.set("audit",v); $("#aiScore").textContent=`L'IA a rempli ${v.length} des 5 critères.`; markDone("feedback"); }); });
+if (au.length) $("#aiScore").textContent=`L'IA a rempli ${au.length} des 5 critères.`;
+
+/* quiz */
+quiz($("#quizBox"), $("#quizScore"), [
+ {q:"Les importations nettes d'énergie représentent 3 % du PIB et les prix augmentent de 50 %. Sans tenir compte de la réaction de la demande, le coût de premier tour est de…",o:["0,15 % du PIB","1,5 % du PIB","3,5 % du PIB"],a:1,e:"3 × 0,5 = 1,5 % du PIB."},
+ {q:"Pourquoi donner un scénario bas et un scénario haut ?",o:["Pour paraître prudent","Parce que les paramètres sont incertains et que le lecteur doit voir dans quelle mesure","Parce que les ministres préfèrent deux chiffres"],a:1,e:"Une fourchette montre l'incertitude ouvertement ; chaque scénario énonce ses hypothèses."},
+ {q:"Les exportations nettes d'énergie de la Norvège représentent environ 20 % du PIB. La hausse des prix…",o:["coûte le plus à la Norvège","est un gain pour la Norvège","n'affecte pas la Norvège"],a:1,e:"Les exportateurs nets gagnent à la hausse des prix, s'ils peuvent expédier."},
+ {q:"PortWatch ne montre presque aucun navire dans le détroit. Pourquoi le nombre réel pourrait-il être plus élevé ?",o:["Les navires coupent leur transpondeur en zone de guerre","Les satellites ne voient pas la nuit","PortWatch ne compte que les pétroliers"],a:0,e:"Les comptages fondés sur l'AIS sous-estiment le trafic quand les navires deviennent invisibles."},
+ {q:"Un assistant d'IA donne un coût précis avec trois références. Que faites-vous d'abord ?",o:["Je l'utilise : il cite ses sources","Je vérifie que les références existent et que les chiffres correspondent aux données","J'interroge une autre IA"],a:1,e:"Une réponse fluide peut contenir des sources inventées et des chiffres périmés."}], "quiz");
+
+/* help when stuck */
+helpAfter("la-btn","la-fb",()=>({"la-in":"0.73"}));
+helpAfter("cBtn","cFb",()=>{ const f=cur(); return {"cLo":lowC(f).toFixed(2),"cHi":highC(f).toFixed(2)}; });
+
+/* boot */
+drawHZ(); info(); drawCost(); fbGuess();
+wireReset();
+onRedraw(()=>{ drawHZ(); drawCost(); });
 
 </script>
 </body>

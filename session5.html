@@ -151,6 +151,15 @@ a.btn{color:#fff}
 .cert-f{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 2rem;font-size:.9rem;margin-top:.8rem}
 .cert-s{font-size:.75rem;color:var(--muted);margin-top:.6rem}
 @media print{ @page{size:A4 landscape;margin:12mm} body{background:#fff;color:#000} .noprint,nav.steps,footer{display:none!important} .cert{border-color:#0072B2;outline:none;box-shadow:none;margin:0} .wrap{padding:0} }
+.resume{margin-top:1rem;padding:.6rem .8rem;background:var(--soft);border-radius:var(--r);font-size:.95rem}
+.resume a{font-weight:600}
+.gl{border-bottom:1.5px dotted var(--accent);cursor:help}
+.gl:focus-visible{outline:2px solid var(--hi);outline-offset:1px}
+.gltip{position:fixed;z-index:50;background:var(--ink);color:var(--bg);font-size:.82rem;line-height:1.4;padding:.45rem .6rem;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.feedbacklink{margin-top:1.5rem;padding-bottom:1rem}
+.feedbacklink span{color:var(--muted)}
+.glist dt{font-weight:700;margin-top:.9rem}
+.glist dd{margin:.2rem 0 0;color:var(--ink2)}
 </style>
 </head>
 <body>
@@ -304,10 +313,55 @@ a.btn{color:#fff}
 </div>
 <script>
 window.SESSION=5;
+window.LANG="en";
 const DATA = {"months": ["2019-01", "2019-02", "2019-03", "2019-04", "2019-05", "2019-06", "2019-07", "2019-08", "2019-09", "2019-10", "2019-11", "2019-12", "2020-01", "2020-02", "2020-03", "2020-04", "2020-05", "2020-06", "2020-07", "2020-08", "2020-09", "2020-10", "2020-11", "2020-12", "2021-01", "2021-02", "2021-03", "2021-04", "2021-05", "2021-06", "2021-07", "2021-08", "2021-09", "2021-10", "2021-11", "2021-12", "2022-01", "2022-02", "2022-03", "2022-04", "2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10", "2022-11", "2022-12", "2023-01", "2023-02", "2023-03", "2023-04", "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11", "2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"], "m": {"NBR": [536.5, 577.1, 692.1, 562.6, 578.3, 702.7, 699.7, 570.9, 767.8, 617.0, 574.2, 580.0, 512.8, 616.2, 726.9, 492.0, 502.9, 553.9, 546.7, 521.1, 530.9, 613.5, 593.8, 687.8, 403.7, 470.9, 663.4, 581.5, 496.4, 574.2, 529.5, 542.6, 509.0, 513.4, 565.5, 657.6, 395.6, 641.5, 755.5, 671.9, 863.8, 943.8, 1145.0, 1279.6, 1558.1, 1668.3, 1659.7, 1833.7, 1218.1, 1487.3, 1696.1, 1381.0, 1428.8, 1548.6, 1363.8, 1379.1, 1345.8, 1406.8, 1582.2, 1206.7, 1138.2, 1275.6, 1316.9, 1349.0, 1362.0, 1440.5, 1327.8, 1314.0, 1210.6, 1351.0, 1406.1, 1438.2, 1159.3, 1234.4, 1349.7, 1237.5, 1316.2, 1091.1, 1219.1, 1031.0, 1103.9, 1401.0, 1205.5, 1319.9, 800.3, 1214.8, 1368.1, 1297.1, 1270.9, 1250.9, 1416.1], "AM": [44.1, 68.2, 76.7, 64.5, 63.7, 62.9, 62.2, 58.5, 63.9, 81.3, 78.9, 76.6, 56.0, 61.6, 61.4, 70.9, 51.4, 58.5, 79.8, 55.2, 56.0, 57.6, 53.4, 56.2, 50.6, 55.7, 61.1, 59.3, 59.4, 57.4, 60.9, 57.8, 70.2, 77.2, 72.8, 75.1, 53.0, 62.2, 95.0, 93.8, 126.2, 137.9, 172.5, 193.1, 225.2, 244.0, 249.4, 232.4, 178.1, 190.7, 209.4, 178.1, 198.7, 192.8, 169.6, 173.9, 164.4, 164.3, 185.7, 154.1, 142.3, 145.2, 159.1, 159.6, 155.2, 154.1, 177.1, 158.1, 169.2, 170.9, 187.3, 167.6, 127.0, 157.4, 166.7, 170.8, 155.0, 154.1, 179.5, 135.3, 159.1, 187.5, 161.1, 199.3, 122.6, 168.2, 202.0, 189.4, 347.3, 201.2, 313.6], "KZ": [469.5, 482.5, 589.8, 471.2, 490.3, 617.1, 612.1, 485.1, 674.1, 504.0, 457.9, 469.9, 439.1, 531.6, 643.6, 407.1, 438.9, 477.1, 443.2, 449.8, 454.3, 531.1, 518.2, 611.6, 334.9, 393.6, 576.9, 497.8, 418.1, 495.2, 447.0, 464.3, 413.8, 416.5, 467.0, 562.1, 324.7, 552.8, 628.2, 547.5, 700.8, 748.1, 889.0, 966.0, 1173.1, 1260.6, 1196.7, 1373.1, 881.3, 1082.6, 1219.3, 975.5, 981.5, 1109.1, 982.1, 985.7, 974.0, 999.5, 1143.6, 819.8, 826.7, 887.4, 910.9, 982.5, 983.2, 1062.7, 909.5, 945.1, 826.7, 955.9, 1014.0, 1097.0, 894.4, 895.9, 1002.2, 871.6, 980.0, 763.1, 844.7, 742.4, 779.8, 1000.3, 857.5, 927.2, 545.9, 830.8, 952.3, 883.2, 749.1, 836.4, 864.2], "KG": [23.0, 26.4, 25.6, 26.9, 24.3, 22.8, 25.4, 27.3, 29.7, 31.8, 37.5, 33.5, 17.7, 23.0, 21.8, 14.0, 12.6, 18.4, 23.7, 16.2, 20.6, 24.8, 22.2, 20.0, 18.1, 21.7, 25.4, 24.4, 18.9, 21.6, 21.6, 20.6, 25.1, 19.7, 25.8, 20.4, 17.9, 26.4, 32.3, 30.6, 36.9, 57.7, 83.5, 120.5, 159.8, 163.6, 213.5, 228.2, 158.7, 214.0, 267.4, 227.3, 248.6, 246.7, 212.1, 219.6, 207.4, 243.0, 252.9, 232.8, 169.1, 243.0, 246.9, 206.9, 223.6, 223.7, 241.2, 210.8, 214.7, 224.2, 204.7, 173.5, 137.9, 181.2, 180.8, 195.0, 181.2, 174.0, 194.8, 153.3, 165.0, 213.2, 186.9, 193.4, 131.8, 215.8, 213.9, 224.5, 174.5, 213.3, 238.3], "GE": [141.4, 143.6, 213.7, 161.8, 178.0, 163.5, 179.9, 159.0, 187.8, 207.8, 179.6, 186.3, 143.4, 151.7, 138.8, 97.5, 86.2, 136.5, 145.9, 129.8, 135.7, 143.5, 141.3, 144.6, 105.9, 132.6, 169.9, 155.0, 136.8, 158.5, 163.1, 215.5, 189.9, 205.2, 201.1, 211.6, 167.4, 215.0, 199.7, 221.4, 242.6, 270.9, 296.5, 269.9, 332.4, 304.5, 340.0, 368.1, 238.4, 279.3, 353.5, 265.2, 286.3, 300.5, 279.8, 284.5, 304.8, 333.7, 379.8, 316.5, 247.9, 317.1, 395.0, 339.1, 310.1, 312.3, 371.4, 373.1, 398.6, 404.3, 423.4, 430.9, 293.7, 342.9, 362.6, 368.7, 352.8, 371.8, 374.3, 352.7, 371.8, 402.3, 384.0, 329.1, 276.9, 329.9, 396.6, 324.6, 330.8, 443.1, 536.5], "UZ": [136.3, 168.8, 268.6, 285.8, 214.1, 214.7, 205.8, 184.5, 225.5, 203.7, 215.5, 217.6, 139.6, 177.7, 195.1, 131.6, 134.9, 156.2, 219.9, 155.8, 176.0, 184.9, 203.2, 350.2, 121.9, 153.3, 212.6, 173.3, 160.4, 197.2, 175.3, 177.0, 212.8, 202.0, 218.6, 294.1, 170.9, 312.8, 430.7, 195.9, 196.7, 254.3, 319.4, 303.4, 304.6, 308.0, 364.7, 605.8, 257.4, 291.8, 426.2, 295.2, 380.0, 489.2, 389.0, 336.5, 343.6, 340.2, 343.8, 460.6, 245.6, 332.8, 326.6, 308.3, 285.2, 296.5, 310.1, 359.8, 343.0, 344.3, 394.9, 356.1, 248.5, 328.2, 484.5, 358.8, 437.8, 325.7, 469.0, 308.2, 336.3, 359.8, 381.3, 474.1, 267.2, 297.6, 335.9, 358.9, 299.2, 331.4, 387.7], "TR": [5009.2, 5670.8, 6816.4, 6062.4, 6351.3, 6143.8, 6374.8, 5242.8, 5840.3, 6875.1, 6649.6, 6963.4, 6621.5, 6067.6, 6020.5, 3989.6, 4091.2, 5526.7, 6102.7, 4942.4, 6752.4, 7614.5, 6644.4, 6453.2, 5870.2, 6218.3, 7585.8, 6567.5, 5850.6, 6767.3, 6008.4, 5972.2, 6485.1, 6700.3, 7532.0, 7570.8, 6554.1, 7284.8, 8518.7, 7571.6, 8397.0, 9014.9, 8275.0, 8087.8, 9061.9, 8649.5, 9373.8, 9437.5, 8737.7, 9328.0, 11026.1, 8742.7, 10043.6, 9679.4, 9413.2, 8069.6, 8815.0, 10099.1, 9703.7, 8724.1, 8491.9, 10098.8, 10191.7, 9890.2, 10055.2, 8377.7, 9551.3, 8298.1, 9199.1, 10096.3, 9980.6, 8979.3, 9091.2, 10028.7, 10355.6, 10423.7, 9626.8, 9132.3, 10178.4, 7446.4, 9020.3, 9748.6, 9579.4, 9507.6, 8401.3, 9053.0, 9713.4, 9714.9, 8393.5, 9739.9, 9330.0], "ROW": [118659.5, 120927.5, 132430.4, 131163.0, 137945.1, 126227.4, 139156.9, 118956.1, 128697.1, 144438.6, 131170.6, 129403.2, 122265.6, 136795.0, 140850.0, 95588.9, 100557.4, 118759.2, 131648.8, 107890.4, 133607.8, 139476.2, 137618.1, 135392.8, 116515.2, 129087.4, 151901.4, 139221.6, 135065.2, 147358.1, 148166.6, 130715.6, 147703.8, 150226.0, 159239.5, 155029.2, 143786.5, 152509.3, 181946.5, 165642.0, 182394.2, 184377.0, 172212.9, 167767.0, 190002.4, 184447.7, 193055.9, 175695.1, 160628.7, 167483.2, 196587.5, 156268.7, 176494.1, 184994.6, 168208.6, 162513.7, 172501.1, 183347.5, 183806.9, 162053.2, 163751.3, 171447.8, 178847.9, 181662.7, 176363.6, 174712.4, 188335.4, 160586.3, 174570.7, 187970.7, 183435.9, 170970.4, 174363.3, 186427.5, 214933.5, 179593.4, 179363.0, 176316.5, 187365.3, 151889.5, 190056.1, 185730.1, 173481.3, 171888.9, 157283.4, 170012.3, 196104.8, 187622.3, 180691.9, 199154.5, 205759.7], "RU": [6190.1, 6827.1, 7413.3, 7387.6, 7789.1, 7169.8, 7951.4, 7802.2, 7722.6, 9573.5, 8352.6, 6574.0, 6433.3, 7118.8, 7276.3, 5297.4, 5367.8, 6511.9, 6886.1, 6013.4, 7181.2, 7484.0, 7270.1, 6385.3, 5669.5, 6623.7, 8017.1, 7523.4, 7430.2, 7527.7, 8060.9, 6832.2, 7688.0, 7646.5, 8441.5, 7708.5, 7120.3, 7276.5, 3861.8, 2916.5, 3898.7, 4571.9, 4129.7, 3934.2, 4156.2, 4173.1, 5071.5, 3939.5, 3561.7, 3597.6, 4311.7, 2961.8, 3059.1, 3052.3, 2984.5, 2941.0, 2920.2, 3008.2, 3212.8, 2683.0, 2591.1, 2795.8, 2693.8, 2891.0, 2569.1, 2429.1, 3026.2, 2496.3, 2637.7, 2879.3, 2889.3, 2085.1, 2336.3, 2500.6, 2787.6, 2608.4, 2322.7, 2453.2, 2628.9, 2328.8, 2488.1, 3045.4, 2686.8, 2148.6, 2138.2, 2561.3, 2959.7, 2452.3, 2121.2, 2576.6, 2620.0]}, "de_kg_cars": {"2019": 14.6, "2020": 4.6, "2021": 6.3, "2022": 173.9, "2023": 373.8, "2024": 307.8, "2025": 107.8}};
+/* Glossary: matching forms per language, definitions, first session */
+const GLOSSARY = [
+ {en:["GDP"], fr:["PIB"], s:1, den:"Gross domestic product: the value of everything produced in a country in a year.", dfr:"Produit intérieur brut : la valeur de tout ce qu'un pays produit en une année."},
+ {en:["indicator","indicators"], fr:["indicateur","indicateurs"], s:1, den:"A number built from raw data to answer a question, such as spending as a share of GDP.", dfr:"Un nombre construit à partir de données brutes pour répondre à une question, comme une dépense en part du PIB."},
+ {en:["current dollars","current US$"], fr:["dollars courants"], s:1, den:"Money values as recorded each year, without removing inflation or exchange-rate changes.", dfr:"Montants tels qu'enregistrés chaque année, sans corriger l'inflation ni les variations de change."},
+ {en:["real terms"], fr:["termes réels"], s:1, den:"Values at constant prices, so that a change reflects quantities rather than inflation.", dfr:"Valeurs à prix constants : une variation reflète alors des quantités, pas l'inflation."},
+ {en:["share of GDP","% of GDP"], fr:["part du PIB","% du PIB"], s:1, den:"A value divided by GDP: it measures effort relative to the size of the economy.", dfr:"Une valeur divisée par le PIB : elle mesure un effort rapporté à la taille de l'économie."},
+ {en:["base year"], fr:["année de base"], s:1, den:"The starting year of a comparison or an index; changing it can change the story.", dfr:"L'année de départ d'une comparaison ou d'un indice ; la changer peut changer le récit."},
+ {en:["night lights"], fr:["lumières nocturnes"], s:1, den:"Satellite measures of light emitted at night, used as an independent proxy for economic activity.", dfr:"Mesures satellitaires de la lumière émise la nuit, utilisées comme indicateur indépendant de l'activité économique."},
+ {en:["Freedom House"], fr:["Freedom House"], s:1, den:"A US organisation that rates countries each year as Free, Partly Free or Not Free.", dfr:"Organisation américaine qui classe chaque année les pays en libres, partiellement libres ou non libres."},
+ {en:["percentage points","percentage point"], fr:["points de pourcentage","point de pourcentage"], s:1, den:"The difference between two percentages: from 2% to 3% is one percentage point, but a 50% increase.", dfr:"L'écart entre deux pourcentages : passer de 2 % à 3 %, c'est un point de pourcentage, mais une hausse de 50 %."},
+ {en:["sample"], fr:["échantillon"], s:2, den:"The people actually asked in a survey, chosen to stand in for the whole population.", dfr:"Les personnes réellement interrogées dans une enquête, choisies pour représenter toute la population."},
+ {en:["margin of error"], fr:["marge d'erreur"], s:2, den:"How far a survey estimate could be from the true value because of the luck of the sample, usually at 95% confidence.", dfr:"L'écart possible entre l'estimation d'un sondage et la vraie valeur, dû au hasard de l'échantillon, en général à 95 %."},
+ {en:["non-sampling errors","non-sampling error"], fr:["erreurs non liées à l'échantillonnage","erreurs non dues à l'échantillonnage","erreur non liée à l'échantillonnage"], s:2, den:"Errors not caused by the luck of the sample: refusals, people left out, wrong answers. No formula measures them.", dfr:"Erreurs qui ne viennent pas du hasard de l'échantillon : refus, personnes oubliées, réponses fausses. Aucune formule ne les mesure."},
+ {en:["recode"], fr:["recoder"], s:2, den:"To merge or rename categories of a variable, for example “very” and “somewhat” favourable into “favourable”.", dfr:"Regrouper ou renommer les catégories d'une variable, par exemple « très » et « plutôt » favorable en « favorable »."},
+ {en:["Herfindahl"], fr:["Herfindahl"], s:3, den:"Herfindahl–Hirschman index: the sum of squared shares (in %) of all suppliers, from near 0 (many suppliers) to 10,000 (one supplier).", dfr:"Indice de Herfindahl-Hirschman : la somme des carrés des parts (en %) de tous les fournisseurs, de presque 0 (beaucoup de fournisseurs) à 10 000 (un seul)."},
+ {en:["substitutability"], fr:["substituabilité"], s:3, den:"How easily a supplier or product can be replaced by another, and how fast.", dfr:"La facilité et la rapidité avec lesquelles un fournisseur ou un produit peut être remplacé."},
+ {en:["composite indices","composite index"], fr:["indices composites","indice composite"], s:3, den:"One score combining several indicators after normalising and weighting them.", dfr:"Un score unique qui combine plusieurs indicateurs après les avoir normalisés et pondérés."},
+ {en:["Normalise","normalise"], fr:["Normaliser","normaliser"], s:3, den:"To put indicators on a common scale, for example 0 for the lowest country and 100 for the highest.", dfr:"Mettre des indicateurs sur une échelle commune, par exemple 0 pour le pays le plus bas et 100 pour le plus haut."},
+ {en:["tile map"], fr:["carte en tuiles"], s:3, den:"A map in which every country is an equal square placed roughly where it lies.", dfr:"Une carte où chaque pays est un carré de même taille, placé à peu près à sa position."},
+ {en:["regression"], fr:["régression"], s:4, den:"A method that summarises, with a line, how one variable changes on average with others.", dfr:"Une méthode qui résume par une droite comment une variable varie en moyenne avec d'autres."},
+ {en:["least squares"], fr:["moindres carrés"], s:4, den:"The rule that picks the line making the sum of squared vertical distances to the points as small as possible.", dfr:"La règle qui choisit la droite rendant la somme des carrés des écarts verticaux aux points la plus petite possible."},
+ {en:["slope"], fr:["pente"], s:4, den:"How much the predicted value changes when the explanatory variable rises by one unit.", dfr:"De combien la valeur prédite change quand la variable explicative augmente d'une unité."},
+ {en:["intercept"], fr:["constante"], s:4, den:"The predicted value when the explanatory variable is zero; mainly used to place the line.", dfr:"La valeur prédite quand la variable explicative vaut zéro ; elle sert surtout à placer la droite."},
+ {en:["R²"], fr:["R²"], s:4, den:"The share of the differences between observations that the model accounts for, from 0 to 1.", dfr:"La part des différences entre observations que le modèle explique, de 0 à 1."},
+ {en:["residual"], fr:["résidu"], s:4, den:"Actual value minus the value predicted by the model.", dfr:"Valeur observée moins valeur prédite par le modèle."},
+ {en:["control"], fr:["variable de contrôle"], s:4, den:"A variable added to a regression so that comparisons are made between otherwise similar cases.", dfr:"Une variable ajoutée à une régression pour comparer des cas par ailleurs semblables."},
+ {en:["outlier"], fr:["valeur atypique"], s:4, den:"An observation far from what the model predicts; often a clue to a missing variable.", dfr:"Une observation éloignée de ce que prédit le modèle ; souvent l'indice d'une variable manquante."},
+ {en:["Correlation","correlation"], fr:["corrélation"], s:4, den:"Two variables moving together. It does not by itself show that one causes the other.", dfr:"Deux variables qui évoluent ensemble. Cela ne montre pas, à soi seul, que l'une cause l'autre."},
+ {en:["counterfactual"], fr:["contrefactuel"], s:5, den:"What would have happened without the policy. Never observed, so it must be estimated.", dfr:"Ce qui se serait passé sans la politique. Jamais observé, il faut l'estimer."},
+ {en:["difference-in-differences","Difference-in-differences"], fr:["différence de différences","Différence de différences"], s:5, den:"The change for a treated group minus the change for a comparison group over the same period.", dfr:"La variation d'un groupe traité moins celle d'un groupe de comparaison sur la même période."},
+ {en:["parallel trends","parallel-trends"], fr:["tendances parallèles"], s:5, den:"The assumption that, without the policy, treated and comparison groups would have moved alike.", dfr:"L'hypothèse que, sans la politique, le groupe traité et le groupe de comparaison auraient évolué de la même façon."},
+ {en:["event study"], fr:["étude d'événement"], s:5, den:"A chart of the treated-to-comparison ratio period by period around an event, to see when an effect starts and whether it lasts.", dfr:"Un graphique du rapport entre groupe traité et groupe de comparaison, période par période autour d'un événement."},
+ {en:["placebo"], fr:["placebo"], s:5, den:"A test that pretends an event happened at a false date; a large “effect” there is a warning sign.", dfr:"Un test qui fait comme si l'événement avait eu lieu à une fausse date ; un « effet » important y est un signal d'alerte."},
+ {en:["first-round cost"], fr:["coût de premier tour"], s:6, den:"The direct extra bill from a price shock, before second-round effects such as inflation or policy responses.", dfr:"La facture supplémentaire directe d'un choc de prix, avant les effets de second tour comme l'inflation ou les réactions de politique."},
+ {en:["AIS"], fr:["AIS"], s:6, den:"Automatic identification system: radio signals ships send with their position, used by PortWatch.", dfr:"Système d'identification automatique : signaux radio émis par les navires avec leur position, utilisés par PortWatch."},
+];
+
 /* ===== shared helpers for every session page ===== */
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const NS = "http://www.w3.org/2000/svg";
+const LANG = window.LANG || "en";
+const FEEDBACK_URL = "https://github.com/roddesbordes-dev/quant-methods-geopolitics/issues/new";
+const TX = {
+ en:{done:" (done)", back:(d,n)=>`Welcome back: ${d} of ${n} steps done.`, cont:(k,t)=>`Continue with step ${k}, ${t} →`, complete:n=>`Session complete: all ${n} steps done.`, read:"Mark as read", readDone:"Read ✓", show:"Show me the answer", copied:"Copied.", sel:"Selected: press Ctrl+C or Cmd+C.", right:"Right. ", notq:"Not quite. ", score:(s,n)=>`Score: ${s} out of ${n}.`, nodata:": no data", gloss:"Glossary", other:"Français", fb:"Report a problem or suggest an improvement", fbNote:"(opens GitHub; a free account is needed)"},
+ fr:{done:" (fait)", back:(d,n)=>`Bon retour : ${d} étape${d>1?"s":""} sur ${n} terminée${d>1?"s":""}.`, cont:(k,t)=>`Reprendre à l'étape ${k}, ${t} →`, complete:n=>`Séance terminée : les ${n} étapes sont faites.`, read:"Marquer comme lu", readDone:"Lu ✓", show:"Montrer la réponse", copied:"Copié.", sel:"Texte sélectionné : appuyez sur Ctrl+C ou Cmd+C.", right:"Exact. ", notq:"Pas tout à fait. ", score:(s,n)=>`Score : ${s} sur ${n}.`, nodata:" : pas de données", gloss:"Glossaire", other:"English", fb:"Signaler un problème ou proposer une amélioration", fbNote:"(ouvre GitHub ; un compte gratuit est nécessaire)"}
+}[LANG];
 const PFX = "qm" + (window.SESSION || 0) + ":";
 function learnerCode(name){ let h=2166136261; for (const ch of String(name).trim().toLowerCase().replace(/\s+/g," ")){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619); } return "QM-"+(h>>>0).toString(36).toUpperCase().padStart(7,"0"); }
 const store = {
@@ -329,18 +383,30 @@ const done = new Set(store.get("done", []));
 function markDone(id){ if (done.has(id)) return; done.add(id); store.set("done", [...done]); renderNav(); }
 function renderNav(){
   const nav = $("#stepnav"); if (!nav) return;
-  nav.innerHTML = steps.map((s,i)=>`<li class="${done.has(s.id)?"done":""}"><a href="#${s.id}"><span class="dot" aria-hidden="true"></span>${i+1}. ${s.dataset.title}<span class="vh">${done.has(s.id)?" (done)":""}</span></a></li>`).join("");
+  nav.innerHTML = steps.map((s,i)=>`<li class="${done.has(s.id)?"done":""}"><a href="#${s.id}"><span class="dot" aria-hidden="true"></span>${i+1}. ${s.dataset.title}<span class="vh">${done.has(s.id)?TX.done:""}</span></a></li>`).join("");
 }
 renderNav();
+/* resume: point returning learners to their first unfinished step */
+(function(){ const hdr=$("header.top"); if (!steps.length || !hdr || !done.size) return;
+  const next=steps.find(s=>!done.has(s.id)); const d=document.createElement("p"); d.className="resume";
+  d.innerHTML = next ? `${TX.back(done.size,steps.length)} <a href="#${next.id}">${TX.cont(steps.indexOf(next)+1,next.dataset.title)}</a>` : TX.complete(steps.length);
+  hdr.appendChild(d); })();
 /* reading-only steps get a button to mark them as read */
 $$("section.step[data-read]").forEach(s=>{ const r=document.createElement("div"); r.className="row";
-  r.innerHTML=`<button class="ghost" type="button">Mark as read</button>`; s.appendChild(r);
-  const b=r.querySelector("button"); const sync=()=>{ if (done.has(s.id)){ b.textContent="Read ✓"; b.disabled=true; } };
+  r.innerHTML=`<button class="ghost" type="button">${TX.read}</button>`; s.appendChild(r);
+  const b=r.querySelector("button"); const sync=()=>{ if (done.has(s.id)){ b.textContent=TX.readDone; b.disabled=true; } };
   b.addEventListener("click",()=>{ markDone(s.id); sync(); }); sync(); });
 
 /* ---------- answer checking ---------- */
 function feedback(elm, ok, msg){ elm.className = "fb " + (ok ? "ok" : "no"); elm.textContent = msg; }
 function readNums(ids){ return ids.map(id => parseFloat(String($("#"+id).value).replace(",", "."))); }
+
+/* after two wrong attempts, offer the answer so nobody gets stuck */
+function helpAfter(btnId, fbId, getFills, n=2){ const btn=$("#"+btnId), fb=$("#"+fbId); if (!btn||!fb) return; let fails=0, shown=false;
+  btn.addEventListener("click",()=>setTimeout(()=>{ if (fb.classList.contains("no")) fails++; if (fails>=n && !shown){ shown=true;
+    const h=document.createElement("button"); h.type="button"; h.className="ghost"; h.textContent=TX.show; h.style.marginTop=".3rem";
+    h.addEventListener("click",()=>{ const f=getFills(); for (const id in f) $("#"+id).value=f[id]; btn.click(); h.remove(); });
+    fb.after(h); } },0)); }
 
 /* ---------- radio-choice lock-in ---------- */
 function lockChoice({group, button, key, onReveal}){
@@ -361,7 +427,7 @@ function niceTicks(min, max, n=5){
   if (max === min){ max = min + 1; }
   const span = max-min, step0 = span/n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
   const err = step0/mag, step = (err>=7.5?10:err>=3.5?5:err>=1.5?2:1)*mag;
-  const t=[]; for (let v=Math.ceil(min/step-1e-9)*step; v<=max+1e-9; v+=step) t.push(+v.toFixed(10)); return {ticks:t, step};
+  const t=[]; for (let v=Math.ceil(min/step-1e-9)*step; v<=max+1e-9; v+=step) t.push(Math.round(v*1e10)/1e10); return {ticks:t, step};
 }
 function shape(g, kind, x, y, r, fill, ring){
   const sw = ring ? 1.5 : 0, st = ring ? css("--panel") : "none";
@@ -506,24 +572,24 @@ function tileMap(container,{title,sub,vals,names,fmt=v=>v,lo,hi,note}){
     const dark = tshare!=null && tshare>0.55;
     const a=el("text",{x:cx*cell+cell/2,y:cy*cell+18,"text-anchor":"middle",style:`font-size:11px;font-weight:600;fill:${dark?"#fff":css("--ink")}`},svg); a.textContent=iso;
     if (v!=null){ const b=el("text",{x:cx*cell+cell/2,y:cy*cell+33,"text-anchor":"middle",style:`font-size:10px;font-family:var(--f-mono);fill:${dark?"#fff":css("--ink2")}`},svg); b.textContent=fmt(v); }
-    hover(f, r, cx*cell+cell/2, cy*cell+4, `<b>${names?.[iso]||iso}</b>${v!=null?": "+fmt(v):": no data"}`);
+    hover(f, r, cx*cell+cell/2, cy*cell+4, `<b>${names?.[iso]||iso}</b>${v!=null?": "+fmt(v):TX.nodata}`);
   }
   if (note){ const s=document.createElement("div"); s.className="cs"; s.textContent=note; container.appendChild(s); }
 }
 
 /* ---------- copy buttons ---------- */
 function wireCopy(){ $$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{ const ta=$("#"+b.dataset.copy), out=$(`[data-copied="${b.dataset.copy}"]`);
-  const fallback=()=>{ ta.focus(); ta.select(); if (out) out.textContent="Selected: press Ctrl+C or Cmd+C."; };
-  try { navigator.clipboard.writeText(ta.value).then(()=>{ if (out) out.textContent="Copied."; },fallback); } catch(e){ fallback(); } })); }
+  const fallback=()=>{ ta.focus(); ta.select(); if (out) out.textContent=TX.sel; };
+  try { navigator.clipboard.writeText(ta.value).then(()=>{ if (out) out.textContent=TX.copied; },fallback); } catch(e){ fallback(); } })); }
 
 /* ---------- quiz ---------- */
 function quiz(box, scoreEl, QUIZ, stepId){
   let qa = store.get("quiz",{});
   const draw = () => {
-    box.innerHTML = QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?"Right. ":"Not quite. "}${q.e}</p>`:""}</div>`).join("");
+    box.innerHTML = QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?TX.right:TX.notq}${q.e}</p>`:""}</div>`).join("");
     $$("#"+box.id+" input").forEach(i=>i.addEventListener("change",()=>{ qa[+i.name.slice(2)]=+i.value; store.set("quiz",qa); draw(); }));
     const n=Object.keys(qa).length, s=QUIZ.filter((q,i)=>qa[i]===q.a).length;
-    scoreEl.textContent = n===QUIZ.length ? `Score: ${s} out of ${QUIZ.length}.` : "";
+    scoreEl.textContent = n===QUIZ.length ? TX.score(s,QUIZ.length) : "";
     if (n===QUIZ.length) markDone(stepId);
   };
   draw();
@@ -540,6 +606,45 @@ function onRedraw(fn){
   try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", fn); new MutationObserver(fn).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]}); } catch(e){}
   let rz, lastW=innerWidth; addEventListener("resize",()=>{ if (innerWidth===lastW) return; lastW=innerWidth; clearTimeout(rz); rz=setTimeout(fn,200); });
 }
+
+
+/* ---------- language switch, glossary link, feedback link ---------- */
+(function(){
+  const file = (location.pathname.split("/").pop() || "index.html");
+  const crumbs = $(".crumbs");
+  if (crumbs){ const g=document.createElement("a"); g.href="glossary.html"; g.textContent=TX.gloss; crumbs.appendChild(g);
+    const l=document.createElement("a"); l.href=(LANG==="fr"?"../":"fr/")+file; l.textContent=TX.other; l.lang=LANG==="fr"?"en":"fr"; crumbs.appendChild(l); }
+  const wrap=$(".wrap"); if (wrap){ const f=document.createElement("p"); f.className="col small feedbacklink";
+    const title=encodeURIComponent((LANG==="fr"?"[FR] ":"")+document.title+": ");
+    f.innerHTML=`<a href="${FEEDBACK_URL}?title=${title}" target="_blank" rel="noopener">${TX.fb}</a> <span>${TX.fbNote}</span>`; wrap.appendChild(f); }
+})();
+
+/* ---------- glossary: underline the first use of each term, definition on hover or tap ---------- */
+function glossify(){
+  if (typeof GLOSSARY==="undefined") return;
+  const skip="a,button,label,h1,h2,h3,h4,textarea,script,style,select,option,.formula,.mono,.chart,.gl,.prompt,figcaption,th,.crumbs,nav,.kpi,.legend";
+  const roots=$$("section.step, header.top .lede"); if (!roots.length) return;
+  const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  const tip=document.createElement("div"); tip.className="gltip"; tip.hidden=true; tip.setAttribute("role","tooltip"); document.body.appendChild(tip);
+  const showT=el=>{ tip.textContent=el.dataset.def; tip.hidden=false; const r=el.getBoundingClientRect(); const w=Math.min(300, innerWidth-24);
+    tip.style.width=w+"px"; tip.style.left=Math.max(12, Math.min(r.left, innerWidth-w-12))+"px"; tip.style.top=(r.bottom+6)+"px"; };
+  const hideT=()=>{ tip.hidden=true; };
+  addEventListener("scroll", hideT, {passive:true});
+  for (const g of GLOSSARY){
+    const forms=(g[LANG]||[]).slice().sort((a,b)=>b.length-a.length); if (!forms.length) continue;
+    const re=new RegExp("(^|[^\\p{L}\\p{N}])("+forms.map(esc).join("|")+")(?![\\p{L}\\p{N}])","u");
+    let doneG=false;
+    for (const root of roots){ if (doneG) break;
+      const w=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode:n=> n.parentElement.closest(skip) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT});
+      let n; while ((n=w.nextNode())){ const m=re.exec(n.nodeValue); if (!m) continue;
+        const start=m.index+m[1].length, end=start+m[2].length;
+        const after=n.splitText(start); after.splitText(end-start);
+        const sp=document.createElement("span"); sp.className="gl"; sp.tabIndex=0; sp.dataset.def=g["d"+LANG]; sp.textContent=after.nodeValue;
+        after.replaceWith(sp);
+        sp.addEventListener("mouseenter",()=>showT(sp)); sp.addEventListener("mouseleave",hideT); sp.addEventListener("focus",()=>showT(sp)); sp.addEventListener("blur",hideT);
+        doneG=true; break; } } }
+}
+setTimeout(glossify, 0);
 
 /* Session 5 */
 const M = DATA.months, S = DATA.m;
@@ -616,6 +721,10 @@ quiz($("#quizBox"), $("#quizScore"), [
  {q:"What does the parallel-trends assumption say?",o:["Both groups have the same level","Without the policy, both groups would have moved alike","The policy affects both groups equally"],a:1,e:"Levels can differ; trends must be comparable."},
  {q:"A placebo test at a fake date shows a large effect. What should you conclude?",o:["The policy worked twice","Something other than the policy moves the data; be cautious","Nothing"],a:1,e:"Here the pandemic hit small neighbours harder; state it as a caveat."},
  {q:"The detour through three neighbours made up about 9% of lost EU exports to Russia. What does this say about sanctions?",o:["They failed completely","Rerouting was real but small relative to the collapse","They had no effect on Russia"],a:1,e:"Both headlines, “sanctions fail” and “no leakage”, are wrong."}], "quiz");
+
+/* help when stuck */
+helpAfter("la-btn","la-fb",()=>({"la-in":"30"}));
+helpAfter("aa-btn","aa-fb",()=>({"aa1":gN.toFixed(1),"aa2":gR.toFixed(1),"aa3":DD.toFixed(1)}));
 
 /* boot */
 drawCars(); drawES(); drawTR(); if (stA.ok) openFA(); faGuess();

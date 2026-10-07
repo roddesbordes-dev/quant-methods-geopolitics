@@ -142,3 +142,12 @@ a.btn{color:#fff}
 .cert-f{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 2rem;font-size:.9rem;margin-top:.8rem}
 .cert-s{font-size:.75rem;color:var(--muted);margin-top:.6rem}
 @media print{ @page{size:A4 landscape;margin:12mm} body{background:#fff;color:#000} .noprint,nav.steps,footer{display:none!important} .cert{border-color:#0072B2;outline:none;box-shadow:none;margin:0} .wrap{padding:0} }
+.resume{margin-top:1rem;padding:.6rem .8rem;background:var(--soft);border-radius:var(--r);font-size:.95rem}
+.resume a{font-weight:600}
+.gl{border-bottom:1.5px dotted var(--accent);cursor:help}
+.gl:focus-visible{outline:2px solid var(--hi);outline-offset:1px}
+.gltip{position:fixed;z-index:50;background:var(--ink);color:var(--bg);font-size:.82rem;line-height:1.4;padding:.45rem .6rem;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.feedbacklink{margin-top:1.5rem;padding-bottom:1rem}
+.feedbacklink span{color:var(--muted)}
+.glist dt{font-weight:700;margin-top:.9rem}
+.glist dd{margin:.2rem 0 0;color:var(--ink2)}

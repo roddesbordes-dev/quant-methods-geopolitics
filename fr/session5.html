@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Course Certificate</title>
-<meta name="description" content="Certificate of completion for the self-paced course.">
+<title>Voitures allemandes au Kirghizstan</title>
+<meta name="description" content="Séance 5 : différence de différences et étude d'événement du contournement des sanctions.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}
 
@@ -164,38 +164,158 @@ a.btn{color:#fff}
 </head>
 <body>
 <div class="wrap">
-<header class="top col noprint">
-  <div class="crumbs"><a href="index.html">Course home</a><span>Certificate</span></div>
-  <h1 style="margin-top:.6rem">Certificate of completion</h1>
-  <p class="lede">The certificate unlocks once every step of the six sessions is done. Your progress is read from this browser.</p>
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Accueil du cours</a><span>Séance 5 sur 6</span></div>
+  <h1 style="margin-top:.6rem">Pourquoi les voitures allemandes ont-elles afflué au Kirghizstan ?</h1>
+  <p class="lede">Les sanctions fonctionnent-elles, ou les marchandises font-elles simplement un détour ? Les organisations internationales répondent à ce type de question par l'évaluation des politiques publiques. Dans cette séance, vous estimez quelle part du commerce de l'UE avec la Russie a été détournée via ses voisins, à l'aide d'une différence de différences et d'une étude d'événement sur des données mensuelles d'Eurostat.</p>
+  <div class="meta"><span><b>Environ 3 heures</b> à votre rythme</span><span><b>Aucun logiciel nécessaire</b> dans le navigateur ; étapes facultatives dans jamovi</span><span><b>Vos réponses</b> restent uniquement dans ce navigateur</span></div>
 </header>
-<section class="col noprint" style="padding-block:1.5rem">
-  <div class="tscroll"><table id="progTable" aria-label="Your progress"></table></div>
-  <div id="locked" class="box key" hidden><h4>Not yet</h4><p id="lockedTxt"></p></div>
-  <div id="unlock" class="box task" hidden>
-    <h4>Well done: all six sessions are complete</h4>
-    <label for="certName" class="small">Your name, as it should appear on the certificate</label>
-    <div class="row"><input type="text" id="certName" style="flex:1;min-width:12rem"><button id="certBtn">Create my certificate</button></div>
+
+<nav class="steps" aria-label="Étapes de cette séance"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Énigme">
+  <div class="stephead"><span class="eyebrow">Étape 1 · Énigme · 10 min</span><h2>Le graphique</h2></div>
+  <figure class="wide"><div class="chart" id="carChart"></div></figure>
+  <p>Les exportations allemandes de voitures et de pièces automobiles vers le Kirghizstan, pays de sept millions d'habitants voisin du Kazakhstan, ont été multipliées par soixante environ entre 2021 et 2023. Le Kirghizstan appartient à une union douanière avec la Russie. Est-ce la preuve que les sanctions échouent ?</p>
+  <div class="box task"><h4>Votre estimation</h4>
+    <p>Les exportations de l'UE vers la Russie se sont effondrées après février 2022. Quelle part approximative des exportations perdues est revenue par l'Arménie, le Kazakhstan et le Kirghizstan ?</p>
+    <div class="choice" id="q-share">
+      <label><input type="radio" name="sh" value="5"> Moins de 5 %</label>
+      <label><input type="radio" name="sh" value="10"> Environ 10 %</label>
+      <label><input type="radio" name="sh" value="30"> Environ 30 %</label>
+      <label><input type="radio" name="sh" value="50"> Plus de la moitié</label>
+    </div>
+    <div class="row"><button id="shBtn" disabled>Valider mon estimation</button><span class="small" id="shOut"></span></div>
   </div>
 </section>
-<section class="col" id="certWrap" hidden>
-  <div class="cert" id="cert">
-    <div class="cert-k">Certificate of completion</div>
-    <div class="cert-n" id="cN"></div>
-    <p class="cert-t">has completed the self-paced course</p>
-    <div class="cert-c">Quantitative Methods for Geopolitics and Geoeconomics</div>
-    <p class="cert-t">six sessions, about 18 hours: trusting official numbers and honest charts; polls and margins of error; dependence and composite indices; regression; policy evaluation with difference-in-differences; costing a geopolitical shock and auditing AI analysis.</p>
-    <div class="cert-f"><span id="cD"></span><span>Course designed by Rodolphe Desbordes</span><span class="mono" id="cC"></span></div>
-    <p class="cert-s">Self-assessed completion of all activities, recorded in the learner's browser. It does not certify graded assessment.</p>
-  </div>
-  <div class="row noprint"><button id="printBtn">Print or save as PDF</button><span class="small">In the print window, choose “Save as PDF” and landscape.</span></div>
+
+<section class="step col" id="lessonA" data-title="Leçon A">
+  <div class="stephead"><span class="eyebrow">Étape 2 · Leçon · 25 min</span><h2>Que se serait-il passé de toute façon ?</h2></div>
+  <p>Toute évaluation compare ce qui s'est passé avec ce qui se serait passé sans la politique : le <strong>contrefactuel</strong>. Nous ne l'observons jamais, nous devons donc le construire.</p>
+  <h3>Comparer avant et après ne suffit pas</h3>
+  <p>Les exportations de l'UE vers les voisins de la Russie ont plus que doublé après 2022. Mais les exportations de l'UE vers le reste du monde ont aussi augmenté, avec l'inflation et la reprise post-COVID. Une comparaison avant/après mélange l'effet des sanctions avec tout ce qui a changé par ailleurs.</p>
+  <h3>La différence de différences</h3>
+  <p>Prenez un groupe <em>traité</em> (les voisins de la Russie) et un groupe de <em>comparaison</em> exposé aux mêmes chocs généraux mais pas au détour (le reste du monde, hors Russie, ses autres voisins et les plateformes commerciales connues). Calculez la variation de chacun et faites la soustraction :</p>
+  <p class="formula">effet = (variation pour les voisins) − (variation pour le groupe de comparaison)</p>
+  <p>La variation du groupe de comparaison est notre estimation de ce qui serait arrivé aux voisins de toute façon. Nous utilisons ici des variations en pourcentage, car les deux groupes ont des tailles très différentes.</p>
+  <h3>L'hypothèse clé : les tendances parallèles</h3>
+  <p>La méthode suppose que, sans sanctions, les deux groupes auraient évolué en parallèle. On ne peut pas la tester après l'événement, mais on peut vérifier s'ils évoluaient en parallèle <em>avant</em>. C'est le rôle de l'étude d'événement de l'étape 5.</p>
+  <div class="box task"><h4>Vérifiez-vous</h4>
+    <p>Un groupe traité croît de 50 %, le groupe de comparaison de 20 %. Quelle est l'estimation par différence de différences, en points de pourcentage ?</p>
+    <div class="row"><input type="text" inputmode="decimal" id="la-in" aria-label="Estimation"><button id="la-btn">Vérifier</button></div>
+    <p class="fb" id="la-fb"></p></div>
 </section>
+
+<section class="step col" id="activityA" data-title="Activité A">
+  <div class="stephead"><span class="eyebrow">Étape 3 · Activité · 20 min</span><h2>Dans la peau du contrôleur des sanctions</h2></div>
+  <p>Exportations mensuelles moyennes de l'UE, en millions d'euros. Avant : de janvier 2019 à décembre 2021. Après : de mars 2022 à décembre 2024.</p>
+  <div class="tscroll"><table id="ddTable" aria-label="Tableau à double entrée"></table></div>
+  <div class="box task"><h4>Calculez l'effet</h4>
+    <div class="row"><label for="aa1">Variation pour les voisins, %</label><input type="text" inputmode="decimal" step="0.1" id="aa1"></div>
+    <div class="row"><label for="aa2">Variation pour le reste du monde, %</label><input type="text" inputmode="decimal" step="0.1" id="aa2"></div>
+    <div class="row"><label for="aa3">Différence de différences, en points</label><input type="text" inputmode="decimal" step="0.1" id="aa3"><button id="aa-btn">Vérifier</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <details class="jam"><summary>À faire maintenant dans jamovi (facultatif, 10 min)</summary>
+    <ol class="tight"><li>Collez les données mensuelles ci-dessous (une ligne par mois et par groupe).</li>
+      <li>Calculez <span class="mono">after = month >= "2022-03"</span> (ou créez-la avec <b>Transform</b> ; noms des menus de l'interface anglaise de jamovi) et ne conservez que les mois jusqu'à 2024-12 à l'aide d'un filtre.</li>
+      <li><b>Exploration → Descriptives</b> : moyenne de <span class="mono">exports</span> ventilée par <span class="mono">group</span> et <span class="mono">after</span>. Remplissez le tableau 2×2 à partir des résultats.</li></ol>
+    <textarea readonly id="csvDD" aria-label="Données pour jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvDD">Copier les données</button><span class="small" data-copied="csvDD"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-title="Retour A">
+  <div class="stephead"><span class="eyebrow">Étape 4 · Retour · 10 min</span><h2>Environ un dixième est revenu</h2></div>
+  <p id="fa-locked" class="small">Terminez le calcul de l'étape 3 pour débloquer ce retour.</p>
+  <div id="fa-body" hidden>
+    <p class="headline-claim" id="faGuess"></p>
+    <p>Si les importations des trois voisins en provenance de l'UE avaient progressé comme celles du reste du monde (+33 %), elles auraient atteint en moyenne environ 770 millions d'euros par mois après mars 2022. Elles ont atteint en moyenne 1 334 millions d'euros : un surplus de 564 millions d'euros par mois, soit environ 6,8 milliards d'euros par an.</p>
+    <p>Sur la même période, les exportations de l'UE vers la Russie sont tombées de 7,2 à 3,3 milliards d'euros par mois, tandis que le groupe de comparaison progressait d'un tiers. Mesurées de la même façon, environ 6,3 milliards d'euros par mois d'exportations vers la Russie ont été perdus. Le détour par l'Arménie, le Kazakhstan et le Kirghizstan a donc compensé environ <strong>9 %</strong> de la perte. Un effet réel, important pour ces trois économies, et faible au regard de l'effondrement.</p>
+    <div class="box key"><h4>En euros</h4>Une différence de pourcentages devient un chiffre utile pour la décision publique une fois reconvertie en montants : le niveau contrefactuel, l'excédent, la part du total.</div>
+  </div>
+</section>
+
+<section class="step col" id="lessonB" data-title="Leçon B">
+  <div class="stephead"><span class="eyebrow">Étape 5 · Leçon · 25 min</span><h2>Mois par mois</h2></div>
+  <h3>L'étude d'événement</h3>
+  <p>Au lieu d'un seul avant et d'un seul après, représentez pour chaque mois le rapport entre le groupe traité et le groupe de comparaison, normalisé pour que la moyenne d'avant les sanctions soit égale à 100. Trois points à examiner :</p>
+  <ul class="tight">
+    <li><strong>Avant l'événement</strong>, la courbe doit être plate autour de 100 : cela conforte l'hypothèse de tendances parallèles.</li>
+    <li><strong>Au moment de l'événement</strong>, un saut qui commence quand la politique commence, et pas avant.</li>
+    <li><strong>Après</strong>, si l'effet persiste, s'amplifie ou s'estompe.</li>
+  </ul>
+  <h3>Le test placebo</h3>
+  <p>Faites comme si l'événement avait eu lieu à une date où rien ne s'est passé, par exemple mars 2020, et refaites la comparaison. Un « effet » important à une date fictive signale que quelque chose d'autre que la politique fait bouger les données. Ici, ce quelque chose est la pandémie : le commerce avec les petits voisins a reculé plus vite que le reste en 2020–21.</p>
+  <h3>Ce qui pourrait fausser l'estimation</h3>
+  <ul class="tight">
+    <li>Le groupe de comparaison a pu subir d'autres chocs, comme la crise énergétique.</li>
+    <li>Une partie de la croissance peut refléter une demande réelle d'économies restées en croissance, comme le Kazakhstan.</li>
+    <li>Les valeurs en euros incluent des hausses de prix qui diffèrent selon les produits.</li>
+  </ul>
+</section>
+
+<section class="step col" id="activityB" data-title="Activité B">
+  <div class="stephead"><span class="eyebrow">Étape 6 · Activité · 20 min</span><h2>Quand le détour a-t-il commencé ?</h2></div>
+  <div class="row"><span class="small">Partenaire</span><div class="seg" id="segP"><button aria-pressed="true" data-v="NBR">Trois voisins</button><button aria-pressed="false" data-v="KG">Kirghizstan</button><button aria-pressed="false" data-v="AM">Arménie</button><button aria-pressed="false" data-v="KZ">Kazakhstan</button><button aria-pressed="false" data-v="GE">Géorgie</button><button aria-pressed="false" data-v="UZ">Ouzbékistan</button></div></div>
+  <div class="row"><span class="small">Date de l'événement</span><div class="seg" id="segE"><button aria-pressed="true" data-v="2022-03">Mars 2022 (réelle)</button><button aria-pressed="false" data-v="2020-03">Mars 2020 (placebo)</button></div></div>
+  <figure class="wide"><div class="chart" id="esChart"></div><figcaption>Exportations de l'UE vers le partenaire divisées par les exportations de l'UE vers le groupe de comparaison, moyenne mobile sur trois mois, moyenne d'avant l'événement = 100. Source : Eurostat Comext (DS-045409), données mensuelles, valeurs en euros.</figcaption></figure>
+  <div class="kpi" id="esK"></div>
+  <div class="box task"><h4>Votre lecture</h4>
+    <p>Quand le saut a-t-il commencé, s'estompe-t-il, et que montre le placebo ? Deux ou trois phrases.</p>
+    <textarea id="esNote" rows="4" aria-label="Votre lecture"></textarea></div>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Retour B">
+  <div class="stephead"><span class="eyebrow">Étape 7 · Retour · 10 min</span><h2>Un saut brutal, un lent reflux</h2></div>
+  <p>La courbe des trois voisins bondit au printemps 2022, exactement au début des sanctions, culmine en 2023 à près du double de son niveau d'avant-guerre par rapport au reste du monde, puis reflue lentement, tout en restant environ 50 % au-dessus en 2026. La courbe du Kirghizstan est la plus extrême, à six ou sept fois son niveau d'avant-guerre. Ce profil correspond à un détournement : il commence avec les sanctions et s'affaiblit à mesure que l'UE renforce les contrôles sur les réexportations à partir de 2023.</p>
+  <p>Le placebo n'est pas propre : avec une date fictive en mars 2020, les voisins reculent d'environ 13 points par rapport au reste du monde, car la pandémie les a frappés plus durement. La tendance d'avant-guerre était aussi orientée à la baisse en 2021. Cela rend plutôt notre estimation prudente, mais c'est le type de réserve qu'une note d'évaluation doit mentionner.</p>
+  <p>La Géorgie et l'Ouzbékistan, qui n'appartiennent pas à l'Union économique eurasiatique, progressent aussi : le détour ne se limite pas aux partenaires de la Russie au sein de l'union douanière.</p>
+</section>
+
+<section class="step col" id="exercise" data-title="Exercice 2">
+  <div class="stephead"><span class="eyebrow">Étape 8 · Exercice 2 · 45 min</span><h2>Un nouveau cas : la Turquie</h2></div>
+  <p>La Turquie ne s'est pas associée aux sanctions de l'UE et a continué à commercer avec la Russie. Les exportations de l'UE vers la Turquie ont-elles augmenté à cause des sanctions ? Utilisez la même méthode et le même groupe de comparaison.</p>
+  <div class="tscroll"><table id="trTable" aria-label="Turquie, tableau à double entrée"></table></div>
+  <figure class="wide"><div class="chart" id="trChart"></div></figure>
+  <div class="box task"><h4>Rédigez une note d'évaluation d'une page</h4>
+    <label class="small" for="ex1"><b>1. Le graphique</b> que vous montreriez (décrivez-le)</label><textarea id="ex1" rows="2"></textarea>
+    <label class="small" for="ex2"><b>2. L'effet</b> en une phrase, avec son chiffre</label><textarea id="ex2" rows="2"></textarea>
+    <label class="small" for="ex3"><b>3. L'hypothèse</b> sur laquelle il repose</label><textarea id="ex3" rows="2"></textarea>
+    <label class="small" for="ex4"><b>4. Une raison concrète</b> pour laquelle il pourrait être faux</label><textarea id="ex4" rows="2"></textarea>
+    <div class="row"><button class="ghost" id="exBtn">Comparer avec une note modèle</button></div>
+    <div id="exModel" hidden class="box key"></div>
+  </div>
+</section>
+
+<section class="step col" id="quiz" data-title="Autoévaluation">
+  <div class="stephead"><span class="eyebrow">Étape 9 · Autoévaluation · 5 min</span><h2>Cinq questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session4.html">← Séance 4 : La Pologne, l'Espagne et la droite</a><a href="session6.html">Séance 6 : Ce que coûte Ormuz →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Lectures et références</h3>
+  <ul class="refs">
+    <li>RFE/RL, <a href="https://www.rferl.org/a/kyrgyzstan-russia-car-reexports-sanctions-eeu/32781868.html" target="_blank" rel="noopener">« Kyrgyzstan's car re-export boom »</a> (en anglais).</li>
+    <li>Chupilkin, M., Javorcik, B. et Plekhanov, A. (2023), <a href="https://users.ox.ac.uk/~econ0247/Roundabout.pdf" target="_blank" rel="noopener">« The Eurasian Roundabout: trade flows into Russia through the Caucasus and Central Asia »</a>, document de travail de la BERD, introduction.</li>
+    <li>Cunningham, S., <a href="https://mixtape.scunning.com" target="_blank" rel="noopener">Causal Inference: The Mixtape</a>, chapitre sur la différence de différences (gratuit en ligne, pour les curieux).</li>
+  </ul>
+  <h3>Données</h3>
+  <ul class="refs">
+    <li>Eurostat Comext, <a href="https://ec.europa.eu/eurostat/web/international-trade-in-goods/database" target="_blank" rel="noopener">EU trade since 1988 by HS2-4-6 and CN8 (DS-045409)</a> : exportations mensuelles de l'UE par partenaire, de janvier 2019 à juillet 2026 ; exportations allemandes vers le Kirghizstan du chapitre 87 du SH (véhicules et pièces), données annuelles.</li>
+    <li>Groupe de comparaison : ensemble des exportations extra-UE, hors Russie, Biélorussie, Ukraine, Arménie, Azerbaïdjan, Géorgie, Kazakhstan, Kirghizstan, Mongolie, Tadjikistan, Turkménistan, Ouzbékistan, Turquie, Émirats arabes unis et Chine.</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Effacer mes réponses pour cette séance</button></p>
+</footer>
 
 </div>
 <script>
-window.SESSION='cert';
-window.LANG="en";
-const DATA = {};
+window.SESSION=5;
+window.LANG="fr";
+const __tf=Number.prototype.toFixed; Number.prototype.toFixed=function(d){ return __tf.call(this,d).replace(".", ","); };
+const DATA = {"months": ["2019-01", "2019-02", "2019-03", "2019-04", "2019-05", "2019-06", "2019-07", "2019-08", "2019-09", "2019-10", "2019-11", "2019-12", "2020-01", "2020-02", "2020-03", "2020-04", "2020-05", "2020-06", "2020-07", "2020-08", "2020-09", "2020-10", "2020-11", "2020-12", "2021-01", "2021-02", "2021-03", "2021-04", "2021-05", "2021-06", "2021-07", "2021-08", "2021-09", "2021-10", "2021-11", "2021-12", "2022-01", "2022-02", "2022-03", "2022-04", "2022-05", "2022-06", "2022-07", "2022-08", "2022-09", "2022-10", "2022-11", "2022-12", "2023-01", "2023-02", "2023-03", "2023-04", "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11", "2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"], "m": {"NBR": [536.5, 577.1, 692.1, 562.6, 578.3, 702.7, 699.7, 570.9, 767.8, 617.0, 574.2, 580.0, 512.8, 616.2, 726.9, 492.0, 502.9, 553.9, 546.7, 521.1, 530.9, 613.5, 593.8, 687.8, 403.7, 470.9, 663.4, 581.5, 496.4, 574.2, 529.5, 542.6, 509.0, 513.4, 565.5, 657.6, 395.6, 641.5, 755.5, 671.9, 863.8, 943.8, 1145.0, 1279.6, 1558.1, 1668.3, 1659.7, 1833.7, 1218.1, 1487.3, 1696.1, 1381.0, 1428.8, 1548.6, 1363.8, 1379.1, 1345.8, 1406.8, 1582.2, 1206.7, 1138.2, 1275.6, 1316.9, 1349.0, 1362.0, 1440.5, 1327.8, 1314.0, 1210.6, 1351.0, 1406.1, 1438.2, 1159.3, 1234.4, 1349.7, 1237.5, 1316.2, 1091.1, 1219.1, 1031.0, 1103.9, 1401.0, 1205.5, 1319.9, 800.3, 1214.8, 1368.1, 1297.1, 1270.9, 1250.9, 1416.1], "AM": [44.1, 68.2, 76.7, 64.5, 63.7, 62.9, 62.2, 58.5, 63.9, 81.3, 78.9, 76.6, 56.0, 61.6, 61.4, 70.9, 51.4, 58.5, 79.8, 55.2, 56.0, 57.6, 53.4, 56.2, 50.6, 55.7, 61.1, 59.3, 59.4, 57.4, 60.9, 57.8, 70.2, 77.2, 72.8, 75.1, 53.0, 62.2, 95.0, 93.8, 126.2, 137.9, 172.5, 193.1, 225.2, 244.0, 249.4, 232.4, 178.1, 190.7, 209.4, 178.1, 198.7, 192.8, 169.6, 173.9, 164.4, 164.3, 185.7, 154.1, 142.3, 145.2, 159.1, 159.6, 155.2, 154.1, 177.1, 158.1, 169.2, 170.9, 187.3, 167.6, 127.0, 157.4, 166.7, 170.8, 155.0, 154.1, 179.5, 135.3, 159.1, 187.5, 161.1, 199.3, 122.6, 168.2, 202.0, 189.4, 347.3, 201.2, 313.6], "KZ": [469.5, 482.5, 589.8, 471.2, 490.3, 617.1, 612.1, 485.1, 674.1, 504.0, 457.9, 469.9, 439.1, 531.6, 643.6, 407.1, 438.9, 477.1, 443.2, 449.8, 454.3, 531.1, 518.2, 611.6, 334.9, 393.6, 576.9, 497.8, 418.1, 495.2, 447.0, 464.3, 413.8, 416.5, 467.0, 562.1, 324.7, 552.8, 628.2, 547.5, 700.8, 748.1, 889.0, 966.0, 1173.1, 1260.6, 1196.7, 1373.1, 881.3, 1082.6, 1219.3, 975.5, 981.5, 1109.1, 982.1, 985.7, 974.0, 999.5, 1143.6, 819.8, 826.7, 887.4, 910.9, 982.5, 983.2, 1062.7, 909.5, 945.1, 826.7, 955.9, 1014.0, 1097.0, 894.4, 895.9, 1002.2, 871.6, 980.0, 763.1, 844.7, 742.4, 779.8, 1000.3, 857.5, 927.2, 545.9, 830.8, 952.3, 883.2, 749.1, 836.4, 864.2], "KG": [23.0, 26.4, 25.6, 26.9, 24.3, 22.8, 25.4, 27.3, 29.7, 31.8, 37.5, 33.5, 17.7, 23.0, 21.8, 14.0, 12.6, 18.4, 23.7, 16.2, 20.6, 24.8, 22.2, 20.0, 18.1, 21.7, 25.4, 24.4, 18.9, 21.6, 21.6, 20.6, 25.1, 19.7, 25.8, 20.4, 17.9, 26.4, 32.3, 30.6, 36.9, 57.7, 83.5, 120.5, 159.8, 163.6, 213.5, 228.2, 158.7, 214.0, 267.4, 227.3, 248.6, 246.7, 212.1, 219.6, 207.4, 243.0, 252.9, 232.8, 169.1, 243.0, 246.9, 206.9, 223.6, 223.7, 241.2, 210.8, 214.7, 224.2, 204.7, 173.5, 137.9, 181.2, 180.8, 195.0, 181.2, 174.0, 194.8, 153.3, 165.0, 213.2, 186.9, 193.4, 131.8, 215.8, 213.9, 224.5, 174.5, 213.3, 238.3], "GE": [141.4, 143.6, 213.7, 161.8, 178.0, 163.5, 179.9, 159.0, 187.8, 207.8, 179.6, 186.3, 143.4, 151.7, 138.8, 97.5, 86.2, 136.5, 145.9, 129.8, 135.7, 143.5, 141.3, 144.6, 105.9, 132.6, 169.9, 155.0, 136.8, 158.5, 163.1, 215.5, 189.9, 205.2, 201.1, 211.6, 167.4, 215.0, 199.7, 221.4, 242.6, 270.9, 296.5, 269.9, 332.4, 304.5, 340.0, 368.1, 238.4, 279.3, 353.5, 265.2, 286.3, 300.5, 279.8, 284.5, 304.8, 333.7, 379.8, 316.5, 247.9, 317.1, 395.0, 339.1, 310.1, 312.3, 371.4, 373.1, 398.6, 404.3, 423.4, 430.9, 293.7, 342.9, 362.6, 368.7, 352.8, 371.8, 374.3, 352.7, 371.8, 402.3, 384.0, 329.1, 276.9, 329.9, 396.6, 324.6, 330.8, 443.1, 536.5], "UZ": [136.3, 168.8, 268.6, 285.8, 214.1, 214.7, 205.8, 184.5, 225.5, 203.7, 215.5, 217.6, 139.6, 177.7, 195.1, 131.6, 134.9, 156.2, 219.9, 155.8, 176.0, 184.9, 203.2, 350.2, 121.9, 153.3, 212.6, 173.3, 160.4, 197.2, 175.3, 177.0, 212.8, 202.0, 218.6, 294.1, 170.9, 312.8, 430.7, 195.9, 196.7, 254.3, 319.4, 303.4, 304.6, 308.0, 364.7, 605.8, 257.4, 291.8, 426.2, 295.2, 380.0, 489.2, 389.0, 336.5, 343.6, 340.2, 343.8, 460.6, 245.6, 332.8, 326.6, 308.3, 285.2, 296.5, 310.1, 359.8, 343.0, 344.3, 394.9, 356.1, 248.5, 328.2, 484.5, 358.8, 437.8, 325.7, 469.0, 308.2, 336.3, 359.8, 381.3, 474.1, 267.2, 297.6, 335.9, 358.9, 299.2, 331.4, 387.7], "TR": [5009.2, 5670.8, 6816.4, 6062.4, 6351.3, 6143.8, 6374.8, 5242.8, 5840.3, 6875.1, 6649.6, 6963.4, 6621.5, 6067.6, 6020.5, 3989.6, 4091.2, 5526.7, 6102.7, 4942.4, 6752.4, 7614.5, 6644.4, 6453.2, 5870.2, 6218.3, 7585.8, 6567.5, 5850.6, 6767.3, 6008.4, 5972.2, 6485.1, 6700.3, 7532.0, 7570.8, 6554.1, 7284.8, 8518.7, 7571.6, 8397.0, 9014.9, 8275.0, 8087.8, 9061.9, 8649.5, 9373.8, 9437.5, 8737.7, 9328.0, 11026.1, 8742.7, 10043.6, 9679.4, 9413.2, 8069.6, 8815.0, 10099.1, 9703.7, 8724.1, 8491.9, 10098.8, 10191.7, 9890.2, 10055.2, 8377.7, 9551.3, 8298.1, 9199.1, 10096.3, 9980.6, 8979.3, 9091.2, 10028.7, 10355.6, 10423.7, 9626.8, 9132.3, 10178.4, 7446.4, 9020.3, 9748.6, 9579.4, 9507.6, 8401.3, 9053.0, 9713.4, 9714.9, 8393.5, 9739.9, 9330.0], "ROW": [118659.5, 120927.5, 132430.4, 131163.0, 137945.1, 126227.4, 139156.9, 118956.1, 128697.1, 144438.6, 131170.6, 129403.2, 122265.6, 136795.0, 140850.0, 95588.9, 100557.4, 118759.2, 131648.8, 107890.4, 133607.8, 139476.2, 137618.1, 135392.8, 116515.2, 129087.4, 151901.4, 139221.6, 135065.2, 147358.1, 148166.6, 130715.6, 147703.8, 150226.0, 159239.5, 155029.2, 143786.5, 152509.3, 181946.5, 165642.0, 182394.2, 184377.0, 172212.9, 167767.0, 190002.4, 184447.7, 193055.9, 175695.1, 160628.7, 167483.2, 196587.5, 156268.7, 176494.1, 184994.6, 168208.6, 162513.7, 172501.1, 183347.5, 183806.9, 162053.2, 163751.3, 171447.8, 178847.9, 181662.7, 176363.6, 174712.4, 188335.4, 160586.3, 174570.7, 187970.7, 183435.9, 170970.4, 174363.3, 186427.5, 214933.5, 179593.4, 179363.0, 176316.5, 187365.3, 151889.5, 190056.1, 185730.1, 173481.3, 171888.9, 157283.4, 170012.3, 196104.8, 187622.3, 180691.9, 199154.5, 205759.7], "RU": [6190.1, 6827.1, 7413.3, 7387.6, 7789.1, 7169.8, 7951.4, 7802.2, 7722.6, 9573.5, 8352.6, 6574.0, 6433.3, 7118.8, 7276.3, 5297.4, 5367.8, 6511.9, 6886.1, 6013.4, 7181.2, 7484.0, 7270.1, 6385.3, 5669.5, 6623.7, 8017.1, 7523.4, 7430.2, 7527.7, 8060.9, 6832.2, 7688.0, 7646.5, 8441.5, 7708.5, 7120.3, 7276.5, 3861.8, 2916.5, 3898.7, 4571.9, 4129.7, 3934.2, 4156.2, 4173.1, 5071.5, 3939.5, 3561.7, 3597.6, 4311.7, 2961.8, 3059.1, 3052.3, 2984.5, 2941.0, 2920.2, 3008.2, 3212.8, 2683.0, 2591.1, 2795.8, 2693.8, 2891.0, 2569.1, 2429.1, 3026.2, 2496.3, 2637.7, 2879.3, 2889.3, 2085.1, 2336.3, 2500.6, 2787.6, 2608.4, 2322.7, 2453.2, 2628.9, 2328.8, 2488.1, 3045.4, 2686.8, 2148.6, 2138.2, 2561.3, 2959.7, 2452.3, 2121.2, 2576.6, 2620.0]}, "de_kg_cars": {"2019": 14.6, "2020": 4.6, "2021": 6.3, "2022": 173.9, "2023": 373.8, "2024": 307.8, "2025": 107.8}};
 /* Glossary: matching forms per language, definitions, first session */
 const GLOSSARY = [
  {en:["GDP"], fr:["PIB"], s:1, den:"Gross domestic product: the value of everything produced in a country in a year.", dfr:"Produit intérieur brut : la valeur de tout ce qu'un pays produit en une année."},
@@ -527,19 +647,90 @@ function glossify(){
 }
 setTimeout(glossify, 0);
 
-/* Certificate */
-const SES=[[1,"Can we trust the numbers?",9],[2,"Can we trust a poll?",8],[3,"Who depends on whom?",8],[4,"Why does Poland spend so much, and Spain so little?",9],[5,"Why did German cars flood into Kyrgyzstan?",9],[6,"What does the Hormuz closure cost?",6]];
-const got=n=>{ try { const v=localStorage.getItem("qm"+n+":done"); return v?JSON.parse(v).length:0; } catch(e){ return 0; } };
-let all=true;
-$("#progTable").innerHTML=`<tr><th>Session</th><th class="num">Steps done</th><th>Status</th></tr>`+SES.map(([n,t,k])=>{ const g=Math.min(got(n),k); if (g<k) all=false;
-  return `<tr><td><a href="session${n}.html">${n}. ${t}</a></td><td class="num">${g} of ${k}</td><td>${g>=k?'<span class="chip F">✓ complete</span>':'<span class="chip PF">in progress</span>'}</td></tr>`; }).join("");
-if (all){ $("#unlock").hidden=false; } else { $("#locked").hidden=false; $("#lockedTxt").textContent="Finish the remaining steps, shown above, then come back. Each step is ticked in the bar at the top of its session page."; }
-function make(name){ const d=store.get("date", new Date().toISOString().slice(0,10)); store.set("date",d); store.set("name",name);
-  $("#cN").textContent=name; $("#cD").textContent=new Date(d+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}); $("#cC").textContent=learnerCode(name+"|"+d);
-  $("#certWrap").hidden=false; }
-$("#certBtn").addEventListener("click",()=>{ const n=$("#certName").value.trim(); if (n.length<2) return; make(n); });
-$("#printBtn").addEventListener("click",()=>window.print());
-const prev=store.get("name",""); if (all && prev){ $("#certName").value=prev; make(prev); }
+/* Session 5 */
+const M = DATA.months, S = DATA.m;
+const tnum = m => +m.slice(0,4) + (+m.slice(5,7)-1)/12;
+const avg = (p,a,b) => { const v=M.map((m,i)=>[m,S[p][i]]).filter(([m])=>m>=a&&m<=b).map(([,x])=>x); return v.reduce((s,x)=>s+x,0)/v.length; };
+const PRE=["2019-01","2021-12"], POST=["2022-03","2024-12"];
+const g = p => avg(p,...POST)/avg(p,...PRE)-1;
+const NAMES={NBR:"Trois voisins",KG:"Kirghizstan",AM:"Arménie",KZ:"Kazakhstan",GE:"Géorgie",UZ:"Ouzbékistan",TR:"Turquie"};
+
+/* puzzle */
+function drawCars(){ const v=Object.entries(DATA.de_kg_cars).map(([y,x])=>[y,x]);
+  vbar($("#carChart"),{title:"Exportations allemandes de voitures et de pièces automobiles vers le Kirghizstan",sub:"Millions d'euros (chapitre 87 du SH)",vals:v,ymin:0,yfmt:x=>x.toFixed(0)+" M€",color:css("--accent"),H:260,source:"Source : Eurostat Comext (DS-045409)."}); }
+lockChoice({group:"q-share", button:"shBtn", key:"guess", onReveal:()=>{ $("#shOut").textContent="Enregistré. La réponse arrive à l'étape 4."; markDone("puzzle"); faGuess(); }});
+
+/* lesson A */
+$("#la-btn").addEventListener("click",()=>{ const [v]=readNums(["la-in"]);
+  if (Math.abs(v-30)<=0.5){ feedback($("#la-fb"),true,"Exact : 50 − 20 = 30 points de pourcentage."); markDone("lessonA"); }
+  else feedback($("#la-fb"),false,"Soustrayez la variation du groupe de comparaison de celle du groupe traité."); });
+
+/* activity A */
+const n0=avg("NBR",...PRE), n1=avg("NBR",...POST), r0=avg("ROW",...PRE), r1=avg("ROW",...POST);
+const fmtM = v => v.toLocaleString("fr-FR",{maximumFractionDigits:1, minimumFractionDigits:1});
+$("#ddTable").innerHTML = `<tr><th>Groupe</th><th class="num">Avant</th><th class="num">Après</th></tr><tr><td><strong>Arménie + Kazakhstan + Kirghizstan</strong></td><td class="num">${fmtM(n0)}</td><td class="num">${fmtM(n1)}</td></tr><tr><td><strong>Reste du monde (comparaison)</strong></td><td class="num">${fmtM(r0)}</td><td class="num">${fmtM(r1)}</td></tr>`;
+const gN=(n1/n0-1)*100, gR=(r1/r0-1)*100, DD=gN-gR;
+let stA=store.get("actA",{ok:false});
+$("#aa-btn").addEventListener("click",()=>{ const [a,b,c]=readNums(["aa1","aa2","aa3"]);
+  if ([a,b,c].some(isNaN)) return feedback($("#aa-fb"),false,"Remplissez les trois cases.");
+  const ok1=Math.abs(a-gN)<=0.6, ok2=Math.abs(b-gR)<=0.6, ok3=Math.abs(c-DD)<=1;
+  if (ok1&&ok2&&ok3){ feedback($("#aa-fb"),true,`Exact : +${gN.toFixed(1)} % contre +${gR.toFixed(1)} %, soit un écart de ${DD.toFixed(1)} points.`); stA.ok=true; store.set("actA",stA); markDone("activityA"); openFA(); }
+  else feedback($("#aa-fb"),false, !ok1 ? "Voisins : (après ÷ avant − 1) × 100." : !ok2 ? "Même formule pour le reste du monde." : "Soustrayez la seconde variation de la première."); });
+function openFA(){ $("#fa-locked").hidden=true; $("#fa-body").hidden=false; markDone("feedbackA"); faGuess(); }
+function faGuess(){ const gss=store.get("guess",null); if (!gss||$("#fa-body").hidden) return;
+  $("#faGuess").textContent = gss==="10" ? "Votre estimation, environ 10 %, était juste." : `Votre estimation : ${({5:"moins de 5 %",30:"environ 30 %",50:"plus de la moitié"})[gss]}. La réponse est d'environ 9 %.`; }
+$("#csvDD").value = "month,group,exports\n"+M.flatMap((m,i)=>[`${m},neighbours,${S.NBR[i]}`,`${m},rest_of_world,${S.ROW[i]}`]).join("\n");
+
+/* activity B: event study */
+let part="NBR", ev="2022-03";
+function series(p, evd){
+  const ratio=M.map((m,i)=>S[p][i]/S.ROW[i]);
+  const preIdx=M.map((m,i)=>i).filter(i=> evd==="2022-03" ? M[i]<="2021-12" : M[i]<="2019-12");
+  const base=preIdx.reduce((s,i)=>s+ratio[i],0)/preIdx.length;
+  const idx=ratio.map(r=>r/base*100);
+  const ma=idx.map((v,i)=> i<2 ? null : (idx[i]+idx[i-1]+idx[i-2])/3);
+  return M.map((m,i)=>[tnum(m), ma[i]]).filter(p=>p[1]!==null && (evd==="2022-03" || M[M.length-1] && true)).filter(p=> evd==="2022-03" ? true : p[0] < 2022);
+}
+function drawES(){
+  const pts=series(part, ev);
+  lineChart($("#esChart"),{title:`${NAMES[part]} : exportations de l'UE rapportées au reste du monde`,sub:"Indice, moyenne d'avant l'événement = 100",series:[{name:NAMES[part],color:css("--accent"),shape:"circ",pts}],yfmt:v=>v.toFixed(0),xfmt:v=>Math.floor(v+1e-6),tipfmt:v=>v.toFixed(0),refY:100,refLabel:"Niveau d'avant l'événement",vline: ev==="2022-03"?2022+2/12:2020+2/12, vlabel: ev==="2022-03"?"Sanctions":"Date placebo",labelEnds:false,H:320,zero:false,xticks: ev==="2022-03"?[2019,2020,2021,2022,2023,2024,2025,2026]:[2019,2020,2021,2022]});
+  const evt = ev==="2022-03";
+  const pre = evt ? avg(part,"2019-01","2021-12")/avg("ROW","2019-01","2021-12") : avg(part,"2019-01","2019-12")/avg("ROW","2019-01","2019-12");
+  const post = evt ? avg(part,"2022-03","2024-12")/avg("ROW","2022-03","2024-12") : avg(part,"2020-03","2021-12")/avg("ROW","2020-03","2021-12");
+  $("#esK").innerHTML = `<div><b>${sgn((post/pre-1)*100,0)} %</b><span>variation par rapport au reste du monde, ${evt?"mars 2022–déc. 2024 contre 2019–2021":"mars 2020–déc. 2021 contre 2019 (placebo)"}</span></div>`;
+}
+seg("segP", v=>{ part=v; drawES(); markDone("activityB"); });
+seg("segE", v=>{ ev=v; drawES(); markDone("lessonB"); });
+const esn=$("#esNote"); esn.value=store.get("esNote",""); esn.addEventListener("input",()=>{ store.set("esNote",esn.value); if (esn.value.length>40) markDone("feedbackB"); });
+
+/* exercise: Türkiye */
+const t0=avg("TR",...PRE), t1=avg("TR",...POST), gT=(t1/t0-1)*100;
+$("#trTable").innerHTML = `<tr><th>Groupe</th><th class="num">Avant, M€ par mois</th><th class="num">Après</th><th class="num">Variation</th></tr><tr><td><strong>Turquie</strong></td><td class="num">${fmtM(t0)}</td><td class="num">${fmtM(t1)}</td><td class="num">${sgn(gT,1)} %</td></tr><tr><td><strong>Reste du monde</strong></td><td class="num">${fmtM(r0)}</td><td class="num">${fmtM(r1)}</td><td class="num">${sgn(gR,1)} %</td></tr>`;
+function drawTR(){ lineChart($("#trChart"),{title:"Turquie : exportations de l'UE rapportées au reste du monde",sub:"Indice, moyenne 2019–2021 = 100, moyenne mobile sur trois mois",series:[{name:"Turquie",color:css("--verm"),shape:"tri",pts:series("TR","2022-03")}],yfmt:v=>v.toFixed(0),xfmt:v=>Math.floor(v+1e-6),refY:100,vline:2022+2/12,vlabel:"Sanctions",labelEnds:false,H:280,zero:false,xticks:[2019,2020,2021,2022,2023,2024,2025,2026]}); }
+["ex1","ex2","ex3","ex4"].forEach(id=>{ const t=$("#"+id); t.value=store.get(id,""); t.addEventListener("input",()=>store.set(id,t.value)); });
+$("#exModel").innerHTML = `<h4>Note modèle</h4>
+<p><b>Graphique.</b> La courbe d'étude d'événement ci-dessus : exportations de l'UE vers la Turquie rapportées au groupe de comparaison, stables autour de 100 avant 2022, montant à environ 115 en 2023 puis refluant ensuite.</p>
+<p><b>Effet.</b> Les exportations de l'UE vers la Turquie ont progressé de ${gT.toFixed(0)} % entre 2019–2021 et la période de mars 2022 à décembre 2024, contre ${gR.toFixed(0)} % pour le groupe de comparaison : environ ${(gT-gR).toFixed(0)} points de pourcentage de plus, soit environ ${((t1-t0*(1+gR/100))).toFixed(0)} millions d'euros par mois.</p>
+<p><b>Hypothèse.</b> Sans sanctions, les exportations vers la Turquie auraient progressé comme celles vers le groupe de comparaison. La courbe plate avant 2022 conforte cette hypothèse.</p>
+<p><b>Pourquoi elle pourrait être fausse.</b> L'inflation très élevée de la Turquie et les fortes variations de sa monnaie après 2021 ont modifié sa demande de biens européens pour des raisons sans lien avec la Russie ; les valeurs en euros mêlent aussi prix et volumes. L'estimation constitue une borne supérieure du détournement, bien plus faible que pour le Kirghizstan.</p>`;
+$("#exBtn").addEventListener("click",()=>{ $("#exModel").hidden=!$("#exModel").hidden; markDone("exercise"); });
+
+/* quiz */
+quiz($("#quizBox"), $("#quizScore"), [
+ {q:"Pourquoi une comparaison avant/après ne suffit-elle pas à mesurer l'effet des sanctions ?",o:["Parce que d'autres choses ont changé en même temps","Parce que les données commerciales sont secrètes","Parce que les sanctions n'ont aucun effet"],a:0,e:"L'inflation, la reprise et d'autres chocs ont aussi modifié les échanges ; le groupe de comparaison les absorbe."},
+ {q:"Groupe traité +130 %, groupe de comparaison +33 %. L'estimation par différence de différences est de…",o:["+163 points","+97 points","+33 points"],a:1,e:"130 − 33 = 97 points de pourcentage."},
+ {q:"Que dit l'hypothèse de tendances parallèles ?",o:["Les deux groupes ont le même niveau","Sans la politique, les deux groupes auraient évolué de la même manière","La politique affecte les deux groupes de la même façon"],a:1,e:"Les niveaux peuvent différer ; les tendances doivent être comparables."},
+ {q:"Un test placebo à une date fictive montre un effet important. Que faut-il en conclure ?",o:["La politique a fonctionné deux fois","Quelque chose d'autre que la politique fait bouger les données : prudence","Rien"],a:1,e:"Ici, la pandémie a frappé plus durement les petits voisins ; il faut le signaler comme réserve."},
+ {q:"Le détour par trois voisins a compensé environ 9 % des exportations de l'UE perdues vers la Russie. Qu'est-ce que cela dit des sanctions ?",o:["Elles ont complètement échoué","Le détournement était réel mais faible au regard de l'effondrement","Elles n'ont eu aucun effet sur la Russie"],a:1,e:"Les deux titres, « les sanctions échouent » et « aucune fuite », sont faux."}], "quiz");
+
+/* help when stuck */
+helpAfter("la-btn","la-fb",()=>({"la-in":"30"}));
+helpAfter("aa-btn","aa-fb",()=>({"aa1":gN.toFixed(1),"aa2":gR.toFixed(1),"aa3":DD.toFixed(1)}));
+
+/* boot */
+drawCars(); drawES(); drawTR(); if (stA.ok) openFA(); faGuess();
+wireCopy(); wireReset();
+onRedraw(()=>{ drawCars(); drawES(); drawTR(); });
 
 </script>
 </body>

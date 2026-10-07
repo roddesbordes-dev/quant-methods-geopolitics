@@ -1,0 +1,125 @@
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Accueil du cours</a><span>Séance 6 sur 6</span></div>
+  <h1 style="margin-top:.6rem">Combien coûte la fermeture d'Ormuz ?</h1>
+  <p class="lede">Quand une crise éclate, un ministre veut un chiffre le soir même. Dans cette séance, vous chiffrez le coût de la fermeture du détroit d'Ormuz en 2026 pour le pays de votre choix, vous donnez une fourchette plutôt qu'un chiffre faussement précis, et vous comparez la réponse d'un assistant d'IA à la vôtre.</p>
+  <div class="meta"><span><b>Environ 3 heures</b> à votre rythme</span><span><b>Aucun logiciel requis</b> ; un assistant d'IA de votre choix pour une étape</span><span><b>Vos réponses</b> restent dans ce navigateur uniquement</span></div>
+</header>
+
+<nav class="steps" aria-label="Étapes de cette séance"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Énigme">
+  <div class="stephead"><span class="eyebrow">Étape 1 · Énigme · 10 min</span><h2>Le choc d'Ormuz</h2></div>
+  <p>En temps normal, environ un cinquième du pétrole mondial transite par le détroit d'Ormuz. Le suivi des navires par satellite montre ce qui s'est passé en 2026.</p>
+  <figure class="wide"><div class="chart" id="hzChart"></div><figcaption>Moyenne hebdomadaire des passages quotidiens. Source : FMI PortWatch, Daily Chokepoints Data (suivi des navires par AIS), téléchargé en octobre 2026.</figcaption></figure>
+  <div class="box task"><h4>Votre estimation</h4>
+    <p>Pour un pays type de l'UE, quel est le coût annuel de la hausse des prix du pétrole et du gaz qui a suivi, en part du PIB ?</p>
+    <div class="choice" id="q-cost">
+      <label><input type="radio" name="cs" value="a"> Moins de 0,5 % du PIB</label>
+      <label><input type="radio" name="cs" value="b"> Environ 1 % à 2 %</label>
+      <label><input type="radio" name="cs" value="c"> Environ 3 % à 5 %</label>
+      <label><input type="radio" name="cs" value="d"> Plus de 5 %</label>
+    </div>
+    <div class="row"><button id="csBtn" disabled>Valider mon estimation</button><span class="small" id="csOut"></span></div>
+  </div>
+</section>
+
+<section class="step col" id="lesson" data-title="Leçon">
+  <div class="stephead"><span class="eyebrow">Étape 2 · Leçon · 25 min</span><h2>Chiffrer un choc</h2></div>
+  <h3>Le coût de premier tour</h3>
+  <p>Quand les prix de l'énergie bondissent, un pays importateur paie plus cher la même quantité de pétrole et de gaz. Ce surcoût, rapporté au PIB, est le coût de premier tour :</p>
+  <p class="formula">coût (% du PIB) ≈ importations nettes d'énergie (% du PIB) × hausse des prix (%) × (1 − réaction de la demande)</p>
+  <ul class="tight">
+    <li><strong>Importations nettes d'énergie</strong> : importations de combustibles moins exportations de combustibles (pétrole, gaz, charbon), en part du PIB. Un exportateur net comme la Norvège <em>gagne</em> quand les prix montent.</li>
+    <li><strong>Hausse des prix</strong> : le Brent s'est établi en moyenne à 69 dollars le baril en 2025. De mars à septembre 2026, il a atteint en moyenne environ 100 dollars (+44 %), avec un pic à 138 dollars le 7 avril (+100 %).</li>
+    <li><strong>Réaction de la demande</strong> : à court terme, ménages et entreprises ne réduisent que peu leur consommation, peut-être jusqu'à 10 %.</li>
+  </ul>
+  <h3>Pourquoi une fourchette</h3>
+  <p>Chaque paramètre est incertain : la durée de la fermeture, le niveau auquel les prix se maintiennent, l'ampleur de l'ajustement de la demande. Donnez un <strong>scénario bas</strong> et un <strong>scénario haut</strong>, et indiquez les hypothèses de chacun. Un chiffre unique à deux décimales suggère une précision que vous n'avez pas.</p>
+  <h3>Ce que le premier tour laisse de côté</h3>
+  <p>Les effets de second tour (hausse de l'inflation, réaction des banques centrales, exportations perdues vers les clients du Golfe) et les pénuries physiques, qui frappent le plus durement les importateurs asiatiques de pétrole du Golfe. Mentionnez-le dans votre note.</p>
+  <h3>Lire PortWatch</h3>
+  <p>PortWatch compte les navires à partir des signaux de leur système d'identification automatique (AIS). En zone de guerre, les navires coupent leur transpondeur, si bien que les comptages sous-estiment le trafic réel : on retrouve la question de la séance 1, « qui a produit ce chiffre, et comment ? ».</p>
+  <div class="box task"><h4>Vérifiez votre compréhension</h4>
+    <p>Les importations nettes d'énergie de l'Allemagne représentent 1,67 % du PIB. Avec une hausse des prix de 44 % et sans réaction de la demande, quel est le coût de premier tour, en % du PIB (deux décimales) ?</p>
+    <div class="row"><input type="number" step="0.01" id="la-in" aria-label="Coût"><button id="la-btn">Vérifier</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activity" data-title="Activité">
+  <div class="stephead"><span class="eyebrow">Étape 3 · Activité · 20 min</span><h2>Faites mieux que l'IA</h2></div>
+  <div class="box task"><h4>1. Votre estimation</h4>
+    <div class="row"><label for="cC">Pays</label><select id="cC"></select></div>
+    <p class="small" id="cInfo"></p>
+    <p>Scénario bas : prix +44 %, baisse de la demande de 10 %. Scénario haut : prix +100 % (le pic d'avril maintenu), aucune réaction de la demande. Calculez les deux, en % du PIB, avec deux décimales.</p>
+    <div class="row"><label for="cLo">Bas</label><input type="number" step="0.01" id="cLo"><label for="cHi">Haut</label><input type="number" step="0.01" id="cHi"><button id="cBtn">Vérifier</button></div>
+    <p class="fb" id="cFb"></p>
+  </div>
+  <div class="box task"><h4>2. Interrogez un assistant d'IA</h4>
+    <p>Copiez cette requête dans l'assistant d'IA de votre choix, sans rien changer d'autre que le pays, et notez sa réponse.</p>
+    <p class="prompt" id="aiPrompt"></p>
+    <div class="row"><button class="ghost" id="aiCopy">Copier la requête</button><span class="small" id="aiCopied"></span></div>
+    <label class="small" for="aiAns">L'estimation de l'IA (% du PIB, ou sa fourchette)</label><textarea id="aiAns" rows="2"></textarea>
+  </div>
+  <figure class="wide"><div class="chart" id="costChart"></div><figcaption>Barres : du scénario bas au scénario haut ; point : scénario bas. Sources : Banque mondiale, World Development Indicators (importations et exportations de combustibles, PIB, 2024) ; prix du Brent de l'US Energy Information Administration via FRED.</figcaption></figure>
+</section>
+
+<section class="step col" id="feedback" data-title="Retour">
+  <div class="stephead"><span class="eyebrow">Étape 4 · Retour · 10 min</span><h2>Qui était le plus proche ?</h2></div>
+  <p class="headline-claim" id="fbGuess"></p>
+  <p>Pour un pays type de l'UE, dont les importations nettes d'énergie avoisinent 2 % du PIB, le coût de premier tour se situe entre environ 0,8 % (scénario bas) et 2 % du PIB (scénario haut) par an. La Corée du Sud, la Thaïlande et Malte figurent parmi les pays les plus exposés ; la Norvège et l'Arabie saoudite sont exportatrices nettes. Le gain de l'Arabie saoudite reste théorique tant que ses pétroliers ne peuvent pas quitter le Golfe : les oléoducs vers la mer Rouge et, pour les Émirats arabes unis, vers le golfe d'Oman n'acheminent qu'une partie de ses exportations.</p>
+  <div class="box task"><h4>Auditez la réponse de l'IA</h4>
+    <div class="choice" id="aiAudit">
+      <label><input type="checkbox" value="1"> Elle a donné une fourchette plutôt qu'un chiffre unique</label>
+      <label><input type="checkbox" value="2"> Elle a indiqué la hausse des prix retenue, et ce chiffre est proche de la réalité</label>
+      <label><input type="checkbox" value="3"> Son chiffre d'importations d'énergie pour le pays est proche de celui de la Banque mondiale</label>
+      <label><input type="checkbox" value="4"> Elle a cité ses sources, et ces sources existent</label>
+      <label><input type="checkbox" value="5"> Elle a précisé ce que son estimation laisse de côté</label>
+    </div>
+    <p class="small" id="aiScore"></p>
+    <p>Les assistants d'IA sont fluides et rapides, et utiles pour une première structure. Ils avancent souvent des chiffres sans source, utilisent des prix périmés ou inventent des références. Traitez-les comme un collègue débutant dont vous vérifiez chaque chiffre, jamais comme un oracle.</p>
+  </div>
+</section>
+
+<section class="step col" id="together" data-read data-title="Synthèse">
+  <div class="stephead"><span class="eyebrow">Étape 5 · Synthèse · facultative, 45 min</span><h2>Une note de deux pages pour un ministre</h2></div>
+  <p>Vous disposez désormais de toutes les méthodes dont un analyste a besoin pour une courte note de politique publique. Pour vous entraîner, choisissez un pays et une question, et rédigez seul deux pages. Quatre questions qui mobilisent les méthodes du cours :</p>
+  <ul class="tight">
+    <li>Le pays dépense-t-il assez pour sa défense, et ses électeurs accepteraient-ils davantage ? <span class="small">(séances 1, 2, 4 et celle-ci)</span></li>
+    <li>Doit-il réduire sa dépendance à la Chine pour un produit critique ? <span class="small">(séances 3 et celle-ci)</span></li>
+    <li>Les sanctions contre la Russie sont-elles contournées via son commerce ? <span class="small">(séances 1 et 5)</span></li>
+    <li>Peut-on se fier à ses chiffres officiels de croissance ? <span class="small">(séances 1 et 4)</span></li>
+  </ul>
+  <p>Quelle que soit la question, une bonne note contient six éléments : un titre qui donne la réponse en trois lignes ; un à trois graphiques honnêtes ; une estimation formulée en mots ; une fourchette avec un scénario bas et un scénario haut ; ce qui pourrait rendre la réponse fausse ; et ses sources. Utilisez cette grille pour vérifier votre travail.</p>
+  <div class="tscroll"><table aria-label="Grille de vérification">
+    <tr><th>Critère</th><th>Excellent</th><th>Insuffisant</th></tr>
+    <tr><td>Question</td><td style="text-align:left">Précisée pour votre pays, pertinente pour un décideur</td><td style="text-align:left">Vague, ou sans réponse</td></tr>
+    <tr><td>Source</td><td style="text-align:left">Choisie pour une raison ; fiabilité, couverture et biais discutés</td><td style="text-align:left">Prise telle quelle</td></tr>
+    <tr><td>Graphique</td><td style="text-align:left">Échelle et unités honnêtes, lisible en 10 secondes, sourcé</td><td style="text-align:left">Trompeur ou décoratif</td></tr>
+    <tr><td>Estimation</td><td style="text-align:left">Méthode adaptée à la question ; résultat en mots avec une fourchette</td><td style="text-align:left">Chiffres sans interprétation</td></tr>
+    <tr><td>Ce qui pourrait nous donner tort</td><td style="text-align:left">Nomme l'hypothèse clé et la façon dont son échec modifierait la conclusion</td><td style="text-align:left">Absent ou générique</td></tr>
+    <tr><td>Recommandation</td><td style="text-align:left">Découle des données ; message clé dans les premières lignes</td><td style="text-align:left">Déconnectée de l'analyse</td></tr>
+  </table></div>
+</section>
+
+<section class="step col" id="quiz" data-title="Autoévaluation">
+  <div class="stephead"><span class="eyebrow">Étape 6 · Autoévaluation · 5 min</span><h2>Cinq questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session5.html">← Séance 5 : des voitures allemandes au Kirghizstan</a><a href="certificate.html">Votre certificat →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Lectures et références (en anglais)</h3>
+  <ul class="refs">
+    <li>US Energy Information Administration (2026), <a href="https://www.eia.gov/outlooks/steo/report/energysecurity/article.php" target="_blank" rel="noopener">Global Energy Security Data</a>, sur les flux pétroliers à travers le détroit d'Ormuz.</li>
+    <li>FMI PortWatch, <a href="https://portwatch.imf.org" target="_blank" rel="noopener">suivi des points de passage stratégiques</a> : consultez la page consacrée au détroit d'Ormuz.</li>
+    <li>Roberts, A. et Lamp, N. (2021), <a href="https://www.hup.harvard.edu/file/feeds/PDF/9780674269811_sample.pdf" target="_blank" rel="noopener">Six Faces of Globalization</a>, chapitre gratuit en accès libre.</li>
+  </ul>
+  <h3>Données</h3>
+  <ul class="refs">
+    <li>FMI PortWatch, Daily Chokepoints Data (détroit d'Ormuz), du 1er janvier 2025 au 4 octobre 2026.</li>
+    <li>Pétrole brut Brent, quotidien (DCOILBRENTEU), US Energy Information Administration via <a href="https://fred.stlouisfed.org/series/DCOILBRENTEU" target="_blank" rel="noopener">FRED</a>.</li>
+    <li>Importations et exportations de combustibles (% du commerce de marchandises), commerce de marchandises et PIB, 2024 : Banque mondiale, <a href="https://databank.worldbank.org/source/world-development-indicators" target="_blank" rel="noopener">World Development Indicators</a>. Combustibles = section 3 de la CTCI (pétrole, gaz, charbon, électricité).</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Effacer mes réponses pour cette séance</button></p>
+</footer>

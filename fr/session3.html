@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Course Certificate</title>
-<meta name="description" content="Certificate of completion for the self-paced course.">
+<title>Qui dépend de qui ?</title>
+<meta name="description" content="Séance 3 : dépendance aux importations, concentration et indices de vulnérabilité.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}
 
@@ -164,38 +164,151 @@ a.btn{color:#fff}
 </head>
 <body>
 <div class="wrap">
-<header class="top col noprint">
-  <div class="crumbs"><a href="index.html">Course home</a><span>Certificate</span></div>
-  <h1 style="margin-top:.6rem">Certificate of completion</h1>
-  <p class="lede">The certificate unlocks once every step of the six sessions is done. Your progress is read from this browser.</p>
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Accueil du cours</a><span>Séance 3 sur 6</span></div>
+  <h1 style="margin-top:.6rem">Qui dépend de qui ?</h1>
+  <p class="lede">La sécurité économique est devenue un domaine de politique publique à part entière : la Commission européenne, l'OTAN et chaque ministère des Finances suivent désormais les dépendances. Dans cette séance, vous mesurez la dépendance comme ils le font, vous construisez un indice de vulnérabilité, et vous constatez avec quelle facilité un indice peut être infléchi.</p>
+  <div class="meta"><span><b>Environ 3 heures</b> à votre rythme</span><span><b>Aucun logiciel requis</b> dans le navigateur ; étapes facultatives dans jamovi</span><span><b>Vos réponses</b> restent dans ce navigateur uniquement</span></div>
 </header>
-<section class="col noprint" style="padding-block:1.5rem">
-  <div class="tscroll"><table id="progTable" aria-label="Your progress"></table></div>
-  <div id="locked" class="box key" hidden><h4>Not yet</h4><p id="lockedTxt"></p></div>
-  <div id="unlock" class="box task" hidden>
-    <h4>Well done: all six sessions are complete</h4>
-    <label for="certName" class="small">Your name, as it should appear on the certificate</label>
-    <div class="row"><input type="text" id="certName" style="flex:1;min-width:12rem"><button id="certBtn">Create my certificate</button></div>
+
+<nav class="steps" aria-label="Étapes de cette séance"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Énigme">
+  <div class="stephead"><span class="eyebrow">Étape 1 · Énigme · 10 min</span><h2>Nommez le produit</h2></div>
+  <p>Pour trois de ces huit produits, la Chine a fourni plus de 90 % de tout ce que l'Union européenne a importé de l'extérieur de l'UE en 2024. Lesquels ?</p>
+  <div class="box task">
+    <div class="choice" id="q-prod"></div>
+    <p class="small" id="prodCount">Choisissez-en trois.</p>
+    <p>Et quel pays de l'UE achète à la Chine la plus grande part de l'ensemble de ses importations ?</p>
+    <select id="q-country" aria-label="Pays"></select>
+    <div class="row"><button id="prodBtn" disabled>Enregistrer mes réponses</button></div>
+    <div id="prodOut" hidden><p class="fb" id="prodFb"></p><p id="prodTxt"></p></div>
   </div>
 </section>
-<section class="col" id="certWrap" hidden>
-  <div class="cert" id="cert">
-    <div class="cert-k">Certificate of completion</div>
-    <div class="cert-n" id="cN"></div>
-    <p class="cert-t">has completed the self-paced course</p>
-    <div class="cert-c">Quantitative Methods for Geopolitics and Geoeconomics</div>
-    <p class="cert-t">six sessions, about 18 hours: trusting official numbers and honest charts; polls and margins of error; dependence and composite indices; regression; policy evaluation with difference-in-differences; costing a geopolitical shock and auditing AI analysis.</p>
-    <div class="cert-f"><span id="cD"></span><span>Course designed by Rodolphe Desbordes</span><span class="mono" id="cC"></span></div>
-    <p class="cert-s">Self-assessed completion of all activities, recorded in the learner's browser. It does not certify graded assessment.</p>
-  </div>
-  <div class="row noprint"><button id="printBtn">Print or save as PDF</button><span class="small">In the print window, choose “Save as PDF” and landscape.</span></div>
+
+<section class="step col" id="lessonA" data-title="Leçon A">
+  <div class="stephead"><span class="eyebrow">Étape 2 · Leçon · 25 min</span><h2>Mesurer la dépendance</h2></div>
+  <h3>Parts des importations</h3>
+  <p>La mesure la plus simple : la part des importations d'un produit qui provient d'un seul fournisseur. La Commission européenne considère un produit comme une dépendance lorsqu'un ou quelques fournisseurs dominent et que l'UE ne peut pas facilement les remplacer.</p>
+  <h3>La concentration : l'indice de Herfindahl</h3>
+  <p>Une part de 50 % venant d'un seul fournisseur est risquée si les 50 % restants viennent d'un seul autre pays, beaucoup moins s'ils viennent de vingt pays. L'<strong>indice de Herfindahl-Hirschman (IHH)</strong> rend compte de cette différence : on élève au carré la part de chaque fournisseur (en %) et on additionne.</p>
+  <p class="formula">IHH = s₁² + s₂² + s₃² + …   (de près de 0 à 10 000)</p>
+  <p>Un seul fournisseur à 100 % : 10 000. Deux fournisseurs à 50 % chacun : 2 500 + 2 500 = 5 000. Dix fournisseurs à 10 % chacun : 1 000. Aux États-Unis, les autorités de la concurrence considèrent les marchés au-delà d'environ 1 800 à 2 500 comme fortement concentrés ; les analystes du commerce reprennent la même échelle.</p>
+  <h3>Le fournisseur peut-il être remplacé ?</h3>
+  <p>Les parts et la concentration décrivent le passé. Ce qui compte en cas de crise, c'est la <em>substituabilité</em> : l'existence d'autres producteurs, le temps nécessaire pour changer de fournisseur, et la capacité des stocks à couvrir la transition.</p>
+  <h3>Le cas lituanien</h3>
+  <p>En 2021, la Lituanie a autorisé Taïwan à ouvrir un bureau de représentation sous le nom « taïwanais » plutôt que « de Taipei ». La Chine a riposté. Sur le papier, la Lituanie n'était guère exposée : la Chine absorbait 1,1 % de ses exportations en 2020. Pourtant, la pression a fait mal, car la Chine a aussi bloqué des marchandises d'autres pays de l'UE contenant des composants lituaniens, et des entreprises allemandes possédant des usines en Lituanie ont menacé de partir (Global Taiwan Institute, 2022). Les exportations lituaniennes vers la Chine sont tombées à 0,2 % du total en 2022.</p>
+  <div class="box task"><h4>Autoévaluation</h4>
+    <p>Trois fournisseurs, avec 60 %, 30 % et 10 %. Quel est l'IHH ?</p>
+    <div class="row"><input type="text" inputmode="decimal" id="la-in" aria-label="IHH"><button id="la-btn">Vérifier</button></div>
+    <p class="fb" id="la-fb"></p></div>
 </section>
+
+<section class="step col" id="activityA" data-title="Activité A">
+  <div class="stephead"><span class="eyebrow">Étape 3 · Activité · 20 min</span><h2>Qui dépend de qui ?</h2></div>
+  <p>Importations de l'UE en provenance de l'extérieur de l'UE, 2024, par fournisseur. Chaque ligne indique les parts des principaux fournisseurs.</p>
+  <div class="box task"><h4>1. Le blé à la main</h4>
+    <p>À partir des quatre parts indiquées pour le blé, calculez l'IHH (ignorez les petits fournisseurs restants). Arrondissez à l'entier le plus proche.</p>
+    <div class="row"><input type="text" inputmode="decimal" id="aa-in" aria-label="IHH du blé"><button id="aa-btn">Vérifier</button></div>
+    <p class="fb" id="aa-fb"></p>
+    <div class="row"><button id="aa-all" disabled>Calculer pour tous les produits</button></div>
+  </div>
+  <div class="tscroll wide"><table id="prodTable" aria-label="Dépendance par produit"></table></div>
+  <figure class="wide"><div class="chart" id="prodChart"></div><figcaption>IHH calculé sur l'ensemble des fournisseurs. Source : UN Comtrade, importations de l'UE (hors UE) par partenaire, 2024, codes SH à six chiffres.</figcaption></figure>
+  <details class="jam"><summary>Faites-le maintenant dans jamovi (facultatif, 10 min)</summary>
+    <ol class="tight"><li>Collez les données ci-dessous (une ligne par produit et par fournisseur).</li>
+      <li><b>Data → Compute</b> (noms des menus de l'interface anglaise de jamovi) : <span class="mono">sq = share^2</span>.</li>
+      <li><b>Analyses → Exploration → Descriptives</b> : variable <span class="mono">sq</span>, découpée par <span class="mono">product</span>, statistique <b>Sum</b>. Cette somme est l'IHH des fournisseurs listés.</li></ol>
+    <textarea readonly id="csvProd" aria-label="Données pour jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvProd">Copier les données</button><span class="small" data-copied="csvProd"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-title="Retour A">
+  <div class="stephead"><span class="eyebrow">Étape 4 · Retour · 10 min</span><h2>Concentrés et difficiles à remplacer</h2></div>
+  <p>Les panneaux solaires, le magnésium, les aimants permanents et les ordinateurs portables ont tous un IHH supérieur à 7 000 : un seul fournisseur, la Chine, domine. Le pétrole brut est le cas inverse : l'UE achète à de nombreux pays, si bien que son IHH est inférieur à 1 000, alors même que l'Europe importe presque tout son pétrole. Le gaz naturel liquéfié se situe entre les deux, les États-Unis en étant désormais le premier fournisseur.</p>
+  <p>Lequel de ces chiffres aurait alerté la Lituanie ? Aucun. Les parts à l'exportation mesuraient le commerce direct avec la Chine, et elles étaient infimes. L'exposition passait par les chaînes d'approvisionnement : des composants lituaniens dans des produits allemands vendus en Chine, et des intrants chinois dans les usines lituaniennes. Les mesures de dépendance doivent suivre les intrants, pas seulement le commerce final.</p>
+  <div class="box key"><h4>À retenir</h4>Part, concentration et substituabilité répondent à trois questions différentes. Une part élevée provenant d'un marché diversifié et ami n'est pas une vulnérabilité ; une part modeste d'un intrant irremplaçable peut l'être.</div>
+</section>
+
+<section class="step col" id="lessonB" data-read data-title="Leçon B">
+  <div class="stephead"><span class="eyebrow">Étape 5 · Leçon · 25 min</span><h2>Construire un indice et le cartographier</h2></div>
+  <p>Les think tanks et les organisations internationales apprécient les indices composites : un chiffre par pays, un classement, une carte. En construire un demande quatre étapes, et chacune recèle un choix.</p>
+  <ol class="tight">
+    <li><strong>Choisir les indicateurs.</strong> Ici : la part des importations en provenance de Chine, la concentration (IHH) des partenaires à l'importation, et la dépendance à l'énergie importée.</li>
+    <li><strong>Normaliser</strong> les indicateurs sur une échelle commune, par exemple 0 pour le pays le plus bas et 100 pour le plus élevé.</li>
+    <li><strong>Pondérer</strong> les indicateurs. Des poids égaux sont aussi un choix.</li>
+    <li><strong>Agréger et classer.</strong></li>
+  </ol>
+  <p class="formula">score = w₁ × norm(part de la Chine) + w₂ × norm(IHH) + w₃ × norm(dépendance énergétique)</p>
+  <h3>Règles pour une carte</h3>
+  <ul class="tight">
+    <li>Cartographiez des taux ou des parts, jamais des totaux : les grands pays ne sont pas plus vulnérables du seul fait de leur taille.</li>
+    <li>Utilisez une seule couleur qui s'assombrit avec la valeur, et affichez les chiffres lorsque c'est possible.</li>
+    <li>Indiquez ce qui manque ; un pays vide n'est pas un zéro.</li>
+  </ul>
+  <p>La carte de l'étape suivante est une <em>carte en tuiles</em> : chaque pays est un carré de même taille placé à peu près à sa position géographique, de sorte que Malte compte autant que la France. Les journaux les utilisent précisément pour cette raison.</p>
+</section>
+
+<section class="step col" id="activityB" data-title="Activité B">
+  <div class="stephead"><span class="eyebrow">Étape 6 · Activité · 20 min</span><h2>Truquer le classement</h2></div>
+  <div class="box task">
+    <p>Choisissez un pays, puis déplacez les poids pour le faire monter le plus haut possible dans le classement de vulnérabilité, puis pour le faire descendre le plus bas possible. Les données restent les mêmes à chaque fois.</p>
+    <div class="row"><label for="rCountry">Pays</label><select id="rCountry"></select></div>
+    <label class="small" for="w1">Poids de la part des importations venant de Chine : <b class="mono" id="w1o"></b></label><input type="range" id="w1" min="0" max="100" value="34">
+    <label class="small" for="w2">Poids de la concentration des partenaires (IHH) : <b class="mono" id="w2o"></b></label><input type="range" id="w2" min="0" max="100" value="33">
+    <label class="small" for="w3">Poids de la dépendance énergétique : <b class="mono" id="w3o"></b></label><input type="range" id="w3" min="0" max="100" value="33">
+    <div class="kpi"><div><b id="rRank">–</b><span>rang sur 27 (1 = le plus vulnérable)</span></div><div><b id="rBest">–</b><span>meilleur rang atteint</span></div><div><b id="rWorst">–</b><span>plus mauvais rang atteint</span></div></div>
+  </div>
+  <figure class="wide"><div class="chart" id="tileMap"></div></figure>
+  <div class="tscroll"><table id="rankTable" aria-label="Classement de l'indice"></table></div>
+  <details class="jam"><summary>Faites-le maintenant dans jamovi (facultatif, 15 min)</summary>
+    <ol class="tight"><li>Collez les données ci-dessous.</li>
+      <li>Normalisez chaque indicateur : <span class="mono">n_china = 100 * (china - MIN(china)) / (MAX(china) - MIN(china))</span>, et de même pour <span class="mono">hhi</span> et <span class="mono">energy</span>.</li>
+      <li>Calculez <span class="mono">score = (n_china + n_hhi + n_energy) / 3</span> et triez. Essayez ensuite d'autres poids.</li></ol>
+    <textarea readonly id="csvIdx" aria-label="Données pour jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvIdx">Copier les données</button><span class="small" data-copied="csvIdx"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Retour B">
+  <div class="stephead"><span class="eyebrow">Étape 7 · Retour · 10 min</span><h2>Mêmes données, classements opposés</h2></div>
+  <p class="headline-claim" id="fbRange"></p>
+  <p>La plupart des pays peuvent monter ou descendre sensiblement dans le classement sous le seul effet des poids. C'est pourquoi les indices sérieux publient leurs poids et montrent comment les classements évoluent lorsque les poids changent.</p>
+  <h3>Le cas réel : Doing Business</h3>
+  <p>Pendant des années, le rapport <em>Doing Business</em> de la Banque mondiale a classé les pays selon la facilité d'y gérer une entreprise, et des gouvernements se sont fixé pour objectif d'y progresser. En 2021, une enquête externe menée par le cabinet d'avocats WilmerHale a établi que, pour l'édition 2018, la modification de trois données avait fait passer la Chine du 85e au 78e rang. La Banque mondiale a abandonné le rapport en septembre 2021.</p>
+  <div class="box key"><h4>À retenir</h4>Avant de citer un classement, demandez-vous ce qui y entre, comment les éléments sont pondérés, et dans quelle mesure l'ordre change avec d'autres choix raisonnables.</div>
+</section>
+
+<section class="step col" id="quiz" data-title="Autoévaluation">
+  <div class="stephead"><span class="eyebrow">Étape 8 · Autoévaluation · 5 min</span><h2>Cinq questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session2.html">← Séance 2 : peut-on se fier à un sondage ?</a><a href="session4.html">Séance 4 : la Pologne, l'Espagne et la droite →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Lectures et références (en anglais)</h3>
+  <ul class="refs">
+    <li>Bruegel, <a href="https://www.bruegel.org/blog-post/europe-failing-import-diversification" target="_blank" rel="noopener">« Is Europe failing on import diversification? »</a></li>
+    <li>Commission européenne (2022), <a href="https://data.consilium.europa.eu/doc/document/ST-6506-2022-INIT/en/pdf" target="_blank" rel="noopener">EU strategic dependencies and capacities: second stage of in-depth reviews</a>, résumé.</li>
+    <li>Global Taiwan Institute (2022), <a href="https://globaltaiwan.org/2022/07/lithuanias-confrontation-with-china-over-taiwan-lessons-from-a-small-country/" target="_blank" rel="noopener">« Lithuania's confrontation with China over Taiwan: lessons from a small country »</a>.</li>
+    <li>Sur Doing Business : <a href="https://www.orfonline.org/index.php/expert-speak/the-world-bank-data-manipulation-controversy" target="_blank" rel="noopener">Observer Research Foundation, « The World Bank data manipulation controversy »</a>.</li>
+  </ul>
+  <h3>Données</h3>
+  <ul class="refs">
+    <li><a href="https://comtradeplus.un.org" target="_blank" rel="noopener">UN Comtrade</a> : importations de l'UE par partenaire et par produit (2024) ; importations des États membres par partenaire (2024) ; exportations de la Lituanie (2020–2022).</li>
+    <li>Eurostat, <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_ind_id/default/table" target="_blank" rel="noopener">dépendance énergétique à l'égard des importations (nrg_ind_id)</a>, 2023.</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Effacer mes réponses pour cette séance</button></p>
+</footer>
 
 </div>
 <script>
-window.SESSION='cert';
-window.LANG="en";
-const DATA = {};
+window.SESSION=3;
+window.LANG="fr";
+const __tf=Number.prototype.toFixed; Number.prototype.toFixed=function(d){ return __tf.call(this,d).replace(".", ","); };
+const DATA = {"products": [{"code": "810411", "name": "Unwrought magnesium", "total_bn": 0.21, "top": [["China", 91.9], ["Israel", 7.1], ["Russia", 0.3], ["Japan", 0.2], ["Brazil", 0.2], ["China, Hong Kong SAR", 0.2]], "hhi": 8499}, {"code": "850511", "name": "Permanent magnets", "total_bn": 1.17, "top": [["China", 90.2], ["Switzerland", 2.4], ["Philippines", 1.9], ["USA", 1.2], ["Vietnam", 1.2], ["United Kingdom", 0.8]], "hhi": 8145}, {"code": "847130", "name": "Laptops", "total_bn": 32.09, "top": [["China", 85.7], ["Vietnam", 9.3], ["Thailand", 2.0], ["Taiwan (\u201cOther Asia\u201d)", 1.3], ["United Kingdom", 0.5], ["USA", 0.4]], "hhi": 7443}, {"code": "854143", "name": "Solar panels", "total_bn": 12.0, "top": [["China", 98.0], ["Singapore", 0.6], ["Malaysia", 0.3], ["USA", 0.3], ["Vietnam", 0.3], ["United Kingdom", 0.1]], "hhi": 9612}, {"code": "280530", "name": "Rare-earth metals", "total_bn": 0.01, "top": [["China", 69.8], ["USA", 13.1], ["Vietnam", 8.1], ["Japan", 5.7], ["United Kingdom", 2.0], ["Thailand", 0.4]], "hhi": 5152}, {"code": "270900", "name": "Crude oil", "total_bn": 283.46, "top": [["USA", 16.1], ["Norway", 13.5], ["Kazakhstan", 11.5], ["Libya", 7.4], ["Saudi Arabia", 7.0], ["Nigeria", 6.1]], "hhi": 846}, {"code": "271111", "name": "Liquefied natural gas", "total_bn": 39.64, "top": [["USA", 41.5], ["Russia", 19.7], ["Algeria", 12.1], ["Qatar", 9.4], ["Nigeria", 5.0], ["Norway", 4.8]], "hhi": 2404}, {"code": "100199", "name": "Wheat", "total_bn": 2.19, "top": [["Ukraine", 66.0], ["Canada", 15.5], ["Moldova", 6.9], ["USA", 4.6], ["Serbia", 3.3], ["United Kingdom", 2.2]], "hhi": 4680}], "countries": [{"iso": "AUT", "n": "Austria", "china": 8.2, "hhi": 1243, "energy": 60.3, "top": [["Germany", 32.0], ["China", 8.2], ["Italy", 6.5]]}, {"iso": "BEL", "n": "Belgium", "china": 3.7, "hhi": 1013, "energy": 75.8, "top": [["Netherlands", 23.9], ["Germany", 13.6], ["France", 11.6]]}, {"iso": "BGR", "n": "Bulgaria", "china": 10.5, "hhi": 439, "energy": 39.5, "top": [["China", 10.5], ["Germany", 10.3], ["T\u00fcrkiye", 8.8]]}, {"iso": "HRV", "n": "Croatia", "china": 3.4, "hhi": 708, "energy": 55.7, "top": [["Germany", 14.3], ["Italy", 13.4], ["Slovenia", 11.8]]}, {"iso": "CYP", "n": "Cyprus", "china": 7.7, "hhi": 866, "energy": 92.2, "top": [["Greece", 23.8], ["Italy", 7.7], ["China", 7.7]]}, {"iso": "CZE", "n": "Czechia", "china": 17.1, "hhi": 879, "energy": 41.7, "top": [["Germany", 20.3], ["China", 17.1], ["Poland", 8.3]]}, {"iso": "DNK", "n": "Denmark", "china": 7.3, "hhi": 776, "energy": 39.7, "top": [["Germany", 19.4], ["Sweden", 11.5], ["Netherlands", 8.9]]}, {"iso": "EST", "n": "Estonia", "china": 10.2, "hhi": 521, "energy": 3.5, "top": [["Germany", 11.3], ["China", 10.2], ["Finland", 8.3]]}, {"iso": "FIN", "n": "Finland", "china": 10.0, "hhi": 594, "energy": 29.7, "top": [["Germany", 13.2], ["Sweden", 11.5], ["China", 10.0]]}, {"iso": "FRA", "n": "France", "china": 10.2, "hhi": 549, "energy": 44.8, "top": [["Germany", 12.4], ["China", 10.2], ["Belgium", 7.6]]}, {"iso": "DEU", "n": "Germany", "china": 12.3, "hhi": 453, "energy": 66.8, "top": [["China", 12.3], ["USA", 6.9], ["Netherlands", 6.8]]}, {"iso": "GRC", "n": "Greece", "china": 8.4, "hhi": 459, "energy": 75.4, "top": [["Germany", 10.6], ["China", 8.4], ["Italy", 8.4]]}, {"iso": "HUN", "n": "Hungary", "china": 6.8, "hhi": 808, "energy": 62.1, "top": [["Germany", 22.4], ["China", 6.8], ["Poland", 6.1]]}, {"iso": "IRL", "n": "Ireland", "china": 8.8, "hhi": 890, "energy": 77.8, "top": [["USA", 16.8], ["United Kingdom", 16.5], ["France", 10.1]]}, {"iso": "ITA", "n": "Italy", "china": 9.1, "hhi": 523, "energy": 75.4, "top": [["Germany", 14.5], ["China", 9.1], ["France", 7.7]]}, {"iso": "LVA", "n": "Latvia", "china": 3.8, "hhi": 887, "energy": 32.7, "top": [["Lithuania", 20.7], ["Germany", 11.7], ["Poland", 11.3]]}, {"iso": "LTU", "n": "Lithuania", "china": 4.6, "hhi": 617, "energy": 69.5, "top": [["Poland", 14.0], ["Germany", 12.5], ["Latvia", 8.2]]}, {"iso": "LUX", "n": "Luxembourg", "china": 3.1, "hhi": 1345, "energy": 91.4, "top": [["Germany", 23.7], ["Belgium", 23.5], ["France", 11.1]]}, {"iso": "MLT", "n": "Malta", "china": 4.0, "hhi": 880, "energy": 97.6, "top": [["Italy", 22.1], ["France", 13.6], ["Spain", 7.8]]}, {"iso": "NLD", "n": "Netherlands", "china": 8.6, "hhi": 638, "energy": 70.4, "top": [["Germany", 16.8], ["USA", 9.9], ["Belgium", 9.8]]}, {"iso": "POL", "n": "Poland", "china": 14.5, "hhi": 729, "energy": 48.0, "top": [["Germany", 19.2], ["China", 14.5], ["USA", 5.0]]}, {"iso": "PRT", "n": "Portugal", "china": 4.8, "hhi": 1387, "energy": 66.9, "top": [["Spain", 32.8], ["Germany", 11.3], ["France", 7.2]]}, {"iso": "ROU", "n": "Romania", "china": 6.2, "hhi": 683, "energy": 27.9, "top": [["Germany", 18.7], ["Italy", 8.3], ["Hungary", 6.6]]}, {"iso": "SVK", "n": "Slovakia", "china": 7.3, "hhi": 636, "energy": 58.4, "top": [["Germany", 14.9], ["Czechia", 9.8], ["Other Europe, nes", 9.3]]}, {"iso": "SVN", "n": "Slovenia", "china": 12.2, "hhi": 1015, "energy": 49.3, "top": [["Switzerland", 24.0], ["China", 12.2], ["Germany", 9.5]]}, {"iso": "ESP", "n": "Spain", "china": 10.3, "hhi": 482, "energy": 68.3, "top": [["Germany", 10.8], ["China", 10.3], ["France", 8.2]]}, {"iso": "SWE", "n": "Sweden", "china": 6.3, "hhi": 683, "energy": 26.4, "top": [["Germany", 16.2], ["Netherlands", 10.9], ["Norway", 9.4]]}], "ltu": {"y2020": 1.09, "y2021": 0.66, "y2022": 0.22}};
 /* Glossary: matching forms per language, definitions, first session */
 const GLOSSARY = [
  {en:["GDP"], fr:["PIB"], s:1, den:"Gross domestic product: the value of everything produced in a country in a year.", dfr:"Produit intérieur brut : la valeur de tout ce qu'un pays produit en une année."},
@@ -527,19 +640,95 @@ function glossify(){
 }
 setTimeout(glossify, 0);
 
-/* Certificate */
-const SES=[[1,"Can we trust the numbers?",9],[2,"Can we trust a poll?",8],[3,"Who depends on whom?",8],[4,"Why does Poland spend so much, and Spain so little?",9],[5,"Why did German cars flood into Kyrgyzstan?",9],[6,"What does the Hormuz closure cost?",6]];
-const got=n=>{ try { const v=localStorage.getItem("qm"+n+":done"); return v?JSON.parse(v).length:0; } catch(e){ return 0; } };
-let all=true;
-$("#progTable").innerHTML=`<tr><th>Session</th><th class="num">Steps done</th><th>Status</th></tr>`+SES.map(([n,t,k])=>{ const g=Math.min(got(n),k); if (g<k) all=false;
-  return `<tr><td><a href="session${n}.html">${n}. ${t}</a></td><td class="num">${g} of ${k}</td><td>${g>=k?'<span class="chip F">✓ complete</span>':'<span class="chip PF">in progress</span>'}</td></tr>`; }).join("");
-if (all){ $("#unlock").hidden=false; } else { $("#locked").hidden=false; $("#lockedTxt").textContent="Finish the remaining steps, shown above, then come back. Each step is ticked in the bar at the top of its session page."; }
-function make(name){ const d=store.get("date", new Date().toISOString().slice(0,10)); store.set("date",d); store.set("name",name);
-  $("#cN").textContent=name; $("#cD").textContent=new Date(d+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}); $("#cC").textContent=learnerCode(name+"|"+d);
-  $("#certWrap").hidden=false; }
-$("#certBtn").addEventListener("click",()=>{ const n=$("#certName").value.trim(); if (n.length<2) return; make(n); });
-$("#printBtn").addEventListener("click",()=>window.print());
-const prev=store.get("name",""); if (all && prev){ $("#certName").value=prev; make(prev); }
+/* Session 3 */
+const PR = DATA.products, CO = DATA.countries;
+const NAMES = Object.fromEntries(CO.map(c=>[c.iso,c.n]));
+const RIGHT = ["854143","810411","850511"];
+/* French display names for products (data and CSV keep the English names) */
+const PNAME_FR = {"810411":"Magnésium brut","850511":"Aimants permanents","847130":"Ordinateurs portables","854143":"Panneaux solaires","280530":"Métaux de terres rares","270900":"Pétrole brut","271111":"Gaz naturel liquéfié","100199":"Blé"};
+const pn = p => PNAME_FR[p.code] || p.name;
+
+/* puzzle */
+const order = ["847130","810411","100199","854143","270900","850511","271111","280530"];
+$("#q-prod").innerHTML = order.map(c=>{ const p=PR.find(x=>x.code===c); return `<label><input type="checkbox" value="${c}"> ${pn(p)}</label>`; }).join("");
+$("#q-country").innerHTML = '<option value="">Choisissez un pays</option>' + [...CO].sort((a,b)=>a.n.localeCompare(b.n)).map(c=>`<option value="${c.iso}">${c.n}</option>`).join("");
+function puzzleState(){ const n=$$("#q-prod input:checked").length; $("#prodCount").textContent = n===3?"Trois produits choisis.":`Choisissez-en trois (${n} pour l'instant).`; $("#prodBtn").disabled = !(n===3 && $("#q-country").value) || !!store.get("puz",null); }
+$$("#q-prod input").forEach(i=>i.addEventListener("change",()=>{ if ($$("#q-prod input:checked").length>3) i.checked=false; puzzleState(); }));
+$("#q-country").addEventListener("change", puzzleState);
+function puzzleReveal(v){
+  $$("#q-prod input").forEach(i=>{ i.checked=v.p.includes(i.value); i.disabled=true; }); $("#q-country").value=v.c; $("#q-country").disabled=true; $("#prodBtn").disabled=true;
+  const hits=v.p.filter(c=>RIGHT.includes(c)).length; $("#prodOut").hidden=false;
+  feedback($("#prodFb"), hits===3 && v.c==="CZE", `${hits} produit${hits>1?"s":""} juste${hits>1?"s":""} sur 3 ; pays ${v.c==="CZE"?"juste":"pas tout à fait"}.`);
+  $("#prodTxt").innerHTML = `Part de la Chine dans les importations de l'UE en provenance de l'extérieur de l'UE, 2024 : <b>panneaux solaires 98 %</b>, <b>magnésium brut 92 %</b>, <b>aimants permanents 90 %</b> ; les ordinateurs portables s'en approchent avec 86 %. Parmi les États membres, la <b>Tchéquie</b> achète à la Chine la plus grande part de l'ensemble de ses importations (17 %), devant la Pologne (15 %) et l'Allemagne (12 %).`;
+  markDone("puzzle"); }
+$("#prodBtn").addEventListener("click",()=>{ const v={p:$$("#q-prod input:checked").map(i=>i.value), c:$("#q-country").value}; store.set("puz",v); puzzleReveal(v); });
+
+/* lesson A check */
+$("#la-btn").addEventListener("click",()=>{ const [v]=readNums(["la-in"]);
+  if (Math.abs(v-4600)<=1){ feedback($("#la-fb"),true,"Exact : 3 600 + 900 + 100 = 4 600. Marché fortement concentré."); markDone("lessonA"); }
+  else feedback($("#la-fb"),false,"Élevez chaque part au carré (60² = 3 600) et additionnez."); });
+
+/* activity A */
+let stA = store.get("actA",{ok:false,all:false});
+const wheat = PR.find(p=>p.code==="100199"); const wheatH = wheat.top.slice(0,4).reduce((a,[,s])=>a+s*s,0);
+function drawProd(){
+  $("#prodTable").innerHTML = `<tr><th>Produit</th><th>Principaux fournisseurs (part des importations hors UE, %)</th><th class="num">Importations, Md US$</th><th class="num">IHH</th></tr>` +
+    PR.map(p=>{ const show = stA.all || (p.code==="100199" && stA.ok);
+      return `<tr><td><strong>${pn(p)}</strong></td><td style="text-align:left">${p.top.slice(0,4).map(([n,s])=>`${n} ${s.toFixed(1)}`).join(" · ")}</td><td class="num">${p.total_bn.toFixed(1)}</td><td class="num">${show?p.hhi.toLocaleString("fr-FR"):"…"}</td></tr>`; }).join("");
+  if (!stA.all){ $("#prodChart").innerHTML = '<div class="cs" style="padding:2rem 1rem">Le graphique apparaît une fois que vous avez calculé tous les produits.</div>'; return; }
+  const rows=[...PR].sort((a,b)=>b.hhi-a.hhi).map(p=>({label:pn(p), v:p.hhi, color: p.top[0][0]==="China"?css("--verm"):css("--accent"), tip:`<b>${pn(p)}</b><br>IHH ${p.hhi.toLocaleString("fr-FR")}<br>premier fournisseur : ${p.top[0][0]} ${p.top[0][1]} %`}));
+  hbar($("#prodChart"),{title:"Concentration des fournisseurs de l'UE à l'importation, 2024",sub:"Indice de Herfindahl-Hirschman, de 0 à 10 000",rows,xmin:0,xmax:10000,xfmt:v=>v.toLocaleString("fr-FR"),ref:2500,refLabel:"2 500"});
+  legend($("#prodChart"),[{label:"La Chine est le premier fournisseur",color:css("--verm"),kind:"sq"},{label:"Un autre pays l'est",color:css("--accent"),kind:"sq"}]);
+}
+$("#aa-btn").addEventListener("click",()=>{ const [v]=readNums(["aa-in"]);
+  if (Math.abs(v-wheatH)<=15){ feedback($("#aa-fb"),true,`Exact : 66,0² + 15,5² + 6,9² + 4,6² ≈ ${Math.round(wheatH).toLocaleString("fr-FR")}. Avec l'ensemble des fournisseurs : ${wheat.hhi.toLocaleString("fr-FR")}.`); stA.ok=true; store.set("actA",stA); $("#aa-all").disabled=false; drawProd(); }
+  else feedback($("#aa-fb"),false,"Élevez chacune des quatre parts au carré et additionnez-les : 66,0² = 4 356 pour commencer."); });
+$("#aa-all").addEventListener("click",()=>{ stA.all=true; store.set("actA",stA); drawProd(); markDone("activityA"); markDone("feedbackA"); });
+$("#csvProd").value = "product,supplier,share\n"+PR.flatMap(p=>p.top.map(([n,s])=>`${p.name},${n.replace(/,/g,"")},${s}`)).join("\n");
+
+/* activity B: index */
+const ind = ["china","hhi","energy"];
+const mm = Object.fromEntries(ind.map(k=>[k,[Math.min(...CO.map(c=>c[k])),Math.max(...CO.map(c=>c[k]))]]));
+const norm = (c,k) => 100*(c[k]-mm[k][0])/(mm[k][1]-mm[k][0]);
+let stB = store.get("actB",{country:"DEU",best:null,worst:null});
+$("#rCountry").innerHTML = [...CO].sort((a,b)=>a.n.localeCompare(b.n)).map(c=>`<option value="${c.iso}" ${c.iso===stB.country?"selected":""}>${c.n}</option>`).join("");
+function scores(){ const w=["w1","w2","w3"].map(id=>+$("#"+id).value); const s=w.reduce((a,b)=>a+b,0)||1;
+  ["w1","w2","w3"].forEach((id,i)=>$("#"+id+"o").textContent=Math.round(w[i]/s*100)+" %");
+  return CO.map(c=>({...c, score: ind.reduce((a,k,i)=>a+w[i]/s*norm(c,k),0)})).sort((a,b)=>b.score-a.score).map((c,i)=>({...c,rank:i+1})); }
+function drawIdx(track=true){
+  const S=scores(), me=S.find(c=>c.iso===stB.country);
+  if (track){ if (stB.best===null||me.rank<stB.best) stB.best=me.rank; if (stB.worst===null||me.rank>stB.worst) stB.worst=me.rank; store.set("actB",stB); }
+  $("#rRank").textContent=me.rank; $("#rBest").textContent=stB.best??"–"; $("#rWorst").textContent=stB.worst??"–";
+  tileMap($("#tileMap"),{title:"Indice de vulnérabilité, UE à 27",sub:"0 = le moins vulnérable, 100 = le plus ; plus foncé = plus vulnérable",vals:Object.fromEntries(S.map(c=>[c.iso,c.score])),names:NAMES,fmt:v=>v.toFixed(0),lo:0,hi:100,note:"Tuiles grises : hors UE, pas de données. Sources : UN Comtrade 2024 ; Eurostat 2023."});
+  $("#rankTable").innerHTML = `<tr><th class="num">Rang</th><th>Pays</th><th class="num">Part de la Chine %</th><th class="num">IHH des partenaires</th><th class="num">Dépendance énergétique %</th><th class="num">Score</th></tr>` +
+    S.map(c=>`<tr${c.iso===stB.country?' style="background:var(--soft);font-weight:600"':''}><td class="num">${c.rank}</td><td>${c.n}</td><td class="num">${c.china.toFixed(1)}</td><td class="num">${c.hhi}</td><td class="num">${c.energy.toFixed(1)}</td><td class="num">${c.score.toFixed(0)}</td></tr>`).join("");
+  if (stB.best!==null && stB.worst!==null && stB.worst-stB.best>=5){ markDone("activityB"); }
+  fbRange(); }
+function fbRange(){ if (stB.best===null) return; const n=NAMES[stB.country];
+  $("#fbRange").textContent = stB.worst-stB.best>0 ? `Vous avez fait varier ${n} entre le rang ${stB.best} et le rang ${stB.worst} sans modifier un seul chiffre.` : `Déplacez les poids pour voir jusqu'où ${n} peut bouger.`;
+  if (stB.worst-stB.best>=5) markDone("feedbackB"); }
+["w1","w2","w3"].forEach(id=>$("#"+id).addEventListener("input",()=>drawIdx()));
+$("#rCountry").addEventListener("change",()=>{ stB={country:$("#rCountry").value,best:null,worst:null}; drawIdx(); });
+$("#csvIdx").value = "country,china,hhi,energy\n"+CO.map(c=>`${c.n},${c.china},${c.hhi},${c.energy}`).join("\n");
+
+/* quiz */
+quiz($("#quizBox"), $("#quizScore"), [
+ {q:"Deux fournisseurs, à 50 % chacun. Quel est l'IHH ?",o:["100","2 500","5 000"],a:2,e:"50² + 50² = 5 000."},
+ {q:"L'UE importe presque tout son pétrole brut, et pourtant l'IHH de ses fournisseurs est inférieur à 1 000. Pourquoi ?",o:["Le pétrole n'est pas important","Elle achète à de nombreux pays","Les données sont fausses"],a:1,e:"La dépendance aux importations en général n'est pas la dépendance à un seul fournisseur."},
+ {q:"La Chine absorbait environ 1 % des exportations lituaniennes. Pourquoi la pression chinoise a-t-elle tout de même fait mal ?",o:["La Chine a bloqué des marchandises contenant des composants lituaniens","La Lituanie importe toute sa nourriture de Chine","Elle n'a pas fait mal"],a:0,e:"L'exposition passait par les chaînes d'approvisionnement, invisibles dans les parts du commerce direct."},
+ {q:"Vous ne modifiez que les poids d'un indice, et un pays passe du 5e au 20e rang. Qu'en concluez-vous ?",o:["Le pays a changé","Le classement dépend fortement des choix effectués","L'indice est frauduleux"],a:1,e:"La sensibilité aux poids est une propriété de l'indice, non du pays."},
+ {q:"Que faut-il cartographier avec une échelle de couleurs ?",o:["Le total des importations venant de Chine, en dollars","La part des importations venant de Chine","La population"],a:1,e:"Cartographiez des taux et des parts ; les totaux montrent surtout quels pays sont grands."}], "quiz");
+
+/* help when stuck */
+helpAfter("la-btn","la-fb",()=>({"la-in":"4600"}));
+helpAfter("aa-btn","aa-fb",()=>({"aa-in":Math.round(wheatH)}));
+
+/* boot */
+const pv=store.get("puz",null); if (pv) puzzleReveal(pv);
+drawProd(); if (stA.ok) $("#aa-all").disabled = stA.all;
+drawIdx(false); fbRange();
+wireCopy(); wireReset();
+onRedraw(()=>{ drawProd(); drawIdx(false); });
 
 </script>
 </body>

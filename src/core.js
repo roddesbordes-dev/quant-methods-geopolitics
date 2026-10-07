@@ -1,6 +1,12 @@
 /* ===== shared helpers for every session page ===== */
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const NS = "http://www.w3.org/2000/svg";
+const LANG = window.LANG || "en";
+const FEEDBACK_URL = "https://github.com/roddesbordes-dev/quant-methods-geopolitics/issues/new";
+const TX = {
+ en:{done:" (done)", back:(d,n)=>`Welcome back: ${d} of ${n} steps done.`, cont:(k,t)=>`Continue with step ${k}, ${t} →`, complete:n=>`Session complete: all ${n} steps done.`, read:"Mark as read", readDone:"Read ✓", show:"Show me the answer", copied:"Copied.", sel:"Selected: press Ctrl+C or Cmd+C.", right:"Right. ", notq:"Not quite. ", score:(s,n)=>`Score: ${s} out of ${n}.`, nodata:": no data", gloss:"Glossary", other:"Français", fb:"Report a problem or suggest an improvement", fbNote:"(opens GitHub; a free account is needed)"},
+ fr:{done:" (fait)", back:(d,n)=>`Bon retour : ${d} étape${d>1?"s":""} sur ${n} terminée${d>1?"s":""}.`, cont:(k,t)=>`Reprendre à l'étape ${k}, ${t} →`, complete:n=>`Séance terminée : les ${n} étapes sont faites.`, read:"Marquer comme lu", readDone:"Lu ✓", show:"Montrer la réponse", copied:"Copié.", sel:"Texte sélectionné : appuyez sur Ctrl+C ou Cmd+C.", right:"Exact. ", notq:"Pas tout à fait. ", score:(s,n)=>`Score : ${s} sur ${n}.`, nodata:" : pas de données", gloss:"Glossaire", other:"English", fb:"Signaler un problème ou proposer une amélioration", fbNote:"(ouvre GitHub ; un compte gratuit est nécessaire)"}
+}[LANG];
 const PFX = "qm" + (window.SESSION || 0) + ":";
 function learnerCode(name){ let h=2166136261; for (const ch of String(name).trim().toLowerCase().replace(/\s+/g," ")){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619); } return "QM-"+(h>>>0).toString(36).toUpperCase().padStart(7,"0"); }
 const store = {
@@ -22,18 +28,30 @@ const done = new Set(store.get("done", []));
 function markDone(id){ if (done.has(id)) return; done.add(id); store.set("done", [...done]); renderNav(); }
 function renderNav(){
   const nav = $("#stepnav"); if (!nav) return;
-  nav.innerHTML = steps.map((s,i)=>`<li class="${done.has(s.id)?"done":""}"><a href="#${s.id}"><span class="dot" aria-hidden="true"></span>${i+1}. ${s.dataset.title}<span class="vh">${done.has(s.id)?" (done)":""}</span></a></li>`).join("");
+  nav.innerHTML = steps.map((s,i)=>`<li class="${done.has(s.id)?"done":""}"><a href="#${s.id}"><span class="dot" aria-hidden="true"></span>${i+1}. ${s.dataset.title}<span class="vh">${done.has(s.id)?TX.done:""}</span></a></li>`).join("");
 }
 renderNav();
+/* resume: point returning learners to their first unfinished step */
+(function(){ const hdr=$("header.top"); if (!steps.length || !hdr || !done.size) return;
+  const next=steps.find(s=>!done.has(s.id)); const d=document.createElement("p"); d.className="resume";
+  d.innerHTML = next ? `${TX.back(done.size,steps.length)} <a href="#${next.id}">${TX.cont(steps.indexOf(next)+1,next.dataset.title)}</a>` : TX.complete(steps.length);
+  hdr.appendChild(d); })();
 /* reading-only steps get a button to mark them as read */
 $$("section.step[data-read]").forEach(s=>{ const r=document.createElement("div"); r.className="row";
-  r.innerHTML=`<button class="ghost" type="button">Mark as read</button>`; s.appendChild(r);
-  const b=r.querySelector("button"); const sync=()=>{ if (done.has(s.id)){ b.textContent="Read ✓"; b.disabled=true; } };
+  r.innerHTML=`<button class="ghost" type="button">${TX.read}</button>`; s.appendChild(r);
+  const b=r.querySelector("button"); const sync=()=>{ if (done.has(s.id)){ b.textContent=TX.readDone; b.disabled=true; } };
   b.addEventListener("click",()=>{ markDone(s.id); sync(); }); sync(); });
 
 /* ---------- answer checking ---------- */
 function feedback(elm, ok, msg){ elm.className = "fb " + (ok ? "ok" : "no"); elm.textContent = msg; }
 function readNums(ids){ return ids.map(id => parseFloat(String($("#"+id).value).replace(",", "."))); }
+
+/* after two wrong attempts, offer the answer so nobody gets stuck */
+function helpAfter(btnId, fbId, getFills, n=2){ const btn=$("#"+btnId), fb=$("#"+fbId); if (!btn||!fb) return; let fails=0, shown=false;
+  btn.addEventListener("click",()=>setTimeout(()=>{ if (fb.classList.contains("no")) fails++; if (fails>=n && !shown){ shown=true;
+    const h=document.createElement("button"); h.type="button"; h.className="ghost"; h.textContent=TX.show; h.style.marginTop=".3rem";
+    h.addEventListener("click",()=>{ const f=getFills(); for (const id in f) $("#"+id).value=f[id]; btn.click(); h.remove(); });
+    fb.after(h); } },0)); }
 
 /* ---------- radio-choice lock-in ---------- */
 function lockChoice({group, button, key, onReveal}){
@@ -54,7 +72,7 @@ function niceTicks(min, max, n=5){
   if (max === min){ max = min + 1; }
   const span = max-min, step0 = span/n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
   const err = step0/mag, step = (err>=7.5?10:err>=3.5?5:err>=1.5?2:1)*mag;
-  const t=[]; for (let v=Math.ceil(min/step-1e-9)*step; v<=max+1e-9; v+=step) t.push(+v.toFixed(10)); return {ticks:t, step};
+  const t=[]; for (let v=Math.ceil(min/step-1e-9)*step; v<=max+1e-9; v+=step) t.push(Math.round(v*1e10)/1e10); return {ticks:t, step};
 }
 function shape(g, kind, x, y, r, fill, ring){
   const sw = ring ? 1.5 : 0, st = ring ? css("--panel") : "none";
@@ -199,24 +217,24 @@ function tileMap(container,{title,sub,vals,names,fmt=v=>v,lo,hi,note}){
     const dark = tshare!=null && tshare>0.55;
     const a=el("text",{x:cx*cell+cell/2,y:cy*cell+18,"text-anchor":"middle",style:`font-size:11px;font-weight:600;fill:${dark?"#fff":css("--ink")}`},svg); a.textContent=iso;
     if (v!=null){ const b=el("text",{x:cx*cell+cell/2,y:cy*cell+33,"text-anchor":"middle",style:`font-size:10px;font-family:var(--f-mono);fill:${dark?"#fff":css("--ink2")}`},svg); b.textContent=fmt(v); }
-    hover(f, r, cx*cell+cell/2, cy*cell+4, `<b>${names?.[iso]||iso}</b>${v!=null?": "+fmt(v):": no data"}`);
+    hover(f, r, cx*cell+cell/2, cy*cell+4, `<b>${names?.[iso]||iso}</b>${v!=null?": "+fmt(v):TX.nodata}`);
   }
   if (note){ const s=document.createElement("div"); s.className="cs"; s.textContent=note; container.appendChild(s); }
 }
 
 /* ---------- copy buttons ---------- */
 function wireCopy(){ $$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{ const ta=$("#"+b.dataset.copy), out=$(`[data-copied="${b.dataset.copy}"]`);
-  const fallback=()=>{ ta.focus(); ta.select(); if (out) out.textContent="Selected: press Ctrl+C or Cmd+C."; };
-  try { navigator.clipboard.writeText(ta.value).then(()=>{ if (out) out.textContent="Copied."; },fallback); } catch(e){ fallback(); } })); }
+  const fallback=()=>{ ta.focus(); ta.select(); if (out) out.textContent=TX.sel; };
+  try { navigator.clipboard.writeText(ta.value).then(()=>{ if (out) out.textContent=TX.copied; },fallback); } catch(e){ fallback(); } })); }
 
 /* ---------- quiz ---------- */
 function quiz(box, scoreEl, QUIZ, stepId){
   let qa = store.get("quiz",{});
   const draw = () => {
-    box.innerHTML = QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?"Right. ":"Not quite. "}${q.e}</p>`:""}</div>`).join("");
+    box.innerHTML = QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?TX.right:TX.notq}${q.e}</p>`:""}</div>`).join("");
     $$("#"+box.id+" input").forEach(i=>i.addEventListener("change",()=>{ qa[+i.name.slice(2)]=+i.value; store.set("quiz",qa); draw(); }));
     const n=Object.keys(qa).length, s=QUIZ.filter((q,i)=>qa[i]===q.a).length;
-    scoreEl.textContent = n===QUIZ.length ? `Score: ${s} out of ${QUIZ.length}.` : "";
+    scoreEl.textContent = n===QUIZ.length ? TX.score(s,QUIZ.length) : "";
     if (n===QUIZ.length) markDone(stepId);
   };
   draw();
@@ -233,3 +251,42 @@ function onRedraw(fn){
   try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", fn); new MutationObserver(fn).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]}); } catch(e){}
   let rz, lastW=innerWidth; addEventListener("resize",()=>{ if (innerWidth===lastW) return; lastW=innerWidth; clearTimeout(rz); rz=setTimeout(fn,200); });
 }
+
+
+/* ---------- language switch, glossary link, feedback link ---------- */
+(function(){
+  const file = (location.pathname.split("/").pop() || "index.html");
+  const crumbs = $(".crumbs");
+  if (crumbs){ const g=document.createElement("a"); g.href="glossary.html"; g.textContent=TX.gloss; crumbs.appendChild(g);
+    const l=document.createElement("a"); l.href=(LANG==="fr"?"../":"fr/")+file; l.textContent=TX.other; l.lang=LANG==="fr"?"en":"fr"; crumbs.appendChild(l); }
+  const wrap=$(".wrap"); if (wrap){ const f=document.createElement("p"); f.className="col small feedbacklink";
+    const title=encodeURIComponent((LANG==="fr"?"[FR] ":"")+document.title+": ");
+    f.innerHTML=`<a href="${FEEDBACK_URL}?title=${title}" target="_blank" rel="noopener">${TX.fb}</a> <span>${TX.fbNote}</span>`; wrap.appendChild(f); }
+})();
+
+/* ---------- glossary: underline the first use of each term, definition on hover or tap ---------- */
+function glossify(){
+  if (typeof GLOSSARY==="undefined") return;
+  const skip="a,button,label,h1,h2,h3,h4,textarea,script,style,select,option,.formula,.mono,.chart,.gl,.prompt,figcaption,th,.crumbs,nav,.kpi,.legend";
+  const roots=$$("section.step, header.top .lede"); if (!roots.length) return;
+  const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  const tip=document.createElement("div"); tip.className="gltip"; tip.hidden=true; tip.setAttribute("role","tooltip"); document.body.appendChild(tip);
+  const showT=el=>{ tip.textContent=el.dataset.def; tip.hidden=false; const r=el.getBoundingClientRect(); const w=Math.min(300, innerWidth-24);
+    tip.style.width=w+"px"; tip.style.left=Math.max(12, Math.min(r.left, innerWidth-w-12))+"px"; tip.style.top=(r.bottom+6)+"px"; };
+  const hideT=()=>{ tip.hidden=true; };
+  addEventListener("scroll", hideT, {passive:true});
+  for (const g of GLOSSARY){
+    const forms=(g[LANG]||[]).slice().sort((a,b)=>b.length-a.length); if (!forms.length) continue;
+    const re=new RegExp("(^|[^\\p{L}\\p{N}])("+forms.map(esc).join("|")+")(?![\\p{L}\\p{N}])","u");
+    let doneG=false;
+    for (const root of roots){ if (doneG) break;
+      const w=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode:n=> n.parentElement.closest(skip) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT});
+      let n; while ((n=w.nextNode())){ const m=re.exec(n.nodeValue); if (!m) continue;
+        const start=m.index+m[1].length, end=start+m[2].length;
+        const after=n.splitText(start); after.splitText(end-start);
+        const sp=document.createElement("span"); sp.className="gl"; sp.tabIndex=0; sp.dataset.def=g["d"+LANG]; sp.textContent=after.nodeValue;
+        after.replaceWith(sp);
+        sp.addEventListener("mouseenter",()=>showT(sp)); sp.addEventListener("mouseleave",hideT); sp.addEventListener("focus",()=>showT(sp)); sp.addEventListener("blur",hideT);
+        doneG=true; break; } } }
+}
+setTimeout(glossify, 0);

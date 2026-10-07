@@ -1,0 +1,26 @@
+<header class="top col noprint">
+  <div class="crumbs"><a href="index.html">Accueil du cours</a><span>Certificat</span></div>
+  <h1 style="margin-top:.6rem">Certificat de réussite</h1>
+  <p class="lede">Le certificat se débloque une fois toutes les étapes des six séances terminées. Votre progression est lue dans ce navigateur.</p>
+</header>
+<section class="col noprint" style="padding-block:1.5rem">
+  <div class="tscroll"><table id="progTable" aria-label="Votre progression"></table></div>
+  <div id="locked" class="box key" hidden><h4>Pas encore</h4><p id="lockedTxt"></p></div>
+  <div id="unlock" class="box task" hidden>
+    <h4>Félicitations : les six séances sont terminées</h4>
+    <label for="certName" class="small">Votre nom, tel qu'il doit figurer sur le certificat</label>
+    <div class="row"><input type="text" id="certName" style="flex:1;min-width:12rem"><button id="certBtn">Créer mon certificat</button></div>
+  </div>
+</section>
+<section class="col" id="certWrap" hidden>
+  <div class="cert" id="cert">
+    <div class="cert-k">Certificat de réussite</div>
+    <div class="cert-n" id="cN"></div>
+    <p class="cert-t">a suivi en autonomie le cours</p>
+    <div class="cert-c">Méthodes quantitatives pour la géopolitique et la géoéconomie</div>
+    <p class="cert-t">six séances, environ 18 heures : fiabilité des chiffres officiels et graphiques honnêtes ; sondages et marges d'erreur ; dépendance et indices composites ; régression ; évaluation des politiques par la différence de différences ; chiffrage d'un choc géopolitique et audit d'analyses produites par l'IA.</p>
+    <div class="cert-f"><span id="cD"></span><span>Cours conçu par Rodolphe Desbordes</span><span class="mono" id="cC"></span></div>
+    <p class="cert-s">Réalisation de toutes les activités autodéclarée, enregistrée dans le navigateur de l'apprenant. Ce certificat n'atteste pas d'une évaluation notée.</p>
+  </div>
+  <div class="row noprint"><button id="printBtn">Imprimer ou enregistrer en PDF</button><span class="small">Dans la fenêtre d'impression, choisissez « Enregistrer au format PDF » et l'orientation paysage.</span></div>
+</section>

@@ -74,6 +74,10 @@ quiz($("#quizBox"), $("#quizScore"), [
  {q:"You change only the weights of an index and a country moves from 5th to 20th. What does this tell you?",o:["The country changed","The ranking depends heavily on choices","The index is fraudulent"],a:1,e:"Sensitivity to weights is a property of the index, not of the country."},
  {q:"Which should you map with a colour scale?",o:["Total imports from China in dollars","Share of imports from China","Population"],a:1,e:"Map rates and shares; totals mostly show which countries are big."}], "quiz");
 
+/* help when stuck */
+helpAfter("la-btn","la-fb",()=>({"la-in":"4600"}));
+helpAfter("aa-btn","aa-fb",()=>({"aa-in":Math.round(wheatH)}));
+
 /* boot */
 const pv=store.get("puz",null); if (pv) puzzleReveal(pv);
 drawProd(); if (stA.ok) $("#aa-all").disabled = stA.all;

@@ -151,6 +151,15 @@ a.btn{color:#fff}
 .cert-f{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 2rem;font-size:.9rem;margin-top:.8rem}
 .cert-s{font-size:.75rem;color:var(--muted);margin-top:.6rem}
 @media print{ @page{size:A4 landscape;margin:12mm} body{background:#fff;color:#000} .noprint,nav.steps,footer{display:none!important} .cert{border-color:#0072B2;outline:none;box-shadow:none;margin:0} .wrap{padding:0} }
+.resume{margin-top:1rem;padding:.6rem .8rem;background:var(--soft);border-radius:var(--r);font-size:.95rem}
+.resume a{font-weight:600}
+.gl{border-bottom:1.5px dotted var(--accent);cursor:help}
+.gl:focus-visible{outline:2px solid var(--hi);outline-offset:1px}
+.gltip{position:fixed;z-index:50;background:var(--ink);color:var(--bg);font-size:.82rem;line-height:1.4;padding:.45rem .6rem;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.feedbacklink{margin-top:1.5rem;padding-bottom:1rem}
+.feedbacklink span{color:var(--muted)}
+.glist dt{font-weight:700;margin-top:.9rem}
+.glist dd{margin:.2rem 0 0;color:var(--ink2)}
 </style>
 </head>
 <body>
@@ -284,10 +293,55 @@ a.btn{color:#fff}
 </div>
 <script>
 window.SESSION=6;
+window.LANG="en";
 const DATA = {"hormuz": [["2024-12-30", 68], ["2025-01-06", 69.3], ["2025-01-13", 70.4], ["2025-01-20", 71.4], ["2025-01-27", 69.7], ["2025-02-03", 69.7], ["2025-02-10", 85.4], ["2025-02-17", 80.7], ["2025-02-24", 60.6], ["2025-03-03", 81.9], ["2025-03-10", 87], ["2025-03-17", 86.9], ["2025-03-24", 83], ["2025-03-31", 111.6], ["2025-04-07", 102.6], ["2025-04-14", 84.9], ["2025-04-21", 109.4], ["2025-04-28", 97.9], ["2025-05-05", 97.9], ["2025-05-12", 107], ["2025-05-19", 111], ["2025-05-26", 101.1], ["2025-06-02", 95.3], ["2025-06-09", 109.1], ["2025-06-16", 103.4], ["2025-06-23", 102.9], ["2025-06-30", 89.1], ["2025-07-07", 90.7], ["2025-07-14", 104.4], ["2025-07-21", 92.7], ["2025-07-28", 94.9], ["2025-08-04", 80.4], ["2025-08-11", 105], ["2025-08-18", 96.1], ["2025-08-25", 100.1], ["2025-09-01", 95.4], ["2025-09-08", 75], ["2025-09-15", 87.3], ["2025-09-22", 86.4], ["2025-09-29", 111.3], ["2025-10-06", 70.6], ["2025-10-13", 73.7], ["2025-10-20", 102], ["2025-10-27", 90.3], ["2025-11-03", 75.3], ["2025-11-10", 79.9], ["2025-11-17", 60.6], ["2025-11-24", 53.9], ["2025-12-01", 56.6], ["2025-12-08", 54.1], ["2025-12-15", 48.6], ["2025-12-22", 60], ["2025-12-29", 58.6], ["2026-01-05", 64.4], ["2026-01-12", 53.3], ["2026-01-19", 56.3], ["2026-01-26", 60], ["2026-02-02", 60.7], ["2026-02-09", 76.4], ["2026-02-16", 94.3], ["2026-02-23", 77.6], ["2026-03-02", 2.6], ["2026-03-09", 2.1], ["2026-03-16", 1.4], ["2026-03-23", 3.6], ["2026-03-30", 5.3], ["2026-04-06", 5.9], ["2026-04-13", 7.4], ["2026-04-20", 4], ["2026-04-27", 12.3], ["2026-05-04", 1.4], ["2026-05-11", 5.4], ["2026-05-18", 4.9], ["2026-05-25", 3], ["2026-06-01", 4.4], ["2026-06-08", 2.4], ["2026-06-15", 12.1], ["2026-06-22", 30.4], ["2026-06-29", 23.1], ["2026-07-06", 14], ["2026-07-13", 6.3], ["2026-07-20", 3.6], ["2026-07-27", 5.3], ["2026-08-03", 5.6], ["2026-08-10", 4.4], ["2026-08-17", 5], ["2026-08-24", 4.3], ["2026-08-31", 3.1], ["2026-09-07", 5.3], ["2026-09-14", 3.1], ["2026-09-21", 3.1], ["2026-09-28", 2.7]], "tankers": [["2024-12-30", 38.6], ["2025-01-06", 38.6], ["2025-01-13", 38.6], ["2025-01-20", 42.3], ["2025-01-27", 39.6], ["2025-02-03", 38], ["2025-02-10", 48.7], ["2025-02-17", 43.6], ["2025-02-24", 34.6], ["2025-03-03", 51.6], ["2025-03-10", 47.1], ["2025-03-17", 49.1], ["2025-03-24", 47.6], ["2025-03-31", 61.7], ["2025-04-07", 57.7], ["2025-04-14", 48], ["2025-04-21", 62.9], ["2025-04-28", 56], ["2025-05-05", 55.1], ["2025-05-12", 60.7], ["2025-05-19", 60.7], ["2025-05-26", 55.3], ["2025-06-02", 55.3], ["2025-06-09", 60.6], ["2025-06-16", 58.3], ["2025-06-23", 58.6], ["2025-06-30", 51.4], ["2025-07-07", 52.1], ["2025-07-14", 58.3], ["2025-07-21", 52.6], ["2025-07-28", 54.9], ["2025-08-04", 43.9], ["2025-08-11", 60.4], ["2025-08-18", 54.3], ["2025-08-25", 54.6], ["2025-09-01", 55.1], ["2025-09-08", 41.4], ["2025-09-15", 50.1], ["2025-09-22", 48.9], ["2025-09-29", 64.9], ["2025-10-06", 35.6], ["2025-10-13", 40.1], ["2025-10-20", 58.1], ["2025-10-27", 50.1], ["2025-11-03", 43.6], ["2025-11-10", 44.4], ["2025-11-17", 34.9], ["2025-11-24", 30], ["2025-12-01", 32.3], ["2025-12-08", 31.1], ["2025-12-15", 25.7], ["2025-12-22", 30.3], ["2025-12-29", 31.3], ["2026-01-05", 34.3], ["2026-01-12", 28.7], ["2026-01-19", 30.7], ["2026-01-26", 30.9], ["2026-02-02", 33.7], ["2026-02-09", 43.1], ["2026-02-16", 52.7], ["2026-02-23", 42.3], ["2026-03-02", 0.6], ["2026-03-09", 0.6], ["2026-03-16", 0.4], ["2026-03-23", 1.1], ["2026-03-30", 2.1], ["2026-04-06", 1.9], ["2026-04-13", 4], ["2026-04-20", 1.7], ["2026-04-27", 5.6], ["2026-05-04", 0.4], ["2026-05-11", 2], ["2026-05-18", 1.9], ["2026-05-25", 0.4], ["2026-06-01", 1.1], ["2026-06-08", 0.9], ["2026-06-15", 4.4], ["2026-06-22", 14], ["2026-06-29", 13.3], ["2026-07-06", 6.4], ["2026-07-13", 2.3], ["2026-07-20", 0.9], ["2026-07-27", 1.4], ["2026-08-03", 1.9], ["2026-08-10", 1.6], ["2026-08-17", 2.4], ["2026-08-24", 1.9], ["2026-08-31", 0.9], ["2026-09-07", 1.4], ["2026-09-14", 0.6], ["2026-09-21", 1.3], ["2026-09-28", 0.9]], "brent": [["2025-01", 79.3], ["2025-02", 75.4], ["2025-03", 72.7], ["2025-04", 68.1], ["2025-05", 64.5], ["2025-06", 71.4], ["2025-07", 71.0], ["2025-08", 67.9], ["2025-09", 68.0], ["2025-10", 64.5], ["2025-11", 63.8], ["2025-12", 62.5], ["2026-01", 66.6], ["2026-02", 70.9], ["2026-03", 103.1], ["2026-04", 117.3], ["2026-05", 107.1], ["2026-06", 85.4], ["2026-07", 83.8], ["2026-08", 91.1], ["2026-09", 114.1]], "fuel": [{"iso": "AUT", "n": "Austria", "year": 2024, "imp_pct": 2.95, "net_pct": 1.84}, {"iso": "BEL", "n": "Belgium", "year": 2024, "imp_pct": 12.55, "net_pct": 2.96}, {"iso": "BGR", "n": "Bulgaria", "year": 2024, "imp_pct": 5.95, "net_pct": 2.67}, {"iso": "HRV", "n": "Croatia", "year": 2024, "imp_pct": 7.85, "net_pct": 4.19}, {"iso": "CYP", "n": "Cyprus", "year": 2024, "imp_pct": 8.05, "net_pct": 0.84}, {"iso": "CZE", "n": "Czechia", "year": 2024, "imp_pct": 3.66, "net_pct": 2.41}, {"iso": "DNK", "n": "Denmark", "year": 2024, "imp_pct": 1.99, "net_pct": 0.8}, {"iso": "EST", "n": "Estonia", "year": 2024, "imp_pct": 4.66, "net_pct": 1.27}, {"iso": "FIN", "n": "Finland", "year": 2024, "imp_pct": 3.66, "net_pct": 1.69}, {"iso": "FRA", "n": "France", "year": 2024, "imp_pct": 3.01, "net_pct": 2.12}, {"iso": "DEU", "n": "Germany", "year": 2024, "imp_pct": 2.41, "net_pct": 1.67}, {"iso": "GRC", "n": "Greece", "year": 2024, "imp_pct": 9.47, "net_pct": 3.09}, {"iso": "HUN", "n": "Hungary", "year": 2024, "imp_pct": 6.04, "net_pct": 3.65}, {"iso": "IRL", "n": "Ireland", "year": 2024, "imp_pct": 1.48, "net_pct": 1.34}, {"iso": "ITA", "n": "Italy", "year": 2024, "imp_pct": 3.3, "net_pct": 2.44}, {"iso": "LVA", "n": "Latvia", "year": 2024, "imp_pct": 5.95, "net_pct": 2.66}, {"iso": "LTU", "n": "Lithuania", "year": 2024, "imp_pct": 9.41, "net_pct": 2.86}, {"iso": "LUX", "n": "Luxembourg", "year": 2024, "imp_pct": 2.09, "net_pct": 2.06}, {"iso": "MLT", "n": "Malta", "year": 2024, "imp_pct": 8.02, "net_pct": 6.5}, {"iso": "NLD", "n": "Netherlands", "year": 2024, "imp_pct": 11.06, "net_pct": 1.45}, {"iso": "POL", "n": "Poland", "year": 2024, "imp_pct": 3.16, "net_pct": 2.08}, {"iso": "PRT", "n": "Portugal", "year": 2024, "imp_pct": 3.98, "net_pct": 2.09}, {"iso": "ROU", "n": "Romania", "year": 2024, "imp_pct": 2.93, "net_pct": 1.65}, {"iso": "SVK", "n": "Slovakia", "year": 2024, "imp_pct": 6.57, "net_pct": 3.31}, {"iso": "SVN", "n": "Slovenia", "year": 2024, "imp_pct": 7.96, "net_pct": 2.92}, {"iso": "ESP", "n": "Spain", "year": 2024, "imp_pct": 3.72, "net_pct": 2.28}, {"iso": "SWE", "n": "Sweden", "year": 2024, "imp_pct": 3.24, "net_pct": 0.94}, {"iso": "GBR", "n": "United Kingdom", "year": 2024, "imp_pct": 2.24, "net_pct": 1.03}, {"iso": "NOR", "n": "Norway", "year": 2024, "imp_pct": 1.32, "net_pct": -20.66}, {"iso": "CHE", "n": "Switzerland", "year": 2024, "imp_pct": 1.22, "net_pct": 0.67}, {"iso": "JPN", "n": "Japan", "year": 2024, "imp_pct": 4.03, "net_pct": 3.79}, {"iso": "KOR", "n": "South Korea", "year": 2024, "imp_pct": 8.64, "net_pct": 5.84}, {"iso": "IND", "n": "India", "year": 2024, "imp_pct": 6.02, "net_pct": 4.01}, {"iso": "CHN", "n": "China", "year": 2024, "imp_pct": 2.82, "net_pct": 2.53}, {"iso": "USA", "n": "United States", "year": 2024, "imp_pct": 0.86, "net_pct": -0.43}, {"iso": "SAU", "n": "Saudi Arabia", "year": 2024, "imp_pct": 1.05, "net_pct": -18.29}, {"iso": "EGY", "n": "Egypt", "year": 2024, "imp_pct": 3.97, "net_pct": 2.62}, {"iso": "PAK", "n": "Pakistan", "year": 2024, "imp_pct": 5.04, "net_pct": 4.89}, {"iso": "THA", "n": "Thailand", "year": 2024, "imp_pct": 9.75, "net_pct": 7.81}], "brent2025": 69.1, "brentShock": 99.8, "brentPeak": 138.2};
+/* Glossary: matching forms per language, definitions, first session */
+const GLOSSARY = [
+ {en:["GDP"], fr:["PIB"], s:1, den:"Gross domestic product: the value of everything produced in a country in a year.", dfr:"Produit intérieur brut : la valeur de tout ce qu'un pays produit en une année."},
+ {en:["indicator","indicators"], fr:["indicateur","indicateurs"], s:1, den:"A number built from raw data to answer a question, such as spending as a share of GDP.", dfr:"Un nombre construit à partir de données brutes pour répondre à une question, comme une dépense en part du PIB."},
+ {en:["current dollars","current US$"], fr:["dollars courants"], s:1, den:"Money values as recorded each year, without removing inflation or exchange-rate changes.", dfr:"Montants tels qu'enregistrés chaque année, sans corriger l'inflation ni les variations de change."},
+ {en:["real terms"], fr:["termes réels"], s:1, den:"Values at constant prices, so that a change reflects quantities rather than inflation.", dfr:"Valeurs à prix constants : une variation reflète alors des quantités, pas l'inflation."},
+ {en:["share of GDP","% of GDP"], fr:["part du PIB","% du PIB"], s:1, den:"A value divided by GDP: it measures effort relative to the size of the economy.", dfr:"Une valeur divisée par le PIB : elle mesure un effort rapporté à la taille de l'économie."},
+ {en:["base year"], fr:["année de base"], s:1, den:"The starting year of a comparison or an index; changing it can change the story.", dfr:"L'année de départ d'une comparaison ou d'un indice ; la changer peut changer le récit."},
+ {en:["night lights"], fr:["lumières nocturnes"], s:1, den:"Satellite measures of light emitted at night, used as an independent proxy for economic activity.", dfr:"Mesures satellitaires de la lumière émise la nuit, utilisées comme indicateur indépendant de l'activité économique."},
+ {en:["Freedom House"], fr:["Freedom House"], s:1, den:"A US organisation that rates countries each year as Free, Partly Free or Not Free.", dfr:"Organisation américaine qui classe chaque année les pays en libres, partiellement libres ou non libres."},
+ {en:["percentage points","percentage point"], fr:["points de pourcentage","point de pourcentage"], s:1, den:"The difference between two percentages: from 2% to 3% is one percentage point, but a 50% increase.", dfr:"L'écart entre deux pourcentages : passer de 2 % à 3 %, c'est un point de pourcentage, mais une hausse de 50 %."},
+ {en:["sample"], fr:["échantillon"], s:2, den:"The people actually asked in a survey, chosen to stand in for the whole population.", dfr:"Les personnes réellement interrogées dans une enquête, choisies pour représenter toute la population."},
+ {en:["margin of error"], fr:["marge d'erreur"], s:2, den:"How far a survey estimate could be from the true value because of the luck of the sample, usually at 95% confidence.", dfr:"L'écart possible entre l'estimation d'un sondage et la vraie valeur, dû au hasard de l'échantillon, en général à 95 %."},
+ {en:["non-sampling errors","non-sampling error"], fr:["erreurs non liées à l'échantillonnage","erreurs non dues à l'échantillonnage","erreur non liée à l'échantillonnage"], s:2, den:"Errors not caused by the luck of the sample: refusals, people left out, wrong answers. No formula measures them.", dfr:"Erreurs qui ne viennent pas du hasard de l'échantillon : refus, personnes oubliées, réponses fausses. Aucune formule ne les mesure."},
+ {en:["recode"], fr:["recoder"], s:2, den:"To merge or rename categories of a variable, for example “very” and “somewhat” favourable into “favourable”.", dfr:"Regrouper ou renommer les catégories d'une variable, par exemple « très » et « plutôt » favorable en « favorable »."},
+ {en:["Herfindahl"], fr:["Herfindahl"], s:3, den:"Herfindahl–Hirschman index: the sum of squared shares (in %) of all suppliers, from near 0 (many suppliers) to 10,000 (one supplier).", dfr:"Indice de Herfindahl-Hirschman : la somme des carrés des parts (en %) de tous les fournisseurs, de presque 0 (beaucoup de fournisseurs) à 10 000 (un seul)."},
+ {en:["substitutability"], fr:["substituabilité"], s:3, den:"How easily a supplier or product can be replaced by another, and how fast.", dfr:"La facilité et la rapidité avec lesquelles un fournisseur ou un produit peut être remplacé."},
+ {en:["composite indices","composite index"], fr:["indices composites","indice composite"], s:3, den:"One score combining several indicators after normalising and weighting them.", dfr:"Un score unique qui combine plusieurs indicateurs après les avoir normalisés et pondérés."},
+ {en:["Normalise","normalise"], fr:["Normaliser","normaliser"], s:3, den:"To put indicators on a common scale, for example 0 for the lowest country and 100 for the highest.", dfr:"Mettre des indicateurs sur une échelle commune, par exemple 0 pour le pays le plus bas et 100 pour le plus haut."},
+ {en:["tile map"], fr:["carte en tuiles"], s:3, den:"A map in which every country is an equal square placed roughly where it lies.", dfr:"Une carte où chaque pays est un carré de même taille, placé à peu près à sa position."},
+ {en:["regression"], fr:["régression"], s:4, den:"A method that summarises, with a line, how one variable changes on average with others.", dfr:"Une méthode qui résume par une droite comment une variable varie en moyenne avec d'autres."},
+ {en:["least squares"], fr:["moindres carrés"], s:4, den:"The rule that picks the line making the sum of squared vertical distances to the points as small as possible.", dfr:"La règle qui choisit la droite rendant la somme des carrés des écarts verticaux aux points la plus petite possible."},
+ {en:["slope"], fr:["pente"], s:4, den:"How much the predicted value changes when the explanatory variable rises by one unit.", dfr:"De combien la valeur prédite change quand la variable explicative augmente d'une unité."},
+ {en:["intercept"], fr:["constante"], s:4, den:"The predicted value when the explanatory variable is zero; mainly used to place the line.", dfr:"La valeur prédite quand la variable explicative vaut zéro ; elle sert surtout à placer la droite."},
+ {en:["R²"], fr:["R²"], s:4, den:"The share of the differences between observations that the model accounts for, from 0 to 1.", dfr:"La part des différences entre observations que le modèle explique, de 0 à 1."},
+ {en:["residual"], fr:["résidu"], s:4, den:"Actual value minus the value predicted by the model.", dfr:"Valeur observée moins valeur prédite par le modèle."},
+ {en:["control"], fr:["variable de contrôle"], s:4, den:"A variable added to a regression so that comparisons are made between otherwise similar cases.", dfr:"Une variable ajoutée à une régression pour comparer des cas par ailleurs semblables."},
+ {en:["outlier"], fr:["valeur atypique"], s:4, den:"An observation far from what the model predicts; often a clue to a missing variable.", dfr:"Une observation éloignée de ce que prédit le modèle ; souvent l'indice d'une variable manquante."},
+ {en:["Correlation","correlation"], fr:["corrélation"], s:4, den:"Two variables moving together. It does not by itself show that one causes the other.", dfr:"Deux variables qui évoluent ensemble. Cela ne montre pas, à soi seul, que l'une cause l'autre."},
+ {en:["counterfactual"], fr:["contrefactuel"], s:5, den:"What would have happened without the policy. Never observed, so it must be estimated.", dfr:"Ce qui se serait passé sans la politique. Jamais observé, il faut l'estimer."},
+ {en:["difference-in-differences","Difference-in-differences"], fr:["différence de différences","Différence de différences"], s:5, den:"The change for a treated group minus the change for a comparison group over the same period.", dfr:"La variation d'un groupe traité moins celle d'un groupe de comparaison sur la même période."},
+ {en:["parallel trends","parallel-trends"], fr:["tendances parallèles"], s:5, den:"The assumption that, without the policy, treated and comparison groups would have moved alike.", dfr:"L'hypothèse que, sans la politique, le groupe traité et le groupe de comparaison auraient évolué de la même façon."},
+ {en:["event study"], fr:["étude d'événement"], s:5, den:"A chart of the treated-to-comparison ratio period by period around an event, to see when an effect starts and whether it lasts.", dfr:"Un graphique du rapport entre groupe traité et groupe de comparaison, période par période autour d'un événement."},
+ {en:["placebo"], fr:["placebo"], s:5, den:"A test that pretends an event happened at a false date; a large “effect” there is a warning sign.", dfr:"Un test qui fait comme si l'événement avait eu lieu à une fausse date ; un « effet » important y est un signal d'alerte."},
+ {en:["first-round cost"], fr:["coût de premier tour"], s:6, den:"The direct extra bill from a price shock, before second-round effects such as inflation or policy responses.", dfr:"La facture supplémentaire directe d'un choc de prix, avant les effets de second tour comme l'inflation ou les réactions de politique."},
+ {en:["AIS"], fr:["AIS"], s:6, den:"Automatic identification system: radio signals ships send with their position, used by PortWatch.", dfr:"Système d'identification automatique : signaux radio émis par les navires avec leur position, utilisés par PortWatch."},
+];
+
 /* ===== shared helpers for every session page ===== */
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const NS = "http://www.w3.org/2000/svg";
+const LANG = window.LANG || "en";
+const FEEDBACK_URL = "https://github.com/roddesbordes-dev/quant-methods-geopolitics/issues/new";
+const TX = {
+ en:{done:" (done)", back:(d,n)=>`Welcome back: ${d} of ${n} steps done.`, cont:(k,t)=>`Continue with step ${k}, ${t} →`, complete:n=>`Session complete: all ${n} steps done.`, read:"Mark as read", readDone:"Read ✓", show:"Show me the answer", copied:"Copied.", sel:"Selected: press Ctrl+C or Cmd+C.", right:"Right. ", notq:"Not quite. ", score:(s,n)=>`Score: ${s} out of ${n}.`, nodata:": no data", gloss:"Glossary", other:"Français", fb:"Report a problem or suggest an improvement", fbNote:"(opens GitHub; a free account is needed)"},
+ fr:{done:" (fait)", back:(d,n)=>`Bon retour : ${d} étape${d>1?"s":""} sur ${n} terminée${d>1?"s":""}.`, cont:(k,t)=>`Reprendre à l'étape ${k}, ${t} →`, complete:n=>`Séance terminée : les ${n} étapes sont faites.`, read:"Marquer comme lu", readDone:"Lu ✓", show:"Montrer la réponse", copied:"Copié.", sel:"Texte sélectionné : appuyez sur Ctrl+C ou Cmd+C.", right:"Exact. ", notq:"Pas tout à fait. ", score:(s,n)=>`Score : ${s} sur ${n}.`, nodata:" : pas de données", gloss:"Glossaire", other:"English", fb:"Signaler un problème ou proposer une amélioration", fbNote:"(ouvre GitHub ; un compte gratuit est nécessaire)"}
+}[LANG];
 const PFX = "qm" + (window.SESSION || 0) + ":";
 function learnerCode(name){ let h=2166136261; for (const ch of String(name).trim().toLowerCase().replace(/\s+/g," ")){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619); } return "QM-"+(h>>>0).toString(36).toUpperCase().padStart(7,"0"); }
 const store = {
@@ -309,18 +363,30 @@ const done = new Set(store.get("done", []));
 function markDone(id){ if (done.has(id)) return; done.add(id); store.set("done", [...done]); renderNav(); }
 function renderNav(){
   const nav = $("#stepnav"); if (!nav) return;
-  nav.innerHTML = steps.map((s,i)=>`<li class="${done.has(s.id)?"done":""}"><a href="#${s.id}"><span class="dot" aria-hidden="true"></span>${i+1}. ${s.dataset.title}<span class="vh">${done.has(s.id)?" (done)":""}</span></a></li>`).join("");
+  nav.innerHTML = steps.map((s,i)=>`<li class="${done.has(s.id)?"done":""}"><a href="#${s.id}"><span class="dot" aria-hidden="true"></span>${i+1}. ${s.dataset.title}<span class="vh">${done.has(s.id)?TX.done:""}</span></a></li>`).join("");
 }
 renderNav();
+/* resume: point returning learners to their first unfinished step */
+(function(){ const hdr=$("header.top"); if (!steps.length || !hdr || !done.size) return;
+  const next=steps.find(s=>!done.has(s.id)); const d=document.createElement("p"); d.className="resume";
+  d.innerHTML = next ? `${TX.back(done.size,steps.length)} <a href="#${next.id}">${TX.cont(steps.indexOf(next)+1,next.dataset.title)}</a>` : TX.complete(steps.length);
+  hdr.appendChild(d); })();
 /* reading-only steps get a button to mark them as read */
 $$("section.step[data-read]").forEach(s=>{ const r=document.createElement("div"); r.className="row";
-  r.innerHTML=`<button class="ghost" type="button">Mark as read</button>`; s.appendChild(r);
-  const b=r.querySelector("button"); const sync=()=>{ if (done.has(s.id)){ b.textContent="Read ✓"; b.disabled=true; } };
+  r.innerHTML=`<button class="ghost" type="button">${TX.read}</button>`; s.appendChild(r);
+  const b=r.querySelector("button"); const sync=()=>{ if (done.has(s.id)){ b.textContent=TX.readDone; b.disabled=true; } };
   b.addEventListener("click",()=>{ markDone(s.id); sync(); }); sync(); });
 
 /* ---------- answer checking ---------- */
 function feedback(elm, ok, msg){ elm.className = "fb " + (ok ? "ok" : "no"); elm.textContent = msg; }
 function readNums(ids){ return ids.map(id => parseFloat(String($("#"+id).value).replace(",", "."))); }
+
+/* after two wrong attempts, offer the answer so nobody gets stuck */
+function helpAfter(btnId, fbId, getFills, n=2){ const btn=$("#"+btnId), fb=$("#"+fbId); if (!btn||!fb) return; let fails=0, shown=false;
+  btn.addEventListener("click",()=>setTimeout(()=>{ if (fb.classList.contains("no")) fails++; if (fails>=n && !shown){ shown=true;
+    const h=document.createElement("button"); h.type="button"; h.className="ghost"; h.textContent=TX.show; h.style.marginTop=".3rem";
+    h.addEventListener("click",()=>{ const f=getFills(); for (const id in f) $("#"+id).value=f[id]; btn.click(); h.remove(); });
+    fb.after(h); } },0)); }
 
 /* ---------- radio-choice lock-in ---------- */
 function lockChoice({group, button, key, onReveal}){
@@ -341,7 +407,7 @@ function niceTicks(min, max, n=5){
   if (max === min){ max = min + 1; }
   const span = max-min, step0 = span/n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
   const err = step0/mag, step = (err>=7.5?10:err>=3.5?5:err>=1.5?2:1)*mag;
-  const t=[]; for (let v=Math.ceil(min/step-1e-9)*step; v<=max+1e-9; v+=step) t.push(+v.toFixed(10)); return {ticks:t, step};
+  const t=[]; for (let v=Math.ceil(min/step-1e-9)*step; v<=max+1e-9; v+=step) t.push(Math.round(v*1e10)/1e10); return {ticks:t, step};
 }
 function shape(g, kind, x, y, r, fill, ring){
   const sw = ring ? 1.5 : 0, st = ring ? css("--panel") : "none";
@@ -486,24 +552,24 @@ function tileMap(container,{title,sub,vals,names,fmt=v=>v,lo,hi,note}){
     const dark = tshare!=null && tshare>0.55;
     const a=el("text",{x:cx*cell+cell/2,y:cy*cell+18,"text-anchor":"middle",style:`font-size:11px;font-weight:600;fill:${dark?"#fff":css("--ink")}`},svg); a.textContent=iso;
     if (v!=null){ const b=el("text",{x:cx*cell+cell/2,y:cy*cell+33,"text-anchor":"middle",style:`font-size:10px;font-family:var(--f-mono);fill:${dark?"#fff":css("--ink2")}`},svg); b.textContent=fmt(v); }
-    hover(f, r, cx*cell+cell/2, cy*cell+4, `<b>${names?.[iso]||iso}</b>${v!=null?": "+fmt(v):": no data"}`);
+    hover(f, r, cx*cell+cell/2, cy*cell+4, `<b>${names?.[iso]||iso}</b>${v!=null?": "+fmt(v):TX.nodata}`);
   }
   if (note){ const s=document.createElement("div"); s.className="cs"; s.textContent=note; container.appendChild(s); }
 }
 
 /* ---------- copy buttons ---------- */
 function wireCopy(){ $$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{ const ta=$("#"+b.dataset.copy), out=$(`[data-copied="${b.dataset.copy}"]`);
-  const fallback=()=>{ ta.focus(); ta.select(); if (out) out.textContent="Selected: press Ctrl+C or Cmd+C."; };
-  try { navigator.clipboard.writeText(ta.value).then(()=>{ if (out) out.textContent="Copied."; },fallback); } catch(e){ fallback(); } })); }
+  const fallback=()=>{ ta.focus(); ta.select(); if (out) out.textContent=TX.sel; };
+  try { navigator.clipboard.writeText(ta.value).then(()=>{ if (out) out.textContent=TX.copied; },fallback); } catch(e){ fallback(); } })); }
 
 /* ---------- quiz ---------- */
 function quiz(box, scoreEl, QUIZ, stepId){
   let qa = store.get("quiz",{});
   const draw = () => {
-    box.innerHTML = QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?"Right. ":"Not quite. "}${q.e}</p>`:""}</div>`).join("");
+    box.innerHTML = QUIZ.map((q,i)=>`<div class="box"><p style="margin-top:0"><strong>${i+1}. ${q.q}</strong></p><div class="choice">${q.o.map((o,j)=>`<label><input type="radio" name="qz${i}" value="${j}" ${qa[i]===j?"checked":""} ${qa[i]!==undefined?"disabled":""}> ${o}</label>`).join("")}</div>${qa[i]!==undefined?`<p class="fb ${qa[i]===q.a?"ok":"no"}">${qa[i]===q.a?TX.right:TX.notq}${q.e}</p>`:""}</div>`).join("");
     $$("#"+box.id+" input").forEach(i=>i.addEventListener("change",()=>{ qa[+i.name.slice(2)]=+i.value; store.set("quiz",qa); draw(); }));
     const n=Object.keys(qa).length, s=QUIZ.filter((q,i)=>qa[i]===q.a).length;
-    scoreEl.textContent = n===QUIZ.length ? `Score: ${s} out of ${QUIZ.length}.` : "";
+    scoreEl.textContent = n===QUIZ.length ? TX.score(s,QUIZ.length) : "";
     if (n===QUIZ.length) markDone(stepId);
   };
   draw();
@@ -520,6 +586,45 @@ function onRedraw(fn){
   try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", fn); new MutationObserver(fn).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]}); } catch(e){}
   let rz, lastW=innerWidth; addEventListener("resize",()=>{ if (innerWidth===lastW) return; lastW=innerWidth; clearTimeout(rz); rz=setTimeout(fn,200); });
 }
+
+
+/* ---------- language switch, glossary link, feedback link ---------- */
+(function(){
+  const file = (location.pathname.split("/").pop() || "index.html");
+  const crumbs = $(".crumbs");
+  if (crumbs){ const g=document.createElement("a"); g.href="glossary.html"; g.textContent=TX.gloss; crumbs.appendChild(g);
+    const l=document.createElement("a"); l.href=(LANG==="fr"?"../":"fr/")+file; l.textContent=TX.other; l.lang=LANG==="fr"?"en":"fr"; crumbs.appendChild(l); }
+  const wrap=$(".wrap"); if (wrap){ const f=document.createElement("p"); f.className="col small feedbacklink";
+    const title=encodeURIComponent((LANG==="fr"?"[FR] ":"")+document.title+": ");
+    f.innerHTML=`<a href="${FEEDBACK_URL}?title=${title}" target="_blank" rel="noopener">${TX.fb}</a> <span>${TX.fbNote}</span>`; wrap.appendChild(f); }
+})();
+
+/* ---------- glossary: underline the first use of each term, definition on hover or tap ---------- */
+function glossify(){
+  if (typeof GLOSSARY==="undefined") return;
+  const skip="a,button,label,h1,h2,h3,h4,textarea,script,style,select,option,.formula,.mono,.chart,.gl,.prompt,figcaption,th,.crumbs,nav,.kpi,.legend";
+  const roots=$$("section.step, header.top .lede"); if (!roots.length) return;
+  const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  const tip=document.createElement("div"); tip.className="gltip"; tip.hidden=true; tip.setAttribute("role","tooltip"); document.body.appendChild(tip);
+  const showT=el=>{ tip.textContent=el.dataset.def; tip.hidden=false; const r=el.getBoundingClientRect(); const w=Math.min(300, innerWidth-24);
+    tip.style.width=w+"px"; tip.style.left=Math.max(12, Math.min(r.left, innerWidth-w-12))+"px"; tip.style.top=(r.bottom+6)+"px"; };
+  const hideT=()=>{ tip.hidden=true; };
+  addEventListener("scroll", hideT, {passive:true});
+  for (const g of GLOSSARY){
+    const forms=(g[LANG]||[]).slice().sort((a,b)=>b.length-a.length); if (!forms.length) continue;
+    const re=new RegExp("(^|[^\\p{L}\\p{N}])("+forms.map(esc).join("|")+")(?![\\p{L}\\p{N}])","u");
+    let doneG=false;
+    for (const root of roots){ if (doneG) break;
+      const w=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode:n=> n.parentElement.closest(skip) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT});
+      let n; while ((n=w.nextNode())){ const m=re.exec(n.nodeValue); if (!m) continue;
+        const start=m.index+m[1].length, end=start+m[2].length;
+        const after=n.splitText(start); after.splitText(end-start);
+        const sp=document.createElement("span"); sp.className="gl"; sp.tabIndex=0; sp.dataset.def=g["d"+LANG]; sp.textContent=after.nodeValue;
+        after.replaceWith(sp);
+        sp.addEventListener("mouseenter",()=>showT(sp)); sp.addEventListener("mouseleave",hideT); sp.addEventListener("focus",()=>showT(sp)); sp.addEventListener("blur",hideT);
+        doneG=true; break; } } }
+}
+setTimeout(glossify, 0);
 
 /* Session 6 */
 const F = [...DATA.fuel].sort((a,b)=>a.n.localeCompare(b.n));
@@ -571,6 +676,10 @@ quiz($("#quizBox"), $("#quizScore"), [
  {q:"Norway's net energy exports are about 20% of GDP. The price rise…",o:["costs Norway the most","is a gain for Norway","does not affect Norway"],a:1,e:"Net exporters gain from higher prices, if they can ship."},
  {q:"PortWatch shows almost no ships in the strait. Why might the true number be higher?",o:["Ships switch off transponders in war zones","Satellites cannot see at night","PortWatch counts only tankers"],a:0,e:"AIS-based counts understate traffic when ships go dark."},
  {q:"An AI assistant gives a precise cost with three references. What do you do first?",o:["Use it: it cites sources","Check that the references exist and that the numbers match the data","Ask another AI"],a:1,e:"Fluent answers can contain invented sources and outdated numbers."}], "quiz");
+
+/* help when stuck */
+helpAfter("la-btn","la-fb",()=>({"la-in":"0.73"}));
+helpAfter("cBtn","cFb",()=>{ const f=cur(); return {"cLo":lowC(f).toFixed(2),"cHi":highC(f).toFixed(2)}; });
 
 /* boot */
 drawHZ(); info(); drawCost(); fbGuess();

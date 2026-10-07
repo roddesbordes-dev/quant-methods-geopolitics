@@ -1,0 +1,144 @@
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Accueil du cours</a><span>Séance 4 sur 6</span></div>
+  <h1 style="margin-top:.6rem">Pourquoi la Pologne dépense-t-elle autant, et l'Espagne si peu ?</h1>
+  <p class="lede">La régression est l'outil de base de l'analyse quantitative dans les think tanks et les organisations internationales. Dans cette séance, vous ajustez une droite aux dépenses de défense européennes, vous la lisez en mots simples, vous ajoutez des variables de contrôle, vous expliquez les pays qui s'en écartent et vous auditez une affirmation sur la Pologne et l'Allemagne.</p>
+  <div class="meta"><span><b>Environ 3 heures</b> à votre rythme</span><span><b>Aucun logiciel nécessaire</b> dans le navigateur ; étapes facultatives dans jamovi</span><span><b>Vos réponses</b> restent uniquement dans ce navigateur</span></div>
+</header>
+
+<nav class="steps" aria-label="Étapes de cette séance"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Étape 1 · Énigme · 10 min</span><h2>La carte</h2></div>
+  <p>Dépenses militaires en part du PIB en 2024, pour 33 pays européens. Les pays les plus proches de la Russie semblent dépenser le plus.</p>
+  <figure class="wide"><div class="chart" id="shareMap"></div></figure>
+  <div class="box task">
+    <h4>Votre estimation</h4>
+    <p>Pour chaque tranche de 1 000 km de rapprochement de Moscou, de combien de points de PIB un pays européen augmente-t-il en moyenne ses dépenses de défense ?</p>
+    <div class="choice" id="q-slope">
+      <label><input type="radio" name="sl" value="0.1"> Environ 0,1 point</label>
+      <label><input type="radio" name="sl" value="0.25"> Environ 0,25 point</label>
+      <label><input type="radio" name="sl" value="0.75"> Environ 0,75 point</label>
+      <label><input type="radio" name="sl" value="2"> Environ 2 points</label>
+    </div>
+    <div class="row"><button id="slBtn" disabled>Valider mon estimation</button><span class="small" id="slOut"></span></div>
+  </div>
+</section>
+
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Étape 2 · Leçon · 25 min</span><h2>La régression</h2></div>
+  <p>Une droite de régression résume comment une variable varie, en moyenne, avec une autre. Son équation comporte deux nombres :</p>
+  <p class="formula">dépenses prédites = constante + pente × distance</p>
+  <p>La <strong>pente</strong> répond à l'énigme : de combien les dépenses varient pour chaque tranche supplémentaire de 1 000 km. La <strong>constante</strong> est la valeur prédite pour une distance nulle, surtout utile pour positionner la droite.</p>
+  <h3>Tracez d'abord la droite à l'œil</h3>
+  <p>Déplacez les deux curseurs jusqu'à ce que la droite traverse le nuage de points. Le nombre ci-dessous additionne les carrés des distances verticales entre chaque pays et votre droite. Les <em>moindres carrés</em> choisissent la droite qui rend ce nombre aussi petit que possible.</p>
+  <div class="box">
+    <label class="small" for="eyeA">Constante : <b class="mono" id="eyeAo"></b></label><input type="range" id="eyeA" min="0" max="6" step="0.05" value="2">
+    <label class="small" for="eyeB">Pente pour 1 000 km : <b class="mono" id="eyeBo"></b></label><input type="range" id="eyeB" min="-2" max="0.5" step="0.01" value="0">
+    <div class="kpi"><div><b id="eyeSSE">–</b><span>votre somme des carrés des erreurs</span></div><div><b id="bestSSE">–</b><span>droite des moindres carrés</span></div></div>
+    <div class="row"><button class="ghost" id="eyeBest">Afficher la droite des moindres carrés</button></div>
+  </div>
+  <figure class="wide"><div class="chart" id="eyeChart"></div></figure>
+  <h3>La lire en mots</h3>
+  <p>Une pente de −0,73 se lit : <em>« en moyenne, un pays européen situé 1 000 km plus loin de Moscou consacre 0,73 point de PIB de moins à la défense. »</em> Trois éléments à préciser à chaque fois : <em>en moyenne</em> (les pays diffèrent individuellement), les unités et l'échantillon. Le <strong>R²</strong> indique quelle part des différences entre pays la droite explique, de 0 à 1.</p>
+  <div class="box task"><h4>Vérifiez-vous</h4>
+    <p>Avec une constante de 3,37 et une pente de −0,73, quelles dépenses la droite prédit-elle pour une capitale située à 2 000 km de Moscou (en % du PIB, deux décimales) ?</p>
+    <div class="row"><input type="number" step="0.01" id="la-in" aria-label="Dépenses prédites"><button id="la-btn">Vérifier</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Étape 3 · Activité · 20 min</span><h2>Distance et défense</h2></div>
+  <div class="box task"><h4>1. L'Espagne à la main</h4>
+    <p>Madrid est à 3 440 km de Moscou et l'Espagne a dépensé 1,43 % de son PIB en 2024. Avec une constante de 3,37 et une pente de −0,733, calculez la prédiction et le résidu (observé − prédit), avec deux décimales.</p>
+    <div class="row"><label for="aa-p">Prédit</label><input type="number" step="0.01" id="aa-p"><label for="aa-r">Résidu</label><input type="number" step="0.01" id="aa-r"><button id="aa-btn">Vérifier</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <div class="box task"><h4>2. N'importe quel pays</h4>
+    <div class="row"><label for="aaC">Pays</label><select id="aaC"></select></div>
+    <div class="kpi" id="aaK"></div>
+  </div>
+  <figure class="wide"><div class="chart" id="regChart"></div><figcaption>Chaque point est un pays. Distance : distance orthodromique entre la capitale et Moscou. Sources : SIPRI via la Banque mondiale, World Development Indicators (2024).</figcaption></figure>
+  <details class="jam"><summary>À faire maintenant dans jamovi (facultatif, 15 min)</summary>
+    <ol class="tight"><li>Collez les données ci-dessous.</li>
+      <li><b>Analyses → Regression → Linear Regression</b> (noms des menus de l'interface anglaise de jamovi) : variable dépendante <span class="mono">share</span>, covariable <span class="mono">dist_1000km</span>. Lisez la pente dans <b>Model Coefficients</b> et le R² dans <b>Model Fit</b>.</li>
+      <li>Cochez <b>Save → Residuals</b> pour ajouter une colonne de résidus, puis triez-la.</li></ol>
+    <textarea readonly id="csvReg" aria-label="Données pour jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvReg">Copier les données</button><span class="small" data-copied="csvReg"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-read data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Étape 4 · Retour · 10 min</span><h2>L'Espagne n'est pas l'énigme</h2></div>
+  <p class="headline-claim" id="faGuess"></p>
+  <p>La droite indique qu'à chaque tranche de 1 000 km de rapprochement de Moscou correspondent environ 0,73 point de PIB de dépenses en plus, et que la distance seule explique 38 % des différences (R² = 0,38). Compte tenu de sa distance, l'Espagne ne dépense pas peu du tout : elle dépense 0,6 point de <em>plus</em> que ce que prédit la droite. Les vraies valeurs atypiques sont ailleurs : la Pologne et la Grèce, très au-dessus de la droite, l'Autriche, l'Irlande et la Suisse, très en dessous.</p>
+  <div class="box key"><h4>À retenir</h4>Un résidu compare un pays à ce que la droite prédit pour lui, pas à la moyenne. « Dépenser peu » et « dépenser moins que prévu » sont deux constats différents.</div>
+</section>
+
+<section class="step col" id="lessonB" data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Étape 5 · Leçon · 25 min</span><h2>Variables de contrôle, valeurs atypiques et causes</h2></div>
+  <h3>Pourquoi un coefficient change</h3>
+  <p>La distance à Moscou est corrélée à d'autres facteurs. Les pays proches de la Russie sont en moyenne plus pauvres, et les pays plus pauvres tendent à consacrer une part plus élevée de leur PIB à la défense. Une partie de ce qui ressemblait à un effet de distance peut être un effet de revenu. Ajouter le PIB par habitant comme <strong>variable de contrôle</strong> revient à demander : parmi les pays de même revenu, comment les dépenses varient-elles avec la distance ?</p>
+  <p class="formula">dépenses = a + b₁ × distance + b₂ × PIB par habitant + b₃ × membre de l'OTAN</p>
+  <p>Si le coefficient de la distance diminue quand vous ajoutez une variable de contrôle, une partie de la relation simple provenait de cette variable.</p>
+  <h3>Ce que vous apprend une valeur atypique</h3>
+  <p>Un pays éloigné de la droite est une information. Demandez-vous ce qu'il possède et que le modèle omet : un rival autre que la Russie, une politique de neutralité, une histoire d'occupation, un engagement envers la norme de 2 % de l'OTAN. Souvent, la meilleure variable à ajouter vient de l'explication des valeurs atypiques.</p>
+  <h3>Corrélation n'est pas causalité</h3>
+  <p>Même avec des variables de contrôle, une régression sur 33 pays montre une association. Classez ces affirmations, du type de celles que vous lirez :</p>
+  <div class="box" id="claims"></div>
+</section>
+
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Étape 6 · Activité · 20 min</span><h2>La chasse aux valeurs atypiques</h2></div>
+  <div class="box task"><h4>1. Expliquer les six plus grandes valeurs atypiques</h4>
+    <p>Pour chaque pays éloigné de la droite fondée sur la seule distance, choisissez l'explication la plus probable.</p>
+    <div id="outliers"></div>
+    <div class="row"><button id="olBtn">Vérifier mes explications</button></div>
+    <p class="fb" id="olFb"></p>
+  </div>
+  <div class="box task"><h4>2. Ajouter des variables de contrôle et observer la pente</h4>
+    <div class="row"><label><input type="checkbox" id="cG"> PIB par habitant</label><label><input type="checkbox" id="cN"> Appartenance à l'OTAN</label></div>
+    <div class="tscroll"><table id="coefTable" aria-label="Coefficients de régression"></table></div>
+  </div>
+  <figure class="wide"><div class="chart" id="resChart"></div><figcaption>Résidus du modèle sélectionné : dépenses au-dessus (+) ou en dessous (−) de ce que prédit le modèle, en points de PIB.</figcaption></figure>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Étape 7 · Retour · 10 min</span><h2>La neutralité était la variable manquante</h2></div>
+  <p>Ajouter le PIB par habitant réduit le coefficient de la distance de −0,73 à −0,65 et porte le R² de 0,38 à 0,55 : les pays plus riches consacrent une part légèrement plus faible de leur PIB à la défense. Ajouter l'appartenance à l'OTAN le réduit encore, à −0,56, et le R² atteint 0,65. Être membre de l'OTAN va de pair avec environ 0,8 point de PIB de dépenses en plus. L'Autriche, l'Irlande, la Suisse, Malte et Chypre, toutes hors de l'OTAN, tiraient la droite.</p>
+  <p>La Pologne et la Grèce restent très au-dessus de la droite même avec les variables de contrôle. Les dépenses de la Grèce reflètent sa rivalité avec la Turquie, alliée au sein de l'OTAN ; celles de la Pologne, sa position en première ligne et son histoire. Aucune des deux ne s'inscrit dans un modèle fondé sur la seule distance à Moscou, et c'est un résultat, pas un échec.</p>
+</section>
+
+<section class="step col" id="audit" data-title="Claim audit">
+  <div class="stephead"><span class="eyebrow">Étape 8 · Audit d'affirmation · 45 min · sans IA</span><h2>« La Pologne dépense désormais plus pour sa défense que l'Allemagne »</h2></div>
+  <p>Les affirmations de ce type sont fréquentes dans les débats sur le réarmement européen. Auditez-la comme vous le feriez pour une affirmation transmise par le cabinet d'un ministre. Travaillez sans assistant d'IA ; vos notes sont enregistrées uniquement dans ce navigateur.</p>
+  <div class="box task">
+    <label class="small" for="au1"><b>1. Source :</b> d'où viendrait le chiffre, et peut-on s'y fier ?</label><textarea id="au1" rows="3"></textarea>
+    <label class="small" for="au2"><b>2. Comparaison :</b> montant ou part du PIB ? Quelle année ? Quelle définition ?</label><textarea id="au2" rows="3"></textarea>
+    <label class="small" for="au3"><b>3. Cause ou corrélation :</b> une affirmation causale est-elle faite ou sous-entendue ?</label><textarea id="au3" rows="3"></textarea>
+    <label class="small" for="au4"><b>4. Verdict :</b> exacte, trompeuse ou fausse, en une phrase.</label><textarea id="au4" rows="2"></textarea>
+    <div class="row"><button class="ghost" id="auBtn">Comparer avec un audit modèle</button></div>
+    <div id="auModel" hidden class="box key"></div>
+  </div>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Étape 9 · Autoévaluation · 5 min</span><h2>Cinq questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session3.html">← Séance 3 : Qui dépend de qui ?</a><a href="session5.html">Séance 5 : Des voitures allemandes au Kirghizstan →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Lectures et références</h3>
+  <ul class="refs">
+    <li>Huntington-Klein, N., <a href="https://theeffectbook.net" target="_blank" rel="noopener">The Effect</a>, chapitres 4 et 13 (gratuit en ligne, en anglais).</li>
+    <li>Kiel Institute for the World Economy (2025), <a href="https://www.kielinstitut.de/publications/fit-for-war-by-2030-european-rearmament-efforts-vis-a-vis-russia-18193" target="_blank" rel="noopener">Fit for war by 2030? European rearmament efforts vis-à-vis Russia</a>, résumé.</li>
+    <li>Navarro et Foxcroft, <a href="https://lsj.readthedocs.io/en/latest/" target="_blank" rel="noopener">Learning Statistics with jamovi</a>, chapitre sur la régression linéaire (gratuit).</li>
+  </ul>
+  <h3>Données</h3>
+  <ul class="refs">
+    <li>Dépenses militaires (% du PIB) et PIB par habitant, 2024 : SIPRI via la Banque mondiale, <a href="https://databank.worldbank.org/source/world-development-indicators" target="_blank" rel="noopener">World Development Indicators</a> (mise à jour de juillet 2026) ; <a href="https://www.sipri.org/databases/milex" target="_blank" rel="noopener">SIPRI Military Expenditure Database</a>.</li>
+    <li>Distance : distance orthodromique entre chaque capitale et Moscou, calculée à partir des coordonnées des capitales. Appartenance à l'OTAN en 2024 (la Finlande a adhéré en 2023, la Suède en 2024).</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Effacer mes réponses pour cette séance</button></p>
+</footer>

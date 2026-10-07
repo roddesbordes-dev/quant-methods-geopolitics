@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Course Certificate</title>
-<meta name="description" content="Certificate of completion for the self-paced course.">
+<title>Attestation du cours</title>
+<meta name="description" content="Attestation de réussite du cours à suivre à son rythme.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}
 
@@ -165,36 +165,37 @@ a.btn{color:#fff}
 <body>
 <div class="wrap">
 <header class="top col noprint">
-  <div class="crumbs"><a href="index.html">Course home</a><span>Certificate</span></div>
-  <h1 style="margin-top:.6rem">Certificate of completion</h1>
-  <p class="lede">The certificate unlocks once every step of the six sessions is done. Your progress is read from this browser.</p>
+  <div class="crumbs"><a href="index.html">Accueil du cours</a><span>Certificat</span></div>
+  <h1 style="margin-top:.6rem">Certificat de réussite</h1>
+  <p class="lede">Le certificat se débloque une fois toutes les étapes des six séances terminées. Votre progression est lue dans ce navigateur.</p>
 </header>
 <section class="col noprint" style="padding-block:1.5rem">
-  <div class="tscroll"><table id="progTable" aria-label="Your progress"></table></div>
-  <div id="locked" class="box key" hidden><h4>Not yet</h4><p id="lockedTxt"></p></div>
+  <div class="tscroll"><table id="progTable" aria-label="Votre progression"></table></div>
+  <div id="locked" class="box key" hidden><h4>Pas encore</h4><p id="lockedTxt"></p></div>
   <div id="unlock" class="box task" hidden>
-    <h4>Well done: all six sessions are complete</h4>
-    <label for="certName" class="small">Your name, as it should appear on the certificate</label>
-    <div class="row"><input type="text" id="certName" style="flex:1;min-width:12rem"><button id="certBtn">Create my certificate</button></div>
+    <h4>Félicitations : les six séances sont terminées</h4>
+    <label for="certName" class="small">Votre nom, tel qu'il doit figurer sur le certificat</label>
+    <div class="row"><input type="text" id="certName" style="flex:1;min-width:12rem"><button id="certBtn">Créer mon certificat</button></div>
   </div>
 </section>
 <section class="col" id="certWrap" hidden>
   <div class="cert" id="cert">
-    <div class="cert-k">Certificate of completion</div>
+    <div class="cert-k">Certificat de réussite</div>
     <div class="cert-n" id="cN"></div>
-    <p class="cert-t">has completed the self-paced course</p>
-    <div class="cert-c">Quantitative Methods for Geopolitics and Geoeconomics</div>
-    <p class="cert-t">six sessions, about 18 hours: trusting official numbers and honest charts; polls and margins of error; dependence and composite indices; regression; policy evaluation with difference-in-differences; costing a geopolitical shock and auditing AI analysis.</p>
-    <div class="cert-f"><span id="cD"></span><span>Course designed by Rodolphe Desbordes</span><span class="mono" id="cC"></span></div>
-    <p class="cert-s">Self-assessed completion of all activities, recorded in the learner's browser. It does not certify graded assessment.</p>
+    <p class="cert-t">a suivi en autonomie le cours</p>
+    <div class="cert-c">Méthodes quantitatives pour la géopolitique et la géoéconomie</div>
+    <p class="cert-t">six séances, environ 18 heures : fiabilité des chiffres officiels et graphiques honnêtes ; sondages et marges d'erreur ; dépendance et indices composites ; régression ; évaluation des politiques par la différence de différences ; chiffrage d'un choc géopolitique et audit d'analyses produites par l'IA.</p>
+    <div class="cert-f"><span id="cD"></span><span>Cours conçu par Rodolphe Desbordes</span><span class="mono" id="cC"></span></div>
+    <p class="cert-s">Réalisation de toutes les activités autodéclarée, enregistrée dans le navigateur de l'apprenant. Ce certificat n'atteste pas d'une évaluation notée.</p>
   </div>
-  <div class="row noprint"><button id="printBtn">Print or save as PDF</button><span class="small">In the print window, choose “Save as PDF” and landscape.</span></div>
+  <div class="row noprint"><button id="printBtn">Imprimer ou enregistrer en PDF</button><span class="small">Dans la fenêtre d'impression, choisissez « Enregistrer au format PDF » et l'orientation paysage.</span></div>
 </section>
 
 </div>
 <script>
 window.SESSION='cert';
-window.LANG="en";
+window.LANG="fr";
+const __tf=Number.prototype.toFixed; Number.prototype.toFixed=function(d){ return __tf.call(this,d).replace(".", ","); };
 const DATA = {};
 /* Glossary: matching forms per language, definitions, first session */
 const GLOSSARY = [
@@ -528,14 +529,14 @@ function glossify(){
 setTimeout(glossify, 0);
 
 /* Certificate */
-const SES=[[1,"Can we trust the numbers?",9],[2,"Can we trust a poll?",8],[3,"Who depends on whom?",8],[4,"Why does Poland spend so much, and Spain so little?",9],[5,"Why did German cars flood into Kyrgyzstan?",9],[6,"What does the Hormuz closure cost?",6]];
+const SES=[[1,"Peut-on se fier aux chiffres ?",9],[2,"Peut-on se fier à un sondage ?",8],[3,"Qui dépend de qui ?",8],[4,"Pourquoi la Pologne dépense-t-elle autant, et l'Espagne si peu ?",9],[5,"Pourquoi les voitures allemandes ont-elles afflué au Kirghizstan ?",9],[6,"Combien coûte la fermeture d'Ormuz ?",6]];
 const got=n=>{ try { const v=localStorage.getItem("qm"+n+":done"); return v?JSON.parse(v).length:0; } catch(e){ return 0; } };
 let all=true;
-$("#progTable").innerHTML=`<tr><th>Session</th><th class="num">Steps done</th><th>Status</th></tr>`+SES.map(([n,t,k])=>{ const g=Math.min(got(n),k); if (g<k) all=false;
-  return `<tr><td><a href="session${n}.html">${n}. ${t}</a></td><td class="num">${g} of ${k}</td><td>${g>=k?'<span class="chip F">✓ complete</span>':'<span class="chip PF">in progress</span>'}</td></tr>`; }).join("");
-if (all){ $("#unlock").hidden=false; } else { $("#locked").hidden=false; $("#lockedTxt").textContent="Finish the remaining steps, shown above, then come back. Each step is ticked in the bar at the top of its session page."; }
+$("#progTable").innerHTML=`<tr><th>Séance</th><th class="num">Étapes terminées</th><th>Statut</th></tr>`+SES.map(([n,t,k])=>{ const g=Math.min(got(n),k); if (g<k) all=false;
+  return `<tr><td><a href="session${n}.html">${n}. ${t}</a></td><td class="num">${g} sur ${k}</td><td>${g>=k?'<span class="chip F">✓ terminée</span>':'<span class="chip PF">en cours</span>'}</td></tr>`; }).join("");
+if (all){ $("#unlock").hidden=false; } else { $("#locked").hidden=false; $("#lockedTxt").textContent="Terminez les étapes restantes, indiquées ci-dessus, puis revenez. Chaque étape est cochée dans la barre en haut de la page de sa séance."; }
 function make(name){ const d=store.get("date", new Date().toISOString().slice(0,10)); store.set("date",d); store.set("name",name);
-  $("#cN").textContent=name; $("#cD").textContent=new Date(d+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}); $("#cC").textContent=learnerCode(name+"|"+d);
+  $("#cN").textContent=name; $("#cD").textContent=new Date(d+"T12:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"}); $("#cC").textContent=learnerCode(name+"|"+d);
   $("#certWrap").hidden=false; }
 $("#certBtn").addEventListener("click",()=>{ const n=$("#certName").value.trim(); if (n.length<2) return; make(n); });
 $("#printBtn").addEventListener("click",()=>window.print());

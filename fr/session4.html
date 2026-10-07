@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Course Certificate</title>
-<meta name="description" content="Certificate of completion for the self-paced course.">
+<title>La Pologne, l'Espagne et la droite</title>
+<meta name="description" content="Séance 4 : régression, variables de contrôle et valeurs atypiques des dépenses de défense.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}
 
@@ -164,38 +164,157 @@ a.btn{color:#fff}
 </head>
 <body>
 <div class="wrap">
-<header class="top col noprint">
-  <div class="crumbs"><a href="index.html">Course home</a><span>Certificate</span></div>
-  <h1 style="margin-top:.6rem">Certificate of completion</h1>
-  <p class="lede">The certificate unlocks once every step of the six sessions is done. Your progress is read from this browser.</p>
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Accueil du cours</a><span>Séance 4 sur 6</span></div>
+  <h1 style="margin-top:.6rem">Pourquoi la Pologne dépense-t-elle autant, et l'Espagne si peu ?</h1>
+  <p class="lede">La régression est l'outil de base de l'analyse quantitative dans les think tanks et les organisations internationales. Dans cette séance, vous ajustez une droite aux dépenses de défense européennes, vous la lisez en mots simples, vous ajoutez des variables de contrôle, vous expliquez les pays qui s'en écartent et vous auditez une affirmation sur la Pologne et l'Allemagne.</p>
+  <div class="meta"><span><b>Environ 3 heures</b> à votre rythme</span><span><b>Aucun logiciel nécessaire</b> dans le navigateur ; étapes facultatives dans jamovi</span><span><b>Vos réponses</b> restent uniquement dans ce navigateur</span></div>
 </header>
-<section class="col noprint" style="padding-block:1.5rem">
-  <div class="tscroll"><table id="progTable" aria-label="Your progress"></table></div>
-  <div id="locked" class="box key" hidden><h4>Not yet</h4><p id="lockedTxt"></p></div>
-  <div id="unlock" class="box task" hidden>
-    <h4>Well done: all six sessions are complete</h4>
-    <label for="certName" class="small">Your name, as it should appear on the certificate</label>
-    <div class="row"><input type="text" id="certName" style="flex:1;min-width:12rem"><button id="certBtn">Create my certificate</button></div>
+
+<nav class="steps" aria-label="Étapes de cette séance"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Énigme">
+  <div class="stephead"><span class="eyebrow">Étape 1 · Énigme · 10 min</span><h2>La carte</h2></div>
+  <p>Dépenses militaires en part du PIB en 2024, pour 33 pays européens. Les pays les plus proches de la Russie semblent dépenser le plus.</p>
+  <figure class="wide"><div class="chart" id="shareMap"></div></figure>
+  <div class="box task">
+    <h4>Votre estimation</h4>
+    <p>Pour chaque tranche de 1 000 km de rapprochement de Moscou, de combien de points de PIB un pays européen augmente-t-il en moyenne ses dépenses de défense ?</p>
+    <div class="choice" id="q-slope">
+      <label><input type="radio" name="sl" value="0.1"> Environ 0,1 point</label>
+      <label><input type="radio" name="sl" value="0.25"> Environ 0,25 point</label>
+      <label><input type="radio" name="sl" value="0.75"> Environ 0,75 point</label>
+      <label><input type="radio" name="sl" value="2"> Environ 2 points</label>
+    </div>
+    <div class="row"><button id="slBtn" disabled>Valider mon estimation</button><span class="small" id="slOut"></span></div>
   </div>
 </section>
-<section class="col" id="certWrap" hidden>
-  <div class="cert" id="cert">
-    <div class="cert-k">Certificate of completion</div>
-    <div class="cert-n" id="cN"></div>
-    <p class="cert-t">has completed the self-paced course</p>
-    <div class="cert-c">Quantitative Methods for Geopolitics and Geoeconomics</div>
-    <p class="cert-t">six sessions, about 18 hours: trusting official numbers and honest charts; polls and margins of error; dependence and composite indices; regression; policy evaluation with difference-in-differences; costing a geopolitical shock and auditing AI analysis.</p>
-    <div class="cert-f"><span id="cD"></span><span>Course designed by Rodolphe Desbordes</span><span class="mono" id="cC"></span></div>
-    <p class="cert-s">Self-assessed completion of all activities, recorded in the learner's browser. It does not certify graded assessment.</p>
+
+<section class="step col" id="lessonA" data-title="Leçon A">
+  <div class="stephead"><span class="eyebrow">Étape 2 · Leçon · 25 min</span><h2>La régression</h2></div>
+  <p>Une droite de régression résume comment une variable varie, en moyenne, avec une autre. Son équation comporte deux nombres :</p>
+  <p class="formula">dépenses prédites = constante + pente × distance</p>
+  <p>La <strong>pente</strong> répond à l'énigme : de combien les dépenses varient pour chaque tranche supplémentaire de 1 000 km. La <strong>constante</strong> est la valeur prédite pour une distance nulle, surtout utile pour positionner la droite.</p>
+  <h3>Tracez d'abord la droite à l'œil</h3>
+  <p>Déplacez les deux curseurs jusqu'à ce que la droite traverse le nuage de points. Le nombre ci-dessous additionne les carrés des distances verticales entre chaque pays et votre droite. Les <em>moindres carrés</em> choisissent la droite qui rend ce nombre aussi petit que possible.</p>
+  <div class="box">
+    <label class="small" for="eyeA">Constante : <b class="mono" id="eyeAo"></b></label><input type="range" id="eyeA" min="0" max="6" step="0.05" value="2">
+    <label class="small" for="eyeB">Pente pour 1 000 km : <b class="mono" id="eyeBo"></b></label><input type="range" id="eyeB" min="-2" max="0.5" step="0.01" value="0">
+    <div class="kpi"><div><b id="eyeSSE">–</b><span>votre somme des carrés des erreurs</span></div><div><b id="bestSSE">–</b><span>droite des moindres carrés</span></div></div>
+    <div class="row"><button class="ghost" id="eyeBest">Afficher la droite des moindres carrés</button></div>
   </div>
-  <div class="row noprint"><button id="printBtn">Print or save as PDF</button><span class="small">In the print window, choose “Save as PDF” and landscape.</span></div>
+  <figure class="wide"><div class="chart" id="eyeChart"></div></figure>
+  <h3>La lire en mots</h3>
+  <p>Une pente de −0,73 se lit : <em>« en moyenne, un pays européen situé 1 000 km plus loin de Moscou consacre 0,73 point de PIB de moins à la défense. »</em> Trois éléments à préciser à chaque fois : <em>en moyenne</em> (les pays diffèrent individuellement), les unités et l'échantillon. Le <strong>R²</strong> indique quelle part des différences entre pays la droite explique, de 0 à 1.</p>
+  <div class="box task"><h4>Vérifiez-vous</h4>
+    <p>Avec une constante de 3,37 et une pente de −0,73, quelles dépenses la droite prédit-elle pour une capitale située à 2 000 km de Moscou (en % du PIB, deux décimales) ?</p>
+    <div class="row"><input type="text" inputmode="decimal" step="0.01" id="la-in" aria-label="Dépenses prédites"><button id="la-btn">Vérifier</button></div>
+    <p class="fb" id="la-fb"></p></div>
 </section>
+
+<section class="step col" id="activityA" data-title="Activité A">
+  <div class="stephead"><span class="eyebrow">Étape 3 · Activité · 20 min</span><h2>Distance et défense</h2></div>
+  <div class="box task"><h4>1. L'Espagne à la main</h4>
+    <p>Madrid est à 3 440 km de Moscou et l'Espagne a dépensé 1,43 % de son PIB en 2024. Avec une constante de 3,37 et une pente de −0,733, calculez la prédiction et le résidu (observé − prédit), avec deux décimales.</p>
+    <div class="row"><label for="aa-p">Prédit</label><input type="text" inputmode="decimal" step="0.01" id="aa-p"><label for="aa-r">Résidu</label><input type="text" inputmode="decimal" step="0.01" id="aa-r"><button id="aa-btn">Vérifier</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <div class="box task"><h4>2. N'importe quel pays</h4>
+    <div class="row"><label for="aaC">Pays</label><select id="aaC"></select></div>
+    <div class="kpi" id="aaK"></div>
+  </div>
+  <figure class="wide"><div class="chart" id="regChart"></div><figcaption>Chaque point est un pays. Distance : distance orthodromique entre la capitale et Moscou. Sources : SIPRI via la Banque mondiale, World Development Indicators (2024).</figcaption></figure>
+  <details class="jam"><summary>À faire maintenant dans jamovi (facultatif, 15 min)</summary>
+    <ol class="tight"><li>Collez les données ci-dessous.</li>
+      <li><b>Analyses → Regression → Linear Regression</b> (noms des menus de l'interface anglaise de jamovi) : variable dépendante <span class="mono">share</span>, covariable <span class="mono">dist_1000km</span>. Lisez la pente dans <b>Model Coefficients</b> et le R² dans <b>Model Fit</b>.</li>
+      <li>Cochez <b>Save → Residuals</b> pour ajouter une colonne de résidus, puis triez-la.</li></ol>
+    <textarea readonly id="csvReg" aria-label="Données pour jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvReg">Copier les données</button><span class="small" data-copied="csvReg"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-read data-title="Retour A">
+  <div class="stephead"><span class="eyebrow">Étape 4 · Retour · 10 min</span><h2>L'Espagne n'est pas l'énigme</h2></div>
+  <p class="headline-claim" id="faGuess"></p>
+  <p>La droite indique qu'à chaque tranche de 1 000 km de rapprochement de Moscou correspondent environ 0,73 point de PIB de dépenses en plus, et que la distance seule explique 38 % des différences (R² = 0,38). Compte tenu de sa distance, l'Espagne ne dépense pas peu du tout : elle dépense 0,6 point de <em>plus</em> que ce que prédit la droite. Les vraies valeurs atypiques sont ailleurs : la Pologne et la Grèce, très au-dessus de la droite, l'Autriche, l'Irlande et la Suisse, très en dessous.</p>
+  <div class="box key"><h4>À retenir</h4>Un résidu compare un pays à ce que la droite prédit pour lui, pas à la moyenne. « Dépenser peu » et « dépenser moins que prévu » sont deux constats différents.</div>
+</section>
+
+<section class="step col" id="lessonB" data-title="Leçon B">
+  <div class="stephead"><span class="eyebrow">Étape 5 · Leçon · 25 min</span><h2>Variables de contrôle, valeurs atypiques et causes</h2></div>
+  <h3>Pourquoi un coefficient change</h3>
+  <p>La distance à Moscou est corrélée à d'autres facteurs. Les pays proches de la Russie sont en moyenne plus pauvres, et les pays plus pauvres tendent à consacrer une part plus élevée de leur PIB à la défense. Une partie de ce qui ressemblait à un effet de distance peut être un effet de revenu. Ajouter le PIB par habitant comme <strong>variable de contrôle</strong> revient à demander : parmi les pays de même revenu, comment les dépenses varient-elles avec la distance ?</p>
+  <p class="formula">dépenses = a + b₁ × distance + b₂ × PIB par habitant + b₃ × membre de l'OTAN</p>
+  <p>Si le coefficient de la distance diminue quand vous ajoutez une variable de contrôle, une partie de la relation simple provenait de cette variable.</p>
+  <h3>Ce que vous apprend une valeur atypique</h3>
+  <p>Un pays éloigné de la droite est une information. Demandez-vous ce qu'il possède et que le modèle omet : un rival autre que la Russie, une politique de neutralité, une histoire d'occupation, un engagement envers la norme de 2 % de l'OTAN. Souvent, la meilleure variable à ajouter vient de l'explication des valeurs atypiques.</p>
+  <h3>Corrélation n'est pas causalité</h3>
+  <p>Même avec des variables de contrôle, une régression sur 33 pays montre une association. Classez ces affirmations, du type de celles que vous lirez :</p>
+  <div class="box" id="claims"></div>
+</section>
+
+<section class="step col" id="activityB" data-title="Activité B">
+  <div class="stephead"><span class="eyebrow">Étape 6 · Activité · 20 min</span><h2>La chasse aux valeurs atypiques</h2></div>
+  <div class="box task"><h4>1. Expliquer les six plus grandes valeurs atypiques</h4>
+    <p>Pour chaque pays éloigné de la droite fondée sur la seule distance, choisissez l'explication la plus probable.</p>
+    <div id="outliers"></div>
+    <div class="row"><button id="olBtn">Vérifier mes explications</button></div>
+    <p class="fb" id="olFb"></p>
+  </div>
+  <div class="box task"><h4>2. Ajouter des variables de contrôle et observer la pente</h4>
+    <div class="row"><label><input type="checkbox" id="cG"> PIB par habitant</label><label><input type="checkbox" id="cN"> Appartenance à l'OTAN</label></div>
+    <div class="tscroll"><table id="coefTable" aria-label="Coefficients de régression"></table></div>
+  </div>
+  <figure class="wide"><div class="chart" id="resChart"></div><figcaption>Résidus du modèle sélectionné : dépenses au-dessus (+) ou en dessous (−) de ce que prédit le modèle, en points de PIB.</figcaption></figure>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Retour B">
+  <div class="stephead"><span class="eyebrow">Étape 7 · Retour · 10 min</span><h2>La neutralité était la variable manquante</h2></div>
+  <p>Ajouter le PIB par habitant réduit le coefficient de la distance de −0,73 à −0,65 et porte le R² de 0,38 à 0,55 : les pays plus riches consacrent une part légèrement plus faible de leur PIB à la défense. Ajouter l'appartenance à l'OTAN le réduit encore, à −0,56, et le R² atteint 0,65. Être membre de l'OTAN va de pair avec environ 0,8 point de PIB de dépenses en plus. L'Autriche, l'Irlande, la Suisse, Malte et Chypre, toutes hors de l'OTAN, tiraient la droite.</p>
+  <p>La Pologne et la Grèce restent très au-dessus de la droite même avec les variables de contrôle. Les dépenses de la Grèce reflètent sa rivalité avec la Turquie, alliée au sein de l'OTAN ; celles de la Pologne, sa position en première ligne et son histoire. Aucune des deux ne s'inscrit dans un modèle fondé sur la seule distance à Moscou, et c'est un résultat, pas un échec.</p>
+</section>
+
+<section class="step col" id="audit" data-title="Audit d'affirmation">
+  <div class="stephead"><span class="eyebrow">Étape 8 · Audit d'affirmation · 45 min · sans IA</span><h2>« La Pologne dépense désormais plus pour sa défense que l'Allemagne »</h2></div>
+  <p>Les affirmations de ce type sont fréquentes dans les débats sur le réarmement européen. Auditez-la comme vous le feriez pour une affirmation transmise par le cabinet d'un ministre. Travaillez sans assistant d'IA ; vos notes sont enregistrées uniquement dans ce navigateur.</p>
+  <div class="box task">
+    <label class="small" for="au1"><b>1. Source :</b> d'où viendrait le chiffre, et peut-on s'y fier ?</label><textarea id="au1" rows="3"></textarea>
+    <label class="small" for="au2"><b>2. Comparaison :</b> montant ou part du PIB ? Quelle année ? Quelle définition ?</label><textarea id="au2" rows="3"></textarea>
+    <label class="small" for="au3"><b>3. Cause ou corrélation :</b> une affirmation causale est-elle faite ou sous-entendue ?</label><textarea id="au3" rows="3"></textarea>
+    <label class="small" for="au4"><b>4. Verdict :</b> exacte, trompeuse ou fausse, en une phrase.</label><textarea id="au4" rows="2"></textarea>
+    <div class="row"><button class="ghost" id="auBtn">Comparer avec un audit modèle</button></div>
+    <div id="auModel" hidden class="box key"></div>
+  </div>
+</section>
+
+<section class="step col" id="quiz" data-title="Autoévaluation">
+  <div class="stephead"><span class="eyebrow">Étape 9 · Autoévaluation · 5 min</span><h2>Cinq questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session3.html">← Séance 3 : Qui dépend de qui ?</a><a href="session5.html">Séance 5 : Des voitures allemandes au Kirghizstan →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Lectures et références</h3>
+  <ul class="refs">
+    <li>Huntington-Klein, N., <a href="https://theeffectbook.net" target="_blank" rel="noopener">The Effect</a>, chapitres 4 et 13 (gratuit en ligne, en anglais).</li>
+    <li>Kiel Institute for the World Economy (2025), <a href="https://www.kielinstitut.de/publications/fit-for-war-by-2030-european-rearmament-efforts-vis-a-vis-russia-18193" target="_blank" rel="noopener">Fit for war by 2030? European rearmament efforts vis-à-vis Russia</a>, résumé.</li>
+    <li>Navarro et Foxcroft, <a href="https://lsj.readthedocs.io/en/latest/" target="_blank" rel="noopener">Learning Statistics with jamovi</a>, chapitre sur la régression linéaire (gratuit).</li>
+  </ul>
+  <h3>Données</h3>
+  <ul class="refs">
+    <li>Dépenses militaires (% du PIB) et PIB par habitant, 2024 : SIPRI via la Banque mondiale, <a href="https://databank.worldbank.org/source/world-development-indicators" target="_blank" rel="noopener">World Development Indicators</a> (mise à jour de juillet 2026) ; <a href="https://www.sipri.org/databases/milex" target="_blank" rel="noopener">SIPRI Military Expenditure Database</a>.</li>
+    <li>Distance : distance orthodromique entre chaque capitale et Moscou, calculée à partir des coordonnées des capitales. Appartenance à l'OTAN en 2024 (la Finlande a adhéré en 2023, la Suède en 2024).</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Effacer mes réponses pour cette séance</button></p>
+</footer>
 
 </div>
 <script>
-window.SESSION='cert';
-window.LANG="en";
-const DATA = {};
+window.SESSION=4;
+window.LANG="fr";
+const __tf=Number.prototype.toFixed; Number.prototype.toFixed=function(d){ return __tf.call(this,d).replace(".", ","); };
+const DATA = {"c": [{"iso": "AUT", "n": "Austria", "dist": 1670, "share": 1.0, "share21": 0.87, "gdppc": 58269, "nato": 0}, {"iso": "BEL", "n": "Belgium", "dist": 2253, "share": 1.28, "share21": 1.04, "gdppc": 56582, "nato": 1}, {"iso": "BGR", "n": "Bulgaria", "dist": 1778, "share": 2.15, "share21": 1.51, "gdppc": 17597, "nato": 1}, {"iso": "HRV", "n": "Croatia", "dist": 1868, "share": 1.79, "share21": 1.97, "gdppc": 24050, "nato": 1}, {"iso": "CYP", "n": "Cyprus", "dist": 2312, "share": 1.65, "share21": 1.78, "gdppc": 38674, "nato": 0}, {"iso": "CZE", "n": "Czechia", "dist": 1668, "share": 1.92, "share21": 1.35, "gdppc": 31828, "nato": 1}, {"iso": "DNK", "n": "Denmark", "dist": 1560, "share": 2.42, "share21": 1.29, "gdppc": 71026, "nato": 1}, {"iso": "EST", "n": "Estonia", "dist": 867, "share": 3.37, "share21": 2.01, "gdppc": 31428, "nato": 1}, {"iso": "FIN", "n": "Finland", "dist": 892, "share": 2.3, "share21": 1.3, "gdppc": 53156, "nato": 1}, {"iso": "FRA", "n": "France", "dist": 2486, "share": 2.05, "share21": 1.98, "gdppc": 46103, "nato": 1}, {"iso": "DEU", "n": "Germany", "dist": 1609, "share": 1.89, "share21": 1.3, "gdppc": 56104, "nato": 1}, {"iso": "GRC", "n": "Greece", "dist": 2232, "share": 3.13, "share21": 3.8, "gdppc": 24626, "nato": 1}, {"iso": "HUN", "n": "Hungary", "dist": 1569, "share": 2.16, "share21": 1.32, "gdppc": 23305, "nato": 1}, {"iso": "IRL", "n": "Ireland", "dist": 2794, "share": 0.24, "share21": 0.24, "gdppc": 112895, "nato": 0}, {"iso": "ITA", "n": "Italy", "dist": 2376, "share": 1.61, "share21": 1.66, "gdppc": 40430, "nato": 1}, {"iso": "LVA", "n": "Latvia", "dist": 841, "share": 3.26, "share21": 2.16, "gdppc": 23579, "nato": 1}, {"iso": "LTU", "n": "Lithuania", "dist": 791, "share": 3.12, "share21": 1.95, "gdppc": 29604, "nato": 1}, {"iso": "LUX", "n": "Luxembourg", "dist": 2208, "share": 0.96, "share21": 0.47, "gdppc": 137782, "nato": 1}, {"iso": "MLT", "n": "Malta", "dist": 2815, "share": 0.45, "share21": 0.45, "gdppc": 44024, "nato": 0}, {"iso": "NLD", "n": "Netherlands", "dist": 2147, "share": 1.92, "share21": 1.37, "gdppc": 67465, "nato": 1}, {"iso": "POL", "n": "Poland", "dist": 1151, "share": 4.15, "share21": 2.22, "gdppc": 25104, "nato": 1}, {"iso": "PRT", "n": "Portugal", "dist": 3906, "share": 1.53, "share21": 1.52, "gdppc": 29328, "nato": 1}, {"iso": "ROU", "n": "Romania", "dist": 1500, "share": 2.3, "share21": 1.85, "gdppc": 20080, "nato": 1}, {"iso": "SVK", "n": "Slovakia", "dist": 1631, "share": 2.01, "share21": 1.71, "gdppc": 25993, "nato": 1}, {"iso": "SVN", "n": "Slovenia", "dist": 1932, "share": 1.31, "share21": 1.24, "gdppc": 34301, "nato": 1}, {"iso": "ESP", "n": "Spain", "dist": 3440, "share": 1.43, "share21": 1.34, "gdppc": 35327, "nato": 1}, {"iso": "SWE", "n": "Sweden", "dist": 1227, "share": 2.0, "share21": 1.19, "gdppc": 57223, "nato": 1}, {"iso": "GBR", "n": "United Kingdom", "dist": 2501, "share": 2.28, "share21": 2.07, "gdppc": 53341, "nato": 1}, {"iso": "NOR", "n": "Norway", "dist": 1643, "share": 2.09, "share21": 1.68, "gdppc": 89889, "nato": 1}, {"iso": "ALB", "n": "Albania", "dist": 2059, "share": 2.04, "share21": 1.24, "gdppc": 11374, "nato": 1}, {"iso": "MKD", "n": "North Macedonia", "dist": 1925, "share": 2.1, "share21": 1.45, "gdppc": 9292, "nato": 1}, {"iso": "MNE", "n": "Montenegro", "dist": 1983, "share": 1.83, "share21": 1.56, "gdppc": 13270, "nato": 1}, {"iso": "CHE", "n": "Switzerland", "dist": 2289, "share": 0.72, "share21": 0.67, "gdppc": 107702, "nato": 0}], "pol": {"share": 4.154, "usd": 38.0}, "deu": {"share": 1.892, "usd": 88.46}};
 /* Glossary: matching forms per language, definitions, first session */
 const GLOSSARY = [
  {en:["GDP"], fr:["PIB"], s:1, den:"Gross domestic product: the value of everything produced in a country in a year.", dfr:"Produit intérieur brut : la valeur de tout ce qu'un pays produit en une année."},
@@ -527,19 +646,111 @@ function glossify(){
 }
 setTimeout(glossify, 0);
 
-/* Certificate */
-const SES=[[1,"Can we trust the numbers?",9],[2,"Can we trust a poll?",8],[3,"Who depends on whom?",8],[4,"Why does Poland spend so much, and Spain so little?",9],[5,"Why did German cars flood into Kyrgyzstan?",9],[6,"What does the Hormuz closure cost?",6]];
-const got=n=>{ try { const v=localStorage.getItem("qm"+n+":done"); return v?JSON.parse(v).length:0; } catch(e){ return 0; } };
-let all=true;
-$("#progTable").innerHTML=`<tr><th>Session</th><th class="num">Steps done</th><th>Status</th></tr>`+SES.map(([n,t,k])=>{ const g=Math.min(got(n),k); if (g<k) all=false;
-  return `<tr><td><a href="session${n}.html">${n}. ${t}</a></td><td class="num">${g} of ${k}</td><td>${g>=k?'<span class="chip F">✓ complete</span>':'<span class="chip PF">in progress</span>'}</td></tr>`; }).join("");
-if (all){ $("#unlock").hidden=false; } else { $("#locked").hidden=false; $("#lockedTxt").textContent="Finish the remaining steps, shown above, then come back. Each step is ticked in the bar at the top of its session page."; }
-function make(name){ const d=store.get("date", new Date().toISOString().slice(0,10)); store.set("date",d); store.set("name",name);
-  $("#cN").textContent=name; $("#cD").textContent=new Date(d+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}); $("#cC").textContent=learnerCode(name+"|"+d);
-  $("#certWrap").hidden=false; }
-$("#certBtn").addEventListener("click",()=>{ const n=$("#certName").value.trim(); if (n.length<2) return; make(n); });
-$("#printBtn").addEventListener("click",()=>window.print());
-const prev=store.get("name",""); if (all && prev){ $("#certName").value=prev; make(prev); }
+/* Session 4 */
+const C = DATA.c.map(c=>({...c, d:c.dist/1000, g:c.gdppc/10000}));
+const NAMES = Object.fromEntries(C.map(c=>[c.iso,c.n]));
+function ols(cols){ // cols: array of functions c=>value ; returns {b, r2, res}
+  const X = C.map(c=>[1, ...cols.map(f=>f(c))]), y = C.map(c=>c.share), k = X[0].length;
+  const XtX = Array.from({length:k},(_,i)=>Array.from({length:k},(_,j)=>X.reduce((s,r)=>s+r[i]*r[j],0)));
+  const Xty = Array.from({length:k},(_,i)=>X.reduce((s,r,n)=>s+r[i]*y[n],0));
+  const A = XtX.map((r,i)=>[...r, Xty[i]]);
+  for (let i=0;i<k;i++){ let p=i; for (let r=i+1;r<k;r++) if (Math.abs(A[r][i])>Math.abs(A[p][i])) p=r; [A[i],A[p]]=[A[p],A[i]];
+    for (let r=0;r<k;r++) if (r!==i){ const f=A[r][i]/A[i][i]; for (let c=i;c<=k;c++) A[r][c]-=f*A[i][c]; } }
+  const b = A.map((r,i)=>r[k]/r[i]); const yh = X.map(r=>r.reduce((s,v,i)=>s+v*b[i],0));
+  const ym = y.reduce((a,v)=>a+v,0)/y.length; const res = y.map((v,i)=>v-yh[i]);
+  return {b, r2: 1 - res.reduce((a,v)=>a+v*v,0)/y.reduce((a,v)=>a+(v-ym)**2,0), res, yh};
+}
+const M0 = ols([c=>c.d]); const A0=M0.b[0], B0=M0.b[1];
+const SSE = (a,b) => C.reduce((s,c)=>s+(c.share-(a+b*c.d))**2,0);
+
+/* puzzle: tile map */
+function drawMap(){ tileMap($("#shareMap"),{title:"Dépenses militaires, % du PIB, 2024",sub:"Plus foncé = part plus élevée",vals:Object.fromEntries(C.map(c=>[c.iso,c.share])),names:NAMES,fmt:v=>v.toFixed(1),lo:0,hi:4.2,note:"Source : SIPRI via la Banque mondiale. Gris : Islande (pas de forces armées)."}); }
+lockChoice({group:"q-slope", button:"slBtn", key:"guess", onReveal:v=>{ $("#slOut").textContent="Enregistré. La réponse arrive à l'étape 4."; markDone("puzzle"); faGuess(); }});
+
+/* lesson A: line by eye */
+let showBest=false;
+function drawEye(){ const a=+$("#eyeA").value, b=+$("#eyeB").value; $("#eyeAo").textContent=a.toFixed(2); $("#eyeBo").textContent=b.toFixed(2);
+  $("#eyeSSE").textContent=SSE(a,b).toFixed(1); $("#bestSSE").textContent= showBest?SSE(A0,B0).toFixed(1):"?";
+  const r = scatter($("#eyeChart"),{title:"Votre droite à travers le nuage",sub:"Dépenses militaires, % du PIB, selon la distance entre la capitale et Moscou",pts:C.map(c=>({x:c.d,y:c.share,color:css("--ink2"),r:4.5,tip:`<b>${c.n}</b><br>${c.dist.toLocaleString("fr-FR")} km · ${c.share.toFixed(2)} %`})),xmin:0,xmax:4,ymin:0,ymax:5,xticks:[0,1,2,3,4],yticks:[0,1,2,3,4,5],xfmt:v=>v*1000===0?"0 km":(v*1000).toLocaleString("fr-FR"),yfmt:v=>v+" %",xlab:"Distance à Moscou, km",line:{a,b},lineLabel:"Votre droite",labels:false});
+  if (showBest){ el("path",{d:`M${r.xs(0)},${r.ys(A0)} L${r.xs(4)},${r.ys(A0+B0*4)}`,stroke:css("--accent"),"stroke-width":2,fill:"none"},r.f.svg); txt(r.f.svg, r.xs(3.2), r.ys(A0+B0*3.2)-8, "Moindres carrés", {class:"lab"}); }
+}
+["eyeA","eyeB"].forEach(id=>$("#"+id).addEventListener("input",drawEye));
+$("#eyeBest").addEventListener("click",()=>{ showBest=true; drawEye(); markDone("lessonA"); });
+$("#la-btn").addEventListener("click",()=>{ const [v]=readNums(["la-in"]); const t=3.37-0.73*2;
+  if (Math.abs(v-t)<=0.02){ feedback($("#la-fb"),true,"Exact : 3,37 − 0,73 × 2 = 1,91 % du PIB."); markDone("lessonA"); }
+  else feedback($("#la-fb"),false,"La distance est mesurée en milliers de km : 2 000 km correspondent à 2."); });
+
+/* activity A */
+let stA=store.get("actA",{ok:false});
+const sp=C.find(c=>c.iso==="ESP"); const spP=3.37-0.733*3.44, spR=1.43-spP;
+$("#aa-btn").addEventListener("click",()=>{ const [p,r]=readNums(["aa-p","aa-r"]);
+  if (Math.abs(p-spP)<=0.03 && Math.abs(r-spR)<=0.03){ feedback($("#aa-fb"),true,`Exact : 3,37 − 0,733 × 3,44 = ${spP.toFixed(2)} ; résidu 1,43 − ${spP.toFixed(2)} = +${spR.toFixed(2)}. L'Espagne dépense plus que ne le prédit sa distance.`); stA.ok=true; store.set("actA",stA); markDone("activityA"); drawReg(); }
+  else if (Math.abs(p-spP)<=0.03) feedback($("#aa-fb"),false,"Prédiction exacte. Résidu = observé − prédit.");
+  else feedback($("#aa-fb"),false,"Utilisez la distance en milliers de km : 3,44."); });
+$("#aaC").innerHTML=[...C].sort((a,b)=>a.n.localeCompare(b.n)).map(c=>`<option value="${c.iso}">${c.n}</option>`).join("");
+$("#aaC").value = "POL";
+function drawReg(){ const sel=$("#aaC").value, c=C.find(x=>x.iso===sel), p=A0+B0*c.d;
+  $("#aaK").innerHTML=`<div><b>${c.share.toFixed(2)} %</b><span>observé</span></div><div><b>${p.toFixed(2)} %</b><span>prédit</span></div><div><b>${sgn(c.share-p,2)}</b><span>résidu, en points</span></div>`;
+  scatter($("#regChart"),{title:`Droite des moindres carrés : ${A0.toFixed(2)} ${B0<0?"−":"+"} ${Math.abs(B0).toFixed(2)} × distance (R² = ${M0.r2.toFixed(2)})`,sub:"Dépenses militaires, % du PIB, 2024",
+    pts:C.map(x=>({x:x.d,y:x.share,label:(x.iso===sel||Math.abs(x.share-(A0+B0*x.d))>0.95||x.iso==="ESP")?x.n:"",color:x.iso===sel?css("--verm"):css("--accent"),shape:x.iso===sel?"tri":"circ",res:x.iso===sel,r:x.iso===sel?7:4.5,tip:`<b>${x.n}</b><br>${x.share.toFixed(2)} % · prédit ${(A0+B0*x.d).toFixed(2)} %`})),
+    xmin:0,xmax:4,ymin:0,ymax:5,xticks:[0,1,2,3,4],yticks:[0,1,2,3,4,5],xfmt:v=>(v*1000).toLocaleString("fr-FR"),yfmt:v=>v+" %",xlab:"Distance à Moscou, km",line:{a:A0,b:B0}}); }
+$("#aaC").addEventListener("change",drawReg);
+$("#csvReg").value="country,share,dist_1000km,gdppc_10k,nato\n"+C.map(c=>`${c.n},${c.share},${(Math.round(c.d*1000)/1000)},${(Math.round(c.g*1000)/1000)},${c.nato}`).join("\n");
+function faGuess(){ const g=store.get("guess",null); if (!g) return; $("#faGuess").textContent = g==="0.75" ? "Votre estimation, environ 0,75 point, était juste : la pente est de 0,73." : `Votre estimation était de ${g.replace(".",",")} point${g==="2"?"s":""}. La pente est d'environ 0,73 point.`; }
+
+/* lesson B: claims */
+const CLAIMS=[
+ {t:"« Les pays plus proches de la Russie dépensent davantage, donc la peur de la Russie détermine les budgets de défense. »",a:"plausible",e:"Plausible, mais la régression ne le démontre pas : les États de première ligne partagent aussi une histoire, des engagements envers l'OTAN et des orientations politiques. Les données sont compatibles avec ce récit ; elles ne le prouvent pas."},
+ {t:"« Les pays plus riches consacrent une part plus faible de leur PIB à la défense, donc la richesse rend les pays complaisants. »",a:"no",e:"Une part diminue quand le PIB est élevé, même si les dépenses sont importantes ; et beaucoup de pays riches sont aussi éloignés de la Russie ou neutres. La lecture causale ne s'ensuit pas."},
+ {t:"« Les membres de l'OTAN dépensent 0,8 point de plus, donc adhérer à l'OTAN augmente les dépenses de 0,8 point. »",a:"no",e:"Les pays qui ont choisi d'adhérer à l'OTAN auraient peut-être dépensé davantage de toute façon : l'adhésion n'est pas attribuée au hasard. La séance 5 montre comment se rapprocher d'une réponse causale."}];
+$("#claims").innerHTML = CLAIMS.map((c,i)=>`<p style="margin-top:${i?1:0}rem"><strong>${c.t}</strong></p><div class="row"><div class="seg" id="cl${i}"><button aria-pressed="false" data-v="plausible">Plausible, non démontré</button><button aria-pressed="false" data-v="no">Les données ne l'étayent pas</button></div></div><p class="fb" id="clf${i}"></p>`).join("");
+CLAIMS.forEach((c,i)=>seg("cl"+i, v=>{ feedback($("#clf"+i), v===c.a, c.e); markDone("lessonB"); }));
+
+/* activity B: outliers */
+const EXPL={A:"Rivalité avec un voisin autre que la Russie",B:"Neutralité : hors de l'OTAN",C:"État de première ligne marqué par une histoire d'occupation",D:"La norme de 2 % de l'OTAN maintient les dépenses d'un membre éloigné"};
+const OUT=[["POL","C"],["GRC","A"],["AUT","B"],["IRL","B"],["PRT","D"],["CHE","B"]];
+$("#outliers").innerHTML = OUT.map(([iso])=>{ const c=C.find(x=>x.iso===iso); const r=M0.res[C.indexOf(c)];
+  return `<div class="row"><span style="min-width:9rem"><b>${c.n}</b> <span class="mono small">${sgn(r,2)}</span></span><select id="ol_${iso}" aria-label="Explication pour ${c.n}"><option value="">Choisissez une explication</option>${Object.entries(EXPL).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select></div>`; }).join("");
+const olSaved=store.get("ol",{}); OUT.forEach(([iso])=>{ if (olSaved[iso]) $("#ol_"+iso).value=olSaved[iso]; $("#ol_"+iso).addEventListener("change",e=>{ olSaved[iso]=e.target.value; store.set("ol",olSaved); }); });
+$("#olBtn").addEventListener("click",()=>{ const right=OUT.filter(([iso,k])=>$("#ol_"+iso).value===k).length;
+  feedback($("#olFb"), right>=5, `${right} sur 6. Pologne : État de première ligne. Grèce : rivalité avec la Turquie. Autriche, Irlande, Suisse : neutres, hors de l'OTAN. Portugal : loin de la Russie, mais la norme de 2 % de l'OTAN fixe un plancher.`); markDone("activityB"); });
+function drawCoef(){ const cols=[c=>c.d], names=["Distance à Moscou, pour 1 000 km"];
+  if ($("#cG").checked){ cols.push(c=>c.g); names.push("PIB par habitant, pour 10 000 $"); }
+  if ($("#cN").checked){ cols.push(c=>c.nato); names.push("Membre de l'OTAN (1 = oui)"); }
+  const m=ols(cols);
+  $("#coefTable").innerHTML = `<tr><th>Variable</th><th class="num">Coefficient</th></tr>` + names.map((n,i)=>`<tr><td>${n}</td><td class="num">${sgn(m.b[i+1],2)}</td></tr>`).join("") + `<tr><td>Constante</td><td class="num">${m.b[0].toFixed(2)}</td></tr><tr><td><b>R²</b></td><td class="num"><b>${m.r2.toFixed(2)}</b></td></tr>`;
+  const rows=C.map((c,i)=>({label:c.n,v:m.res[i],color:m.res[i]>=0?css("--accent"):css("--verm"),tip:`<b>${c.n}</b><br>résidu ${sgn(m.res[i],2)}`})).sort((a,b)=>b.v-a.v);
+  hbar($("#resChart"),{title:"Résidus : dépenses au-dessus ou en dessous du modèle",sub:"Points de PIB",rows,xmin:-1.6,xmax:1.8,xfmt:v=>sgn(v,1),rowH:20});
+  legend($("#resChart"),[{label:"Au-dessus de la droite",color:css("--accent"),kind:"sq"},{label:"En dessous de la droite",color:css("--verm"),kind:"sq"}]);
+  if ($("#cG").checked && $("#cN").checked) markDone("feedbackB"); }
+["cG","cN"].forEach(id=>$("#"+id).addEventListener("change",drawCoef));
+
+/* claim audit */
+["au1","au2","au3","au4"].forEach(id=>{ const t=$("#"+id); t.value=store.get(id,""); t.addEventListener("input",()=>{ store.set(id,t.value); }); });
+const pol=DATA.pol, deu=DATA.deu;
+$("#auModel").innerHTML = `<h4>Audit modèle</h4>
+<p><b>Source.</b> La base de données du SIPRI sur les dépenses militaires (Military Expenditure Database), republiée par la Banque mondiale, ou les estimations propres de l'OTAN. Les deux sont fiables ; elles diffèrent légèrement car l'OTAN comptabilise davantage de postes (pensions, certaines infrastructures).</p>
+<p><b>Comparaison.</b> En part du PIB, l'affirmation est exacte : en 2024, la Pologne a consacré ${pol.share.toFixed(1)} % de son PIB à la défense, l'Allemagne ${deu.share.toFixed(1)} %. En montant, elle est fausse : l'Allemagne a dépensé environ ${deu.usd.toFixed(0)} milliards de dollars, la Pologne environ ${pol.usd.toFixed(0)} milliards, soit moins de la moitié. Le titre ne précise pas quelle mesure il utilise.</p>
+<p><b>Cause.</b> Aucune affirmation causale, mais le lecteur peut en déduire que la Pologne dispose des forces armées les plus puissantes ; les dépenses ne disent rien directement des capacités.</p>
+<p><b>Verdict.</b> Trompeuse : exacte en part du PIB, fausse en montant ; l'affirmation devrait préciser « en proportion de son économie ».</p>`;
+$("#auBtn").addEventListener("click",()=>{ $("#auModel").hidden=!$("#auModel").hidden; markDone("audit"); });
+
+/* quiz */
+quiz($("#quizBox"), $("#quizScore"), [
+ {q:"La pente des dépenses selon la distance est de −0,73 pour 1 000 km. Quelle lecture est correcte ?",o:["Chaque pays situé 1 000 km plus loin dépense exactement 0,73 point de moins","En moyenne, les pays situés 1 000 km plus loin dépensent 0,73 point de moins","La distance cause 73 % des dépenses"],a:1,e:"Une pente décrit une relation moyenne dans l'échantillon, pas une loi valable pour chaque pays."},
+ {q:"R² = 0,38 signifie…",o:["38 % des pays sont sur la droite","la droite explique 38 % des différences entre pays","la pente vaut 0,38"],a:1,e:"Le R² est la part de la variation expliquée par le modèle."},
+ {q:"Ajouter le PIB par habitant réduit le coefficient de la distance. Pourquoi ?",o:["La distance et le revenu sont corrélés, et le revenu compte aussi","L'ordinateur s'est trompé","La distance ne compte plus"],a:0,e:"Une partie de la relation simple provenait du revenu."},
+ {q:"Le résidu de l'Espagne est positif. Qu'est-ce que cela signifie ?",o:["L'Espagne dépense plus que la moyenne","L'Espagne dépense plus que ce que la droite prédit pour sa distance","L'Espagne est membre de l'OTAN"],a:1,e:"Un résidu compare un pays à sa propre prédiction."},
+ {q:"Les membres de l'OTAN dépensent 0,8 point de plus, toutes choses égales par ailleurs. L'adhésion à l'OTAN en est-elle la cause ?",o:["Oui, la régression le prouve","Pas nécessairement : les pays choisissent d'adhérer","Non, l'OTAN n'a aucun effet"],a:1,e:"L'adhésion n'est pas aléatoire ; la régression montre une association."}], "quiz");
+
+/* help when stuck */
+helpAfter("la-btn","la-fb",()=>({"la-in":"1.91"}));
+helpAfter("aa-btn","aa-fb",()=>({"aa-p":spP.toFixed(2),"aa-r":spR.toFixed(2)}));
+
+/* boot */
+drawMap(); drawEye(); drawReg(); drawCoef(); faGuess();
+wireCopy(); wireReset();
+onRedraw(()=>{ drawMap(); drawEye(); drawReg(); drawCoef(); });
 
 </script>
 </body>

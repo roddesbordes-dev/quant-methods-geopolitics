@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Course Certificate</title>
-<meta name="description" content="Certificate of completion for the self-paced course.">
+<title>Méthodes quantitatives pour la géopolitique</title>
+<meta name="description" content="Un cours gratuit, à suivre à son rythme, de méthodes quantitatives pour la géopolitique et la géoéconomie.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}
 
@@ -164,37 +164,63 @@ a.btn{color:#fff}
 </head>
 <body>
 <div class="wrap">
-<header class="top col noprint">
-  <div class="crumbs"><a href="index.html">Course home</a><span>Certificate</span></div>
-  <h1 style="margin-top:.6rem">Certificate of completion</h1>
-  <p class="lede">The certificate unlocks once every step of the six sessions is done. Your progress is read from this browser.</p>
+<header class="top col">
+  <div class="crumbs"><span>Un cours gratuit, à suivre à votre rythme</span></div>
+  <h1 style="margin-top:.6rem">Méthodes quantitatives pour la géopolitique et la géoéconomie</h1>
+  <p class="lede"><strong>En géopolitique, les chiffres sont des armes : apprenez à vous en servir, et à repérer quand ils sont utilisés contre vous.</strong> En six séances, vous passez d'aucune connaissance en statistique à la construction de vos propres indicateurs et indices, à l'évaluation de l'efficacité des sanctions et au chiffrage du coût d'une crise, toujours sur des données réelles et actuelles.</p>
+  <p><a class="btn" href="intro.html" style="text-decoration:none;display:inline-block;margin-top:.4rem">Commencer ici : pourquoi ce cours, objectifs et compétences</a></p>
+  <div class="meta"><span><b>6 séances</b> d'environ 3 heures</span><span><b>Aucune statistique</b> requise</span><span><b>Gratuit</b> : tous les outils, données et lectures</span><span><b>Votre progression</b> est enregistrée dans ce navigateur uniquement</span></div>
 </header>
-<section class="col noprint" style="padding-block:1.5rem">
-  <div class="tscroll"><table id="progTable" aria-label="Your progress"></table></div>
-  <div id="locked" class="box key" hidden><h4>Not yet</h4><p id="lockedTxt"></p></div>
-  <div id="unlock" class="box task" hidden>
-    <h4>Well done: all six sessions are complete</h4>
-    <label for="certName" class="small">Your name, as it should appear on the certificate</label>
-    <div class="row"><input type="text" id="certName" style="flex:1;min-width:12rem"><button id="certBtn">Create my certificate</button></div>
-  </div>
+
+<section class="col" style="padding-block:2rem 1rem">
+  <h2>Les six séances</h2>
+  <p>Chaque séance s'ouvre sur une énigme réelle et une estimation, puis enseigne deux méthodes, chacune en trois étapes : une courte leçon, une activité sur données réelles dans votre navigateur, et un retour qui résout l'énigme. Chaque séance se termine par une tâche : un exercice, un audit d'affirmation ou un quiz d'autoévaluation. Des étapes facultatives montrent comment réaliser chaque activité dans jamovi.</p>
+  <div id="sessions" class="sessions"></div>
 </section>
-<section class="col" id="certWrap" hidden>
-  <div class="cert" id="cert">
-    <div class="cert-k">Certificate of completion</div>
-    <div class="cert-n" id="cN"></div>
-    <p class="cert-t">has completed the self-paced course</p>
-    <div class="cert-c">Quantitative Methods for Geopolitics and Geoeconomics</div>
-    <p class="cert-t">six sessions, about 18 hours: trusting official numbers and honest charts; polls and margins of error; dependence and composite indices; regression; policy evaluation with difference-in-differences; costing a geopolitical shock and auditing AI analysis.</p>
-    <div class="cert-f"><span id="cD"></span><span>Course designed by Rodolphe Desbordes</span><span class="mono" id="cC"></span></div>
-    <p class="cert-s">Self-assessed completion of all activities, recorded in the learner's browser. It does not certify graded assessment.</p>
-  </div>
-  <div class="row noprint"><button id="printBtn">Print or save as PDF</button><span class="small">In the print window, choose “Save as PDF” and landscape.</span></div>
+
+<section class="col" style="padding-block:1rem" id="skills">
+  <h2>Ce que vous en retirez</h2>
+  <div class="tscroll"><table aria-label="Compétences">
+    <tr><th>Compétence</th><th class="num">Séance</th></tr>
+    <tr><td>Juger de la fiabilité d'un chiffre ; télécharger une série depuis un portail officiel</td><td class="num">1</td></tr>
+    <tr><td>Transformer des chiffres bruts en indicateurs : % du PIB, termes réels, taux de croissance</td><td class="num">1</td></tr>
+    <tr><td>Construire des graphiques honnêtes</td><td class="num">1, 3</td></tr>
+    <tr><td>Lire l'incertitude : marges d'erreur, écarts réels et apparents</td><td class="num">2</td></tr>
+    <tr><td>Filtrer et recoder des données d'enquête ; distinguer l'attention de l'opinion</td><td class="num">2</td></tr>
+    <tr><td>Mesurer la dépendance : parts des importations et indice de Herfindahl</td><td class="num">3</td></tr>
+    <tr><td>Construire un indice composite, tester sa robustesse, le cartographier</td><td class="num">3</td></tr>
+    <tr><td>Estimer et lire une régression ; ajouter des variables de contrôle ; expliquer les valeurs atypiques</td><td class="num">4</td></tr>
+    <tr><td>Auditer une affirmation chiffrée tirée de l'actualité</td><td class="num">4</td></tr>
+    <tr><td>Évaluer une politique par la différence de différences et une étude d'événement</td><td class="num">5</td></tr>
+    <tr><td>Chiffrer un scénario avec une fourchette plutôt qu'un chiffre unique</td><td class="num">6</td></tr>
+    <tr><td>Confronter l'analyse d'un assistant d'IA à vos propres chiffres</td><td class="num">6</td></tr>
+    <tr><td>Rédiger une note d'évaluation d'une page et une courte note de politique publique pour un décideur</td><td class="num">5, 6</td></tr>
+  </table></div>
+</section>
+
+<section class="col" style="padding-block:1rem 2rem" id="resources">
+  <h2>Outils et ouvrages gratuits</h2>
+  <ul class="refs">
+    <li><a href="https://www.jamovi.org" target="_blank" rel="noopener">jamovi</a> (logiciel) ou <a href="https://cloud.jamovi.org" target="_blank" rel="noopener">jamovi cloud</a> (navigateur) : pour les étapes d'analyse facultatives. Lisez le premier chapitre du <a href="https://www.jamovi.org/user-manual.html" target="_blank" rel="noopener">guide de l'utilisateur</a> (en anglais) avant la séance 1.</li>
+    <li><a href="https://www.datawrapper.de" target="_blank" rel="noopener">Datawrapper</a> : graphiques et cartes de qualité professionnelle pour vos notes.</li>
+    <li>Navarro et Foxcroft, <a href="https://lsj.readthedocs.io/en/latest/" target="_blank" rel="noopener">Learning Statistics with jamovi</a>.</li>
+    <li>Diez, Çetinkaya-Rundel et Barr, <a href="https://www.openintro.org/book/os/" target="_blank" rel="noopener">OpenIntro Statistics</a>.</li>
+    <li>Huntington-Klein, <a href="https://theeffectbook.net" target="_blank" rel="noopener">The Effect</a> : régression et raisonnement causal sans mathématiques lourdes.</li>
+    <li>Cunningham, <a href="https://mixtape.scunning.com" target="_blank" rel="noopener">Causal Inference: The Mixtape</a>.</li>
+    <li>Wilke, <a href="https://clauswilke.com/dataviz/" target="_blank" rel="noopener">Fundamentals of Data Visualization</a>.</li>
+    <li>Bergstrom et West, <a href="https://callingbullshit.org/syllabus.html" target="_blank" rel="noopener">Calling Bullshit</a> : études de cas sur les statistiques trompeuses.</li>
+    <li><a href="https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary" target="_blank" rel="noopener">FT Visual Vocabulary</a> : quel graphique pour quel message.</li>
+  </ul>
+  <p><a href="certificate.html">Votre certificat de réussite</a> : il se débloque lorsque les six séances sont terminées.</p>
+  <p class="small">Chaque séance indique ses lectures et ses sources de données en bas de page. Cours conçu par Rodolphe Desbordes. Données à jour en octobre 2026.</p>
+  <p><button class="ghost" id="resetAll">Effacer toutes mes réponses</button></p>
 </section>
 
 </div>
 <script>
-window.SESSION='cert';
-window.LANG="en";
+window.SESSION=0;
+window.LANG="fr";
+const __tf=Number.prototype.toFixed; Number.prototype.toFixed=function(d){ return __tf.call(this,d).replace(".", ","); };
 const DATA = {};
 /* Glossary: matching forms per language, definitions, first session */
 const GLOSSARY = [
@@ -527,19 +553,21 @@ function glossify(){
 }
 setTimeout(glossify, 0);
 
-/* Certificate */
-const SES=[[1,"Can we trust the numbers?",9],[2,"Can we trust a poll?",8],[3,"Who depends on whom?",8],[4,"Why does Poland spend so much, and Spain so little?",9],[5,"Why did German cars flood into Kyrgyzstan?",9],[6,"What does the Hormuz closure cost?",6]];
-const got=n=>{ try { const v=localStorage.getItem("qm"+n+":done"); return v?JSON.parse(v).length:0; } catch(e){ return 0; } };
-let all=true;
-$("#progTable").innerHTML=`<tr><th>Session</th><th class="num">Steps done</th><th>Status</th></tr>`+SES.map(([n,t,k])=>{ const g=Math.min(got(n),k); if (g<k) all=false;
-  return `<tr><td><a href="session${n}.html">${n}. ${t}</a></td><td class="num">${g} of ${k}</td><td>${g>=k?'<span class="chip F">✓ complete</span>':'<span class="chip PF">in progress</span>'}</td></tr>`; }).join("");
-if (all){ $("#unlock").hidden=false; } else { $("#locked").hidden=false; $("#lockedTxt").textContent="Finish the remaining steps, shown above, then come back. Each step is ticked in the bar at the top of its session page."; }
-function make(name){ const d=store.get("date", new Date().toISOString().slice(0,10)); store.set("date",d); store.set("name",name);
-  $("#cN").textContent=name; $("#cD").textContent=new Date(d+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}); $("#cC").textContent=learnerCode(name+"|"+d);
-  $("#certWrap").hidden=false; }
-$("#certBtn").addEventListener("click",()=>{ const n=$("#certName").value.trim(); if (n.length<2) return; make(n); });
-$("#printBtn").addEventListener("click",()=>window.print());
-const prev=store.get("name",""); if (all && prev){ $("#certName").value=prev; make(prev); }
+/* Course home */
+const SES = [
+ {n:1, t:"Peut-on se fier aux chiffres ?", d:"Prenez une autocratie en flagrant délit de gonflement de sa croissance grâce aux lumières nocturnes vues de l'espace ; redessinez un graphique trompeur sur les dépenses de défense.", m:"Indicateurs, termes réels, graphiques honnêtes", task:"Exercice 1 (entraînement)", steps:9},
+ {n:2, t:"Peut-on se fier à un sondage ?", d:"Recomptez les sondages précédant le référendum moldave de 2024 sur l'UE ; déterminez quelles évolutions des opinions européennes sur la Chine sont réelles.", m:"Marges d'erreur, comparaison de groupes", task:"Quiz d'autoévaluation", steps:8},
+ {n:3, t:"Qui dépend de qui ?", d:"Trouvez les produits que l'Europe achète presque uniquement à la Chine ; truquez un classement de vulnérabilité et découvrez l'affaire Doing Business.", m:"Parts des importations, indice de Herfindahl, indices composites, cartes", task:"Quiz d'autoévaluation", steps:8},
+ {n:4, t:"Pourquoi la Pologne dépense-t-elle autant, et l'Espagne si peu ?", d:"Ajustez une droite aux dépenses de défense européennes, ajoutez des variables de contrôle, expliquez les valeurs atypiques, auditez une affirmation.", m:"Régression, variables de contrôle, valeurs atypiques", task:"Audit d'affirmation", steps:9},
+ {n:5, t:"Pourquoi les voitures allemandes ont-elles afflué au Kirghizstan ?", d:"Mesurez quelle part du commerce de l'UE avec la Russie a été détournée via ses voisins.", m:"Différence de différences, études d'événement, tests placebo", task:"Exercice 2 : note d'évaluation", steps:9},
+ {n:6, t:"Combien coûte la fermeture d'Ormuz ?", d:"Chiffrez le coût de la fermeture du détroit d'Ormuz en 2026 pour le pays de votre choix ; vérifiez la réponse d'un assistant d'IA ; faites la synthèse.", m:"Chiffrage de scénarios avec fourchettes, audit de l'IA", task:"Une note facultative de deux pages", steps:6}];
+function prog(n){ try { const v=localStorage.getItem("qm"+n+":done"); return v?JSON.parse(v).length:0; } catch(e){ return 0; } }
+$("#sessions").innerHTML = SES.map(s=>{ const p=prog(s.n), pct=Math.round(p/s.steps*100);
+  return `<a class="scard" href="session${s.n}.html"><span class="eyebrow">Séance ${s.n}${p?` · ${p} étapes sur ${s.steps} terminées`:""}</span><strong>${s.t}</strong><span>${s.d}</span><span class="small"><b>Méthodes :</b> ${s.m}. <b>Tâche finale :</b> ${s.task}.</span><span class="bar" aria-hidden="true"><i style="width:${pct}%"></i></span></a>`; }).join("");
+const nxt = SES.find(s=>prog(s.n)<s.steps); const anyDone = SES.some(s=>prog(s.n)>0);
+if (anyDone){ const d=document.createElement("p"); d.className="resume"; d.innerHTML = nxt ? `<a href="session${nxt.n}.html">Continuer avec la séance ${nxt.n} : ${nxt.t} →</a>` : `Les six séances sont terminées. <a href="certificate.html">Obtenir votre certificat →</a>`; $("header.top").appendChild(d); }
+wireCopy();
+$("#resetAll").addEventListener("click",()=>{ try { Object.keys(localStorage).filter(k=>/^qm(\d|brief|cert):/.test(k)).forEach(k=>localStorage.removeItem(k)); } catch(e){} location.reload(); });
 
 </script>
 </body>

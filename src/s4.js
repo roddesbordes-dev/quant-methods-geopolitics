@@ -95,6 +95,10 @@ quiz($("#quizBox"), $("#quizScore"), [
  {q:"Spain's residual is positive. What does that mean?",o:["Spain spends more than average","Spain spends more than the line predicts for its distance","Spain is in NATO"],a:1,e:"A residual compares a country with its own prediction."},
  {q:"NATO members spend 0.8 points more, all else equal. Does joining NATO cause this?",o:["Yes, the regression proves it","Not necessarily: countries choose to join","No, NATO has no effect"],a:1,e:"Membership is not random; regression shows association."}], "quiz");
 
+/* help when stuck */
+helpAfter("la-btn","la-fb",()=>({"la-in":"1.91"}));
+helpAfter("aa-btn","aa-fb",()=>({"aa-p":spP.toFixed(2),"aa-r":spR.toFixed(2)}));
+
 /* boot */
 drawMap(); drawEye(); drawReg(); drawCoef(); faGuess();
 wireCopy(); wireReset();

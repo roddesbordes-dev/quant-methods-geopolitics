@@ -1,0 +1,15 @@
+/* Course home */
+const SES = [
+ {n:1, t:"Peut-on se fier aux chiffres ?", d:"Prenez une autocratie en flagrant délit de gonflement de sa croissance grâce aux lumières nocturnes vues de l'espace ; redessinez un graphique trompeur sur les dépenses de défense.", m:"Indicateurs, termes réels, graphiques honnêtes", task:"Exercice 1 (entraînement)", steps:9},
+ {n:2, t:"Peut-on se fier à un sondage ?", d:"Recomptez les sondages précédant le référendum moldave de 2024 sur l'UE ; déterminez quelles évolutions des opinions européennes sur la Chine sont réelles.", m:"Marges d'erreur, comparaison de groupes", task:"Quiz d'autoévaluation", steps:8},
+ {n:3, t:"Qui dépend de qui ?", d:"Trouvez les produits que l'Europe achète presque uniquement à la Chine ; truquez un classement de vulnérabilité et découvrez l'affaire Doing Business.", m:"Parts des importations, indice de Herfindahl, indices composites, cartes", task:"Quiz d'autoévaluation", steps:8},
+ {n:4, t:"Pourquoi la Pologne dépense-t-elle autant, et l'Espagne si peu ?", d:"Ajustez une droite aux dépenses de défense européennes, ajoutez des variables de contrôle, expliquez les valeurs atypiques, auditez une affirmation.", m:"Régression, variables de contrôle, valeurs atypiques", task:"Audit d'affirmation", steps:9},
+ {n:5, t:"Pourquoi les voitures allemandes ont-elles afflué au Kirghizstan ?", d:"Mesurez quelle part du commerce de l'UE avec la Russie a été détournée via ses voisins.", m:"Différence de différences, études d'événement, tests placebo", task:"Exercice 2 : note d'évaluation", steps:9},
+ {n:6, t:"Combien coûte la fermeture d'Ormuz ?", d:"Chiffrez le coût de la fermeture du détroit d'Ormuz en 2026 pour le pays de votre choix ; vérifiez la réponse d'un assistant d'IA ; faites la synthèse.", m:"Chiffrage de scénarios avec fourchettes, audit de l'IA", task:"Une note facultative de deux pages", steps:6}];
+function prog(n){ try { const v=localStorage.getItem("qm"+n+":done"); return v?JSON.parse(v).length:0; } catch(e){ return 0; } }
+$("#sessions").innerHTML = SES.map(s=>{ const p=prog(s.n), pct=Math.round(p/s.steps*100);
+  return `<a class="scard" href="session${s.n}.html"><span class="eyebrow">Séance ${s.n}${p?` · ${p} étapes sur ${s.steps} terminées`:""}</span><strong>${s.t}</strong><span>${s.d}</span><span class="small"><b>Méthodes :</b> ${s.m}. <b>Tâche finale :</b> ${s.task}.</span><span class="bar" aria-hidden="true"><i style="width:${pct}%"></i></span></a>`; }).join("");
+const nxt = SES.find(s=>prog(s.n)<s.steps); const anyDone = SES.some(s=>prog(s.n)>0);
+if (anyDone){ const d=document.createElement("p"); d.className="resume"; d.innerHTML = nxt ? `<a href="session${nxt.n}.html">Continuer avec la séance ${nxt.n} : ${nxt.t} →</a>` : `Les six séances sont terminées. <a href="certificate.html">Obtenir votre certificat →</a>`; $("header.top").appendChild(d); }
+wireCopy();
+$("#resetAll").addEventListener("click",()=>{ try { Object.keys(localStorage).filter(k=>/^qm(\d|brief|cert):/.test(k)).forEach(k=>localStorage.removeItem(k)); } catch(e){} location.reload(); });

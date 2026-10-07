@@ -1,0 +1,149 @@
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Accueil du cours</a><span>Séance 2 sur 6</span></div>
+  <h1 style="margin-top:.6rem">Peut-on se fier à un sondage ?</h1>
+  <p class="lede">Les sondages indiquent aux gouvernements, aux investisseurs et aux diplomates ce que pense un pays. Dans cette séance, vous recalculez les sondages publiés avant le référendum moldave de 2024 sur l'Union européenne, vous apprenez ce que couvre une marge d'erreur et ce qu'elle ne couvre pas, et vous déterminez quelles évolutions de l'opinion européenne sur la Chine sont réelles.</p>
+  <div class="meta"><span><b>Environ 3 heures</b> à votre rythme</span><span><b>Aucun logiciel requis</b> dans le navigateur ; étapes facultatives dans jamovi</span><span><b>Vos réponses</b> restent dans ce navigateur uniquement</span></div>
+</header>
+
+<nav class="steps" aria-label="Étapes de cette séance"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Étape 1 · Énigme · 10 min</span><h2>Moldavie, 20 octobre 2024</h2></div>
+  <p>La Moldavie a voté sur l'inscription dans sa Constitution de l'objectif d'adhésion à l'Union européenne. L'enjeu dépassait largement la Moldavie : à Bruxelles comme à Moscou, le scrutin était lu comme un test de l'influence russe. Trois sondages publiés au cours des dernières semaines donnaient les résultats suivants.</p>
+  <div class="tscroll"><table id="pollTable" aria-label="Sondages avant le référendum"></table></div>
+  <div class="box task">
+    <h4>Votre estimation : quelle part des votants a voté Oui ?</h4>
+    <div class="row"><input type="range" id="guessYes" min="30" max="80" step="1" value="55" aria-label="Part du Oui"><span class="mono" id="guessYesOut">55 %</span></div>
+    <div class="row"><button id="guessBtn">Enregistrer mon estimation</button><span class="small" id="guessSaved"></span></div>
+  </div>
+</section>
+
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Étape 2 · Leçon · 25 min</span><h2>Quelle est la précision d'un sondage ?</h2></div>
+  <h3>Un échantillon représente une population</h3>
+  <p>Un institut de sondage ne peut pas interroger trois millions d'électeurs ; il en interroge donc environ un millier, tirés au hasard, et traite leurs réponses comme une maquette du pays. Un autre millier tiré au hasard donnerait des réponses légèrement différentes. La <strong>marge d'erreur</strong> mesure de combien le résultat varierait d'un échantillon aléatoire à l'autre.</p>
+  <p class="formula">marge d'erreur (95 %) ≈ 1,96 × √( p × (1 − p) ÷ n )</p>
+  <p>Ici, <i>p</i> est la part de réponses Oui (exprimée en proportion, 0,55 pour 55 %) et <i>n</i> le nombre de personnes interrogées. Dans 19 échantillons sur 20, la vraie part se situe à moins de cette distance de l'estimation. Règle pratique : avec 1 000 personnes, la marge est d'environ ±3 points ; pour la diviser par deux, il faut quatre fois plus de personnes.</p>
+  <div class="box">
+    <h4>Essayez</h4>
+    <div class="row"><label for="mN" class="small">Personnes interrogées : <b class="mono" id="mNout">1 000</b></label></div>
+    <input type="range" id="mN" min="100" max="5000" step="50" value="1000" aria-label="Taille de l'échantillon">
+    <div class="row"><label for="mP" class="small">Part de réponses Oui : <b class="mono" id="mPout">50 %</b></label></div>
+    <input type="range" id="mP" min="5" max="95" step="1" value="50" aria-label="Part de réponses Oui">
+    <p class="headline-claim" id="mOut"></p>
+  </div>
+  <h3>Ce que la marge d'erreur ne couvre pas</h3>
+  <ul class="tight">
+    <li><strong>Qui refuse de répondre.</strong> Si les partisans d'un camp raccrochent plus souvent, chaque échantillon est biaisé dans le même sens, et un échantillon plus grand n'y change rien.</li>
+    <li><strong>Qui ne figure pas du tout dans l'échantillon.</strong> Un sondage auprès des résidents ignore les électeurs à l'étranger.</li>
+    <li><strong>Les indécis.</strong> Leur vote final relève de l'hypothèse, et cette hypothèse est la vôtre, pas celle de l'institut.</li>
+    <li><strong>Les changements de dernière minute</strong>, et les pressions exercées sur les électeurs le jour du vote.</li>
+  </ul>
+  <p>Ce sont des <em>erreurs non liées à l'échantillonnage</em>. Elles sont souvent plus importantes que la marge d'erreur, et aucune formule ne les mesure.</p>
+  <div class="box task"><h4>Autoévaluation</h4>
+    <p>Un sondage auprès de 1 100 personnes donne 50 % de Oui. Quelle est la marge d'erreur, en points ? (Une décimale.)</p>
+    <div class="row"><input type="number" step="0.1" id="la-in" aria-label="Marge d'erreur"><button id="la-btn">Vérifier</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Étape 3 · Activité · 20 min</span><h2>Recalculer les sondages moldaves</h2></div>
+  <p>Les sondages comptent des indécis, le référendum non. Vous devez décider quoi en faire. Trois choix sont courants : les <b>écarter</b> (supposer qu'ils se répartissent comme les décidés), les <b>répartir</b> à parts égales, ou les attribuer <b>tous au Non</b>.</p>
+  <div class="box task"><h4>1. Calculer le premier sondage à la main</h4>
+    <p>Pour CBS Research, calculez la part du Oui parmi les électeurs décidés, Oui ÷ (Oui + Non), ainsi que sa marge d'erreur, en utilisant le nombre de répondants décidés (1 034 × la part de décidés). Une décimale pour chaque valeur.</p>
+    <div class="row"><label for="aa-p">Oui parmi les décidés, %</label><input type="number" step="0.1" id="aa-p"><label for="aa-m">Marge, ±</label><input type="number" step="0.1" id="aa-m"><button id="aa-btn">Vérifier</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <div class="box task"><h4>2. Les trois sondages, trois traitements</h4>
+    <div class="row"><span class="small">Électeurs indécis</span><div class="seg" id="segUnd"><button aria-pressed="true" data-v="drop">Écartés</button><button aria-pressed="false" data-v="split">Répartis à parts égales</button><button aria-pressed="false" data-v="no">Tous au Non</button></div></div>
+    <figure><div class="chart" id="pollChart"></div><figcaption>Points : estimation du Oui par chaque sondage ; barres : marge d'erreur à 95 %. Le résultat apparaît une fois que vous l'avez dévoilé ci-dessous. Sources : sondages tels que recensés dans la compilation Wikipédia des sondages sur le référendum ; résultat : Commission électorale centrale de Moldavie.</figcaption></figure>
+    <div class="row"><button id="aa-reveal">Dévoiler le résultat</button></div>
+  </div>
+  <details class="jam"><summary>Faites-le maintenant dans jamovi (facultatif, 10 min)</summary>
+    <ol class="tight"><li>Copiez les données ci-dessous et collez-les dans une feuille jamovi vide.</li>
+      <li><b>Data → Compute</b> (noms des menus de l'interface anglaise de jamovi) : <span class="mono">dec = yes + no</span>, puis <span class="mono">p = yes / dec</span>, puis <span class="mono">moe = 1.96 * SQRT(p * (1 - p) / (n * dec / 100)) * 100</span>, puis <span class="mono">pct = 100 * p</span>.</li>
+      <li>Comparez <span class="mono">pct ± moe</span> au résultat.</li></ol>
+    <textarea readonly id="csvPolls" aria-label="Données pour jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvPolls">Copier les données</button><span class="small" data-copied="csvPolls"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Étape 4 · Retour · 10 min</span><h2>Un écart bien supérieur à la marge</h2></div>
+  <p id="fa-locked" class="small">Dévoilez le résultat à l'étape 3 pour débloquer ce retour.</p>
+  <div id="fa-body" hidden>
+    <div class="kpi"><div><b>50,35 %</b><span>Oui, ensemble des votes</span></div><div><b>45,4 %</b><span>Oui, électeurs en Moldavie</span></div><div><b>environ 77 %</b><span>Oui, électeurs à l'étranger</span></div></div>
+    <p class="headline-claim" id="fa-guess"></p>
+    <p>En ne comptant que les électeurs décidés, les trois sondages plaçaient le Oui entre 59 % et 68 %, avec des marges d'environ ±3 points. Parmi les électeurs résidant en Moldavie, c'est-à-dire les personnes effectivement échantillonnées par les sondages, le Oui a obtenu 45,4 %. L'écart est de 13 à 22 points, soit quatre à sept fois la marge d'erreur. Ce n'est que si <em>tous</em> les indécis avaient voté Non que deux des sondages se seraient approchés du résultat. Le référendum a été adopté grâce à la diaspora, que les instituts n'avaient pas interrogée.</p>
+    <p>Pourquoi les sondages se sont-ils trompés ? Plusieurs explications ont été avancées après le vote, aucune n'étant mesurée par une marge d'erreur :</p>
+    <ul class="tight">
+      <li>Les indécis ont massivement voté Non.</li>
+      <li>Certains électeurs du Non n'ont peut-être pas révélé leur intention aux sondeurs.</li>
+      <li>L'achat de votes : la police moldave a documenté des centaines de cas, et la présidente Sandu a dénoncé un système visant à acheter jusqu'à 300 000 voix (Corman, Verfassungsblog, 2024).</li>
+    </ul>
+    <div class="box key"><h4>À retenir</h4>Une marge d'erreur mesure le hasard de l'échantillon. Elle ne dit rien de qui a été laissé de côté, de qui a refusé de répondre, ni de ce que feront les indécis.</div>
+  </div>
+</section>
+
+<section class="step col" id="lessonB" data-read data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Étape 5 · Leçon · 25 min</span><h2>Comparer des groupes dans une enquête</h2></div>
+  <p>La plupart des questions d'opinion sont des comparaisons : cette année par rapport à l'an dernier, les jeunes par rapport aux plus âgés, la France par rapport à l'Espagne. Chaque chiffre a sa propre marge d'erreur, de sorte que l'écart entre deux chiffres est encore plus incertain que chacun d'eux.</p>
+  <p class="formula">marge d'un écart ≈ 1,96 × √( p₁(1 − p₁)/n₁ + p₂(1 − p₂)/n₂ )</p>
+  <p>Avec environ 1 000 personnes dans chaque échantillon et des parts proches de 30 %, un écart doit dépasser environ 4 points avant que l'on puisse le considérer comme réel. Les échantillons du Pew Research Center ne sont pas de purs tirages aléatoires ; ses propres marges publiées sont donc un peu plus larges encore.</p>
+  <h3>Filtrer et recoder</h3>
+  <p>Pour comparer des groupes, on <em>filtre</em> (on ne garde que les lignes utiles, par exemple un pays ou une tranche d'âge) et on <em>recode</em> (on regroupe des catégories, par exemple « très » et « plutôt » favorable en une seule catégorie « favorable »). C'est ainsi que Pew présente les opinions favorables : les deux réponses positives additionnées.</p>
+  <h3>L'attention n'est pas l'opinion</h3>
+  <p>Google Trends mesure ce que les gens recherchent, sur une échelle de 0 à 100 relative à la semaine la plus active. Un pic de recherches sur « Taiwan » traduit de l'attention, non du soutien ou de l'hostilité. Les commentateurs confondent souvent les deux.</p>
+</section>
+
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Étape 6 · Activité · 20 min</span><h2>L'évolution est-elle réelle ?</h2></div>
+  <p>Part des adultes ayant une opinion favorable de la Chine, Pew Research Center, printemps 2024 et printemps 2025. Supposez environ 1 000 personnes par pays et par année.</p>
+  <div class="box task"><h4>1. La France à la main</h4>
+    <p>La France est passée de 23 % à 36 %. Calculez l'évolution et sa marge (une décimale). L'évolution est-elle réelle ?</p>
+    <div class="row"><label for="pb-ch">Évolution, points</label><input type="number" step="1" id="pb-ch"><label for="pb-m">Marge, ±</label><input type="number" step="0.1" id="pb-m"><button id="pb-btn">Vérifier</button></div>
+    <p class="fb" id="pb-fb"></p>
+    <div class="row"><button id="pb-all" disabled>Vérifier les autres pays</button></div>
+  </div>
+  <div class="tscroll wide"><table id="pewTable" aria-label="Opinions favorables de la Chine"></table></div>
+  <figure class="wide"><div class="chart" id="pewChart"></div><figcaption>Source : Pew Research Center, Spring 2025 Global Attitudes Survey, topline (juillet 2025). La Hongrie et la Pologne ont changé de méthode d'enquête en 2024 ; Pew ne les compare donc pas aux années précédentes.</figcaption></figure>
+  <details class="jam"><summary>Faites-le maintenant dans jamovi (facultatif, 10 min)</summary>
+    <ol class="tight"><li>Collez les données ci-dessous dans jamovi.</li>
+      <li>Calculez <span class="mono">change = y25 - y24</span> et <span class="mono">moe = 1.96 * SQRT((y24/100)*(1-y24/100)/1000 + (y25/100)*(1-y25/100)/1000) * 100</span>.</li>
+      <li>Calculez <span class="mono">real = ABS(change) > moe</span> et triez.</li></ol>
+    <textarea readonly id="csvPew" aria-label="Données pour jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvPew">Copier les données</button><span class="small" data-copied="csvPew"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Étape 7 · Retour · 10 min</span><h2>Un réchauffement réel, avec des exceptions</h2></div>
+  <p>Les opinions sur la Chine sont devenues plus favorables presque partout en Europe entre 2024 et 2025, et dans la plupart des pays l'évolution dépasse le bruit statistique. La hausse de 4 points en Espagne, en revanche, reste dans la marge. Les comparaisons entre pays demandent la même prudence : l'Espagne (37 %) et la France (36 %) ne se distinguent pas statistiquement, l'Italie (45 %) et l'Allemagne (29 %) si.</p>
+  <p>À l'intérieur des pays, Pew a relevé de forts écarts selon l'âge : en Pologne et au Royaume-Uni, les adultes de moins de 35 ans étaient de 27 à 28 points plus nombreux que les 50 ans et plus à avoir une opinion favorable de la Chine. Une moyenne nationale peut masquer deux pays très différents.</p>
+  <div class="box task"><h4>Attention et opinion (5 min)</h4>
+    <p>Ouvrez <a href="https://trends.google.com/trends/explore?date=2024-01-01%202026-10-01&q=tariffs" target="_blank" rel="noopener">Google Trends pour « tariffs » (droits de douane)</a>. Repérez la semaine où l'attention a culminé. Les opinions sur les États-Unis ou la Chine dans les données de Pew ont-elles varié dans des proportions comparables ? Rédigez une phrase sur la différence entre un pic d'attention et un changement d'opinion.</p>
+    <textarea id="trendsNote" rows="3" aria-label="Votre phrase"></textarea>
+  </div>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Étape 8 · Autoévaluation · 5 min</span><h2>Cinq questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session1.html">← Séance 1 : peut-on se fier aux chiffres ?</a><a href="session3.html">Séance 3 : qui dépend de qui ? →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Lectures et références (en anglais)</h3>
+  <ul class="refs">
+    <li>Pew Research Center (2016), <a href="https://www.pewresearch.org/short-reads/2016/09/08/understanding-the-margin-of-error-in-election-polls/" target="_blank" rel="noopener">« Understanding the margin of error in election polls »</a>.</li>
+    <li>Corman, M.-R. (2024), <a href="https://verfassungsblog.de/three-takeaways-from-the-nearly-failed-eu-referendum-in-moldova/" target="_blank" rel="noopener">« Three takeaways from the nearly failed EU referendum in Moldova »</a>, Verfassungsblog, 1er novembre.</li>
+    <li>Diez, Çetinkaya-Rundel et Barr, <a href="https://www.openintro.org/book/os/" target="_blank" rel="noopener">OpenIntro Statistics</a>, sections 5.1–5.2 (gratuit).</li>
+  </ul>
+  <h3>Données</h3>
+  <ul class="refs">
+    <li>Sondages et résultats : <a href="https://en.wikipedia.org/wiki/2024_Moldovan_European_Union_membership_constitutional_referendum" target="_blank" rel="noopener">compilation des sondages et des résultats officiels</a> (Commission électorale centrale de Moldavie).</li>
+    <li>Pew Research Center, <a href="https://www.pewresearch.org/global/2025/07/15/views-of-china-and-xi-jinping-2025/" target="_blank" rel="noopener">Views of China and Xi Jinping, 2025</a>, et <a href="https://www.pewresearch.org/wp-content/uploads/sites/20/2025/07/pg_2025.07.15_global-views-china-2025_topline.pdf" target="_blank" rel="noopener">topline</a>.</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Effacer mes réponses pour cette séance</button></p>
+</footer>

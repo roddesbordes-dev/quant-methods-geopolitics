@@ -208,6 +208,12 @@ $("#dl-btn").addEventListener("click",()=>{ const [v]=readNums(["dl-in"]);
   if (Math.abs(v-1.89)<=0.02) feedback($("#dl-fb"),true,"Right: 1.89% of GDP in 2024 (SIPRI). If your download shows a slightly different figure, the database has been revised since October 2026: always note the date you downloaded.");
   else feedback($("#dl-fb"),false,"Look for 2024 in the Germany series; it should be just under 2%."); });
 wireCopy(); wireReset();
+/* help when stuck */
+helpAfter("la-btn","la-fb",()=>({"la-in":"3.64"}));
+helpAfter("aa-btn","aa-fb",()=>({"aa-exp":ten[0].exp.toFixed(2),"aa-gap":ten[0].gap.toFixed(2)}));
+helpAfter("pb-btn","pb-fb",()=>({"pb-21":rr("POL",2021).toFixed(1),"pb-24":rr("POL",2024).toFixed(1),"pb-ch":Math.round((rr("POL",2024)/rr("POL",2021)-1)*100)}));
+helpAfter("dl-btn","dl-fb",()=>({"dl-in":"1.89"}));
+
 /* ---------- boot ---------- */
 function drawCharts(){ drawPuzzle(); drawTenChart(); if (!$("#fa-body").hidden) drawAllChart(); drawEU(); drawThreeChart(); drawBad(); drawFix(); }
 function drawAll(){

@@ -1,0 +1,255 @@
+
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Accueil du cours</a><span>Séance 1 sur 6</span></div>
+  <h1 style="margin-top:.6rem">Peut-on se fier aux chiffres ?</h1>
+  <p class="lede">Gouvernements, journalistes et think tanks s'affrontent à coups de chiffres. Dans cette séance, vous apprenez d'où viennent ces chiffres, vous prenez une autocratie en flagrant délit de gonflement de sa croissance grâce à des images satellites de la Terre la nuit, et vous redessinez un graphique trompeur pour qu'il ne trompe plus.</p>
+  <div class="meta"><span><b>Environ 3 heures</b> à votre rythme</span><span><b>Aucun logiciel requis</b> dans le navigateur ; étapes facultatives dans jamovi</span><span><b>Vos réponses</b> restent uniquement dans ce navigateur</span></div>
+</header>
+
+<nav class="steps" aria-label="Étapes de cette séance"><ol id="stepnav"></ol></nav>
+
+<!-- STEP 1 PUZZLE -->
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Étape 1 · Énigme · 10 min</span><h2>L'Europe désarme-t-elle ou réarme-t-elle ?</h2></div>
+  <p>Deux commentateurs consultent la même base de données officielle sur les dépenses militaires des 27 pays de l'actuelle Union européenne. L'un écrit <em>« L'Europe a désarmé depuis la guerre froide »</em>. L'autre écrit <em>« L'Europe n'a jamais autant dépensé pour sa défense »</em>. Voici leurs graphiques, tous deux pour la période 1990 à 2021.</p>
+  <div class="pair wide" id="puzzleCharts"></div>
+  <div class="box task">
+    <h4>À vous de trancher : quel titre est exact ?</h4>
+    <div class="choice" id="q-puzzle" role="radiogroup">
+      <label><input type="radio" name="puz" value="a"> Seulement « L'Europe a désarmé »</label>
+      <label><input type="radio" name="puz" value="b"> Seulement « L'Europe n'a jamais autant dépensé »</label>
+      <label><input type="radio" name="puz" value="both"> Les deux sont exacts</label>
+      <label><input type="radio" name="puz" value="neither"> Aucun n'est exact</label>
+    </div>
+    <div class="row"><button id="puzBtn" disabled>Valider ma réponse</button></div>
+    <div id="puzOut" hidden>
+      <p class="fb" id="puzFb"></p>
+      <p><strong>Les deux sont exacts.</strong> Mesurées en dollars de chaque année, les dépenses sont passées de 143 à 262 milliards. Mesurées en part de l'économie, elles sont tombées de 2,4 % à 1,5 % du PIB, car l'économie de l'UE a crû bien plus vite que ses budgets de défense. Aucun des deux commentateurs n'a menti : chacun a choisi la mesure qui racontait l'histoire qu'il voulait. À la fin de cette séance, vous connaîtrez une troisième mesure, les dépenses en termes réels, qui tranche une bonne partie du débat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 2 LESSON A -->
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Étape 2 · Leçon · 25 min</span><h2>D'où viennent les chiffres</h2></div>
+  <h3>Chaque chiffre a un producteur</h3>
+  <p>Le produit intérieur brut (PIB) d'un pays ne s'observe pas ; il s'estime. Un institut national de statistique combine des enquêtes auprès des entreprises et des ménages, des données fiscales et des hypothèses sur l'activité que personne n'enregistre, comme le commerce de rue. Les dépenses de défense sont déclarées par les gouvernements et compilées par des chercheurs, par exemple au Stockholm International Peace Research Institute (SIPRI), dont la Banque mondiale republie les données. Avant d'utiliser un chiffre, demandez-vous qui l'a produit et comment.</p>
+  <h3>Les producteurs ont des motivations</h3>
+  <p>Une croissance élevée est un gage de compétence. Là où les responsables sont promus s'ils atteignent leurs objectifs et où aucune presse libre ni aucun institut statistique indépendant ne les contrôle, la tentation d'arrondir vers le haut est forte. Les gouvernements peuvent aussi tout simplement cesser de publier : après l'invasion de l'Ukraine, la Russie a cessé de diffuser ses statistiques détaillées de commerce extérieur en 2022, ce qui a rendu l'effet des sanctions plus difficile à évaluer de l'extérieur (<a href="https://carnegieendowment.org/russia-eurasia/politika/2022/07/secret-economy-what-hiding-the-stats-does-for-russia" target="_blank" rel="noopener">Carnegie Endowment</a>).</p>
+  <h3>Un témoin extérieur : la lumière nocturne</h3>
+  <p>De 1992 à 2013, des satellites météorologiques militaires américains ont photographié la Terre entière la nuit. Usines, villes, routes et logements émettent de la lumière : quand une économie croît, elle devient en général plus lumineuse. Aucun institut statistique ne peut retoucher une image satellite. Les économistes utilisent donc la croissance des lumières nocturnes comme un contrôle indépendant de la croissance officielle.</p>
+  <h3>Le test</h3>
+  <p>L'idée, due à Luis Martínez (<a href="https://bfi.uchicago.edu/insight/research-summary/how-much-should-we-trust-the-dictators-gdp-growth-estimates/" target="_blank" rel="noopener">Journal of Political Economy, 2022</a>), procède en deux temps.</p>
+  <ol class="tight">
+    <li>Dans les démocraties, où les statistiques officielles font l'objet d'un examen critique, mesurer comment la croissance officielle est habituellement liée à la croissance des lumières.</li>
+    <li>Appliquer cette relation à chaque pays. Un pays dont la croissance officielle se situe nettement au-dessus de ce qu'implique la croissance de ses lumières devient un suspect.</li>
+  </ol>
+  <p>À partir des 43 pays classés <em>Libres</em> par Freedom House la plupart des années entre 1992 et 2013, la relation est la suivante :</p>
+  <p class="formula">croissance officielle attendue = 1,74 + 0,38 × croissance des lumières</p>
+  <p>En mots : une démocratie dont les lumières n'ont pas augmenté du tout a tout de même crû d'environ 1,7 % par an, et chaque point supplémentaire de croissance des lumières s'accompagnait d'environ 0,38 point supplémentaire de croissance du PIB. L'<strong>écart</strong> est la croissance officielle moins la croissance attendue. Martínez a montré que les taux de croissance officiels des autocraties sont gonflés d'environ 35 % en moyenne.</p>
+  <div class="box key"><h4>La lumière est un témoin, pas un juge</h4>
+    <ul class="tight">
+      <li>Les lumières saturent : le centre d'une ville riche ne peut pas devenir plus lumineux sur l'image, si bien que la croissance y est sous-estimée.</li>
+      <li>Une partie de la lumière ne correspond à aucune production, comme le torchage du gaz sur les champs pétroliers.</li>
+      <li>Une partie de la croissance produit peu de lumière : logiciels, finance et autres services.</li>
+    </ul>
+    Un écart fait d'un pays un suspect qui mérite enquête. Il ne prouve pas la fraude.</div>
+  <div class="box task">
+    <h4>Vérifiez vos acquis</h4>
+    <p>Les lumières d'un pays ont augmenté de 5 % par an. Quelle croissance officielle attendrait-on, en % par an ?</p>
+    <div class="row"><input type="number" step="0.01" id="la-in" aria-label="Croissance attendue"><button id="la-btn">Vérifier</button></div>
+    <p class="fb" id="la-fb"></p>
+  </div>
+</section>
+
+<!-- STEP 3 ACTIVITY A -->
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Étape 3 · Activité · 20 min</span><h2>Démasquer le dictateur</h2></div>
+  <p>Dix pays réels, noms masqués. Pour chacun, la croissance officielle moyenne du PIB et la croissance moyenne des lumières nocturnes, toutes deux en % par an sur 1992 à 2013. Cinq sont des autocraties, cinq des démocraties.</p>
+  <div class="box task">
+    <h4>1. Calculez le pays A à la main</h4>
+    <p>Utilisez la formule : attendue = 1,74 + 0,38 × croissance des lumières, puis écart = officielle − attendue. Arrondissez à deux décimales.</p>
+    <div class="row"><label for="aa-exp">Croissance attendue pour A</label><input type="number" step="0.01" id="aa-exp"><label for="aa-gap">Écart pour A</label><input type="number" step="0.01" id="aa-gap"><button id="aa-btn">Vérifier</button></div>
+    <p class="fb" id="aa-fb"></p>
+  </div>
+  <div class="box task">
+    <h4>2. Laissez l'ordinateur calculer les neuf autres</h4>
+    <p>Une fois A correct, calculez les autres et observez le graphique. Les points situés loin au-dessus de la droite ont crû plus vite sur le papier que ne le suggèrent leurs lumières.</p>
+    <div class="row"><button id="aa-all" disabled>Calculer les neuf autres</button></div>
+  </div>
+  <div class="tscroll wide"><table id="tenTable" aria-label="Dix pays anonymisés"></table></div>
+  <figure class="wide"><div class="chart" id="tenChart"></div><figcaption>Chaque lettre est un pays. La droite indique ce que serait la croissance officielle si le pays se comportait comme la démocratie moyenne. Sources : données de réplication de Martínez (2022) (lumières nocturnes, série harmonisée de Li et al.) ; Banque mondiale, PIB réel.</figcaption></figure>
+  <div class="box task">
+    <h4>3. Désignez vos suspects</h4>
+    <p>Cochez, dans la dernière colonne du tableau, jusqu'à quatre pays qui sont selon vous des autocraties gonflant leurs chiffres. Puis dévoilez les noms.</p>
+    <div class="row"><button id="aa-reveal" disabled>Dévoiler les noms</button><span class="small" id="aa-count">0 sur 4 choisis</span></div>
+  </div>
+  <details class="jam"><summary>À faire maintenant dans jamovi (facultatif, 15 min)</summary>
+    <ol class="tight">
+      <li>Ouvrez jamovi. Cliquez sur <b>Copier les données</b> ci-dessous, cliquez dans la première cellule de la feuille vide et collez (Ctrl+V ou Cmd+V). Acceptez que la première ligne serve de noms de colonnes.</li>
+      <li><b>Data → Compute</b> (noms des menus de l'interface anglaise de jamovi) : nommez la nouvelle variable <span class="mono">expected</span> et saisissez la formule <span class="mono">1.74 + 0.38 * light</span>.</li>
+      <li>Calculez une deuxième variable <span class="mono">gap</span> avec la formule <span class="mono">official - expected</span>.</li>
+      <li><b>Analyses → Exploration → Scatterplot</b> : X = <span class="mono">light</span>, Y = <span class="mono">official</span>, cochez la droite de régression <b>Linear</b>. (Si Scatterplot n'apparaît pas, ajoutez le module <i>scatr</i> depuis la bibliothèque <b>+ Modules</b>.)</li>
+      <li>Triez selon <span class="mono">gap</span> : obtenez-vous les mêmes suspects que dans le navigateur ?</li>
+    </ol>
+    <textarea readonly id="csvTen" aria-label="Données pour jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvTen">Copier les données</button><span class="small" data-copied="csvTen"></span></div>
+  </details>
+</section>
+
+<!-- STEP 4 FEEDBACK A -->
+<section class="step col" id="feedbackA" data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Étape 4 · Retour · 10 min</span><h2>Qui étaient-ils ?</h2></div>
+  <p id="fa-locked" class="small">Dévoilez les noms à l'étape 3 pour débloquer ce retour. Vous pouvez aussi <button class="ghost" id="fa-skip" style="padding:.15rem .5rem">l'afficher quand même</button>.</p>
+  <div id="fa-body" hidden>
+    <p id="fa-score" class="headline-claim"></p>
+    <p>Les quatre écarts les plus importants sont ceux de la Chine, du Myanmar, de l'Ouzbékistan et de l'Azerbaïdjan, tous classés <em>Non libres</em>. Mais deux cas ne cadrent pas avec ce récit simple, et ils comptent davantage que les quatre qui y cadrent.</p>
+    <ul class="tight">
+      <li><strong>L'Inde (E)</strong>, une démocratie, présente un écart important. Une explication probable est qu'une grande partie de sa croissance provient des services, comme les logiciels et les centres d'appels, qui ajoutent de la production sans ajouter beaucoup de lumière.</li>
+      <li><strong>La Russie (J)</strong>, une autocratie, ne présente aucun écart. Ses lumières incluent le torchage du gaz, et ses statistiques officielles après l'effondrement des années 1990 ont peut-être simplement été exactes en moyenne.</li>
+    </ul>
+    <p>La méthode désigne donc des suspects, pas des coupables. Sa force vient du grand nombre de pays examinés ensemble. Voici les 105 pays de plus de trois millions d'habitants disposant de données exploitables :</p>
+    <figure class="wide"><div class="chart" id="allChart"></div><figcaption>Régime = statut Freedom House pendant au moins la moitié des années 1992–2013 ; les pays intermédiaires sont <i>Partiellement libres</i>. Survolez un point pour voir le pays. Sources : voir ci-dessus.</figcaption></figure>
+    <div class="tscroll"><table aria-label="Écart moyen par régime">
+      <tr><th>Régime</th><th class="num">Pays</th><th class="num">Croissance officielle moyenne, % par an</th><th class="num">Écart moyen, points par an</th></tr>
+      <tr><td><span class="chip F">● Libre</span></td><td class="num">43</td><td class="num">2,97</td><td class="num">−0,01</td></tr>
+      <tr><td><span class="chip PF">■ Partiellement libre</span></td><td class="num">34</td><td class="num">4,09</td><td class="num">+0,61</td></tr>
+      <tr><td><span class="chip NF">▲ Non libre</span></td><td class="num">28</td><td class="num">3,95</td><td class="num">+0,70</td></tr>
+    </table></div>
+    <p>En moyenne, les autocraties déclarent une croissance supérieure d'environ 0,7 point par an à ce qu'impliquent leurs lumières, soit environ un cinquième de plus que le taux implicite des lumières. La méthode plus complète de Martínez, qui suit chaque pays année après année et contrôle de nombreuses explications alternatives, aboutit à environ 35 %. Cumulé sur vingt ans, un écart de 0,7 point fait paraître une économie environ 15 % plus grande qu'elle ne l'est.</p>
+  </div>
+</section>
+
+<!-- STEP 5 LESSON B -->
+<section class="step col" id="lessonB" data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Étape 5 · Leçon · 25 min</span><h2>Indicateurs et graphiques honnêtes</h2></div>
+  <p>Retour à l'énigme. Une même dépense peut s'exprimer d'au moins trois façons, et chacune répond à une question différente.</p>
+  <div class="tscroll"><table aria-label="Trois mesures des dépenses de défense">
+    <tr><th>Mesure</th><th>Question à laquelle elle répond</th><th>Piège</th></tr>
+    <tr><td><strong>Dollars courants</strong></td><td style="text-align:left">Combien d'argent a été dépensé cette année-là ?</td><td style="text-align:left">Mélange les hausses réelles avec l'inflation et les variations de change</td></tr>
+    <tr><td><strong>% du PIB</strong></td><td style="text-align:left">Quel effort par rapport à la taille de l'économie ? Les objectifs de l'OTAN reposent sur cette mesure.</td><td style="text-align:left">Peut baisser alors que les dépenses augmentent, si l'économie croît plus vite</td></tr>
+    <tr><td><strong>Termes réels</strong></td><td style="text-align:left">Que pouvait acheter cet argent, à prix constants ?</td><td style="text-align:left">Dépend de l'indice de prix et de l'année de base choisis</td></tr>
+  </table></div>
+  <p>Une astuce utile : si vous connaissez les dépenses en part du PIB et le PIB à prix constants, vous obtenez les dépenses en termes réels en multipliant les deux.</p>
+  <p class="formula">dépenses réelles = (part du PIB ÷ 100) × PIB réel</p>
+  <p>Manipulez maintenant la série de l'Union européenne. Changez la mesure et l'année de départ, et observez comment le récit change.</p>
+  <div class="row"><span class="small">Mesure</span><div class="seg" id="segMeasure"><button aria-pressed="true" data-v="usd">Dollars courants</button><button aria-pressed="false" data-v="share">% du PIB</button><button aria-pressed="false" data-v="real">Termes réels</button></div></div>
+  <div class="row"><span class="small">Début en</span><div class="seg" id="segStart"><button aria-pressed="true" data-v="1990">1990</button><button aria-pressed="false" data-v="2000">2000</button><button aria-pressed="false" data-v="2014">2014</button></div></div>
+  <figure class="wide"><div class="chart" id="euChart"></div><figcaption>Dépenses militaires de l'UE à 27. Termes réels = part du PIB × PIB en dollars constants de 2015. Source : SIPRI via Banque mondiale, World Development Indicators.</figcaption></figure>
+  <p class="headline-claim" id="euSentence"></p>
+  <h3>Cinq règles pour un graphique honnête</h3>
+  <ol class="tight">
+    <li><strong>Les barres partent de zéro.</strong> La longueur d'une barre est sa valeur ; coupez l'axe et vous faussez la comparaison.</li>
+    <li><strong>Indiquez l'unité</strong>, et précisez si les valeurs sont courantes ou réelles.</li>
+    <li><strong>Choisissez l'année de départ pour une raison</strong>, et dites-la. 1990, 2000 et 2014 racontent trois histoires différentes.</li>
+    <li><strong>Citez la source et les années.</strong></li>
+    <li><strong>Écrivez un titre que les données justifient</strong>, pas un slogan.</li>
+  </ol>
+  <p class="small">Pour aller plus loin : Claus Wilke, <a href="https://clauswilke.com/dataviz/" target="_blank" rel="noopener">Fundamentals of Data Visualization</a>, chapitres 6 et 13 (gratuit en ligne, en anglais).</p>
+</section>
+
+<!-- STEP 6 ACTIVITY B -->
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Étape 6 · Activité · 20 min</span><h2>Qui a réarmé le plus vite après 2021 ?</h2></div>
+  <div class="box task">
+    <h4>1. D'abord, devinez</h4>
+    <p>Entre 2021 et 2024, quel pays a le plus augmenté ses dépenses de défense en termes réels ?</p>
+    <div class="choice" id="q-guessB">
+      <label><input type="radio" name="gb" value="POL"> Pologne</label>
+      <label><input type="radio" name="gb" value="DEU"> Allemagne</label>
+      <label><input type="radio" name="gb" value="ITA"> Italie</label>
+    </div>
+    <div class="row"><button id="gbBtn" disabled>Valider ma réponse</button><span class="small" id="gbOut"></span></div>
+  </div>
+  <div class="box task">
+    <h4>2. Calculez la Pologne à la main</h4>
+    <p>Utilisez le tableau : dépenses réelles = part ÷ 100 × PIB réel. Donnez les milliards de dollars de 2015 à une décimale, et la variation en % à l'unité près.</p>
+    <div class="row"><label for="pb-21">2021</label><input type="number" step="0.1" id="pb-21"><label for="pb-24">2024</label><input type="number" step="0.1" id="pb-24"><label for="pb-ch">Variation en %</label><input type="number" step="1" id="pb-ch"><button id="pb-btn">Vérifier</button></div>
+    <p class="fb" id="pb-fb"></p>
+    <div class="row"><button id="pb-all" disabled>Calculer l'Allemagne et l'Italie</button></div>
+  </div>
+  <div class="tscroll wide"><table id="threeTable" aria-label="Dépenses de défense de trois pays"></table></div>
+  <figure class="wide"><div class="chart" id="threeChart"></div><figcaption>Indice, 2021 = 100, termes réels. Source : SIPRI via Banque mondiale, World Development Indicators.</figcaption></figure>
+  <div class="box task">
+    <h4>3. Téléchargez une série vous-même (10 min)</h4>
+    <p>Les analystes téléchargent des données tous les jours : faites-le une fois maintenant. Ouvrez l'indicateur de la Banque mondiale <a href="https://data.worldbank.org/indicator/MS.MIL.XPND.GD.ZS?locations=DE" target="_blank" rel="noopener">« Military expenditure (% of GDP) »</a>, qui republie les chiffres du SIPRI, sélectionnez l'Allemagne et téléchargez la série au format CSV (ou lisez la valeur sur la page). La source originale est la <a href="https://www.sipri.org/databases/milex" target="_blank" rel="noopener">SIPRI Military Expenditure Database</a>.</p>
+    <p>Quelle part de son PIB l'Allemagne a-t-elle consacrée à la défense en 2024 (deux décimales) ?</p>
+    <div class="row"><input type="number" step="0.01" id="dl-in" aria-label="Allemagne 2024"><button id="dl-btn">Vérifier</button></div>
+    <p class="fb" id="dl-fb"></p>
+  </div>
+  <details class="jam"><summary>À faire maintenant dans jamovi (facultatif, 10 min)</summary>
+    <ol class="tight">
+      <li>Copiez les données ci-dessous et collez-les dans une feuille jamovi vide.</li>
+      <li><b>Data → Compute</b> : <span class="mono">real = share / 100 * gdp_real</span>.</li>
+      <li>Filtrez sur les années 2021 et 2024 (<b>Data → Filters</b> : <span class="mono">year == 2021 or year == 2024</span>) et comparez.</li>
+      <li>Pour le graphique, utilisez <b>Exploration → Descriptives</b> en séparant par pays, ou collez la colonne calculée dans Datawrapper.</li>
+    </ol>
+    <textarea readonly id="csvThree" aria-label="Données pour jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvThree">Copier les données</button><span class="small" data-copied="csvThree"></span></div>
+  </details>
+</section>
+
+<!-- STEP 7 FEEDBACK B -->
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Étape 7 · Retour · 10 min</span><h2>La Pologne, de loin</h2></div>
+  <p id="fbB-guess" class="headline-claim"></p>
+  <p>En termes réels, la Pologne a à peu près doublé ses dépenses de défense en trois ans (+104 %), passant de 2,2 % à 4,2 % du PIB. L'Allemagne a progressé de 46 %. L'Italie a à peine bougé (+3 %), et sa part du PIB a même légèrement baissé.</p>
+  <p>Comparez maintenant avec les dollars courants : Pologne +148 %, Allemagne +57 %, Italie +5 %. Les chiffres en dollars surestiment chaque hausse, car ils incluent la hausse des prix et, pour la Pologne, l'appréciation du zloty. La distance à la Russie fait partie de l'explication, une question que vous testerez rigoureusement avec une régression à la séance 4.</p>
+  <div class="box key"><h4>À retenir</h4>Avant de comparer des dépenses d'une année à l'autre, demandez-vous : courantes ou réelles ? Avant de comparer des pays, demandez-vous : montant ou part du PIB ? Ces deux questions modifient les classements.</div>
+</section>
+
+<!-- STEP 8 EXERCISE -->
+<section class="step col" id="exercise" data-title="Exercise">
+  <div class="stephead"><span class="eyebrow">Étape 8 · Exercice 1 · 45 min · non noté</span><h2>Corriger un graphique trompeur</h2></div>
+  <p>Un site d'information publie ce graphique.</p>
+  <figure class="wide"><div class="chart" id="badChart"></div></figure>
+  <div class="box task">
+    <h4>1. Qu'est-ce qui ne va pas ? Cochez chaque problème.</h4>
+    <div class="choice" id="q-bad">
+      <label><input type="checkbox" value="axis"> L'axe vertical commence à 40 milliards, et non à zéro</label>
+      <label><input type="checkbox" value="nominal"> Les dollars courants mélangent hausses réelles, inflation et taux de change</label>
+      <label><input type="checkbox" value="source"> Aucune source n'est indiquée</label>
+      <label><input type="checkbox" value="invented"> Les chiffres sont inventés</label>
+      <label><input type="checkbox" value="bars"> Il ne faut jamais utiliser de barres pour des séries temporelles</label>
+    </div>
+    <div class="row"><button id="badBtn">Vérifier</button></div>
+    <p class="fb" id="badFb"></p>
+  </div>
+  <div class="box task">
+    <h4>2. Redessinez-le sans la distorsion</h4>
+    <div class="row"><span class="small">Mesure</span><div class="seg" id="segBadM"><button aria-pressed="true" data-v="usd">Dollars courants</button><button aria-pressed="false" data-v="real">Termes réels</button><button aria-pressed="false" data-v="share">% du PIB</button></div></div>
+    <div class="row"><span class="small">L'axe commence à</span><div class="seg" id="segBadA"><button aria-pressed="true" data-v="cut">40 milliards</button><button aria-pressed="false" data-v="zero">Zéro</button></div></div>
+    <figure><div class="chart" id="fixChart"></div></figure>
+    <p class="fb" id="fixFb"></p>
+  </div>
+  <div class="box task">
+    <h4>3. Rédigez la note (150 mots)</h4>
+    <p>Expliquez ce qui n'allait pas et ce que montre le graphique honnête. Votre texte est enregistré uniquement dans ce navigateur.</p>
+    <textarea id="note" rows="8" aria-label="Votre note"></textarea>
+    <div class="row"><span class="small" id="wc">0 mot</span><button class="ghost" id="modelBtn">Comparer avec une note modèle</button></div>
+    <div id="model" hidden class="box key"><h4>Note modèle</h4><p>Le graphique exagère la hausse. Son axe commence à 40 milliards de dollars, si bien que la barre de 2024 paraît dix fois plus haute que celle de 2014 alors que les dépenses ont à peu près doublé. Il utilise aussi des dollars courants, qui mélangent hausses réelles, inflation et variations de change. En dollars constants de 2015, les dépenses de défense allemandes ont augmenté d'environ 83 % entre 2014 et 2024, de 38 à 70 milliards, et l'essentiel de la hausse est intervenu après 2021. En part du PIB, elles sont passées de 1,1 % à 1,9 % selon la mesure du SIPRI ; l'estimation propre de l'OTAN, qui retient davantage de postes, plaçait l'Allemagne au-dessus de 2 % en 2024. Un graphique honnête part de zéro, montre des valeurs réelles, le dit et cite la source (SIPRI, via la Banque mondiale). Le récit reste celui d'une forte croissance, présentée sans exagération.</p></div>
+  </div>
+</section>
+
+<!-- STEP 9 QUIZ -->
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Étape 9 · Autoévaluation · 5 min</span><h2>Cinq questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><span></span><a href="session2.html">Séance 2 : peut-on se fier à un sondage ? →</a></div>
+  <h3>Avant la séance 2</h3>
+  <p>Lisez Pew Research Center, <a href="https://www.pewresearch.org/short-reads/2016/09/08/understanding-the-margin-of-error-in-election-polls/" target="_blank" rel="noopener">« Understanding the margin of error in election polls »</a> (en anglais). Prochaine séance : pourquoi les sondages précédant le référendum moldave de 2024 sur l'UE se sont-ils trompés ?</p>
+</section>
+
+<footer class="col">
+  <h3>Lectures et références</h3>
+  <ul class="refs">
+    <li>Martínez, L. R. (2022), « How much should we trust the dictator's GDP growth estimates? », <i>Journal of Political Economy</i> 130(10) : <a href="https://bfi.uchicago.edu/insight/research-summary/how-much-should-we-trust-the-dictators-gdp-growth-estimates/" target="_blank" rel="noopener">résumé du BFI</a> ; article complet gratuit sur <a href="https://papers.ssrn.com/abstract=3093296" target="_blank" rel="noopener">SSRN</a> (en anglais).</li>
+    <li>Carnegie Endowment (2022), <a href="https://carnegieendowment.org/russia-eurasia/politika/2022/07/secret-economy-what-hiding-the-stats-does-for-russia" target="_blank" rel="noopener">« Secret economy: what hiding the stats does for Russia »</a>.</li>
+    <li>OSW Centre for Eastern Studies (2025), <a href="https://www.osw.waw.pl/en/publikacje/osw-commentary/2025-06-26/nato-summit-hague-trumps-return-and-a-two-component-5-gdp" target="_blank" rel="noopener">« NATO summit in The Hague: Trump's return and a two-component 5% of GDP »</a>.</li>
+    <li>Wilke, C. O., <a href="https://clauswilke.com/dataviz/" target="_blank" rel="noopener">Fundamentals of Data Visualization</a>, chapitres 6 et 13 (gratuit en ligne).</li>
+  </ul>
+  <h3>Données</h3>
+  <p>Données : Martínez (2022), <a href="https://doi.org/10.7910/DVN/9M0S0M" target="_blank" rel="noopener">fichiers de réplication</a> (lumières nocturnes, statut Freedom House) ; Banque mondiale, <a href="https://databank.worldbank.org/source/world-development-indicators" target="_blank" rel="noopener">World Development Indicators</a> (PIB réel ; dépenses militaires issues du <a href="https://www.sipri.org/databases/milex" target="_blank" rel="noopener">SIPRI</a>), données mises à jour en juillet 2026. Les croissances des lumières et du PIB sont des taux de croissance annuels moyens en logarithme, 1992–2013 ; échantillon restreint aux pays de plus de trois millions d'habitants.</p>
+  <p><button class="ghost" id="resetBtn">Effacer mes réponses</button></p>
+</footer>

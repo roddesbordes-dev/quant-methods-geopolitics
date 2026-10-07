@@ -74,6 +74,10 @@ quiz($("#quizBox"), $("#quizScore"), [
  {q:"A placebo test at a fake date shows a large effect. What should you conclude?",o:["The policy worked twice","Something other than the policy moves the data; be cautious","Nothing"],a:1,e:"Here the pandemic hit small neighbours harder; state it as a caveat."},
  {q:"The detour through three neighbours made up about 9% of lost EU exports to Russia. What does this say about sanctions?",o:["They failed completely","Rerouting was real but small relative to the collapse","They had no effect on Russia"],a:1,e:"Both headlines, “sanctions fail” and “no leakage”, are wrong."}], "quiz");
 
+/* help when stuck */
+helpAfter("la-btn","la-fb",()=>({"la-in":"30"}));
+helpAfter("aa-btn","aa-fb",()=>({"aa1":gN.toFixed(1),"aa2":gR.toFixed(1),"aa3":DD.toFixed(1)}));
+
 /* boot */
 drawCars(); drawES(); drawTR(); if (stA.ok) openFA(); faGuess();
 wireCopy(); wireReset();

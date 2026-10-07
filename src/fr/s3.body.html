@@ -1,0 +1,138 @@
+<header class="top col">
+  <div class="crumbs"><a href="index.html">Accueil du cours</a><span>Séance 3 sur 6</span></div>
+  <h1 style="margin-top:.6rem">Qui dépend de qui ?</h1>
+  <p class="lede">La sécurité économique est devenue un domaine de politique publique à part entière : la Commission européenne, l'OTAN et chaque ministère des Finances suivent désormais les dépendances. Dans cette séance, vous mesurez la dépendance comme ils le font, vous construisez un indice de vulnérabilité, et vous constatez avec quelle facilité un indice peut être infléchi.</p>
+  <div class="meta"><span><b>Environ 3 heures</b> à votre rythme</span><span><b>Aucun logiciel requis</b> dans le navigateur ; étapes facultatives dans jamovi</span><span><b>Vos réponses</b> restent dans ce navigateur uniquement</span></div>
+</header>
+
+<nav class="steps" aria-label="Étapes de cette séance"><ol id="stepnav"></ol></nav>
+
+<section class="step col" id="puzzle" data-title="Puzzle">
+  <div class="stephead"><span class="eyebrow">Étape 1 · Énigme · 10 min</span><h2>Nommez le produit</h2></div>
+  <p>Pour trois de ces huit produits, la Chine a fourni plus de 90 % de tout ce que l'Union européenne a importé de l'extérieur de l'UE en 2024. Lesquels ?</p>
+  <div class="box task">
+    <div class="choice" id="q-prod"></div>
+    <p class="small" id="prodCount">Choisissez-en trois.</p>
+    <p>Et quel pays de l'UE achète à la Chine la plus grande part de l'ensemble de ses importations ?</p>
+    <select id="q-country" aria-label="Pays"></select>
+    <div class="row"><button id="prodBtn" disabled>Enregistrer mes réponses</button></div>
+    <div id="prodOut" hidden><p class="fb" id="prodFb"></p><p id="prodTxt"></p></div>
+  </div>
+</section>
+
+<section class="step col" id="lessonA" data-title="Lesson A">
+  <div class="stephead"><span class="eyebrow">Étape 2 · Leçon · 25 min</span><h2>Mesurer la dépendance</h2></div>
+  <h3>Parts des importations</h3>
+  <p>La mesure la plus simple : la part des importations d'un produit qui provient d'un seul fournisseur. La Commission européenne considère un produit comme une dépendance lorsqu'un ou quelques fournisseurs dominent et que l'UE ne peut pas facilement les remplacer.</p>
+  <h3>La concentration : l'indice de Herfindahl</h3>
+  <p>Une part de 50 % venant d'un seul fournisseur est risquée si les 50 % restants viennent d'un seul autre pays, beaucoup moins s'ils viennent de vingt pays. L'<strong>indice de Herfindahl-Hirschman (IHH)</strong> rend compte de cette différence : on élève au carré la part de chaque fournisseur (en %) et on additionne.</p>
+  <p class="formula">IHH = s₁² + s₂² + s₃² + …   (de près de 0 à 10 000)</p>
+  <p>Un seul fournisseur à 100 % : 10 000. Deux fournisseurs à 50 % chacun : 2 500 + 2 500 = 5 000. Dix fournisseurs à 10 % chacun : 1 000. Aux États-Unis, les autorités de la concurrence considèrent les marchés au-delà d'environ 1 800 à 2 500 comme fortement concentrés ; les analystes du commerce reprennent la même échelle.</p>
+  <h3>Le fournisseur peut-il être remplacé ?</h3>
+  <p>Les parts et la concentration décrivent le passé. Ce qui compte en cas de crise, c'est la <em>substituabilité</em> : l'existence d'autres producteurs, le temps nécessaire pour changer de fournisseur, et la capacité des stocks à couvrir la transition.</p>
+  <h3>Le cas lituanien</h3>
+  <p>En 2021, la Lituanie a autorisé Taïwan à ouvrir un bureau de représentation sous le nom « taïwanais » plutôt que « de Taipei ». La Chine a riposté. Sur le papier, la Lituanie n'était guère exposée : la Chine absorbait 1,1 % de ses exportations en 2020. Pourtant, la pression a fait mal, car la Chine a aussi bloqué des marchandises d'autres pays de l'UE contenant des composants lituaniens, et des entreprises allemandes possédant des usines en Lituanie ont menacé de partir (Global Taiwan Institute, 2022). Les exportations lituaniennes vers la Chine sont tombées à 0,2 % du total en 2022.</p>
+  <div class="box task"><h4>Autoévaluation</h4>
+    <p>Trois fournisseurs, avec 60 %, 30 % et 10 %. Quel est l'IHH ?</p>
+    <div class="row"><input type="number" id="la-in" aria-label="IHH"><button id="la-btn">Vérifier</button></div>
+    <p class="fb" id="la-fb"></p></div>
+</section>
+
+<section class="step col" id="activityA" data-title="Activity A">
+  <div class="stephead"><span class="eyebrow">Étape 3 · Activité · 20 min</span><h2>Qui dépend de qui ?</h2></div>
+  <p>Importations de l'UE en provenance de l'extérieur de l'UE, 2024, par fournisseur. Chaque ligne indique les parts des principaux fournisseurs.</p>
+  <div class="box task"><h4>1. Le blé à la main</h4>
+    <p>À partir des quatre parts indiquées pour le blé, calculez l'IHH (ignorez les petits fournisseurs restants). Arrondissez à l'entier le plus proche.</p>
+    <div class="row"><input type="number" id="aa-in" aria-label="IHH du blé"><button id="aa-btn">Vérifier</button></div>
+    <p class="fb" id="aa-fb"></p>
+    <div class="row"><button id="aa-all" disabled>Calculer pour tous les produits</button></div>
+  </div>
+  <div class="tscroll wide"><table id="prodTable" aria-label="Dépendance par produit"></table></div>
+  <figure class="wide"><div class="chart" id="prodChart"></div><figcaption>IHH calculé sur l'ensemble des fournisseurs. Source : UN Comtrade, importations de l'UE (hors UE) par partenaire, 2024, codes SH à six chiffres.</figcaption></figure>
+  <details class="jam"><summary>Faites-le maintenant dans jamovi (facultatif, 10 min)</summary>
+    <ol class="tight"><li>Collez les données ci-dessous (une ligne par produit et par fournisseur).</li>
+      <li><b>Data → Compute</b> (noms des menus de l'interface anglaise de jamovi) : <span class="mono">sq = share^2</span>.</li>
+      <li><b>Analyses → Exploration → Descriptives</b> : variable <span class="mono">sq</span>, découpée par <span class="mono">product</span>, statistique <b>Sum</b>. Cette somme est l'IHH des fournisseurs listés.</li></ol>
+    <textarea readonly id="csvProd" aria-label="Données pour jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvProd">Copier les données</button><span class="small" data-copied="csvProd"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackA" data-title="Feedback A">
+  <div class="stephead"><span class="eyebrow">Étape 4 · Retour · 10 min</span><h2>Concentrés et difficiles à remplacer</h2></div>
+  <p>Les panneaux solaires, le magnésium, les aimants permanents et les ordinateurs portables ont tous un IHH supérieur à 7 000 : un seul fournisseur, la Chine, domine. Le pétrole brut est le cas inverse : l'UE achète à de nombreux pays, si bien que son IHH est inférieur à 1 000, alors même que l'Europe importe presque tout son pétrole. Le gaz naturel liquéfié se situe entre les deux, les États-Unis en étant désormais le premier fournisseur.</p>
+  <p>Lequel de ces chiffres aurait alerté la Lituanie ? Aucun. Les parts à l'exportation mesuraient le commerce direct avec la Chine, et elles étaient infimes. L'exposition passait par les chaînes d'approvisionnement : des composants lituaniens dans des produits allemands vendus en Chine, et des intrants chinois dans les usines lituaniennes. Les mesures de dépendance doivent suivre les intrants, pas seulement le commerce final.</p>
+  <div class="box key"><h4>À retenir</h4>Part, concentration et substituabilité répondent à trois questions différentes. Une part élevée provenant d'un marché diversifié et ami n'est pas une vulnérabilité ; une part modeste d'un intrant irremplaçable peut l'être.</div>
+</section>
+
+<section class="step col" id="lessonB" data-read data-title="Lesson B">
+  <div class="stephead"><span class="eyebrow">Étape 5 · Leçon · 25 min</span><h2>Construire un indice et le cartographier</h2></div>
+  <p>Les think tanks et les organisations internationales apprécient les indices composites : un chiffre par pays, un classement, une carte. En construire un demande quatre étapes, et chacune recèle un choix.</p>
+  <ol class="tight">
+    <li><strong>Choisir les indicateurs.</strong> Ici : la part des importations en provenance de Chine, la concentration (IHH) des partenaires à l'importation, et la dépendance à l'énergie importée.</li>
+    <li><strong>Normaliser</strong> les indicateurs sur une échelle commune, par exemple 0 pour le pays le plus bas et 100 pour le plus élevé.</li>
+    <li><strong>Pondérer</strong> les indicateurs. Des poids égaux sont aussi un choix.</li>
+    <li><strong>Agréger et classer.</strong></li>
+  </ol>
+  <p class="formula">score = w₁ × norm(part de la Chine) + w₂ × norm(IHH) + w₃ × norm(dépendance énergétique)</p>
+  <h3>Règles pour une carte</h3>
+  <ul class="tight">
+    <li>Cartographiez des taux ou des parts, jamais des totaux : les grands pays ne sont pas plus vulnérables du seul fait de leur taille.</li>
+    <li>Utilisez une seule couleur qui s'assombrit avec la valeur, et affichez les chiffres lorsque c'est possible.</li>
+    <li>Indiquez ce qui manque ; un pays vide n'est pas un zéro.</li>
+  </ul>
+  <p>La carte de l'étape suivante est une <em>carte en tuiles</em> : chaque pays est un carré de même taille placé à peu près à sa position géographique, de sorte que Malte compte autant que la France. Les journaux les utilisent précisément pour cette raison.</p>
+</section>
+
+<section class="step col" id="activityB" data-title="Activity B">
+  <div class="stephead"><span class="eyebrow">Étape 6 · Activité · 20 min</span><h2>Truquer le classement</h2></div>
+  <div class="box task">
+    <p>Choisissez un pays, puis déplacez les poids pour le faire monter le plus haut possible dans le classement de vulnérabilité, puis pour le faire descendre le plus bas possible. Les données restent les mêmes à chaque fois.</p>
+    <div class="row"><label for="rCountry">Pays</label><select id="rCountry"></select></div>
+    <label class="small" for="w1">Poids de la part des importations venant de Chine : <b class="mono" id="w1o"></b></label><input type="range" id="w1" min="0" max="100" value="34">
+    <label class="small" for="w2">Poids de la concentration des partenaires (IHH) : <b class="mono" id="w2o"></b></label><input type="range" id="w2" min="0" max="100" value="33">
+    <label class="small" for="w3">Poids de la dépendance énergétique : <b class="mono" id="w3o"></b></label><input type="range" id="w3" min="0" max="100" value="33">
+    <div class="kpi"><div><b id="rRank">–</b><span>rang sur 27 (1 = le plus vulnérable)</span></div><div><b id="rBest">–</b><span>meilleur rang atteint</span></div><div><b id="rWorst">–</b><span>plus mauvais rang atteint</span></div></div>
+  </div>
+  <figure class="wide"><div class="chart" id="tileMap"></div></figure>
+  <div class="tscroll"><table id="rankTable" aria-label="Classement de l'indice"></table></div>
+  <details class="jam"><summary>Faites-le maintenant dans jamovi (facultatif, 15 min)</summary>
+    <ol class="tight"><li>Collez les données ci-dessous.</li>
+      <li>Normalisez chaque indicateur : <span class="mono">n_china = 100 * (china - MIN(china)) / (MAX(china) - MIN(china))</span>, et de même pour <span class="mono">hhi</span> et <span class="mono">energy</span>.</li>
+      <li>Calculez <span class="mono">score = (n_china + n_hhi + n_energy) / 3</span> et triez. Essayez ensuite d'autres poids.</li></ol>
+    <textarea readonly id="csvIdx" aria-label="Données pour jamovi"></textarea>
+    <div class="row"><button class="ghost" data-copy="csvIdx">Copier les données</button><span class="small" data-copied="csvIdx"></span></div>
+  </details>
+</section>
+
+<section class="step col" id="feedbackB" data-title="Feedback B">
+  <div class="stephead"><span class="eyebrow">Étape 7 · Retour · 10 min</span><h2>Mêmes données, classements opposés</h2></div>
+  <p class="headline-claim" id="fbRange"></p>
+  <p>La plupart des pays peuvent monter ou descendre sensiblement dans le classement sous le seul effet des poids. C'est pourquoi les indices sérieux publient leurs poids et montrent comment les classements évoluent lorsque les poids changent.</p>
+  <h3>Le cas réel : Doing Business</h3>
+  <p>Pendant des années, le rapport <em>Doing Business</em> de la Banque mondiale a classé les pays selon la facilité d'y gérer une entreprise, et des gouvernements se sont fixé pour objectif d'y progresser. En 2021, une enquête externe menée par le cabinet d'avocats WilmerHale a établi que, pour l'édition 2018, la modification de trois données avait fait passer la Chine du 85e au 78e rang. La Banque mondiale a abandonné le rapport en septembre 2021.</p>
+  <div class="box key"><h4>À retenir</h4>Avant de citer un classement, demandez-vous ce qui y entre, comment les éléments sont pondérés, et dans quelle mesure l'ordre change avec d'autres choix raisonnables.</div>
+</section>
+
+<section class="step col" id="quiz" data-title="Self-check">
+  <div class="stephead"><span class="eyebrow">Étape 8 · Autoévaluation · 5 min</span><h2>Cinq questions</h2></div>
+  <div id="quizBox"></div>
+  <p class="headline-claim" id="quizScore"></p>
+  <div class="nextprev"><a href="session2.html">← Séance 2 : peut-on se fier à un sondage ?</a><a href="session4.html">Séance 4 : la Pologne, l'Espagne et la droite →</a></div>
+</section>
+
+<footer class="col">
+  <h3>Lectures et références (en anglais)</h3>
+  <ul class="refs">
+    <li>Bruegel, <a href="https://www.bruegel.org/blog-post/europe-failing-import-diversification" target="_blank" rel="noopener">« Is Europe failing on import diversification? »</a></li>
+    <li>Commission européenne (2022), <a href="https://data.consilium.europa.eu/doc/document/ST-6506-2022-INIT/en/pdf" target="_blank" rel="noopener">EU strategic dependencies and capacities: second stage of in-depth reviews</a>, résumé.</li>
+    <li>Global Taiwan Institute (2022), <a href="https://globaltaiwan.org/2022/07/lithuanias-confrontation-with-china-over-taiwan-lessons-from-a-small-country/" target="_blank" rel="noopener">« Lithuania's confrontation with China over Taiwan: lessons from a small country »</a>.</li>
+    <li>Sur Doing Business : <a href="https://www.orfonline.org/index.php/expert-speak/the-world-bank-data-manipulation-controversy" target="_blank" rel="noopener">Observer Research Foundation, « The World Bank data manipulation controversy »</a>.</li>
+  </ul>
+  <h3>Données</h3>
+  <ul class="refs">
+    <li><a href="https://comtradeplus.un.org" target="_blank" rel="noopener">UN Comtrade</a> : importations de l'UE par partenaire et par produit (2024) ; importations des États membres par partenaire (2024) ; exportations de la Lituanie (2020–2022).</li>
+    <li>Eurostat, <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_ind_id/default/table" target="_blank" rel="noopener">dépendance énergétique à l'égard des importations (nrg_ind_id)</a>, 2023.</li>
+  </ul>
+  <p><button class="ghost" id="resetBtn">Effacer mes réponses pour cette séance</button></p>
+</footer>

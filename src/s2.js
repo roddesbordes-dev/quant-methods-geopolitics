@@ -82,6 +82,11 @@ quiz($("#quizBox"), $("#quizScore"), [
  {q:"Spain: 33% favourable to China in 2024, 37% in 2025, about 1,000 people each year. What can you say?",o:["Views clearly improved","The change is within the noise","The poll is wrong"],a:1,e:"The margin of the difference is about ±4.2 points, larger than the 4-point change."},
  {q:"Searches for “Taiwan” triple in one week. This shows…",o:["more support for Taiwan","more attention to Taiwan","nothing at all"],a:1,e:"Google Trends measures attention, not opinion."}], "quiz");
 
+/* help when stuck */
+helpAfter("la-btn","la-fb",()=>({"la-in":moe(.5,1100).toFixed(1)}));
+helpAfter("aa-btn","aa-fb",()=>{ const e=est(P[0],"drop"); return {"aa-p":e.v.toFixed(1),"aa-m":e.m.toFixed(1)}; });
+helpAfter("pb-btn","pb-fb",()=>({"pb-ch":"13","pb-m":dmoe(23,36).toFixed(1)}));
+
 /* boot */
 showGuess(); drawPolls(); drawPew(); if (stB.ok) $("#pb-all").disabled = stB.all;
 if (stA.revealed) openFA();

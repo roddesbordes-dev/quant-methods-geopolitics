@@ -9,5 +9,7 @@ const SES = [
 function prog(n){ try { const v=localStorage.getItem("qm"+n+":done"); return v?JSON.parse(v).length:0; } catch(e){ return 0; } }
 $("#sessions").innerHTML = SES.map(s=>{ const p=prog(s.n), pct=Math.round(p/s.steps*100);
   return `<a class="scard" href="session${s.n}.html"><span class="eyebrow">Session ${s.n}${p?` · ${p} of ${s.steps} steps done`:""}</span><strong>${s.t}</strong><span>${s.d}</span><span class="small"><b>Methods:</b> ${s.m}. <b>Ends with:</b> ${s.task}.</span><span class="bar" aria-hidden="true"><i style="width:${pct}%"></i></span></a>`; }).join("");
+const nxt = SES.find(s=>prog(s.n)<s.steps); const anyDone = SES.some(s=>prog(s.n)>0);
+if (anyDone){ const d=document.createElement("p"); d.className="resume"; d.innerHTML = nxt ? `<a href="session${nxt.n}.html">Continue with session ${nxt.n}: ${nxt.t} →</a>` : `All six sessions complete. <a href="certificate.html">Get your certificate →</a>`; $("header.top").appendChild(d); }
 wireCopy();
 $("#resetAll").addEventListener("click",()=>{ try { Object.keys(localStorage).filter(k=>/^qm(\d|brief|cert):/.test(k)).forEach(k=>localStorage.removeItem(k)); } catch(e){} location.reload(); });
